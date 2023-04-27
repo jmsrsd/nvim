@@ -1,2 +1,2 @@
-pack/
-undodir/
+pack/**/*
+undodir/**/*
