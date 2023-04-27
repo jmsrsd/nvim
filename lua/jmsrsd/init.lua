@@ -1,3 +1,2 @@
+require('jmsrsd.set')
 require('jmsrsd.remap')
-
-print('Hello (jmsrsd)')

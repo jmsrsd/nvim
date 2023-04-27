@@ -1,3 +1,1 @@
 require('jmsrsd')
-
-print('Hello')
