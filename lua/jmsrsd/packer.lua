@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim' },
+      { 'j-hui/fidget.nvim',                opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       { 'folke/neodev.nvim' },
@@ -204,4 +204,15 @@ return require('packer').startup(function(use)
       }
     end
   }
+
+  use { "chrisgrieser/nvim-spider" }
+
+  use {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
+    end,
+  }
+
+  use 'marko-cerovac/material.nvim'
 end)

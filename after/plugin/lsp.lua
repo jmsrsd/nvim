@@ -6,7 +6,8 @@ local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = {
   ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<C-Space>"] = nil,
+  -- ["<C-Space>"] = cmp.mapping.complete(),
   ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
   ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
   ["<Tab>"] = nil,
@@ -33,11 +34,12 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
-  vim.keymap.set("n", "<leader><leader>", function()
+  vim.keymap.set("n", "<CR><CR>", function()
     vim.cmd("LspZeroFormat")
     vim.cmd("w")
     vim.cmd("wa")
   end, opts)
+  vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
 end)
 
 -- (Optional) Configure lua language server for neovim
@@ -45,6 +47,7 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
 
+-- flutter-tools
 local dart_lsp = lsp.build_options("dartls", {})
 
 require("flutter-tools").setup({
@@ -77,3 +80,16 @@ require("flutter-tools").setup({
     },
   }
 })
+
+-- autotag
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    underline = true,
+    virtual_text = {
+      spacing = 5,
+      severity_limit = 'Warning',
+    },
+    update_in_insert = true,
+  }
+)
