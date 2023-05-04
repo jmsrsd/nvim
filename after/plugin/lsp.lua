@@ -2,24 +2,14 @@
 
 local lsp = require("lsp-zero").preset("recommended")
 
-local cmp = require("cmp")
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = {
-  ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = nil,
-  -- ["<C-Space>"] = cmp.mapping.complete(),
-  ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-  ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-  ["<Tab>"] = nil,
-}
 
 lsp.set_preferences({
   sign_icons = {}
 })
 
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings,
-})
+-- lsp.setup_nvim_cmp({
+--   mapping = cmp_mappings,
+-- })
 
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
@@ -39,13 +29,27 @@ lsp.on_attach(function(client, bufnr)
     vim.cmd("w")
     vim.cmd("wa")
   end, opts)
-  vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
+  -- vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
 end)
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
+
+local cmp = require("cmp")
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mappings = {
+  ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+  -- ["<C-Space>"] = nil,
+  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+  ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+  ["<Tab>"] = nil,
+}
+cmp.setup({
+  mapping = cmp_mappings,
+})
 
 -- flutter-tools
 local dart_lsp = lsp.build_options("dartls", {})

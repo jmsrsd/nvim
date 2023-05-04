@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup({
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "html", "tsx", "jsx", "css", },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -11,9 +11,29 @@ require('nvim-treesitter.configs').setup({
 
   highlight = {
     enable = true,
+    use_languagetree = true,
   },
 
   autotag = {
     enable = true,
-  }
+    filetypes = {
+      'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
+      'rescript', 'css', 'lua', 'xml', 'php', 'markdown'
+    },
+  },
+
+  incremental_selection = {
+    enable = true,
+  },
+
+  textobjects = {
+    enable = true,
+  },
+
+  indent = {
+    enable = true,
+  },
 })
+
+-- ensure autotag is enabled
+vim.cmd.TSEnable('autotag')
