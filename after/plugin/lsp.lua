@@ -25,6 +25,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
   vim.keymap.set("n", "<CR><CR>", function()
+    pcall(vim.cmd.Prettier)
     vim.cmd("LspZeroFormat")
     vim.cmd("w")
     vim.cmd("wa")
@@ -37,6 +38,7 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
 
+-- nvim-cmp
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = {
