@@ -25,10 +25,21 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
   vim.keymap.set("n", "<CR><CR>", function()
-    pcall(vim.cmd.Prettier)
-    vim.cmd("LspZeroFormat")
-    vim.cmd("w")
-    vim.cmd("wa")
+    -- if pcall(vim.cmd.Prettier) then
+    --   pcall(vim.cmd.w)
+    -- end
+
+    if pcall(function()
+          vim.lsp.buf.format({
+            bufnr = vim.api.nvim_get_current_buf()
+          })
+        end) then
+      pcall(vim.cmd.w)
+    end
+
+    if pcall(vim.cmd.LspZeroFormat) then
+      pcall(vim.cmd.w)
+    end
   end, opts)
   -- vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
 end)

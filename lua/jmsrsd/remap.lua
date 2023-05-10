@@ -42,8 +42,19 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set("n", "<CR><CR>", function()
-  pcall(vim.cmd.Prettier)
-  pcall(vim.cmd.LspZeroFormat)
-  vim.cmd("w")
-  vim.cmd("wa")
+  -- if pcall(vim.cmd.Prettier) then
+  --   pcall(vim.cmd.w)
+  -- end
+
+  if pcall(function()
+        vim.lsp.buf.format({
+          bufnr = vim.api.nvim_get_current_buf()
+        })
+      end) then
+    pcall(vim.cmd.w)
+  end
+
+  if pcall(vim.cmd.LspZeroFormat) then
+    pcall(vim.cmd.w)
+  end
 end, opts)

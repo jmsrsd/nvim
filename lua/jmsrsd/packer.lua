@@ -224,4 +224,6 @@ return require('packer').startup(function(use)
   use('neovim/nvim-lspconfig')
   use('jose-elias-alvarez/null-ls.nvim')
   use('MunifTanjim/prettier.nvim')
+
+  use({ 'toppair/peek.nvim', run = 'deno task --quiet build:fast' })
 end)
