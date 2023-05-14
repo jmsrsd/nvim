@@ -41,20 +41,28 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Remap format on current buffer
 vim.keymap.set("n", "<CR><CR>", function()
-  -- if pcall(vim.cmd.Prettier) then
-  --   pcall(vim.cmd.w)
-  -- end
+  local prettier_file_extensions = {
+    'css',
+    'html',
+    'js',
+    'json',
+    'jsx',
+    'md',
+    'scss',
+    'ts',
+    'tsx',
+    'yaml',
+  }
 
-  if pcall(function()
-        vim.lsp.buf.format({
-          bufnr = vim.api.nvim_get_current_buf()
-        })
-      end) then
-    pcall(vim.cmd.w)
-  end
+  local current_file = vim.fn.expand('%')
+  local file_extension = vim.fn.fnamemodify(current_file, ':e')
 
-  if pcall(vim.cmd.LspZeroFormat) then
+  if vim.tbl_contains(prettier_file_extensions, file_extension) then
+    pcall(require("prettier").format)
+  else
+    pcall(vim.cmd.LspZeroFormat)
     pcall(vim.cmd.w)
   end
 end, opts)

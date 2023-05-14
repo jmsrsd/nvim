@@ -20,27 +20,37 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "[]", function()
+    vim.cmd.Telescope('diagnostics')
+  end, opts)
   vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
-  vim.keymap.set("n", "<CR><CR>", function()
-    -- if pcall(vim.cmd.Prettier) then
-    --   pcall(vim.cmd.w)
-    -- end
+  -- vim.keymap.set("n", "<CR><CR>", function()
+  --   local prettier_file_extensions = {
+  --     'css',
+  --     'html',
+  --     'js',
+  --     'json',
+  --     'jsx',
+  --     'md',
+  --     'scss',
+  --     'ts',
+  --     'tsx',
+  --     'yaml',
+  --   }
 
-    if pcall(function()
-          vim.lsp.buf.format({
-            bufnr = vim.api.nvim_get_current_buf()
-          })
-        end) then
-      pcall(vim.cmd.w)
-    end
+  --   local current_file = vim.fn.expand('%')
+  --   local file_extension = vim.fn.fnamemodify(current_file, ':e')
 
-    if pcall(vim.cmd.LspZeroFormat) then
-      pcall(vim.cmd.w)
-    end
-  end, opts)
+  --   if vim.tbl_contains(prettier_file_extensions, file_extension) then
+  --     pcall(require("prettier").format)
+  --   else
+  --     pcall(vim.cmd.LspZeroFormat)
+  --     pcall(vim.cmd.w)
+  --   end
+  -- end, opts)
   -- vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
 end)
 
@@ -60,6 +70,7 @@ local cmp_mappings = {
   ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
   ["<Tab>"] = nil,
 }
+
 cmp.setup({
   mapping = cmp_mappings,
 })

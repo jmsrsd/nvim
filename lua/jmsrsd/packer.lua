@@ -222,7 +222,13 @@ return require('packer').startup(function(use)
   use 'marko-cerovac/material.nvim'
 
   use('neovim/nvim-lspconfig')
-  use('jose-elias-alvarez/null-ls.nvim')
+  use({
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("null-ls").setup()
+    end,
+    requires = { "nvim-lua/plenary.nvim" },
+  })
   use('MunifTanjim/prettier.nvim')
 
   use({ 'toppair/peek.nvim', run = 'deno task --quiet build:fast' })
