@@ -2,7 +2,6 @@
 
 local lsp = require("lsp-zero").preset("recommended")
 
-
 lsp.set_preferences({
   sign_icons = {}
 })
@@ -64,16 +63,53 @@ local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = {
   ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-  -- ["<C-Space>"] = nil,
-  ["<C-Space>"] = cmp.mapping.complete(),
   ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
   ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-  ["<Tab>"] = nil,
+  ["<C-Space>"] = cmp.mapping(function(fallback)
+    pcall(function()
+      vim.cmd.call('copilot#Suggest()')
+    end)
+
+    fallback()
+  end, { "i", "s" }),
+  -- ["<C-Space>"] = cmp.mapping.complete(),
+  ["<Tab>"] = cmp.mapping(function(fallback)
+    local copilot_keys = vim.fn['copilot#Accept']()
+
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
+      vim.api.nvim_feedkeys(copilot_keys, 'i', true)
+    else
+      fallback()
+    end
+  end, { 'i', 's' }),
 }
 
 cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    -- { name = 'vsnip' }, -- For vsnip users.
+    { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+  }),
   mapping = cmp_mappings,
 })
+
+-- Tell copilot to assume that <Tab> has been mapped with cmp
+vim.g.copilot_assume_mapped = true
 
 -- flutter-tools
 local dart_lsp = lsp.build_options("dartls", {})
