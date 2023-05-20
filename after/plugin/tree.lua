@@ -75,13 +75,13 @@ require("nvim-tree").setup {
   remove_keymaps = false,
   select_prompts = false,
   view = {
-    centralize_selection = false,
+    centralize_selection = true,
     cursorline = true,
     debounce_delay = 15,
     width = 65,
     hide_root_folder = false,
     side = "right",
-    preserve_window_proportions = false,
+    preserve_window_proportions = true,
     number = true,
     relativenumber = true,
     signcolumn = "yes",
@@ -114,7 +114,7 @@ require("nvim-tree").setup {
     root_folder_label = ":~:s?$?/..?",
     indent_width = 2,
     indent_markers = {
-      enable = false,
+      enable = true,
       inline_arrows = true,
       icons = {
         corner = "└",
@@ -133,7 +133,7 @@ require("nvim-tree").setup {
       show = {
         file = true,
         folder = true,
-        folder_arrow = true,
+        folder_arrow = false,
         git = true,
         modified = true,
       },

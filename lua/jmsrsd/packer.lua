@@ -19,6 +19,8 @@ return require('packer').startup(function(use)
 
   use 'navarasu/onedark.nvim'
 
+  use 'sainnhe/gruvbox-material'
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -107,6 +109,8 @@ return require('packer').startup(function(use)
   }
 
   use 'nvim-tree/nvim-web-devicons'
+
+  use 'mfussenegger/nvim-dap'
 
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
 

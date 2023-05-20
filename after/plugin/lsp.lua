@@ -76,13 +76,17 @@ local cmp_mappings = {
   ["<Tab>"] = cmp.mapping(function(fallback)
     local copilot_keys = vim.fn['copilot#Accept']()
 
-    if cmp.visible() then
-      cmp.select_next_item()
-    elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
+    if copilot_keys ~= '' and type(copilot_keys) == 'string' then
       vim.api.nvim_feedkeys(copilot_keys, 'i', true)
-    else
-      fallback()
     end
+
+    -- if cmp.visible() then
+    --   cmp.select_next_item()
+    -- elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
+    --   vim.api.nvim_feedkeys(copilot_keys, 'i', true)
+    -- else
+    --   fallback()
+    -- end
   end, { 'i', 's' }),
 }
 
@@ -115,6 +119,13 @@ vim.g.copilot_assume_mapped = true
 local dart_lsp = lsp.build_options("dartls", {})
 
 require("flutter-tools").setup({
+  widget_guides = {
+    enabled = true,
+  },
+  -- debugger = {
+  --   enabled = true,
+  --   run_via_dap = true,
+  -- },
   ui = {
     decorations = {
       statusline = {

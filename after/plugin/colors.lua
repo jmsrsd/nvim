@@ -3,10 +3,19 @@
 function SetColors()
   -- SetCodeDarkColors()
   -- SetOneDarkColors()
-  SetMaterialColors()
+  -- SetMaterialColors()
+  SetGruvboxMaterialColors()
 
   vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
+function SetGruvboxMaterialColors()
+  vim.cmd('set background=dark')
+  vim.cmd("let g:gruvbox_material_background='hard'")
+  vim.cmd("let g:gruvbox_material_transparent_background='2'")
+  vim.cmd("let g:gruvbox_material_better_performance='1'")
+  vim.cmd('colorscheme gruvbox-material')
 end
 
 function SetOneDarkColors()
