@@ -232,13 +232,19 @@ _G.packer_plugins = {
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
   },
+  ["tailwind-sorter.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20tailwind-sorter\frequire\0" },
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\tailwind-sorter.nvim",
+    url = "https://github.com/laytan/tailwind-sorter.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["twilight.nvim"] = {
-    config = { "\27LJ\2\nÙ\1\0\0\5\0\v\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\0024\3\0\0=\3\n\2B\0\2\1K\0\1\0\fexclude\vexpand\1\5\0\0\rfunction\vmethod\ntable\17if_statement\fdimming\1\0\2\fcontext\3\n\15treesitter\2\ncolor\1\3\0\0\vNormal\f#ffffff\1\0\3\fterm_bg\f#000000\rinactive\1\nalpha\4\0ÄÄ¿˛\3\nsetup\rtwilight\frequire\0" },
+    config = { "\27LJ\2\nÙ\1\0\0\5\0\v\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\0024\3\0\0=\3\n\2B\0\2\1K\0\1\0\fexclude\vexpand\1\5\0\0\rfunction\vmethod\ntable\17if_statement\fdimming\1\0\2\15treesitter\2\fcontext\3\n\ncolor\1\3\0\0\vNormal\f#ffffff\1\0\3\rinactive\1\fterm_bg\f#000000\nalpha\4\0ÄÄ¿˛\3\nsetup\rtwilight\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\twilight.nvim",
     url = "https://github.com/folke/twilight.nvim"
@@ -260,7 +266,7 @@ _G.packer_plugins = {
     url = "https://github.com/folke/which-key.nvim"
   },
   ["zen-mode.nvim"] = {
-    config = { "\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0\v\0\0\1\0\0\0\1K\0\1\0ù\3\1\0\5\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0005\3\3\0004\4\0\0=\4\4\3=\3\6\0025\3\b\0005\4\a\0=\4\4\0035\4\t\0=\4\n\0035\4\v\0=\4\f\0035\4\r\0=\4\14\0035\4\15\0=\4\16\0035\4\17\0=\4\18\0035\4\19\0=\4\20\3=\3\21\0023\3\22\0=\3\23\0023\3\24\0=\3\25\2B\0\2\1K\0\1\0\ron_close\0\fon_open\0\fplugins\fwezterm\1\0\2\tfont\a+4\fenabled\1\14alacritty\1\0\2\tfont\a14\fenabled\1\nkitty\1\0\2\tfont\a+4\fenabled\1\ttmux\1\0\1\fenabled\1\rgitsigns\1\0\1\fenabled\1\rtwilight\1\0\1\fenabled\2\1\0\0\1\0\3\nruler\1\fshowcmd\1\fenabled\2\vwindow\1\0\0\foptions\1\0\3\vheight\3\1\rbackdrop\4ÊÃô≥\6ÊÃπˇ\3\nwidth\3x\nsetup\rzen-mode\frequire\0" },
+    config = { "\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0\v\0\0\1\0\0\0\1K\0\1\0ù\3\1\0\5\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0005\3\3\0004\4\0\0=\4\4\3=\3\6\0025\3\b\0005\4\a\0=\4\4\0035\4\t\0=\4\n\0035\4\v\0=\4\f\0035\4\r\0=\4\14\0035\4\15\0=\4\16\0035\4\17\0=\4\18\0035\4\19\0=\4\20\3=\3\21\0023\3\22\0=\3\23\0023\3\24\0=\3\25\2B\0\2\1K\0\1\0\ron_close\0\fon_open\0\fplugins\fwezterm\1\0\2\fenabled\1\tfont\a+4\14alacritty\1\0\2\fenabled\1\tfont\a14\nkitty\1\0\2\fenabled\1\tfont\a+4\ttmux\1\0\1\fenabled\1\rgitsigns\1\0\1\fenabled\1\rtwilight\1\0\1\fenabled\2\1\0\0\1\0\3\fenabled\2\nruler\1\fshowcmd\1\vwindow\1\0\0\foptions\1\0\3\nwidth\3x\rbackdrop\4ÊÃô≥\6ÊÃπˇ\3\vheight\3\1\nsetup\rzen-mode\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\zen-mode.nvim",
     url = "https://github.com/folke/zen-mode.nvim"
@@ -268,30 +274,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: better-escape.nvim
+time([[Config for better-escape.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18better_escape\frequire\0", "config", "better-escape.nvim")
+time([[Config for better-escape.nvim]], false)
+-- Config for: tailwind-sorter.nvim
+time([[Config for tailwind-sorter.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\20tailwind-sorter\frequire\0", "config", "tailwind-sorter.nvim")
+time([[Config for tailwind-sorter.nvim]], false)
 -- Config for: nvim-autopairs
 time([[Config for nvim-autopairs]], true)
 try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
 time([[Config for nvim-autopairs]], false)
 -- Config for: zen-mode.nvim
 time([[Config for zen-mode.nvim]], true)
-try_loadstring("\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0\v\0\0\1\0\0\0\1K\0\1\0ù\3\1\0\5\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0005\3\3\0004\4\0\0=\4\4\3=\3\6\0025\3\b\0005\4\a\0=\4\4\0035\4\t\0=\4\n\0035\4\v\0=\4\f\0035\4\r\0=\4\14\0035\4\15\0=\4\16\0035\4\17\0=\4\18\0035\4\19\0=\4\20\3=\3\21\0023\3\22\0=\3\23\0023\3\24\0=\3\25\2B\0\2\1K\0\1\0\ron_close\0\fon_open\0\fplugins\fwezterm\1\0\2\tfont\a+4\fenabled\1\14alacritty\1\0\2\tfont\a14\fenabled\1\nkitty\1\0\2\tfont\a+4\fenabled\1\ttmux\1\0\1\fenabled\1\rgitsigns\1\0\1\fenabled\1\rtwilight\1\0\1\fenabled\2\1\0\0\1\0\3\nruler\1\fshowcmd\1\fenabled\2\vwindow\1\0\0\foptions\1\0\3\vheight\3\1\rbackdrop\4ÊÃô≥\6ÊÃπˇ\3\nwidth\3x\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
+try_loadstring("\27LJ\2\n\v\0\1\1\0\0\0\1K\0\1\0\v\0\0\1\0\0\0\1K\0\1\0ù\3\1\0\5\0\26\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\5\0005\3\3\0004\4\0\0=\4\4\3=\3\6\0025\3\b\0005\4\a\0=\4\4\0035\4\t\0=\4\n\0035\4\v\0=\4\f\0035\4\r\0=\4\14\0035\4\15\0=\4\16\0035\4\17\0=\4\18\0035\4\19\0=\4\20\3=\3\21\0023\3\22\0=\3\23\0023\3\24\0=\3\25\2B\0\2\1K\0\1\0\ron_close\0\fon_open\0\fplugins\fwezterm\1\0\2\fenabled\1\tfont\a+4\14alacritty\1\0\2\fenabled\1\tfont\a14\nkitty\1\0\2\fenabled\1\tfont\a+4\ttmux\1\0\1\fenabled\1\rgitsigns\1\0\1\fenabled\1\rtwilight\1\0\1\fenabled\2\1\0\0\1\0\3\fenabled\2\nruler\1\fshowcmd\1\vwindow\1\0\0\foptions\1\0\3\nwidth\3x\rbackdrop\4ÊÃô≥\6ÊÃπˇ\3\vheight\3\1\nsetup\rzen-mode\frequire\0", "config", "zen-mode.nvim")
 time([[Config for zen-mode.nvim]], false)
--- Config for: better-escape.nvim
-time([[Config for better-escape.nvim]], true)
-try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\18better_escape\frequire\0", "config", "better-escape.nvim")
-time([[Config for better-escape.nvim]], false)
 -- Config for: twilight.nvim
 time([[Config for twilight.nvim]], true)
-try_loadstring("\27LJ\2\nÙ\1\0\0\5\0\v\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\0024\3\0\0=\3\n\2B\0\2\1K\0\1\0\fexclude\vexpand\1\5\0\0\rfunction\vmethod\ntable\17if_statement\fdimming\1\0\2\fcontext\3\n\15treesitter\2\ncolor\1\3\0\0\vNormal\f#ffffff\1\0\3\fterm_bg\f#000000\rinactive\1\nalpha\4\0ÄÄ¿˛\3\nsetup\rtwilight\frequire\0", "config", "twilight.nvim")
+try_loadstring("\27LJ\2\nÙ\1\0\0\5\0\v\0\0156\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\0024\3\0\0=\3\n\2B\0\2\1K\0\1\0\fexclude\vexpand\1\5\0\0\rfunction\vmethod\ntable\17if_statement\fdimming\1\0\2\15treesitter\2\fcontext\3\n\ncolor\1\3\0\0\vNormal\f#ffffff\1\0\3\rinactive\1\fterm_bg\f#000000\nalpha\4\0ÄÄ¿˛\3\nsetup\rtwilight\frequire\0", "config", "twilight.nvim")
 time([[Config for twilight.nvim]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
-time([[Config for null-ls.nvim]], false)
 -- Config for: which-key.nvim
 time([[Config for which-key.nvim]], true)
 try_loadstring("\27LJ\2\nt\0\0\3\0\a\0\0156\0\0\0009\0\1\0+\1\2\0=\1\2\0006\0\0\0009\0\1\0)\1,\1=\1\3\0006\0\4\0'\2\5\0B\0\2\0029\0\6\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\15timeoutlen\ftimeout\6o\bvim\0", "config", "which-key.nvim")
 time([[Config for which-key.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
+time([[Config for null-ls.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
