@@ -6,10 +6,6 @@ lsp.set_preferences({
   sign_icons = {}
 })
 
--- lsp.setup_nvim_cmp({
---   mapping = cmp_mappings,
--- })
-
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
 
@@ -26,31 +22,6 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
-  -- vim.keymap.set("n", "<CR><CR>", function()
-  --   local prettier_file_extensions = {
-  --     'css',
-  --     'html',
-  --     'js',
-  --     'json',
-  --     'jsx',
-  --     'md',
-  --     'scss',
-  --     'ts',
-  --     'tsx',
-  --     'yaml',
-  --   }
-
-  --   local current_file = vim.fn.expand('%')
-  --   local file_extension = vim.fn.fnamemodify(current_file, ':e')
-
-  --   if vim.tbl_contains(prettier_file_extensions, file_extension) then
-  --     pcall(require("prettier").format)
-  --   else
-  --     pcall(vim.cmd.LspZeroFormat)
-  --     pcall(vim.cmd.w)
-  --   end
-  -- end, opts)
-  -- vim.keymap.set("i", "<C-Space>", cmp.mapping.complete, opts)
 end)
 
 -- (Optional) Configure lua language server for neovim
@@ -72,21 +43,12 @@ local cmp_mappings = {
 
     fallback()
   end, { "i", "s" }),
-  -- ["<C-Space>"] = cmp.mapping.complete(),
   ["<Tab>"] = cmp.mapping(function(fallback)
     local copilot_keys = vim.fn['copilot#Accept']()
 
     if copilot_keys ~= '' and type(copilot_keys) == 'string' then
       vim.api.nvim_feedkeys(copilot_keys, 'i', true)
     end
-
-    -- if cmp.visible() then
-    --   cmp.select_next_item()
-    -- elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
-    --   vim.api.nvim_feedkeys(copilot_keys, 'i', true)
-    -- else
-    --   fallback()
-    -- end
   end, { 'i', 's' }),
 }
 
@@ -102,10 +64,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    -- { name = 'vsnip' }, -- For vsnip users.
     { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
   }, {
     { name = 'buffer' },
   }),
@@ -122,10 +81,6 @@ require("flutter-tools").setup({
   widget_guides = {
     enabled = true,
   },
-  -- debugger = {
-  --   enabled = true,
-  --   run_via_dap = true,
-  -- },
   ui = {
     decorations = {
       statusline = {

@@ -237,10 +237,5 @@ return require('packer').startup(function(use)
 
   use({ 'toppair/peek.nvim', run = 'deno task --quiet build:fast' })
 
-  use {
-    'laytan/tailwind-sorter.nvim',
-    requires = { 'nvim-treesitter/nvim-treesitter', 'nvim-lua/plenary.nvim' },
-    config = function() require('tailwind-sorter').setup() end,
-    run = 'cd formatter && npm i && npm run build',
-  }
+  use 'karb94/neoscroll.nvim'
 end)

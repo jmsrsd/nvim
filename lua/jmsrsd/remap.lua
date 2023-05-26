@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>Y", "\"+Y")
 vim.keymap.set("n", "<leader>d", "\"_d")
 vim.keymap.set("v", "<leader>d", "\"_d")
 
-vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set({ "n", "i" }, "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<leader><leader>", vim.cmd.LspZeroFormat)
