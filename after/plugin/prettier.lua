@@ -18,13 +18,14 @@ prettier.setup({
     "yaml",
   },
   cli_options = {
+    -- jsx_bracket_same_line = false,
     arrow_parens = "always",
-    bracket_spacing = true,
     bracket_same_line = false,
+    bracket_spacing = true,
+    config_precedence = "prefer-file", -- or "cli-override" or "file-override"
     embedded_language_formatting = "auto",
     end_of_line = "lf",
     html_whitespace_sensitivity = "css",
-    -- jsx_bracket_same_line = false,
     jsx_single_quote = false,
     print_width = 80,
     prose_wrap = "preserve",
