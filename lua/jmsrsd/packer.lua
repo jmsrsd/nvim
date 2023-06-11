@@ -38,6 +38,11 @@ return require('packer').startup(function(use)
   use 'tpope/vim-fugitive'
 
   use {
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+  }
+
+  use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     requires = {
@@ -244,11 +249,36 @@ return require('packer').startup(function(use)
   use 'karb94/neoscroll.nvim'
 
   use {
-    "adalessa/laravel.nvim",
+    'adalessa/laravel.nvim',
     requires = {
-      { "nvim-telescope/telescope.nvim", },
-      { "tpope/vim-dotenv", },
-      { "MunifTanjim/nui.nvim", },
-    }
+      'nvim-telescope/telescope.nvim',
+      'tpope/vim-dotenv',
+      'MunifTanjim/nui.nvim',
+    },
+    cmd = {
+      'Sail',
+      'Artisan',
+      'Composer',
+      'Npm',
+      'Yarn',
+      'Laravel',
+    },
+    keys = {
+      { '<leader>la', ':Laravel artisan<cr>' },
+      { '<leader>lr', ':Laravel routes<cr>' },
+      {
+        '<leader>lt',
+        function()
+          require('laravel.tinker').send_to_tinker()
+        end,
+        mode = 'v',
+        desc = 'Laravel Application Routes',
+      },
+    },
+    event = 'VeryLazy',
+    config = function()
+      require('laravel').setup()
+      require('telescope').load_extension 'laravel'
+    end,
   }
 end)
