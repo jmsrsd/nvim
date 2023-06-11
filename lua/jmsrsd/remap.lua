@@ -61,6 +61,9 @@ vim.keymap.set("n", "<CR><CR>", function()
 
   if vim.tbl_contains(prettier_file_extensions, file_extension) then
     pcall(require("prettier").format)
+  elseif vim.tbl_contains({ 'php' }, file_extension) then
+    pcall(require("phpfmt").formatting)
+    pcall(vim.cmd.w)
   else
     pcall(vim.cmd.LspZeroFormat)
     pcall(vim.cmd.w)
