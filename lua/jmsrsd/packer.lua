@@ -113,9 +113,7 @@ return require('packer').startup(function(use)
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
-      {
-        'nvim-tree/nvim-web-devicons', -- optional
-      },
+      'nvim-tree/nvim-web-devicons', -- optional
     },
   }
 
@@ -123,7 +121,12 @@ return require('packer').startup(function(use)
 
   use 'mfussenegger/nvim-dap'
 
-  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = {
+      "mfussenegger/nvim-dap"
+    }
+  }
 
   use { "chrisgrieser/nvim-spider" }
 
@@ -141,11 +144,16 @@ return require('packer').startup(function(use)
     config = function()
       require("null-ls").setup {}
     end,
-    requires = { "nvim-lua/plenary.nvim" },
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
   })
   use('MunifTanjim/prettier.nvim')
 
-  use({ 'toppair/peek.nvim', run = 'deno task --quiet build:fast' })
+  use({
+    'toppair/peek.nvim',
+    run = 'deno task --quiet build:fast',
+  })
 
   use 'karb94/neoscroll.nvim'
 
