@@ -159,7 +159,7 @@ return require('packer').startup(function(use)
   use {
     "max397574/better-escape.nvim",
     config = function()
-      require("better_escape").setup()
+      require("better_escape").setup {}
     end,
   }
 
@@ -168,7 +168,7 @@ return require('packer').startup(function(use)
   use({
     "jose-elias-alvarez/null-ls.nvim",
     config = function()
-      require("null-ls").setup()
+      require("null-ls").setup {}
     end,
     requires = { "nvim-lua/plenary.nvim" },
   })
