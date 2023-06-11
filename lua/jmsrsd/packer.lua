@@ -157,16 +157,16 @@ return require('packer').startup(function(use)
 
   use 'karb94/neoscroll.nvim'
 
-  use {
-    "yuchanns/phpfmt.nvim",
-    config = function()
-      require("phpfmt").setup({
-        -- Default configs
-        cmd = "phpcbf",
-        standard = "PSR12",
-        auto_format = true,
-        -- auto_format = false,
-      })
-    end
-  }
+  -- use {
+  --   "yuchanns/phpfmt.nvim",
+  --   config = function()
+  --     require("phpfmt").setup({
+  --       -- Default configs
+  --       cmd = "phpcbf",
+  --       standard = "PSR12",
+  --       auto_format = true,
+  --       -- auto_format = false,
+  --     })
+  --   end
+  -- }
 end)
