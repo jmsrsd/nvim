@@ -248,6 +248,34 @@ return require('packer').startup(function(use)
 
   use 'karb94/neoscroll.nvim'
 
+  use({
+    "gbprod/phpactor.nvim",
+    run = function()
+      require("phpactor.handler").update()
+    end,                       -- To install/update phpactor when installing this plugin
+    requires = {
+      "nvim-lua/plenary.nvim", -- required to update phpactor
+      "neovim/nvim-lspconfig"  -- required to automaticly register lsp serveur
+    },
+    config = function()
+      require("phpactor").setup({
+        install = {
+          path = "%userprofile%" .. "/scoop/apps/",
+          branch = "master",
+          bin = "phpactor",
+          php_bin = "php",
+          composer_bin = "composer",
+          git_bin = "git",
+          check_on_startup = "none",
+        },
+        lspconfig = {
+          enabled = true,
+          options = {},
+        },
+      })
+    end
+  })
+
   use {
     'adalessa/laravel.nvim',
     requires = {
