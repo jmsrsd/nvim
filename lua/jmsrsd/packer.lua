@@ -98,13 +98,17 @@ return require('packer').startup(function(use)
 
   use {
     "windwp/nvim-ts-autotag",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    requires = {
+      { "nvim-treesitter/nvim-treesitter" }
+    },
   }
 
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
-      'nvim-tree/nvim-web-devicons', -- optional
+      {
+        'nvim-tree/nvim-web-devicons', -- optional
+      },
     },
   }
 
@@ -238,4 +242,13 @@ return require('packer').startup(function(use)
   use({ 'toppair/peek.nvim', run = 'deno task --quiet build:fast' })
 
   use 'karb94/neoscroll.nvim'
+
+  use {
+    "adalessa/laravel.nvim",
+    requires = {
+      { "nvim-telescope/telescope.nvim", },
+      { "tpope/vim-dotenv", },
+      { "MunifTanjim/nui.nvim", },
+    }
+  }
 end)
