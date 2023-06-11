@@ -1,3 +1,5 @@
-require("mason").setup()
+require("mason").setup {}
 
 vim.cmd("MasonUpdate")
+
+require("mason-lspconfig").setup {}

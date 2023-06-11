@@ -6,7 +6,7 @@ lsp.set_preferences({
   sign_icons = {}
 })
 
-lsp.on_attach(function(client, bufnr)
+local lsp_on_attach = function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
 
   local opts = { buffer = bufnr, remap = false }
@@ -22,13 +22,25 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
-end)
+end
+
+lsp.on_attach(lsp_on_attach)
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
--- (Optional) Configure php language server for neovim
-require 'lspconfig'.phpactor.setup {}
+-- -- Configure phpactor to use the language server
+-- require 'lspconfig'.phpactor.setup {
+--   init_options = {
+--     ["language_server_phpstan.enabled"] = false,
+--     ["language_server_psalm.enabled"] = false,
+--   },
+--   cmd = { "phpactor", "language-server" },
+--   filetypes = { "php" },
+--   root_dir = function(fname)
+--     return vim.loop.cwd()
+--   end,
+-- }
 
 lsp.setup()
 
