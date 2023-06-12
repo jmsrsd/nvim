@@ -1,14 +1,61 @@
----@diagnostic disable: undefined-global, unused-local
+local lsp = require("lsp-zero")
 
-local lsp = require("lsp-zero").preset("recommended")
+lsp.preset("recommended")
+
+lsp.ensure_installed({
+  'cssls',
+  'grammarly',
+  'html',
+  'jsonls',
+  'lua_ls',
+  'prismals',
+  'tailwindcss',
+  'tsserver',
+  'vimls',
+  'yamlls',
+})
+
+-- Fix Undefined global 'vim'
+require 'lspconfig'.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+local cmp_mappings = require('cmp-setup')()
+
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings,
+})
 
 lsp.set_preferences({
-  sign_icons = {}
+  suggest_lsp_servers = false,
+  sign_icons = {
+    error = 'E',
+    warn = 'W',
+    hint = 'H',
+    info = 'I',
+  }
 })
 
 lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({ buffer = bufnr })
-
   local opts = { buffer = bufnr, remap = false }
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -27,10 +74,11 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
 end)
 
--- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-lsp.setup()
-require('cmp-setup')()
 require('flutter-setup')(lsp)
 require('autotag-setup')()
+
+lsp.setup()
+
+vim.diagnostic.config({
+  virtual_text = true,
+})

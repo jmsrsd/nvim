@@ -22,22 +22,24 @@ return function()
     end, { 'i', 's' }),
   }
 
-  cmp.setup({
-    window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-    },
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-      end
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' }, -- For luasnip users.
-    }, {
-      { name = 'buffer' },
-    }),
-    mapping = cmp_mappings,
-  })
+  return cmp_mappings
+
+  -- cmp.setup({
+  --   window = {
+  --     completion = cmp.config.window.bordered(),
+  --     documentation = cmp.config.window.bordered(),
+  --   },
+  --   snippet = {
+  --     expand = function(args)
+  --       require('luasnip').lsp_expand(args.body)
+  --     end
+  --   },
+  --   sources = cmp.config.sources({
+  --     { name = 'nvim_lsp' },
+  --     { name = 'luasnip' }, -- For luasnip users.
+  --   }, {
+  --     { name = 'buffer' },
+  --   }),
+  --   mapping = cmp_mappings,
+  -- })
 end
