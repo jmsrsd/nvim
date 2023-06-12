@@ -7,7 +7,7 @@ return function(lsp)
       enabled = true,
     },
     ui = {
-      flutter_lookup_cmd = "where flutter",
+      flutter_lookup_cmd = "where.exe flutter",
       decorations = {
         statusline = {
           -- set to true to be able use the 'flutter_tools_decorations.app_version' in your statusline
