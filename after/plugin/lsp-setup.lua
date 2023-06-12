@@ -16,7 +16,10 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
   vim.keymap.set("n", "[]", function()
-    vim.cmd.Telescope('diagnostics')
+    -- vim.cmd.Telescope('diagnostics')
+    require('telescope.builtin').diagnostics({
+      severity = vim.lsp.protocol.DiagnosticSeverity.Error
+    })
   end, opts)
   vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
