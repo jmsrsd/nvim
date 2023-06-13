@@ -53,7 +53,7 @@ return require('packer').startup(function(use)
       {
         -- Optional
         'williamboman/mason.nvim',
-        -- run = ":MasonUpdate",
+        run = ":MasonUpdate",
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
