@@ -142,7 +142,7 @@ return require('packer').startup(function(use)
   use({
     "jose-elias-alvarez/null-ls.nvim",
     config = function()
-      require("null-ls").setup {}
+      require("null-ls").setup()
     end,
     requires = {
       "nvim-lua/plenary.nvim",
@@ -156,17 +156,4 @@ return require('packer').startup(function(use)
   })
 
   use 'karb94/neoscroll.nvim'
-
-  -- use {
-  --   "yuchanns/phpfmt.nvim",
-  --   config = function()
-  --     require("phpfmt").setup({
-  --       -- Default configs
-  --       cmd = "phpcbf",
-  --       standard = "PSR12",
-  --       auto_format = true,
-  --       -- auto_format = false,
-  --     })
-  --   end
-  -- }
 end)
