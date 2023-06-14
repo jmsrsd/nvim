@@ -154,6 +154,4 @@ return require('packer').startup(function(use)
     'toppair/peek.nvim',
     run = 'deno task --quiet build:fast',
   })
-
-  use 'karb94/neoscroll.nvim'
 end)
