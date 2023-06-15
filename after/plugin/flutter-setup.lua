@@ -4,7 +4,7 @@ return function(lsp)
 
   require("flutter-tools").setup({
     widget_guides = {
-      enabled = true,
+      enabled = false,
     },
     ui = {
       flutter_lookup_cmd = "where.exe flutter",
