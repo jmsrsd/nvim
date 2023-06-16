@@ -66,3 +66,11 @@ vim.keymap.set("n", "<CR><CR>", function()
     pcall(vim.cmd.w)
   end
 end, opts)
+
+-- disable recording macros
+vim.keymap.set("n", "q", "<nop>")
+
+-- save all and quit
+vim.keymap.set("n", "<leader>qq", function()
+  vim.cmd("wqa")
+end)

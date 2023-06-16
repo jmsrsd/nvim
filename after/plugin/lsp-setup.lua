@@ -75,6 +75,11 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
   vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
+
+  -- open lsp log
+  vim.keymap.set("n", "<leader>\\\\", function()
+    vim.cmd("edit " .. vim.lsp.get_log_path())
+  end, opts)
 end)
 
 require('flutter-setup')(lsp)
