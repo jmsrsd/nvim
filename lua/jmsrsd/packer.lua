@@ -39,7 +39,6 @@ return require('packer').startup(function(use)
 
   use {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
   }
 
   use('neovim/nvim-lspconfig')
@@ -150,8 +149,6 @@ return require('packer').startup(function(use)
       "nvim-lua/plenary.nvim",
     },
   })
-
-  use('MunifTanjim/prettier.nvim')
 
   use({
     'toppair/peek.nvim',
