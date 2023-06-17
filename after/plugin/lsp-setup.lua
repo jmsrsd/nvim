@@ -15,6 +15,8 @@ lspzero.ensure_installed({
   'yamlls',
 })
 
+lspzero.setup_servers({ 'dartls', force = true })
+
 -- Fix Undefined global 'vim'
 require('lspconfig').lua_ls.setup {
   settings = {
@@ -42,8 +44,29 @@ require('lspconfig').lua_ls.setup {
   },
 }
 
+local cmp = require("cmp")
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
 lspzero.setup_nvim_cmp({
-  mapping = require('cmp-setup')(),
+  mapping = {
+    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+    ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+    ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+    ["<C-Space>"] = cmp.mapping(function(fallback)
+      pcall(function()
+        vim.cmd.call('copilot#Suggest()')
+      end)
+
+      fallback()
+    end, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      local copilot_keys = vim.fn['copilot#Accept']()
+
+      if copilot_keys ~= '' and type(copilot_keys) == 'string' then
+        vim.api.nvim_feedkeys(copilot_keys, 'i', true)
+      end
+    end, { 'i', 's' }),
+  },
 })
 
 lspzero.set_preferences({
@@ -68,7 +91,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
   vim.keymap.set("n", "[]", function()
-    -- vim.cmd.Telescope('diagnostics')
     require('telescope.builtin').diagnostics({
       severity = vim.lsp.protocol.DiagnosticSeverity.Error
     })
@@ -84,18 +106,56 @@ local on_attach = function(client, bufnr)
 
   -- open lspzero log
   vim.keymap.set("n", "<leader>\\\\", function()
-    vim.cmd("edit " .. vim.lsp.get_log_path())
+    vim.cmd("LspLog")
   end, opts)
 end
-
 
 lspzero.on_attach(on_attach)
 
 lspzero.setup()
 
+-- flutter-tools setup
+require("flutter-tools").setup({
+  flutter_path = vim.fn.expand(os.getenv('userprofile') .. '/scoop/apps/fvm/current/default/bin/flutter.bat'),
+  widget_guides = {
+    enabled = true,
+  },
+  lsp = {
+    on_attach = on_attach,
+    capabilities = lspzero.build_options('dartls', {}).capabilities,
+    settings = {
+      analysisExcludedFolders = {
+        vim.fn.expand(os.getenv("localappdata") .. "/Pub/Cache"),
+        vim.fn.expand(os.getenv("userprofile") .. "/scoop"),
+      },
+    },
+    -- show the derived colours for dart variables
+    color = {
+      enabled = true,                                -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
+      background = true,                             -- highlight the background
+      background_color = { r = 28, g = 28, b = 28 }, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
+      foreground = false,                            -- highlight the foreground
+      virtual_text = true,                           -- show the highlight using virtual text
+      virtual_text_str = "■",                      -- the virtual text character to highlight
+    },
+  }
+})
+
+-- diagnostic setup
 vim.diagnostic.config({
   virtual_text = true,
   signs = false,
 })
 
-require('flutter-setup')(on_attach)
+-- autotag setup
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    underline = true,
+    virtual_text = {
+      spacing = 5,
+      severity_limit = 'Warning',
+    },
+    update_in_insert = true,
+  }
+)

@@ -35,14 +35,14 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<nop>', { silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap format on current buffer
-vim.keymap.set("n", "<CR><CR>", function()
+local format = function()
   local prettier_file_extensions = {
     'css',
     'html',
@@ -66,12 +66,15 @@ vim.keymap.set("n", "<CR><CR>", function()
     pcall(vim.cmd.w)
     pcall(vim.cmd.wa)
   end
-end, opts)
+end
+
+vim.keymap.set("n", "<CR><CR>", format, opts)
 
 -- disable recording macros
 vim.keymap.set("n", "q", "<nop>")
 
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
+  format()
   vim.cmd("wqa")
 end)
