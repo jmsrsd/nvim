@@ -1,8 +1,8 @@
-local lsp = require("lsp-zero")
+local lspzero = require("lsp-zero")
 
-lsp.preset("recommended")
+lspzero.preset("recommended")
 
-lsp.ensure_installed({
+lspzero.ensure_installed({
   'cssls',
   'grammarly',
   'html',
@@ -16,7 +16,7 @@ lsp.ensure_installed({
 })
 
 -- Fix Undefined global 'vim'
-require 'lspconfig'.lua_ls.setup {
+require('lspconfig').lua_ls.setup {
   settings = {
     Lua = {
       runtime = {
@@ -42,13 +42,11 @@ require 'lspconfig'.lua_ls.setup {
   },
 }
 
-local cmp_mappings = require('cmp-setup')()
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings,
+lspzero.setup_nvim_cmp({
+  mapping = require('cmp-setup')(),
 })
 
-lsp.set_preferences({
+lspzero.set_preferences({
   suggest_lsp_servers = false,
   sign_icons = {
     error = 'E',
@@ -58,35 +56,63 @@ lsp.set_preferences({
   }
 })
 
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "gd", function()
+    vim.lspzero.buf.definition()
+  end, opts)
+
+  vim.keymap.set("n", "K", function()
+    vim.lspzero.buf.hover()
+  end, opts)
+
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev()
+  end, opts)
+
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next()
+  end, opts)
+
   vim.keymap.set("n", "[]", function()
     -- vim.cmd.Telescope('diagnostics')
     require('telescope.builtin').diagnostics({
-      severity = vim.lsp.protocol.DiagnosticSeverity.Error
+      severity = vim.lspzero.protocol.DiagnosticSeverity.Error
     })
   end, opts)
-  vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
 
-  -- open lsp log
-  vim.keymap.set("n", "<leader>\\\\", function()
-    vim.cmd("edit " .. vim.lsp.get_log_path())
+  vim.keymap.set("n", "<leader>aa", function()
+    vim.lspzero.buf.code_action()
   end, opts)
-end)
 
-require('flutter-setup')(lsp)
-require('autotag-setup')()
+  vim.keymap.set("n", "<leader>rr", function()
+    vim.lspzero.buf.references()
+  end, opts)
 
-lsp.setup()
+  vim.keymap.set("n", "<leader>re", function()
+    vim.lspzero.buf.rename()
+  end, opts)
+
+  vim.keymap.set("n", "<leader>hh", function()
+    vim.lspzero.buf.signature_help()
+  end, opts)
+
+  -- open lspzero log
+  vim.keymap.set("n", "<leader>\\\\", function()
+    vim.cmd("edit " .. vim.lspzero.get_log_path())
+  end, opts)
+end
+
+
+lspzero.on_attach(on_attach)
+
+lspzero.setup()
 
 vim.diagnostic.config({
   virtual_text = true,
+  signs = false,
 })
+
+require('flutter-setup')()
+require('autotag-setup')()

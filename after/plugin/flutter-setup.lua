@@ -1,7 +1,5 @@
 -- flutter-tools
-return function(lsp)
-  local dart_lsp = lsp.build_options("dartls", {})
-
+return function()
   require("flutter-tools").setup({
     widget_guides = {
       enabled = true,
@@ -24,7 +22,6 @@ return function(lsp)
       }
     },
     lsp = {
-      capabilities = dart_lsp.capabilities,
       -- show the derived colours for dart variables
       color = {
         enabled = true,                                -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
