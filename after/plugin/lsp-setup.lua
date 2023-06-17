@@ -225,8 +225,6 @@ cmp.setup({
     --   -- end
     -- end, { "i", "s" }),
     -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   fallback()
-
     --   -- local copilot_keys = vim.fn['copilot#Accept']()
 
     --   -- if copilot_keys ~= '' and type(copilot_keys) == 'string' then
@@ -234,9 +232,15 @@ cmp.setup({
     --   --   vim.api.nvim_feedkeys(copilot_keys, 's', true)
     --   -- end
     -- end, { 'i', 's' }),
-    ["<Tab>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = false,
-    }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = false,
+        })
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   },
 })
