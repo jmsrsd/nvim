@@ -53,7 +53,11 @@ return require('packer').startup(function(use)
       {
         -- Optional
         'williamboman/mason.nvim',
-        run = ":MasonUpdate",
+        run = function()
+          pcall(function()
+            vim.cmd('MasonUpdate')
+          end)
+        end,
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
@@ -69,6 +73,7 @@ return require('packer').startup(function(use)
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
       { 'L3MON4D3/LuaSnip' },     -- Required
       { 'saadparwaiz1/cmp_luasnip' },
+      { 'onsails/lspkind-nvim' },
     }
   }
 
@@ -141,13 +146,11 @@ return require('packer').startup(function(use)
 
   use({
     "jose-elias-alvarez/null-ls.nvim",
-    config = function()
-      require("null-ls").setup()
-    end,
     requires = {
       "nvim-lua/plenary.nvim",
     },
   })
+
   use('MunifTanjim/prettier.nvim')
 
   use({
@@ -155,7 +158,14 @@ return require('packer').startup(function(use)
     run = 'deno task --quiet build:fast',
   })
 
+  use {
+    "zbirenbaum/copilot.lua",
+  }
+
   use({
-    'github/copilot.vim',
+    "zbirenbaum/copilot-cmp",
+    requires = {
+      "zbirenbaum/copilot.lua",
+    }
   })
 end)
