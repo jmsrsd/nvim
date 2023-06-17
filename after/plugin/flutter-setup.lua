@@ -1,5 +1,5 @@
 -- flutter-tools
-return function()
+return function(on_attach)
   require("flutter-tools").setup({
     widget_guides = {
       enabled = true,
@@ -22,6 +22,7 @@ return function()
       }
     },
     lsp = {
+      on_attach = on_attach,
       -- show the derived colours for dart variables
       color = {
         enabled = true,                                -- whether or not to highlight color variables at all, only supported on flutter >= 2.10

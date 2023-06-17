@@ -60,11 +60,11 @@ local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
   vim.keymap.set("n", "gd", function()
-    vim.lspzero.buf.definition()
+    vim.lsp.buf.definition()
   end, opts)
 
   vim.keymap.set("n", "K", function()
-    vim.lspzero.buf.hover()
+    vim.lsp.buf.hover()
   end, opts)
 
   vim.keymap.set("n", "[d", function()
@@ -78,29 +78,29 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "[]", function()
     -- vim.cmd.Telescope('diagnostics')
     require('telescope.builtin').diagnostics({
-      severity = vim.lspzero.protocol.DiagnosticSeverity.Error
+      severity = vim.lsp.protocol.DiagnosticSeverity.Error
     })
   end, opts)
 
   vim.keymap.set("n", "<leader>aa", function()
-    vim.lspzero.buf.code_action()
+    vim.lsp.buf.code_action()
   end, opts)
 
   vim.keymap.set("n", "<leader>rr", function()
-    vim.lspzero.buf.references()
+    vim.lsp.buf.references()
   end, opts)
 
   vim.keymap.set("n", "<leader>re", function()
-    vim.lspzero.buf.rename()
+    vim.lsp.buf.rename()
   end, opts)
 
   vim.keymap.set("n", "<leader>hh", function()
-    vim.lspzero.buf.signature_help()
+    vim.lsp.buf.signature_help()
   end, opts)
 
   -- open lspzero log
   vim.keymap.set("n", "<leader>\\\\", function()
-    vim.cmd("edit " .. vim.lspzero.get_log_path())
+    vim.cmd("edit " .. vim.lsp.get_log_path())
   end, opts)
 end
 
@@ -114,5 +114,5 @@ vim.diagnostic.config({
   signs = false,
 })
 
-require('flutter-setup')()
+require('flutter-setup')(on_attach)
 require('autotag-setup')()
