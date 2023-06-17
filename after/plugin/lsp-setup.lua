@@ -59,21 +59,13 @@ lspzero.set_preferences({
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
-  vim.keymap.set("n", "gd", function()
-    vim.lsp.buf.definition()
-  end, opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 
-  vim.keymap.set("n", "K", function()
-    vim.lsp.buf.hover()
-  end, opts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-  vim.keymap.set("n", "[d", function()
-    vim.diagnostic.goto_prev()
-  end, opts)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 
-  vim.keymap.set("n", "]d", function()
-    vim.diagnostic.goto_next()
-  end, opts)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
   vim.keymap.set("n", "[]", function()
     -- vim.cmd.Telescope('diagnostics')
@@ -82,21 +74,13 @@ local on_attach = function(client, bufnr)
     })
   end, opts)
 
-  vim.keymap.set("n", "<leader>aa", function()
-    vim.lsp.buf.code_action()
-  end, opts)
+  vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
 
-  vim.keymap.set("n", "<leader>rr", function()
-    vim.lsp.buf.references()
-  end, opts)
+  vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
 
-  vim.keymap.set("n", "<leader>re", function()
-    vim.lsp.buf.rename()
-  end, opts)
+  vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
 
-  vim.keymap.set("n", "<leader>hh", function()
-    vim.lsp.buf.signature_help()
-  end, opts)
+  vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
 
   -- open lspzero log
   vim.keymap.set("n", "<leader>\\\\", function()
@@ -115,4 +99,3 @@ vim.diagnostic.config({
 })
 
 require('flutter-setup')(on_attach)
-require('autotag-setup')()

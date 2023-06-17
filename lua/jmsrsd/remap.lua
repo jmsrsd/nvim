@@ -64,6 +64,7 @@ vim.keymap.set("n", "<CR><CR>", function()
   else
     pcall(vim.cmd.LspZeroFormat)
     pcall(vim.cmd.w)
+    pcall(vim.cmd.wa)
   end
 end, opts)
 
