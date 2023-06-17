@@ -236,7 +236,7 @@ cmp.setup({
       if cmp.visible() then
         cmp.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
+          select = true,
         })
       else
         fallback()
