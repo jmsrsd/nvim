@@ -43,29 +43,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Remap format on current buffer
 local format = function()
-  local prettier_file_extensions = {
-    'css',
-    'html',
-    'js',
-    'json',
-    'jsx',
-    'md',
-    'scss',
-    'ts',
-    'tsx',
-    'yaml',
-  }
-
-  local current_file = vim.fn.expand('%')
-  local file_extension = vim.fn.fnamemodify(current_file, ':e')
-
-  if vim.tbl_contains(prettier_file_extensions, file_extension) then
-    pcall(require("prettier").format)
-  else
-    pcall(vim.cmd.LspZeroFormat)
-    pcall(vim.cmd.w)
-    pcall(vim.cmd.wa)
-  end
+  pcall(vim.cmd.LspZeroFormat)
+  pcall(vim.cmd.w)
+  pcall(vim.cmd.wa)
 end
 
 vim.keymap.set("n", "<CR><CR>", format, opts)
