@@ -217,7 +217,10 @@ cmp.setup({
   },
   formatting = {
     format = lspkind.cmp_format({
-      mode = "symbol_text",
+      mode = "symbol",
+      -- mode = "symbol_text",
+      max_width = 50,
+      symbol_map = { Copilot = " " },
       menu = {
         buffer = "[Buf]",
         nvim_lsp = "[Lsp]",
