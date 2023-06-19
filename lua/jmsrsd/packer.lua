@@ -37,9 +37,7 @@ return require('packer').startup(function(use)
 
   use 'tpope/vim-fugitive'
 
-  use {
-    'j-hui/fidget.nvim',
-  }
+  use { 'j-hui/fidget.nvim', tag = 'legacy' }
 
   use('neovim/nvim-lspconfig')
 
@@ -60,12 +58,10 @@ return require('packer').startup(function(use)
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',                opts = {} },
+      { 'j-hui/fidget.nvim', },
 
       -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/neodev.nvim' },
+      { 'folke/neodev.nvim', },
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },     -- Required
@@ -165,4 +161,15 @@ return require('packer').startup(function(use)
       "zbirenbaum/copilot.lua",
     }
   })
+
+  use({ 'justinmk/vim-sneak', })
+
+  use({ 'f-person/git-blame.nvim', });
+
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+  });
+
+  use({ 'tpope/vim-repeat', });
 end)
