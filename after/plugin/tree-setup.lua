@@ -180,13 +180,16 @@ require("nvim-tree").setup {
     args = {},
   },
   diagnostics = {
-    enable = false,
-    show_on_dirs = false,
+    enable = true,
+    -- enable = false,
+    show_on_dirs = true,
+    -- show_on_dirs = false,
     show_on_open_dirs = true,
     debounce_delay = 50,
     severity = {
-      min = vim.diagnostic.severity.HINT,
-      max = vim.diagnostic.severity.ERROR,
+      min = vim.diagnostic.severity.ERROR,
+      -- min = vim.diagnostic.severity.HINT,
+      -- max = vim.diagnostic.severity.ERROR,
     },
     icons = {
       hint = "",

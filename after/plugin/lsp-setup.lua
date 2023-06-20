@@ -73,6 +73,9 @@ require('lspconfig').lua_ls.setup {
       telemetry = {
         enable = false,
       },
+      completion = {
+        callSnippet = "Replace",
+      },
     },
   },
 }
@@ -106,10 +109,16 @@ require("flutter-tools").setup({
 lspzero.set_preferences({
   suggest_lsp_servers = false,
   sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I',
+    error = "",
+    warn = "",
+    hint = "",
+    info = "",
+    -- error = 'E',
+    -- warn = 'W',
+    -- hint = 'H',
+    -- info = 'I',
+
+
   }
 })
 
@@ -120,13 +129,29 @@ local on_attach = function(client, bufnr)
 
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev({
+      severity = {
+        min = vim.diagnostic.severity.ERROR,
+        -- min = vim.diagnostic.severity.WARN,
+        -- max = vim.diagnostic.severity.ERROR,
+      },
+    })
+  end, opts)
 
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next({
+      severity = {
+        min = vim.diagnostic.severity.ERROR,
+        -- min = vim.diagnostic.severity.WARN,
+        -- max = vim.diagnostic.severity.ERROR,
+      },
+    })
+  end, opts)
 
   vim.keymap.set("n", "[]", function()
     require('telescope.builtin').diagnostics({
-      severity = vim.lsp.protocol.DiagnosticSeverity.Error
+      severity_limit = 'Warning',
     })
   end, opts)
 
@@ -147,6 +172,8 @@ end
 lspzero.on_attach(on_attach)
 
 lspzero.setup()
+
+require("telescope").load_extension("flutter")
 
 -- null-ls setup
 local null_ls = require("null-ls")
@@ -190,25 +217,57 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 -- add external collection of snippets
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_action = lspzero.cmp_action()
+-- local cmp_action = lspzero.cmp_action()
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
+
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
+  view = cmp.WildmenuEntriesConfig,
   -- Where to look for auto-complete items.
   sources = {
-    { name = "copilot" },
-    { name = "path" },
+    {
+      name = "copilot",
+      keyword_length = 0,
+      priority = 13,
+    },
+    {
+      name = "nvim_lua",
+      keyword_length = 0,
+      priority = 8,
+    },
+    {
+      name = "nvim_lsp",
+      keyword_length = 0,
+      priority = 5,
+    },
+    {
+      name = "luasnip",
+      keyword_length = 0,
+      priority = 3,
+    },
     {
       name = "buffer",
+      keyword_length = 0,
+      priority = 2,
       get_bufnrs = vim.api.nvim_list_bufs,
     },
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
+    {
+      name = "path",
+      keyword_length = 0,
+      priority = 1,
+    },
   },
   snippet = {
     expand = function(args)
@@ -216,41 +275,31 @@ cmp.setup({
     end,
   },
   formatting = {
+    fields = { 'menu', 'abbr', 'kind' },
     format = lspkind.cmp_format({
-      mode = "symbol",
+      -- mode = "symbol",
       -- mode = "symbol_text",
+      mode = "text",
       max_width = 50,
-      symbol_map = { Copilot = " " },
+      ellipsis_char = '...',
+      -- symbol_map = { Copilot = " " },
       menu = {
         buffer = "[Buf]",
         nvim_lsp = "[Lsp]",
         luasnip = "[Snip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[Lat]",
+        copilot = "[Cop]",
       },
     }),
   },
   mapping = {
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+    -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
     -- ["<C-y>"] = cmp.mapping.confirm({
     --   behavior = cmp.ConfirmBehavior.Replace,
     --   select = true,
     -- }),
-    ["<C-p>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item(cmp_select)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<C-n>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item(cmp_select)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
     -- ["<C-Space>"] = cmp.mapping(function(fallback)
     --   fallback()
 
@@ -269,14 +318,41 @@ cmp.setup({
     --   --   vim.api.nvim_feedkeys(copilot_keys, 's', true)
     --   -- end
     -- end, { 'i', 's' }),
+    ["<C-p>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item(cmp_select)
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+        -- elseif has_words_before() then
+        --   cmp.complete()
+      else
+        cmp.complete()
+        -- fallback()
+      end
+    end, { "i", "s" }),
+    ["<C-n>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item(cmp_select)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+        -- elseif has_words_before() then
+        --   cmp.complete()
+      else
+        cmp.complete()
+        -- fallback()
+      end
+    end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         })
-      else
-        fallback()
+        -- elseif has_words_before() then
+        --   cmp.complete()
+        -- else
+        --   cmp.complete()
+        --   fallback()
       end
     end, { "i", "s" }),
   },
