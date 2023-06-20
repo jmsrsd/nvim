@@ -43,7 +43,13 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Remap format on current buffer
 local format = function()
-  pcall(vim.cmd.LspZeroFormat)
+  pcall(function()
+    vim.lsp.buf.format({
+      async = false,
+      timeout_ms = 3600 * 1000,
+    })
+  end)
+  -- pcall(vim.cmd.LspZeroFormat)
   pcall(vim.cmd.w)
   pcall(vim.cmd.wa)
 end

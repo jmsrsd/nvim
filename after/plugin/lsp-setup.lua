@@ -34,20 +34,10 @@ require('neodev').setup({
 
 local lspzero = require("lsp-zero")
 
-lspzero.preset({})
-
-lspzero.ensure_installed({
-  'cssls',
-  'eslint',
-  'grammarly',
-  'html',
-  'jsonls',
-  'lua_ls',
-  'prismals',
-  'tailwindcss',
-  'tsserver',
-  'vimls',
-  'yamlls',
+lspzero.preset({
+  manage_nvim_cmp = {
+    set_sources = 'recommended'
+  },
 })
 
 -- Fix Undefined global 'vim'
@@ -106,21 +96,26 @@ require("flutter-tools").setup({
   }
 })
 
-lspzero.set_preferences({
-  suggest_lsp_servers = false,
-  sign_icons = {
-    error = "",
-    warn = "",
-    hint = "",
-    info = "",
-    -- error = 'E',
-    -- warn = 'W',
-    -- hint = 'H',
-    -- info = 'I',
-
-
-  }
+lspzero.set_sign_icons({
+  error = "",
+  warn = "",
+  hint = "",
+  info = "",
 })
+
+-- lspzero.set_preferences({
+--   suggest_lsp_servers = false,
+--   sign_icons = {
+--     error = "",
+--     warn = "",
+--     hint = "",
+--     info = "",
+--     -- error = 'E',
+--     -- warn = 'W',
+--     -- hint = 'H',
+--     -- info = 'I',
+--   }
+-- })
 
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -171,6 +166,45 @@ end
 
 lspzero.on_attach(on_attach)
 
+lspzero.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 3600 * 1000,
+  },
+  ['null-ls'] = {
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "less",
+    "lua",
+    "markdown",
+    "prisma",
+    "scss",
+    "text",
+    "typescript",
+    "yaml",
+  },
+  -- servers = {
+  --   ['lua_ls'] = { 'lua' },
+  --   ['rust_analyzer'] = { 'rust' },
+  -- }
+})
+
+lspzero.ensure_installed({
+  'cssls',
+  'eslint',
+  'grammarly',
+  'html',
+  'jsonls',
+  'lua_ls',
+  'prismals',
+  'tailwindcss',
+  'tsserver',
+  'vimls',
+  'yamlls',
+})
+
 lspzero.setup()
 
 require("telescope").load_extension("flutter")
@@ -217,7 +251,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 
 -- add external collection of snippets
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+-- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -225,49 +259,45 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+-- local has_words_before = function()
+--   unpack = unpack or table.unpack
+--   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- end
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
+local tabnine = require('cmp_tabnine.config')
+
+tabnine:setup({
+  max_lines = 1000,
+  max_num_results = 20,
+  sort = true,
+  run_on_every_keystroke = true,
+  snippet_placeholder = '..',
+  ignored_file_types = {
+    -- default is not to ignore
+    -- uncomment to ignore in lua:
+    -- lua = true
+  },
+  show_prediction_strength = false
+})
+
 cmp.setup({
+  preselect = 'item',
+  completion = {
+    completeopt = 'menu,menuone,noinsert'
+  },
   view = cmp.WildmenuEntriesConfig,
   -- Where to look for auto-complete items.
   sources = {
-    {
-      name = "copilot",
-      keyword_length = 0,
-      priority = 13,
-    },
-    {
-      name = "nvim_lua",
-      keyword_length = 0,
-      priority = 8,
-    },
-    {
-      name = "nvim_lsp",
-      keyword_length = 0,
-      priority = 5,
-    },
-    {
-      name = "luasnip",
-      keyword_length = 0,
-      priority = 3,
-    },
-    {
-      name = "buffer",
-      keyword_length = 0,
-      priority = 2,
-      get_bufnrs = vim.api.nvim_list_bufs,
-    },
-    {
-      name = "path",
-      keyword_length = 0,
-      priority = 1,
-    },
+    { name = "path",        keyword_length = 1, priority = 1, },
+    { name = "buffer",      keyword_length = 1, priority = 2, get_bufnrs = vim.api.nvim_list_bufs, },
+    { name = "luasnip",     keyword_length = 1, priority = 3, },
+    { name = "nvim_lua",    keyword_length = 1, priority = 4, },
+    { name = "nvim_lsp",    keyword_length = 1, priority = 5, },
+    { name = 'cmp_tabnine', keyword_length = 1, priority = 6, },
+    { name = "copilot",     keyword_length = 1, priority = 7, },
   },
   snippet = {
     expand = function(args)
@@ -289,7 +319,8 @@ cmp.setup({
         luasnip = "[Snip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[Lat]",
-        copilot = "[Cop]",
+        copilot = "[Cpt]",
+        cmp_tabnine = "[Tab9]",
       },
     }),
   },
@@ -318,6 +349,9 @@ cmp.setup({
     --   --   vim.api.nvim_feedkeys(copilot_keys, 's', true)
     --   -- end
     -- end, { 'i', 's' }),
+    ["<C-Space>"] = cmp.mapping(function(fallback)
+      cmp.complete()
+    end, { "i", "s" }),
     ["<C-p>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(cmp_select)
