@@ -291,13 +291,13 @@ cmp.setup({
   view = cmp.WildmenuEntriesConfig,
   -- Where to look for auto-complete items.
   sources = {
-    { name = "path",        keyword_length = 1, priority = 1, },
-    { name = "buffer",      keyword_length = 1, priority = 2, get_bufnrs = vim.api.nvim_list_bufs, },
-    { name = "luasnip",     keyword_length = 1, priority = 3, },
-    { name = "nvim_lua",    keyword_length = 1, priority = 4, },
-    { name = "nvim_lsp",    keyword_length = 1, priority = 5, },
-    { name = 'cmp_tabnine', keyword_length = 1, priority = 6, },
-    { name = "copilot",     keyword_length = 1, priority = 7, },
+    { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
+    { name = "copilot",     keyword_length = 1, priority = 2, },
+    { name = "path",        keyword_length = 1, priority = 3, },
+    { name = "buffer",      keyword_length = 1, priority = 4, get_bufnrs = vim.api.nvim_list_bufs, },
+    { name = "luasnip",     keyword_length = 1, priority = 5, },
+    { name = "nvim_lua",    keyword_length = 1, priority = 6, },
+    { name = "nvim_lsp",    keyword_length = 1, priority = 7, },
   },
   snippet = {
     expand = function(args)
