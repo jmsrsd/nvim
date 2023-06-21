@@ -292,7 +292,7 @@ cmp.setup({
   -- Where to look for auto-complete items.
   sources = {
     { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
-    { name = "copilot",     keyword_length = 1, priority = 2, },
+    -- { name = "copilot",     keyword_length = 1, priority = 2, },
     { name = "path",        keyword_length = 1, priority = 3, },
     { name = "buffer",      keyword_length = 1, priority = 4, get_bufnrs = vim.api.nvim_list_bufs, },
     { name = "luasnip",     keyword_length = 1, priority = 5, },
@@ -319,7 +319,7 @@ cmp.setup({
         luasnip = "[Snip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[Lat]",
-        copilot = "[Cpt]",
+        -- copilot = "[Cpt]",
         cmp_tabnine = "[Tab9]",
       },
     }),

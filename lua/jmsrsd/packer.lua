@@ -152,16 +152,16 @@ return require('packer').startup(function(use)
     run = 'deno task --quiet build:fast',
   })
 
-  use {
-    "zbirenbaum/copilot.lua",
-  }
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  -- }
 
-  use({
-    "zbirenbaum/copilot-cmp",
-    requires = {
-      "zbirenbaum/copilot.lua",
-    }
-  })
+  -- use({
+  --   "zbirenbaum/copilot-cmp",
+  --   requires = {
+  --     "zbirenbaum/copilot.lua",
+  --   }
+  -- })
 
   use({ 'justinmk/vim-sneak', })
 
