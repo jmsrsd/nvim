@@ -43,6 +43,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Remap format on current buffer
 local format = function()
+  pcall(vim.cmd.e)
   pcall(function()
     vim.lsp.buf.format({
       async = false,
@@ -62,5 +63,5 @@ vim.keymap.set("n", "q", "<nop>")
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
   format()
-  vim.cmd("wqa")
+  pcall(vim.cmd.wqa)
 end)
