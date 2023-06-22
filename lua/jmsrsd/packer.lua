@@ -174,10 +174,10 @@ return require('packer').startup(function(use)
 
   use({ 'tpope/vim-repeat', });
 
-  use({
-    'tzachar/cmp-tabnine',
-    after = "nvim-cmp",
-    run = 'powershell ./install.ps1',
-    requires = 'hrsh7th/nvim-cmp',
-  })
+  -- use({
+  --   'tzachar/cmp-tabnine',
+  --   after = "nvim-cmp",
+  --   run = 'powershell ./install.ps1',
+  --   requires = 'hrsh7th/nvim-cmp',
+  -- })
 end)

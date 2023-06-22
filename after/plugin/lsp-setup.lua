@@ -267,21 +267,21 @@ local lspkind = require("lspkind")
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
-local tabnine = require('cmp_tabnine.config')
+-- local tabnine = require('cmp_tabnine.config')
 
-tabnine:setup({
-  max_lines = 1000,
-  max_num_results = 20,
-  sort = true,
-  run_on_every_keystroke = true,
-  snippet_placeholder = '..',
-  ignored_file_types = {
-    -- default is not to ignore
-    -- uncomment to ignore in lua:
-    -- lua = true
-  },
-  show_prediction_strength = false
-})
+-- tabnine:setup({
+--   max_lines = 1000,
+--   max_num_results = 20,
+--   sort = true,
+--   run_on_every_keystroke = true,
+--   snippet_placeholder = '..',
+--   ignored_file_types = {
+--     -- default is not to ignore
+--     -- uncomment to ignore in lua:
+--     -- lua = true
+--   },
+--   show_prediction_strength = false
+-- })
 
 cmp.setup({
   preselect = 'item',
@@ -291,13 +291,13 @@ cmp.setup({
   view = cmp.WildmenuEntriesConfig,
   -- Where to look for auto-complete items.
   sources = {
-    { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
+    -- { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
     -- { name = "copilot",     keyword_length = 1, priority = 2, },
-    { name = "path",        keyword_length = 1, priority = 3, },
-    { name = "buffer",      keyword_length = 1, priority = 4, get_bufnrs = vim.api.nvim_list_bufs, },
-    { name = "luasnip",     keyword_length = 1, priority = 5, },
-    { name = "nvim_lua",    keyword_length = 1, priority = 6, },
-    { name = "nvim_lsp",    keyword_length = 1, priority = 7, },
+    { name = "path",     keyword_length = 1, priority = 3, },
+    { name = "buffer",   keyword_length = 1, priority = 4, get_bufnrs = vim.api.nvim_list_bufs, },
+    { name = "luasnip",  keyword_length = 1, priority = 5, },
+    { name = "nvim_lua", keyword_length = 1, priority = 6, },
+    { name = "nvim_lsp", keyword_length = 1, priority = 7, },
   },
   snippet = {
     expand = function(args)
@@ -320,7 +320,7 @@ cmp.setup({
         nvim_lua = "[Lua]",
         latex_symbols = "[Lat]",
         -- copilot = "[Cpt]",
-        cmp_tabnine = "[Tab9]",
+        -- cmp_tabnine = "[Tab9]",
       },
     }),
   },
