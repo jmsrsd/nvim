@@ -53,9 +53,6 @@ local format = function()
   pcall(vim.cmd.w)
   pcall(vim.cmd.wa)
   pcall(vim.cmd.e)
-  pcall(function()
-    vim.cmd("e!")
-  end)
 end
 
 vim.keymap.set("n", "<CR><CR>", format, opts)
