@@ -43,7 +43,6 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Remap format on current buffer
 local format = function()
-  pcall(vim.cmd.e)
   pcall(function()
     vim.lsp.buf.format({
       async = false,
@@ -53,6 +52,10 @@ local format = function()
   -- pcall(vim.cmd.LspZeroFormat)
   pcall(vim.cmd.w)
   pcall(vim.cmd.wa)
+  pcall(vim.cmd.e)
+  pcall(function()
+    vim.cmd("e!")
+  end)
 end
 
 vim.keymap.set("n", "<CR><CR>", format, opts)
