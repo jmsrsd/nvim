@@ -40,6 +40,115 @@ lspzero.preset({
   },
 })
 
+local on_attach = function(client, bufnr)
+  local opts = { buffer = bufnr, remap = false }
+
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+  vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev({
+      severity = {
+        min = vim.diagnostic.severity.ERROR,
+        -- min = vim.diagnostic.severity.WARN,
+        -- max = vim.diagnostic.severity.ERROR,
+      },
+    })
+  end, opts)
+
+  vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next({
+      severity = {
+        min = vim.diagnostic.severity.ERROR,
+        -- min = vim.diagnostic.severity.WARN,
+        -- max = vim.diagnostic.severity.ERROR,
+      },
+    })
+  end, opts)
+
+  vim.keymap.set("n", "[]", function()
+    require('telescope.builtin').diagnostics({
+      severity_limit = 'Warning',
+    })
+  end, opts)
+
+  vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
+
+  vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
+
+  vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
+
+  vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
+
+  -- open lspzero log
+  vim.keymap.set("n", "<leader>\\\\", function()
+    vim.cmd("LspLog")
+  end, opts)
+end
+
+lspzero.set_sign_icons({
+  error = "",
+  warn = "",
+  hint = "",
+  info = "",
+})
+
+-- lspzero.set_preferences({
+--   suggest_lsp_servers = false,
+--   sign_icons = {
+--     error = "",
+--     warn = "",
+--     hint = "",
+--     info = "",
+--     -- error = 'E',
+--     -- warn = 'W',
+--     -- hint = 'H',
+--     -- info = 'I',
+--   }
+-- })
+
+lspzero.on_attach(on_attach)
+
+lspzero.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 3600 * 1000,
+  },
+  ['null-ls'] = {
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "less",
+    "lua",
+    "markdown",
+    "prisma",
+    "scss",
+    "text",
+    "typescript",
+    "yaml",
+  },
+  -- servers = {
+  --   ['lua_ls'] = { 'lua' },
+  --   ['rust_analyzer'] = { 'rust' },
+  -- }
+})
+
+lspzero.ensure_installed({
+  'cssls',
+  'eslint',
+  'grammarly',
+  'html',
+  'jsonls',
+  'lua_ls',
+  'prismals',
+  'tailwindcss',
+  'tsserver',
+  'vimls',
+  'yamlls',
+})
+
 -- Fix Undefined global 'vim'
 require('lspconfig').lua_ls.setup {
   settings = {
@@ -96,118 +205,10 @@ require("flutter-tools").setup({
   }
 })
 
-lspzero.set_sign_icons({
-  error = "",
-  warn = "",
-  hint = "",
-  info = "",
-})
+require("telescope").load_extension("flutter")
 
--- lspzero.set_preferences({
---   suggest_lsp_servers = false,
---   sign_icons = {
---     error = "",
---     warn = "",
---     hint = "",
---     info = "",
---     -- error = 'E',
---     -- warn = 'W',
---     -- hint = 'H',
---     -- info = 'I',
---   }
--- })
-
-local on_attach = function(client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-  vim.keymap.set("n", "[d", function()
-    vim.diagnostic.goto_prev({
-      severity = {
-        min = vim.diagnostic.severity.ERROR,
-        -- min = vim.diagnostic.severity.WARN,
-        -- max = vim.diagnostic.severity.ERROR,
-      },
-    })
-  end, opts)
-
-  vim.keymap.set("n", "]d", function()
-    vim.diagnostic.goto_next({
-      severity = {
-        min = vim.diagnostic.severity.ERROR,
-        -- min = vim.diagnostic.severity.WARN,
-        -- max = vim.diagnostic.severity.ERROR,
-      },
-    })
-  end, opts)
-
-  vim.keymap.set("n", "[]", function()
-    require('telescope.builtin').diagnostics({
-      severity_limit = 'Warning',
-    })
-  end, opts)
-
-  vim.keymap.set("n", "<leader>aa", vim.lsp.buf.code_action, opts)
-
-  vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, opts)
-
-  vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
-
-  vim.keymap.set("n", "<leader>hh", vim.lsp.buf.signature_help, opts)
-
-  -- open lspzero log
-  vim.keymap.set("n", "<leader>\\\\", function()
-    vim.cmd("LspLog")
-  end, opts)
-end
-
-lspzero.on_attach(on_attach)
-
-lspzero.format_on_save({
-  format_opts = {
-    async = false,
-    timeout_ms = 3600 * 1000,
-  },
-  ['null-ls'] = {
-    "css",
-    "html",
-    "javascript",
-    "json",
-    "less",
-    "lua",
-    "markdown",
-    "prisma",
-    "scss",
-    "text",
-    "typescript",
-    "yaml",
-  },
-  -- servers = {
-  --   ['lua_ls'] = { 'lua' },
-  --   ['rust_analyzer'] = { 'rust' },
-  -- }
-})
-
-lspzero.ensure_installed({
-  'cssls',
-  'eslint',
-  'grammarly',
-  'html',
-  'jsonls',
-  'lua_ls',
-  'prismals',
-  'tailwindcss',
-  'tsserver',
-  'vimls',
-  'yamlls',
-})
 
 lspzero.setup()
-
-require("telescope").load_extension("flutter")
 
 -- null-ls setup
 local null_ls = require("null-ls")
