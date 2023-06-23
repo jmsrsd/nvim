@@ -49,13 +49,21 @@ local format = function()
       timeout_ms = 3600 * 1000,
     })
   end)
-  -- pcall(vim.cmd.LspZeroFormat)
-  pcall(vim.cmd.w)
-  pcall(vim.cmd.wa)
-  pcall(vim.cmd.e)
+
+  if not pcall(vim.cmd.w) then
+    pcall(function() vim.cmd("w!") end)
+  end
+
+  if not pcall(vim.cmd.wa) then
+    pcall(function() vim.cmd("wa!") end)
+  end
+
+  if not pcall(vim.cmd.e) then
+    pcall(function() vim.cmd("e!") end)
+  end
 end
 
-vim.keymap.set("n", "<CR><CR>", format, opts)
+vim.keymap.set("n", "<CR><CR>", format)
 
 -- disable recording macros
 vim.keymap.set("n", "q", "<nop>")
@@ -63,5 +71,7 @@ vim.keymap.set("n", "q", "<nop>")
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
   format()
-  pcall(vim.cmd.wqa)
+  if not pcall(vim.cmd.wqa) then
+    pcall(function() vim.cmd("wqa!") end)
+  end
 end)

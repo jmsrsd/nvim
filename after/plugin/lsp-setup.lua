@@ -212,16 +212,16 @@ lspzero.setup()
 
 -- null-ls setup
 local null_ls = require("null-ls")
-local utils = require("null-ls.utils")
+local null_ls_utils = require("null-ls.utils")
 
 null_ls.setup({
   source = {
-    root_dir = utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
-    diagnostics_format = "#{m} (#{c}) [#{s}]",                                          -- Makes PHPCS errors more readeable
+    root_dir = null_ls_utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
+    diagnostics_format = "#{m} (#{c}) [#{s}]",                                                  -- Makes PHPCS errors more readeable
     sources = {
-      null_ls.builtins.completion.spell,                                                -- You still need to execute `:set spell`
-      null_ls.builtins.diagnostics.eslint,                                              -- Add eslint to js projects
-      null_ls.builtins.diagnostics.phpcs.with({                                         -- Change how the php linting will work
+      null_ls.builtins.completion.spell,                                                        -- You still need to execute `:set spell`
+      null_ls.builtins.diagnostics.eslint,                                                      -- Add eslint to js projects
+      null_ls.builtins.diagnostics.phpcs.with({                                                 -- Change how the php linting will work
         prefer_local = "vendor/bin",
       }),
       null_ls.builtins.formatting.stylua,       -- You need to install stylua first: `brew install stylua`
@@ -284,21 +284,22 @@ require('luasnip.loaders.from_vscode').lazy_load()
 --   show_prediction_strength = false
 -- })
 
+
 cmp.setup({
   preselect = 'item',
   completion = {
-    completeopt = 'menu,menuone,noinsert'
+    completeopt = 'menu,menuone,noinsert,noselect',
   },
   view = cmp.WildmenuEntriesConfig,
   -- Where to look for auto-complete items.
   sources = {
     -- { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
     -- { name = "copilot",     keyword_length = 1, priority = 2, },
-    { name = "path",     keyword_length = 1, priority = 3, },
-    { name = "buffer",   keyword_length = 1, priority = 4, get_bufnrs = vim.api.nvim_list_bufs, },
-    { name = "luasnip",  keyword_length = 1, priority = 5, },
-    { name = "nvim_lua", keyword_length = 1, priority = 6, },
-    { name = "nvim_lsp", keyword_length = 1, priority = 7, },
+    { name = "path",     keyword_length = 0, priority = 1, },
+    { name = "nvim_lua", keyword_length = 0, priority = 2, },
+    { name = "nvim_lsp", keyword_length = 0, priority = 3, },
+    { name = "luasnip",  keyword_length = 0, priority = 4, },
+    { name = "buffer",   keyword_length = 0, priority = 5, get_bufnrs = vim.api.nvim_list_bufs, },
   },
   snippet = {
     expand = function(args)
@@ -350,9 +351,13 @@ cmp.setup({
     --   --   vim.api.nvim_feedkeys(copilot_keys, 's', true)
     --   -- end
     -- end, { 'i', 's' }),
-    ["<C-Space>"] = cmp.mapping(function(fallback)
-      cmp.complete()
-    end, { "i", "s" }),
+    ["<C-Space>"] = cmp.mapping.complete({
+      config = {
+        sources = {
+          { name = 'luasnip' }
+        }
+      }
+    }),
     ["<C-p>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item(cmp_select)
@@ -361,7 +366,13 @@ cmp.setup({
         -- elseif has_words_before() then
         --   cmp.complete()
       else
-        cmp.complete()
+        cmp.complete({
+          config = {
+            sources = {
+              { name = 'luasnip' }
+            }
+          }
+        })
         -- fallback()
       end
     end, { "i", "s" }),
@@ -373,22 +384,19 @@ cmp.setup({
         -- elseif has_words_before() then
         --   cmp.complete()
       else
-        cmp.complete()
+        cmp.complete({
+          config = {
+            sources = {
+              { name = 'luasnip' }
+            }
+          }
+        })
         -- fallback()
       end
     end, { "i", "s" }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        })
-        -- elseif has_words_before() then
-        --   cmp.complete()
-        -- else
-        --   cmp.complete()
-        --   fallback()
-      end
-    end, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
   },
 })

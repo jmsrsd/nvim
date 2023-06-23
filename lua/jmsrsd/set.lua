@@ -58,6 +58,7 @@ vim.wo.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 50
+
 vim.o.timeout = true
 vim.o.timeoutlen = 3600 * 1000
 
