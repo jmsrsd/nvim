@@ -111,10 +111,10 @@ lspzero.set_sign_icons({
 lspzero.on_attach(on_attach)
 
 lspzero.format_on_save({
-  format_opts = {
-    async = false,
-    timeout_ms = 3600 * 1000,
-  },
+  -- format_opts = {
+  --   async = false,
+  --   timeout_ms = 3600 * 1000,
+  -- },
   ['null-ls'] = {
     "css",
     "html",
@@ -229,6 +229,64 @@ null_ls.setup({
         prefer_local = "vendor/bin",
       }),
     },
+  },
+})
+
+-- prettier.nvim setup
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettierd',
+  -- bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+  ['null-ls'] = {
+    condition = function()
+      return prettier.config_exists({
+        -- if `false`, skips checking `package.json` for `"prettier"` key
+        check_package_json = true,
+      })
+    end,
+    runtime_condition = function(params)
+      -- return false to skip running prettier
+      return true
+    end,
+    timeout = 5000,
+  },
+  cli_options = {
+    arrow_parens = "always",
+    bracket_spacing = true,
+    bracket_same_line = false,
+    embedded_language_formatting = "auto",
+    end_of_line = "lf",
+    html_whitespace_sensitivity = "css",
+    -- jsx_bracket_same_line = false,
+    jsx_single_quote = false,
+    print_width = 80,
+    prose_wrap = "preserve",
+    quote_props = "as-needed",
+    semi = true,
+    single_attribute_per_line = false,
+    single_quote = false,
+    tab_width = 2,
+    trailing_comma = "es5",
+    use_tabs = false,
+    vue_indent_script_and_style = false,
+    -- https://prettier.io/docs/en/cli.html#--config-precedence
+    config_precedence = "cli-override",
+    -- config_precedence = "prefer-file", -- or "cli-override" or "file-override"
   },
 })
 

@@ -42,20 +42,53 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Remap format on current buffer
-local format = function()
-  pcall(function()
-    vim.lsp.buf.format({
-      async = false,
-      timeout_ms = 3600 * 1000,
-    })
-  end)
-
+local save_all = function()
   pcall(vim.cmd.w)
-
   pcall(vim.cmd.wa)
+  pcall(vim.cmd.e)
+end
 
-  if not pcall(vim.cmd.e) then
-    pcall(function() vim.cmd('e!') end)
+local is_using_prettier = function()
+  local prettier_filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  }
+
+  local current_filetype = vim.bo.filetype
+
+  for _, filetype in ipairs(prettier_filetypes) do
+    if filetype == current_filetype then
+      return true
+    end
+  end
+
+  return false
+end
+
+local format = function(callback)
+  callback = callback ~= nil and callback or function() end
+
+  if is_using_prettier() then
+    pcall(function()
+      require('prettier').format(nil, function()
+        pcall(save_all)
+        pcall(callback)
+      end)
+    end)
+  else
+    pcall(vim.lsp.buf.format)
+    pcall(save_all)
+    pcall(callback)
   end
 end
 
@@ -67,16 +100,17 @@ vim.keymap.set("n", "q", "<nop>")
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
   pcall(vim.cmd.NvimTreeClose)
-  pcall(format)
-  pcall(function() vim.cmd.bufdo('bd') end)
-  pcall(vim.cmd.NvimTreeOpen)
-  pcall(function() vim.cmd.wincmd('h') end)
-  pcall(function() vim.cmd('q') end)
   pcall(function()
-    local local_app_data_path = os.getenv('localappdata')
-    local lsp_setup_relative_path = '/nvim/after/plugin/lsp-setup.lua'
-    vim.cmd.so(
-      local_app_data_path .. lsp_setup_relative_path
-    )
+    format(function()
+      pcall(function() vim.cmd.bufdo('bd') end)
+      pcall(vim.cmd.NvimTreeOpen)
+      pcall(function() vim.cmd.wincmd('h') end)
+      pcall(function() vim.cmd('q') end)
+      pcall(function()
+        local local_app_data_path = os.getenv('localappdata')
+        local lsp_setup_relative_path = '/nvim/after/plugin/lsp-setup.lua'
+        vim.cmd.so(local_app_data_path .. lsp_setup_relative_path)
+      end)
+    end)
   end)
 end)
