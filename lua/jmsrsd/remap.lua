@@ -2,7 +2,7 @@
 
 vim.keymap.set("n", "<leader>pp", function()
   -- vim.cmd.NvimTreeFocus()
-  vim.cmd.NvimTreeFindFile()
+  vim.cmd('NvimTreeFindFile')
 end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -50,16 +50,12 @@ local format = function()
     })
   end)
 
-  if not pcall(vim.cmd.w) then
-    pcall(function() vim.cmd("w!") end)
-  end
+  pcall(vim.cmd.w)
 
-  if not pcall(vim.cmd.wa) then
-    pcall(function() vim.cmd("wa!") end)
-  end
+  pcall(vim.cmd.wa)
 
   if not pcall(vim.cmd.e) then
-    pcall(function() vim.cmd("e!") end)
+    pcall(function() vim.cmd('e!') end)
   end
 end
 
@@ -70,8 +66,17 @@ vim.keymap.set("n", "q", "<nop>")
 
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
-  format()
-  if not pcall(vim.cmd.wqa) then
-    pcall(function() vim.cmd("wqa!") end)
-  end
+  pcall(vim.cmd.NvimTreeClose)
+  pcall(format)
+  pcall(function() vim.cmd.bufdo('bd') end)
+  pcall(vim.cmd.NvimTreeOpen)
+  pcall(function() vim.cmd.wincmd('h') end)
+  pcall(function() vim.cmd('q') end)
+  pcall(function()
+    local local_app_data_path = os.getenv('localappdata')
+    local lsp_setup_relative_path = '/nvim/after/plugin/lsp-setup.lua'
+    vim.cmd.so(
+      local_app_data_path .. lsp_setup_relative_path
+    )
+  end)
 end)
