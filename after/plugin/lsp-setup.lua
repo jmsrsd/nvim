@@ -284,9 +284,9 @@ require('luasnip.loaders.from_vscode').lazy_load()
 --   show_prediction_strength = false
 -- })
 
-
 cmp.setup({
   preselect = 'item',
+  autocomplete = true,
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
   },
@@ -295,11 +295,11 @@ cmp.setup({
   sources = {
     -- { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
     -- { name = "copilot",     keyword_length = 1, priority = 2, },
-    { name = "path",     keyword_length = 0, priority = 1, },
-    { name = "nvim_lua", keyword_length = 0, priority = 2, },
-    { name = "nvim_lsp", keyword_length = 0, priority = 3, },
-    { name = "luasnip",  keyword_length = 0, priority = 4, },
-    { name = "buffer",   keyword_length = 0, priority = 5, get_bufnrs = vim.api.nvim_list_bufs, },
+    { name = "path",     keyword_length = 1, priority = 1, },
+    { name = "buffer",   keyword_length = 1, priority = 2, get_bufnrs = vim.api.nvim_list_bufs, },
+    { name = "luasnip",  keyword_length = 1, priority = 3, },
+    { name = "nvim_lua", keyword_length = 1, priority = 4, },
+    { name = "nvim_lsp", keyword_length = 1, priority = 5, },
   },
   snippet = {
     expand = function(args)
@@ -309,9 +309,9 @@ cmp.setup({
   formatting = {
     fields = { 'menu', 'abbr', 'kind' },
     format = lspkind.cmp_format({
+      mode = "text",
       -- mode = "symbol",
       -- mode = "symbol_text",
-      mode = "text",
       max_width = 50,
       ellipsis_char = '...',
       -- symbol_map = { Copilot = " " },
