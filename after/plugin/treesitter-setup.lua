@@ -1,6 +1,28 @@
 require('nvim-treesitter.configs').setup({
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+  ensure_installed = {
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "json",
+    "markdown",
+    "scss",
+    "typescript",
+    "tsx",
+    "yaml",
+    "php",
+    "phpdoc",
+    "prisma",
+    "python",
+    "astro",
+    "comment",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = true,
@@ -19,10 +41,21 @@ require('nvim-treesitter.configs').setup({
 
   autotag = {
     enable = true,
+    enable_rename = true,
+    enable_close = true,
+    enable_close_on_slash = true,
     filetypes = {
-      'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact',
-      'svelte', 'vue', 'tsx', 'jsx', 'rescript', 'css', 'xml', 'php', 'markdown'
+      'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx',
+      'rescript',
+      'xml',
+      'php',
+      'markdown',
+      'astro', 'glimmer', 'handlebars', 'hbs'
     },
+    skip_tags = {
+      'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'slot',
+      'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr', 'menuitem'
+    }
   },
 
   incremental_selection = {
@@ -37,6 +70,3 @@ require('nvim-treesitter.configs').setup({
     enable = true,
   },
 })
-
--- ensure autotag is enabled
-vim.cmd.TSEnable('autotag')

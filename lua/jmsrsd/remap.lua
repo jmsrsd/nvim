@@ -35,17 +35,30 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<nop>')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Insert mode navigation
+vim.keymap.set({ 'i', 'c' }, "<C-h>", "<Left>")
+vim.keymap.set({ 'i', 'c' }, "<C-j>", "<Down>")
+vim.keymap.set({ 'i', 'c' }, "<C-k>", "<Up>")
+vim.keymap.set({ 'i', 'c' }, "<C-l>", "<Right>")
+
+vim.keymap.set({ 'i', 'c' }, "<C-H>", "<C-Left>")
+vim.keymap.set({ 'i', 'c' }, "<C-J>", "<C-Down>")
+vim.keymap.set({ 'i', 'c' }, "<C-K>", "<C-Up>")
+vim.keymap.set({ 'i', 'c' }, "<C-L>", "<C-Right>")
+
+vim.keymap.set({ 'i', 'c' }, "<C-e>", "<Backspace>")
+
+vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { silent = true })
+
 -- Remap format on current buffer
 local save_all = function()
-  pcall(vim.cmd.w)
-  pcall(vim.cmd.wa)
-  pcall(vim.cmd.e)
+  vim.cmd("w | wa | e")
 end
 
 local is_using_prettier = function()
@@ -79,16 +92,14 @@ local format = function(callback)
   callback = callback ~= nil and callback or function() end
 
   if is_using_prettier() then
-    pcall(function()
-      require('prettier').format(nil, function()
-        pcall(save_all)
-        pcall(callback)
-      end)
+    require('prettier').format(nil, function()
+      save_all()
+      callback()
     end)
   else
-    pcall(vim.lsp.buf.format)
-    pcall(save_all)
-    pcall(callback)
+    vim.lsp.buf.format()
+    save_all()
+    callback()
   end
 end
 
@@ -99,18 +110,14 @@ vim.keymap.set("n", "q", "<nop>")
 
 -- save all and quit
 vim.keymap.set("n", "<leader>qq", function()
-  pcall(vim.cmd.NvimTreeClose)
-  pcall(function()
-    format(function()
-      pcall(function() vim.cmd.bufdo('bd') end)
-      pcall(vim.cmd.NvimTreeOpen)
-      pcall(function() vim.cmd.wincmd('h') end)
-      pcall(function() vim.cmd('q') end)
-      pcall(function()
-        local local_app_data_path = os.getenv('localappdata')
-        local lsp_setup_relative_path = '/nvim/after/plugin/lsp-setup.lua'
-        vim.cmd.so(local_app_data_path .. lsp_setup_relative_path)
-      end)
-    end)
+  vim.cmd("NvimTreeClose")
+  format(function()
+    vim.cmd('bufdo bd | NvimTreeOpen')
+    vim.cmd.wincmd('h')
+    vim.cmd('q')
+
+    local base_path = os.getenv('localappdata')
+    local file_path = '/nvim/after/plugin/lsp-setup.lua'
+    vim.cmd.so(base_path .. file_path)
   end)
 end)
