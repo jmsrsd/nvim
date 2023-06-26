@@ -362,11 +362,11 @@ cmp.setup({
   sources = {
     -- { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
     -- { name = "copilot",     keyword_length = 1, priority = 2, },
-    { name = "path",     keyword_length = 0, priority = 1, },
-    { name = "buffer",   keyword_length = 0, priority = 2, option = { get_bufrns = get_bufrns } },
-    { name = "nvim_lua", keyword_length = 0, priority = 3, },
-    { name = "luasnip",  keyword_length = 0, priority = 4, },
-    { name = "nvim_lsp", keyword_length = 0, priority = 5, },
+    { name = "path",     keyword_length = 0, },
+    { name = "buffer",   keyword_length = 0, option = { get_bufrns = get_bufrns } },
+    { name = "nvim_lua", keyword_length = 0, },
+    { name = "luasnip",  keyword_length = 0, },
+    { name = "nvim_lsp", keyword_length = 0, },
   },
   snippet = {
     expand = function(args)
