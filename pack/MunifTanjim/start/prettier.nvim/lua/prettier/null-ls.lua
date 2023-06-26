@@ -90,7 +90,7 @@ local function get_generator()
   return M._generator
 end
 
-function M.format(method, on_post_callback)
+function M.format(method, post_callback)
   if not ok then
     return
   end
@@ -123,6 +123,8 @@ function M.format(method, on_post_callback)
 
         vim.schedule(function()
           vim.api.nvim_buf_delete(temp_bufnr, { force = true })
+
+          pcall(function() post_callback() end)
         end)
 
         local is_actual_edit = not (edits.newText == "" and edits.rangeLength == 0)
@@ -130,8 +132,6 @@ function M.format(method, on_post_callback)
         if is_actual_edit then
           vim.lsp.util.apply_text_edits({ edits }, bufnr, require("null-ls.client").get_offset_encoding())
         end
-
-        vim.schedule(on_post_callback)
       end
 
       require("null-ls.generators").run(
