@@ -21,9 +21,8 @@ vim.keymap.set("v", "<leader>y", "\"+y")
 vim.keymap.set("n", "<leader>Y", "\"+Y")
 
 vim.keymap.set("n", "<leader>d", "\"_d")
-vim.keymap.set("v", "<leader>d", "\"_d")
 
-vim.keymap.set({ "n", "i" }, "<C-c>", "<Esc>")
+vim.keymap.set({ "c", "i", "l", "n", "o", "s", "t", "v", "x" }, "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<leader><leader>", vim.cmd.LspZeroFormat)
@@ -35,24 +34,11 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<nop>')
+-- vim.keymap.set({ 'n', 'v' }, '<Space>', '<nop>')
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Insert mode navigation
-vim.keymap.set({ 'i', 'c' }, "<C-h>", "<Left>")
-vim.keymap.set({ 'i', 'c' }, "<C-j>", "<Down>")
-vim.keymap.set({ 'i', 'c' }, "<C-k>", "<Up>")
-vim.keymap.set({ 'i', 'c' }, "<C-l>", "<Right>")
-
-vim.keymap.set({ 'i', 'c' }, "<C-H>", "<C-Left>")
-vim.keymap.set({ 'i', 'c' }, "<C-J>", "<C-Down>")
-vim.keymap.set({ 'i', 'c' }, "<C-K>", "<C-Up>")
-vim.keymap.set({ 'i', 'c' }, "<C-L>", "<C-Right>")
-
-vim.keymap.set({ 'i', 'c' }, "<C-e>", "<Backspace>")
 
 vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { silent = true })
 
