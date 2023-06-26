@@ -342,8 +342,17 @@ require('luasnip.loaders.from_vscode').lazy_load()
 --   show_prediction_strength = false
 -- })
 
+local get_bufrns = function()
+  local buf = vim.api.nvim_get_current_buf()
+  local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+  if byte_size > 1024 * 1024 then -- 1 Megabyte max
+    return {}
+  end
+  return { buf }
+end
+
 cmp.setup({
-  preselect = 'item',
+  preselect = cmp.PreselectMode.None,
   autocomplete = true,
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
@@ -353,11 +362,11 @@ cmp.setup({
   sources = {
     -- { name = 'cmp_tabnine', keyword_length = 0, priority = 1, },
     -- { name = "copilot",     keyword_length = 1, priority = 2, },
-    { name = "path",     keyword_length = 1, priority = 1, },
-    { name = "buffer",   keyword_length = 1, priority = 2, get_bufnrs = vim.api.nvim_list_bufs, },
-    { name = "luasnip",  keyword_length = 1, priority = 3, },
-    { name = "nvim_lua", keyword_length = 1, priority = 4, },
-    { name = "nvim_lsp", keyword_length = 1, priority = 5, },
+    { name = "path",     keyword_length = 0, priority = 1, },
+    { name = "buffer",   keyword_length = 0, priority = 2, option = { get_bufrns = get_bufrns } },
+    { name = "nvim_lua", keyword_length = 0, priority = 3, },
+    { name = "luasnip",  keyword_length = 0, priority = 4, },
+    { name = "nvim_lsp", keyword_length = 0, priority = 5, },
   },
   snippet = {
     expand = function(args)
@@ -374,6 +383,7 @@ cmp.setup({
       ellipsis_char = '...',
       -- symbol_map = { Copilot = " " },
       menu = {
+        path = "[Path]",
         buffer = "[Buf]",
         nvim_lsp = "[Lsp]",
         luasnip = "[Snip]",
