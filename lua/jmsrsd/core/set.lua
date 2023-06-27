@@ -16,7 +16,7 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/nvim/undodir/"
+vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir/"
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
@@ -60,10 +60,7 @@ vim.wo.signcolumn = "yes"
 vim.o.updatetime = 50
 
 vim.o.timeout = true
-vim.o.timeoutlen = 3600 * 1000
-
--- Set completeopt to have a better completion experience
--- vim.o.completeopt = "menu,menuone,noselect"
+vim.o.timeoutlen = 5 * 1000
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true

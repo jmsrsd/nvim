@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
@@ -17,6 +15,8 @@ return require('packer').startup(function(use)
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     }
   }
+
+  use 'marko-cerovac/material.nvim'
 
   use 'navarasu/onedark.nvim'
 
@@ -52,9 +52,7 @@ return require('packer').startup(function(use)
         -- Optional
         'williamboman/mason.nvim',
         run = function()
-          pcall(function()
-            vim.cmd('MasonUpdate')
-          end)
+          pcall(vim.cmd.MasonUpdate)
         end,
       },
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
@@ -73,6 +71,8 @@ return require('packer').startup(function(use)
     }
   }
 
+  use { 'stevearc/dressing.nvim' }
+
   use {
     'akinsho/flutter-tools.nvim',
     requires = {
@@ -83,7 +83,9 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    requires = {
+      { 'nvim-tree/nvim-web-devicons', opt = true }
+    },
   }
 
   use {
@@ -138,46 +140,26 @@ return require('packer').startup(function(use)
     end,
   }
 
-  use 'marko-cerovac/material.nvim'
-
-  use({
+  use {
     "jose-elias-alvarez/null-ls.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
     },
-  })
+  }
 
-  use({
+  use {
     'toppair/peek.nvim',
     run = 'deno task --quiet build:fast',
-  })
+  }
 
-  -- use {
-  --   "zbirenbaum/copilot.lua",
-  -- }
+  use { 'justinmk/vim-sneak', }
 
-  -- use({
-  --   "zbirenbaum/copilot-cmp",
-  --   requires = {
-  --     "zbirenbaum/copilot.lua",
-  --   }
-  -- })
+  use { 'f-person/git-blame.nvim', }
 
-  use({ 'justinmk/vim-sneak', })
-
-  use({ 'f-person/git-blame.nvim', });
-
-  use({
+  use {
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-  });
+  }
 
-  use({ 'tpope/vim-repeat', });
-
-  -- use({
-  --   'tzachar/cmp-tabnine',
-  --   after = "nvim-cmp",
-  --   run = 'powershell ./install.ps1',
-  --   requires = 'hrsh7th/nvim-cmp',
-  -- })
+  use { 'tpope/vim-repeat', }
 end)

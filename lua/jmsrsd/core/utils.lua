@@ -22,10 +22,8 @@ M.lsp_setup_path = (function()
 end)()
 
 function M.save_all()
-  pcall(function()
-    vim.cmd.w()
-    vim.cmd.e()
-  end)
+  pcall(vim.cmd.w)
+  pcall(vim.cmd.e)
   pcall(vim.cmd.wa)
 end
 
@@ -42,7 +40,7 @@ end
 function M.format(callback)
   local _format = function()
     vim.lsp.buf.format()
-    M.save_all()
+    pcall(M.save_all)
     pcall(function() callback() end)
   end
 
@@ -61,14 +59,14 @@ function M.format(callback)
 end
 
 function M.restart()
-  vim.schedule(vim.cmd.NvimTreeClose)
-  vim.schedule(function()
+  pcall(vim.cmd.NvimTreeClose)
+  pcall(function()
     M.format(function()
-      vim.schedule(function() vim.cmd('bufdo bd') end)
-      vim.schedule(vim.cmd.NvimTreeOpen)
-      vim.schedule(function() vim.cmd.wincmd('h') end)
-      vim.schedule(vim.cmd.q)
-      vim.schedule(function() vim.cmd.so(M.lsp_setup_path) end)
+      pcall(function() vim.cmd('bufdo bd') end)
+      pcall(vim.cmd.NvimTreeOpen)
+      pcall(function() vim.cmd.wincmd('h') end)
+      pcall(vim.cmd.q)
+      pcall(function() vim.cmd.so(M.lsp_setup_path) end)
     end)
   end)
 end

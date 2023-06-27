@@ -1,8 +1,5 @@
----@diagnostic disable: undefined-global
-
 vim.keymap.set("n", "<leader>pp", function()
-  -- vim.cmd.NvimTreeFocus()
-  vim.cmd('NvimTreeFindFile')
+  pcall(vim.cmd.NvimTreeFindFile)
 end)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -25,7 +22,6 @@ vim.keymap.set("n", "<leader>d", "\"_d")
 vim.keymap.set({ "c", "i", "l", "n", "o", "s", "t", "v", "x" }, "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
--- vim.keymap.set("n", "<leader><leader>", vim.cmd.LspZeroFormat)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -44,7 +40,7 @@ vim.keymap.set("n", "q", "<nop>")
 -- Quick quit
 vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { silent = true })
 
-local utils = require("..utils")
+local utils = require("jmsrsd.core.utils")
 
 vim.keymap.set("n", "<CR><CR>", utils.format)
 
