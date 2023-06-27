@@ -1,4 +1,4 @@
----@diagnostic disable: undefined-global
+local telescope_file_browser = require 'jmsrsd.plugin.telescope-file-browser'
 
 -- You dont need to set any of these options. These are the default ones. Only
 -- the loading is important
@@ -10,13 +10,16 @@ require('telescope').setup {
       override_file_sorter = true,    -- override the file sorter
       case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
-    }
+    },
+    file_browser = telescope_file_browser.config
   }
 }
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
+
+telescope_file_browser.load()
 
 local builtin = require('telescope.builtin')
 

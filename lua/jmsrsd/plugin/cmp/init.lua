@@ -1,10 +1,10 @@
-local cmp = require("cmp")
+local cmp = require "cmp"
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-local luasnip = require("luasnip")
+local luasnip = require "luasnip"
 
-local lspkind = require("lspkind")
+local lspkind = require "lspkind"
 
 require('luasnip.loaders.from_vscode').lazy_load()
 

@@ -7,6 +7,14 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  use 'marko-cerovac/material.nvim'
+
+  use 'navarasu/onedark.nvim'
+
+  use 'sainnhe/gruvbox-material'
+
+  use { "nvim-lua/plenary.nvim" }
+
   use {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
@@ -16,11 +24,13 @@ return require('packer').startup(function(use)
     }
   }
 
-  use 'marko-cerovac/material.nvim'
-
-  use 'navarasu/onedark.nvim'
-
-  use 'sainnhe/gruvbox-material'
+  use {
+    "nvim-telescope/telescope-file-browser.nvim",
+    requires = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    }
+  }
 
   use {
     'nvim-treesitter/nvim-treesitter',

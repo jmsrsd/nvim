@@ -1,6 +1,15 @@
+local utils = require "jmsrsd.core.utils"
+
+vim.keymap.set('n', '<leader>pp', ':Telescope file_browser path=%:p:h select_buffer=true', { noremap = true })
+
+vim.keymap.set("n", "<leader>pr", function()
+  vim.cmd('Telescope file_browser')
+  -- pcall(vim.cmd.NvimTreeFindFile)
+end, { silent = true, noremap = true })
+
 vim.keymap.set("n", "<leader>pp", function()
-  pcall(vim.cmd.NvimTreeFindFile)
-end)
+  vim.cmd.NvimTreeFindFile()
+end, { silent = true, noremap = true })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -38,9 +47,9 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "q", "<nop>")
 
 -- Quick quit
-vim.keymap.set("n", "<leader>wq", "<cmd>wqa<CR>", { silent = true })
-
-local utils = require("jmsrsd.core.utils")
+vim.keymap.set("n", "<leader>wq", function()
+  utils.format(vim.cmd.wqa)
+end, { silent = true })
 
 vim.keymap.set("n", "<CR><CR>", utils.format)
 
