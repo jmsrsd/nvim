@@ -124,6 +124,7 @@ function M.format(method, post_callback)
         vim.schedule(function()
           vim.api.nvim_buf_delete(temp_bufnr, { force = true })
 
+          -- Make sure post_callback would be execute as function
           pcall(function() post_callback() end)
         end)
 

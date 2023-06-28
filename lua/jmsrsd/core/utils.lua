@@ -1,20 +1,5 @@
 local M = {}
 
-M.prettier_filetypes = {
-  "css",
-  "graphql",
-  "html",
-  "javascript",
-  "javascriptreact",
-  "json",
-  "less",
-  "markdown",
-  "scss",
-  "typescript",
-  "typescriptreact",
-  "yaml",
-}
-
 M.config_init_filepath = (function()
   local base_path = vim.fn.stdpath('config')
   local file_path = '/init.lua'
@@ -51,7 +36,7 @@ function M.format(callback)
   end
 
   local prettier_enabled = M.array_contains(
-    M.prettier_filetypes,
+    require 'jmsrsd.plugin.prettier.lib.filetypes',
     vim.bo.filetype
   )
 

@@ -85,10 +85,30 @@ _G.packer_plugins = {
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\better-escape.nvim",
     url = "https://github.com/max397574/better-escape.nvim"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-git"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-git",
+    url = "https://github.com/petertriho/cmp-git"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
     loaded = true,
@@ -109,6 +129,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\flutter-tools.nvim",
     url = "https://github.com/akinsho/flutter-tools.nvim"
+  },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\friendly-snippets",
+    url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["git-blame.nvim"] = {
     loaded = true,
@@ -250,6 +275,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-fzf-native.nvim",
     url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  },
+  ["telescope-lsp-handlers.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-lsp-handlers.nvim",
+    url = "https://github.com/gbrlsnchs/telescope-lsp-handlers.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,

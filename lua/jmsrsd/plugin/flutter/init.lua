@@ -1,6 +1,6 @@
 local on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach'
 
-require("flutter-tools").setup({
+require("flutter-tools").setup {
   flutter_path = vim.fn.expand(os.getenv('userprofile') .. '/scoop/apps/fvm/current/default/bin/flutter.bat'),
   widget_guides = {
     enabled = true,
@@ -23,6 +23,6 @@ require("flutter-tools").setup({
       virtual_text_str = "■",                      -- the virtual text character to highlight
     },
   }
-})
+}
 
 require("telescope").load_extension("flutter")

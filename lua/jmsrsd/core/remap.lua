@@ -1,7 +1,5 @@
 local utils = require "jmsrsd.core.utils"
 
-vim.keymap.set('n', '<leader>pp', ':Telescope file_browser path=%:p:h select_buffer=true', { noremap = true })
-
 vim.keymap.set("n", "<leader>pr", function()
   vim.cmd('Telescope file_browser')
   -- pcall(vim.cmd.NvimTreeFindFile)

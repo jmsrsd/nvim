@@ -28,7 +28,7 @@ lsp_zero.format_on_save({
 lsp_zero.ensure_installed(servers)
 
 -- Fix Undefined global 'vim'
-require 'jmsrsd.plugin.lua'
+-- require 'jmsrsd.plugin.lua' ()
 
 -- flutter-tools setup
 require 'jmsrsd.plugin.flutter'
