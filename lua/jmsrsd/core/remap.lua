@@ -1,11 +1,12 @@
-vim.keymap.set("n", "<leader>pr", function()
-  vim.cmd('Telescope file_browser')
-  -- pcall(vim.cmd.NvimTreeFindFile)
-end, { silent = true, noremap = true })
+-- telescope-file-browser
+vim.keymap.set("n", "<leader>oo", function()
+  vim.cmd.Telescope('file_browser')
+end, { silent = true, noremap = true, })
 
+-- nvim-tree
 vim.keymap.set("n", "<leader>pp", function()
   vim.cmd.NvimTreeFindFile()
-end, { silent = true, noremap = true })
+end, { silent = true, noremap = true, })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -17,6 +18,15 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 vim.keymap.set("x", "<leader>p", "\"_dp")
+
+-- Do not yank with x
+vim.keymap.set('n', 'x', '"_x')
+
+-- Delete word backward
+vim.keymap.set('n', 'dw', 'vb"_d')
+
+-- Select all
+vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 vim.keymap.set("n", "<leader>y", "\"+y")
 vim.keymap.set("v", "<leader>y", "\"+y")

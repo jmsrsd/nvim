@@ -39,7 +39,7 @@ M.config = {
       ["<A-y>"] = fb_actions.copy,
       ["<A-d>"] = fb_actions.remove,
       ["<C-o>"] = function()
-        vim.cmd('exe "normal \\<CR>\\<CR>"')
+        vim.cmd('exe "normal \\<CR>"')
       end,
       -- ["<C-o>"] = fb_actions.open,
       ["<C-g>"] = fb_actions.goto_parent_dir,
@@ -58,7 +58,7 @@ M.config = {
       ["y"] = fb_actions.copy,
       ["d"] = fb_actions.remove,
       ["o"] = function()
-        vim.cmd('exe "normal \\<CR>\\<CR>"')
+        vim.cmd('exe "normal \\<CR>"')
       end,
       -- ["o"] = fb_actions.open,
       ["g"] = fb_actions.goto_parent_dir,

@@ -1,4 +1,8 @@
 vim.opt.guicursor = "a:block-blinkwait150-blinkon150-blinkoff150"
+vim.opt.cursorline = true
+vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
+vim.opt.winblend = 0
+vim.opt.pumblend = 0
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -8,9 +12,11 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
+vim.opt.autoindent = true -- Auto-indent
 vim.opt.smartindent = true
-
+vim.opt.smarttab = true
 vim.opt.wrap = false
+vim.opt.backspace = 'start,eol,indent'
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -19,13 +25,17 @@ vim.opt.undofile = true
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.path:append { '**' } -- Search down into subfolders when finding files
+vim.opt.wildignore:append { '*/node_modules/*' }
+
+vim.opt.inccommand = 'nosplit'
+
+-- Add asterisks in block comments
+vim.opt.formatoptions:append { 'r' }
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 25
 vim.opt.signcolumn = "yes"

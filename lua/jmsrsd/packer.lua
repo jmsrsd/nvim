@@ -11,6 +11,13 @@ return require('packer').startup(function(use)
   use 'marko-cerovac/material.nvim'
   use 'navarasu/onedark.nvim'
   use 'sainnhe/gruvbox-material'
+  use 'tjdevries/colorbuddy.nvim'
+  use {
+    'tjdevries/gruvbuddy.nvim',
+    requires = {
+      'tjdevries/colorbuddy.nvim',
+    }
+  }
 
   -- Utils
   use { 'mbbill/undotree' }
