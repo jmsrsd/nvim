@@ -1,5 +1,5 @@
 require("nvim-tree").setup {
-  on_attach = require('jmsrsd.plugin.nvim-tree.lib.on_attach'),
+  on_attach = require('jmsrsd.plugin.nvim-tree.lib.on-attach'),
   filters = {
     dotfiles = false,
     exclude = { vim.fn.stdpath "config" .. "/lua/custom" },

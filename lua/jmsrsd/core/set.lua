@@ -1,5 +1,5 @@
 vim.opt.guicursor = "a:block-blinkwait150-blinkon150-blinkoff150"
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
 vim.opt.winblend = 0
 vim.opt.pumblend = 0
@@ -38,10 +38,10 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.opt.scrolloff = 25
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 vim.opt.isfname:append("@-@")
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = ""
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
