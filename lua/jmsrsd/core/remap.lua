@@ -1,5 +1,3 @@
-local utils = require "jmsrsd.core.utils"
-
 vim.keymap.set("n", "<leader>pr", function()
   vim.cmd('Telescope file_browser')
   -- pcall(vim.cmd.NvimTreeFindFile)
@@ -46,9 +44,13 @@ vim.keymap.set("n", "q", "<nop>")
 
 -- Quick quit
 vim.keymap.set("n", "<leader>wq", function()
-  utils.format(vim.cmd.wqa)
+  vim.cmd('exe "normal \\<CR>\\<CR>"')
+  vim.cmd('wqa')
 end, { silent = true })
 
-vim.keymap.set("n", "<CR><CR>", utils.format)
-
-vim.keymap.set("n", "<leader>qq", utils.restart)
+vim.keymap.set("n", "<CR><CR>", function()
+  local filepath = vim.fn.expand('%:p')
+  vim.cmd('w ' .. filepath)
+  vim.cmd('e ' .. filepath)
+  vim.cmd('wa')
+end)

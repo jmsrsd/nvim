@@ -138,6 +138,15 @@ return require('packer').startup(function(use)
     }
   }
 
+  -- Prettier
+  use {
+    'MunifTanjim/prettier.nvim',
+    requires = {
+      { 'neovim/nvim-lspconfig' },
+      { 'jose-elias-alvarez/null-ls.nvim' },
+    },
+  }
+
   -- Flutter
   use {
     'akinsho/flutter-tools.nvim',

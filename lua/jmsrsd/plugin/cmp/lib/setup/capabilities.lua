@@ -1,23 +1,18 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 
 local lspconfig = require 'lspconfig'
+local lspconfig_servers = require 'jmsrsd.plugin.lsp.lib.servers'
 
-local lspconfig_servers = {
-  lspconfig.cssls,
-  lspconfig.eslint,
-  lspconfig.grammarly,
-  lspconfig.html,
-  lspconfig.jsonls,
-  -- lspconfig.lua_ls, -- Already configured
-  lspconfig.prismals,
-  lspconfig.tailwindcss,
-  lspconfig.tsserver,
-  lspconfig.vimls,
-  lspconfig.yamlls,
-}
-
-for _, server in ipairs(lspconfig_servers) do
-  server.setup { capabilities = capabilities }
+local default_capabilities = function()
+  return cmp_nvim_lsp.default_capabilities()
 end
 
-require 'jmsrsd.plugin.lua' (capabilities)
+for _, server in ipairs(lspconfig_servers) do
+  lspconfig[server].setup {
+    on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach',
+    capabilities = default_capabilities(),
+  }
+end
+
+require 'jmsrsd.plugin.lua' (default_capabilities())
+require 'jmsrsd.plugin.flutter' ()

@@ -31,7 +31,7 @@ lsp_zero.ensure_installed(servers)
 -- require 'jmsrsd.plugin.lua' ()
 
 -- flutter-tools setup
-require 'jmsrsd.plugin.flutter'
+-- require 'jmsrsd.plugin.flutter'
 
 lsp_zero.setup()
 

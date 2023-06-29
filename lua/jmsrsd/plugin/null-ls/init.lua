@@ -2,7 +2,9 @@
 local null_ls = require("null-ls")
 local null_ls_utils = require("null-ls.utils")
 
-null_ls.setup({
+local config = {
+  update_in_insert = true,
+  on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach',
   source = {
     root_dir = null_ls_utils.root_pattern("composer.json", "package.json", "Makefile", ".git"), -- Add composer
     diagnostics_format = "#{m} (#{c}) [#{s}]",                                                  -- Makes PHPCS errors more readeable
@@ -18,4 +20,6 @@ null_ls.setup({
       }),
     },
   },
-})
+}
+
+null_ls.setup(config)

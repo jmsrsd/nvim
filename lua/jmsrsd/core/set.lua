@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 vim.opt.guicursor = "a:block-blinkwait150-blinkon150-blinkoff150"
 
 vim.opt.nu = true

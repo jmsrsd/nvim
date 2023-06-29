@@ -1,4 +1,4 @@
-require('neodev').setup({
+local config = {
   library = {
     enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
     -- these settings will be used for your Neovim config directory
@@ -9,17 +9,17 @@ require('neodev').setup({
     -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
   },
 
-  setup_jsonls = true, -- configures jsonls to provide completion for project specific .luarc.json files
-  setup_cssls = true,
-  setup_eslint = true,
-  setup_grammarly = true,
-  setup_html = true,
-  setup_lua_ls = true,
-  setup_prismals = true,
-  setup_tailwindcss = true,
-  setup_tsserver = true,
-  setup_vimls = true,
-  setup_yamlls = true,
+  -- setup_jsonls = true, -- configures jsonls to provide completion for project specific .luarc.json files
+  -- setup_cssls = true,
+  -- setup_eslint = true,
+  -- setup_grammarly = true,
+  -- setup_html = true,
+  -- setup_lua_ls = true,
+  -- setup_prismals = true,
+  -- setup_tailwindcss = true,
+  -- setup_tsserver = true,
+  -- setup_vimls = true,
+  -- setup_yamlls = true,
 
   -- for your neovim config directory, the config.library settings will be used as is
   -- for plugin directories (root_dirs having a /lua directory), config.library.plugins will be disabled
@@ -32,4 +32,12 @@ require('neodev').setup({
   -- much faster, but needs a recent built of lua-language-server
   -- needs lua-language-server >= 3.6.0
   pathStrict = true,
-})
+}
+
+local servers = require 'jmsrsd.plugin.lsp.lib.servers'
+
+for _, server in ipairs(servers) do
+  config['setup' .. tostring(server)] = true
+end
+
+require('neodev').setup(config)
