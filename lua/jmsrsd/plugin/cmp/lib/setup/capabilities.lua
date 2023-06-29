@@ -15,4 +15,4 @@ for _, server in ipairs(lspconfig_servers) do
 end
 
 require 'jmsrsd.plugin.lua' (default_capabilities())
-require 'jmsrsd.plugin.flutter' ()
+require 'jmsrsd.plugin.flutter' (default_capabilities())
