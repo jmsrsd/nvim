@@ -54,7 +54,12 @@ vim.keymap.set("n", "q", "<nop>")
 
 -- Quick quit
 vim.keymap.set("n", "<leader>wq", function()
-  vim.cmd('exe "normal \\<CR>\\<CR>"')
+  local save_all = function()
+    vim.cmd('exe "normal \\<CR>\\<CR>"')
+  end
+
+  pcall(save_all)
+
   vim.cmd('wqa')
 end, { silent = true })
 
