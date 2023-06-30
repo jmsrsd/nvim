@@ -1,15 +1,18 @@
 require('nvim-treesitter.configs').setup({
-  -- A list of parser names, or 'all' (the five listed parsers should always be installed)
+  -- A list of parser names, or 'all' (the items listed parsers should always be installed)
   ensure_installed = {
     'astro',
     'c',
     'comment',
+    'cpp',
     'css',
+    'glimmer',
     'graphql',
     'html',
     'javascript',
     'json',
     'lua',
+    'luadoc',
     'markdown',
     'php',
     'phpdoc',
@@ -17,10 +20,12 @@ require('nvim-treesitter.configs').setup({
     'python',
     'query',
     'scss',
+    'svelte',
     'tsx',
     'typescript',
     'vim',
     'vimdoc',
+    'vue',
     'yaml',
   },
 
