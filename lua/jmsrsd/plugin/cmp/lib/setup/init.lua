@@ -2,12 +2,13 @@ local cmp = require "cmp"
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 local luasnip = require "luasnip"
-
 local lspkind = require "lspkind"
 
 pcall(require 'luasnip.loaders.from_vscode'.lazy_load)
 
 cmp.setup({
+  -- Keymappings
+  mapping = require 'jmsrsd.plugin.cmp.lib.config.mapping' (cmp, cmp_select, luasnip),
   -- Behaviours
   preselect = cmp.PreselectMode.None,
   autocomplete = true,
@@ -51,6 +52,4 @@ cmp.setup({
       },
     }),
   },
-  -- Keymappings
-  mapping = require 'jmsrsd.plugin.cmp.lib.config.mapping' (cmp, cmp_select, luasnip),
 })
