@@ -54,14 +54,25 @@ vim.keymap.set("n", "q", "<nop>")
 
 -- Quick quit
 vim.keymap.set("n", "<leader>wq", function()
-  local save_all = function()
+  pcall(function()
     vim.cmd('exe "normal \\<CR>\\<CR>"')
-  end
+  end)
 
-  pcall(save_all)
-
-  vim.cmd('wqa')
+  vim.schedule(vim.cmd.wqa)
 end, { silent = true })
+
+-- Restart
+vim.keymap.set('n', '<leader>qq', function()
+  pcall(function()
+    vim.cmd('exe "normal \\<CR>\\<CR>"')
+  end)
+  vim.cmd.bufdo('bd')
+  vim.schedule(vim.cmd.NvimTreeOpen)
+  vim.schedule(function()
+    vim.cmd.wincmd('h')
+    vim.schedule(vim.cmd.q)
+  end)
+end, { noremap = true })
 
 vim.keymap.set("n", "<CR><CR>", function()
   local filepath = vim.fn.expand('%:p')
