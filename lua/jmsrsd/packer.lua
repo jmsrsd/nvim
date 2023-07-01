@@ -162,6 +162,9 @@ return require('packer').startup(function(use)
 		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
 	}
 
+	-- Editing
+	use { 'tpope/vim-commentary' }
+
 	-- DAP
 	use { 'mfussenegger/nvim-dap' }
 	use { "rcarriga/nvim-dap-ui",
