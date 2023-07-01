@@ -3,10 +3,7 @@ require 'jmsrsd.plugin.undotree'
 require 'jmsrsd.plugin.fugitive'
 require 'jmsrsd.plugin.peek'
 require 'jmsrsd.plugin.nvim-surround'
-
--- UIs
-require 'jmsrsd.plugin.nvim-tree'
-require 'jmsrsd.plugin.telescope'
+require 'jmsrsd.plugin.close-buffers'
 
 -- Visuals
 require 'jmsrsd.plugin.colors'
@@ -24,3 +21,8 @@ require 'jmsrsd.plugin.lsp'
 require 'jmsrsd.plugin.null-ls'
 require 'jmsrsd.plugin.prettier'
 require 'jmsrsd.plugin.cmp'
+
+-- UIs
+require 'jmsrsd.plugin.nvim-tree'
+require 'jmsrsd.plugin.telescope'
+require 'jmsrsd.plugin.flash'
