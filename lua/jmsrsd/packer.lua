@@ -15,6 +15,9 @@ return require('packer').startup(function(use)
 	use { 'tjdevries/gruvbuddy.nvim',
 		requires = { 'tjdevries/colorbuddy.nvim', }
 	}
+	use { 'svrana/neosolarized.nvim',
+		requires = { 'tjdevries/colorbuddy.nvim', }
+	}
 
 	-- Utils
 	use { 'mbbill/undotree' }
