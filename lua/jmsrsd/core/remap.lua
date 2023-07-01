@@ -1,4 +1,4 @@
--- Map Modes
+-- NOTE: Map Modes
 -- n = Normal
 -- s = Select
 -- x = Visual
@@ -97,7 +97,6 @@ end, {
 vim.keymap.set('n', '<CR>', function()
 	local filepath = vim.fn.expand('%:p')
 	vim.cmd('w ' .. filepath)
-	vim.cmd('e ' .. filepath)
 	vim.cmd('wa')
 end, {
 	noremap = true,

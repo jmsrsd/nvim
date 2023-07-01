@@ -41,10 +41,10 @@ vim.opt.scrolloff = 25
 -- Highlight current line number
 vim.opt.relativenumber = true
 
--- Enable line wrapping
+-- Disable line wrapping
 vim.opt.wrap = false
 
--- Show 80-character column marker
+-- Disable column marker
 vim.opt.colorcolumn = ""
 
 -- Enable auto-formatting
@@ -80,6 +80,9 @@ vim.opt.termguicolors = true
 -- Set timeout for key codes
 vim.o.timeout = true
 vim.o.timeoutlen = 5 * 1000
+
+-- Decrease update time
+vim.opt.updatetime = 50
 
 -- Set inccommand for live substitution preview
 vim.opt.inccommand = 'nosplit'
