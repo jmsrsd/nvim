@@ -5,7 +5,7 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
 	-- Packer can manage itself
-	use 'wbthomason/packer.nvim'
+	use { 'wbthomason/packer.nvim' }
 
 	-- Colors
 	use { 'marko-cerovac/material.nvim' }
@@ -40,9 +40,7 @@ return require('packer').startup(function(use)
 		},
 	}
 	use { 'nvim-tree/nvim-tree.lua',
-		requires = {
-			'nvim-tree/nvim-web-devicons', -- optional
-		},
+		requires = 'nvim-tree/nvim-web-devicons', -- optional
 	}
 	use { "folke/which-key.nvim",
 		config = function()
@@ -71,30 +69,28 @@ return require('packer').startup(function(use)
 		}
 	}
 	use { "gbrlsnchs/telescope-lsp-handlers.nvim",
-		require = {
-			"nvim-telescope/telescope.nvim",
-		}
+		require = "nvim-telescope/telescope.nvim",
 	}
-	use { 'nvim-telescope/telescope-ui-select.nvim' }
+	use { 'nvim-telescope/telescope-ui-select.nvim',
+		require = "nvim-telescope/telescope.nvim",
+	}
 
 	-- Treesitter
 	use { 'nvim-treesitter/nvim-treesitter',
 		run = function()
-			local ts_update = require('nvim-treesitter.install').update({
-				with_sync = true,
-			})
-			ts_update()
+			local install = require 'nvim-treesitter.install'
+			local update = install.update { with_sync = true }
+			update()
 		end,
 	}
-	use 'nvim-treesitter/playground'
-
-	-- Autocompletion
-	use { 'hrsh7th/cmp-cmdline' }
+	use { 'nvim-treesitter/playground',
+		require = 'nvim-treesitter/nvim-treesitter',
+	}
 
 	-- LSP
 	use { 'j-hui/fidget.nvim', tag = 'legacy' }
 	use { "jose-elias-alvarez/null-ls.nvim",
-		requires = { "nvim-lua/plenary.nvim", },
+		requires = "nvim-lua/plenary.nvim",
 	}
 	use { 'neovim/nvim-lspconfig' }
 	use { 'VonHeikemen/lsp-zero.nvim',
@@ -104,8 +100,7 @@ return require('packer').startup(function(use)
 			{ 'neovim/nvim-lspconfig' }, -- Required
 
 			{
-				-- Optional
-				'williamboman/mason.nvim',
+				'williamboman/mason.nvim', -- Optional
 				run = function()
 					pcall(vim.cmd.MasonUpdate)
 				end,
@@ -165,9 +160,6 @@ return require('packer').startup(function(use)
 		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
 	}
 
-	-- Editing
-	use { 'numToStr/Comment.nvim' }
-
 	-- DAP
 	use { 'mfussenegger/nvim-dap' }
 	use { "rcarriga/nvim-dap-ui",
@@ -175,6 +167,9 @@ return require('packer').startup(function(use)
 			"mfussenegger/nvim-dap"
 		}
 	}
+
+	-- Editing
+	use { 'numToStr/Comment.nvim' }
 
 	-- Motions
 	use { "chrisgrieser/nvim-spider" }
