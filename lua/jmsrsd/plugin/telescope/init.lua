@@ -1,9 +1,10 @@
-local telescope_file_browser = require 'jmsrsd.plugin.telescope-file-browser'
-local telescope_lsp_handlers = require 'jmsrsd.plugin.telescope-lsp-handlers'
+local telescope = require 'telescope'
+local file_browser = require 'jmsrsd.plugin.telescope-file-browser'
+local lsp_handler = require 'jmsrsd.plugin.telescope-lsp-handlers'
 
 -- You dont need to set any of these options. These are the default ones. Only
 -- the loading is important
-require('telescope').setup {
+telescope.setup {
 	extensions = {
 		fzf = {
 			fuzzy = true,                -- false will only do exact matching
@@ -12,8 +13,11 @@ require('telescope').setup {
 			case_mode = "smart_case",    -- or "ignore_case" or "respect_case"
 			-- the default case_mode is "smart_case"
 		},
-		file_browser = telescope_file_browser.config,
-		lsp_handlers = telescope_lsp_handlers.config,
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown {}
+		},
+		file_browser = file_browser.config,
+		lsp_handlers = lsp_handler.config,
 	},
 	defaults = {
 		vimgrep_arguments = {
@@ -70,11 +74,16 @@ require('telescope').setup {
 
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
-require('telescope').load_extension('fzf')
+telescope.load_extension('fzf')
 
-telescope_file_browser.load()
-telescope_lsp_handlers.load()
+-- To get ui-select loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
+telescope.load_extension("ui-select")
 
+file_browser.load()
+lsp_handler.load()
+
+-- Keymappings
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { noremap = true })

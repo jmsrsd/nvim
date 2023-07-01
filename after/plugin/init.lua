@@ -4,6 +4,7 @@ require 'jmsrsd.plugin.fugitive'
 require 'jmsrsd.plugin.peek'
 require 'jmsrsd.plugin.nvim-surround'
 require 'jmsrsd.plugin.close-buffers'
+require 'jmsrsd.plugin.comment'
 
 -- Visuals
 require 'jmsrsd.plugin.colors'

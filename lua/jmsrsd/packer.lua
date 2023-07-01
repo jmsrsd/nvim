@@ -75,6 +75,7 @@ return require('packer').startup(function(use)
 			"nvim-telescope/telescope.nvim",
 		}
 	}
+	use { 'nvim-telescope/telescope-ui-select.nvim' }
 
 	-- Treesitter
 	use { 'nvim-treesitter/nvim-treesitter',
@@ -93,9 +94,7 @@ return require('packer').startup(function(use)
 	-- LSP
 	use { 'j-hui/fidget.nvim', tag = 'legacy' }
 	use { "jose-elias-alvarez/null-ls.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
+		requires = { "nvim-lua/plenary.nvim", },
 	}
 	use { 'neovim/nvim-lspconfig' }
 	use { 'VonHeikemen/lsp-zero.nvim',
@@ -125,7 +124,8 @@ return require('packer').startup(function(use)
 			{
 				'L3MON4D3/LuaSnip',
 				requires = {
-					{ "rafamadriz/friendly-snippets" },
+					"rafamadriz/friendly-snippets",
+					"honza/vim-snippets",
 				},
 			}, -- Required
 			{ 'hrsh7th/cmp-buffer' },
@@ -166,7 +166,7 @@ return require('packer').startup(function(use)
 	}
 
 	-- Editing
-	use { 'tpope/vim-commentary' }
+	use { 'numToStr/Comment.nvim' }
 
 	-- DAP
 	use { 'mfussenegger/nvim-dap' }
