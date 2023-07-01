@@ -1,22 +1,32 @@
-return function(capabilities)
-	local on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach'
-
-	require 'phpactor'.setup {
-		install = {
-			path = vim.fn.stdpath("data") .. "/opt/",
-			branch = "master",
-			bin = vim.fn.stdpath("data") .. "/opt/phpactor/bin/phpactor",
-			php_bin = "php",
-			composer_bin = "composer",
-			git_bin = "git",
-			check_on_startup = "none",
-		},
-		lspconfig = {
-			enabled = true,
-			options = {
-				on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach',
-				capabilities = capabilities,
-			},
-		},
-	}
-end
+-- pcall(function() require "phpactor.handler.update" end)
+-- 
+-- local on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach'
+-- 
+-- local home_path = os.getenv('userprofile')
+-- 
+-- local vendor_path = vim.fs.normalize(home_path .. '/scoop/apps/composer/current/home/vendor')
+-- 
+-- local path = vendor_path
+-- 
+-- local bin_path = path .. '/bin/phpactor'
+-- 
+-- return function(capabilities)
+-- 	require 'phpactor'.setup {
+-- 		install = {
+-- 			path = path .. '/',
+-- 			branch = "master",
+-- 			bin = bin_path,
+-- 			php_bin = 'php',
+-- 			composer_bin = 'composer',
+-- 			git_bin = 'git',
+-- 			check_on_startup = "none",
+-- 		},
+-- 		lspconfig = {
+-- 			enabled = true,
+-- 			options = {
+-- 				on_attach = on_attach,
+-- 				capabilities = capabilities,
+-- 			},
+-- 		},
+-- 	}
+-- end

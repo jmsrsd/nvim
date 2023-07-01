@@ -281,11 +281,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\peek.nvim",
     url = "https://github.com/toppair/peek.nvim"
   },
-  ["phpactor.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\phpactor.nvim",
-    url = "https://github.com/gbprod/phpactor.nvim"
-  },
   playground = {
     loaded = true,
     path = "C:\\Users\\Jemal\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\playground",

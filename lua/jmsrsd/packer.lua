@@ -147,18 +147,6 @@ return require('packer').startup(function(use)
 		},
 	}
 
-	-- PHP
-	use {
-		"gbprod/phpactor.nvim",
-		run = function()
-			pcall(function() require "phpactor.handler.update" end)
-		end,                    -- To install/update phpactor when installing this plugin
-		requires = {
-			"nvim-lua/plenary.nvim", -- required to update phpactor
-			"neovim/nvim-lspconfig" -- required to automaticly register lsp serveur
-		},
-	}
-
 	-- Autopair & Autotag
 	use { "windwp/nvim-autopairs",
 		config = function() require("nvim-autopairs").setup {} end
