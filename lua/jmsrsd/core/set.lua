@@ -1,74 +1,85 @@
-vim.opt.guicursor = "a:block-blinkwait150-blinkon150-blinkoff150"
-vim.opt.cursorline = false
-vim.opt.termguicolors = true -- set termguicolors to enable highlight groups
-vim.opt.winblend = 0
-vim.opt.pumblend = 0
-
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.autoindent = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-
-vim.opt.autoindent = true -- Auto-indent
-vim.opt.smartindent = true
-vim.opt.smarttab = true
-vim.opt.wrap = false
-vim.opt.backspace = 'start,eol,indent'
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir/"
-vim.opt.undofile = true
-
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.path:append { '**' } -- Search down into subfolders when finding files
-vim.opt.wildignore:append { '*/node_modules/*' }
-
-vim.opt.inccommand = 'nosplit'
-
--- Add asterisks in block comments
-vim.opt.formatoptions:append { 'r' }
-
--- disable netrw at the very start of your init.lua (strongly advised)
+-- Loaded plugins
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.scrolloff = 25
-vim.opt.signcolumn = "no"
-vim.opt.isfname:append("@-@")
-
-vim.opt.colorcolumn = ""
-
+-- Leader and Local Leader key mappings
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Enable mouse mode
-vim.o.mouse = "a"
+-- Indentation
+vim.o.breakindent = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
 
--- Sync clipboard between OS and Neovim.
--- Remove this option if you want your OS clipboard to remain independent.
--- See `:help "clipboard"`
+-- Clipboard
 vim.o.clipboard = "unnamedplus"
 
--- Enable break indent
-vim.o.breakindent = true
-
--- Case insensitive searching UNLESS /C or capital in search
+-- Case sensitivity
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
+-- Highlight search results
+vim.opt.hlsearch = false
+
+-- Incremental search
+vim.opt.incsearch = true
+
+-- Enable mouse
+vim.o.mouse = "a"
+
+-- Cursorline and Signcolumn
+vim.opt.cursorline = false
 vim.wo.signcolumn = "yes"
 
--- Decrease update time
-vim.o.updatetime = 50
+-- Enable smooth scrolling
+vim.opt.scrolloff = 25
 
+-- Highlight current line number
+vim.opt.relativenumber = true
+
+-- Enable line wrapping
+vim.opt.wrap = false
+
+-- Show 80-character column marker
+vim.opt.colorcolumn = ""
+
+-- Enable auto-formatting
+vim.opt.formatoptions = vim.opt.formatoptions + { 'r' }
+
+-- Disable backups and swap files
+vim.opt.backup = false
+vim.opt.swapfile = false
+
+-- Enable persistent undo
+vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir/"
+vim.opt.undofile = true
+
+-- File type detection
+vim.opt.isfname = vim.opt.isfname + { "@-@" }
+
+-- Add ** to search for files in subdirectories
+vim.opt.path = vim.opt.path + { '**' }
+
+-- Ignore node_modules directory while file navigation
+vim.opt.wildignore = vim.opt.wildignore + { '*/node_modules/*' }
+
+-- Set PUM (Popup Menu) blend
+vim.opt.pumblend = 0
+
+-- Enable transparent background for floating windows
+vim.opt.winblend = 0
+
+-- Enable true color support
+vim.o.termguicolors = true
+vim.opt.termguicolors = true
+
+-- Set timeout for key codes
 vim.o.timeout = true
 vim.o.timeoutlen = 5 * 1000
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+-- Set inccommand for live substitution preview
+vim.opt.inccommand = 'nosplit'
