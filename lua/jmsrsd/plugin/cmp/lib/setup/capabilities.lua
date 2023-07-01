@@ -16,4 +16,3 @@ end
 
 require 'jmsrsd.plugin.lua' (default_capabilities())
 require 'jmsrsd.plugin.flutter' (default_capabilities())
--- require 'jmsrsd.plugin.phpactor' (default_capabilities())

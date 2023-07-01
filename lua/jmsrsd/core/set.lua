@@ -28,8 +28,8 @@ vim.opt.hlsearch = false
 -- Incremental search
 vim.opt.incsearch = true
 
--- Enable mouse
-vim.o.mouse = "a"
+-- Disable mouse
+vim.o.mouse = ""
 
 -- Cursorline and Signcolumn
 vim.opt.cursorline = false
