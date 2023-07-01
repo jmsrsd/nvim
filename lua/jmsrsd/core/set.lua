@@ -86,3 +86,7 @@ vim.opt.updatetime = 50
 
 -- Set inccommand for live substitution preview
 vim.opt.inccommand = 'nosplit'
+
+-- Disable spell-checking
+vim.o.spell = false
+vim.o.spelllang = ''
