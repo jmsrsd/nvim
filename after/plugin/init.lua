@@ -25,4 +25,3 @@ require 'jmsrsd.plugin.cmp'
 -- UIs
 require 'jmsrsd.plugin.nvim-tree'
 require 'jmsrsd.plugin.telescope'
-require 'jmsrsd.plugin.flash'
