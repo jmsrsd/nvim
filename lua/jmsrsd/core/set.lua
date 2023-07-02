@@ -7,7 +7,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Indentation
-vim.o.breakindent = true
+vim.opt.breakindent = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.smarttab = true
@@ -16,11 +16,11 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
 -- Clipboard
-vim.o.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 
 -- Case sensitivity
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- Highlight search results
 vim.opt.hlsearch = false
@@ -29,7 +29,7 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 -- Disable mouse
-vim.o.mouse = ""
+vim.opt.mouse = ""
 
 -- Cursorline and Signcolumn
 vim.opt.cursorline = false
@@ -74,12 +74,11 @@ vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
 -- Enable true color support
-vim.o.termguicolors = true
 vim.opt.termguicolors = true
 
 -- Set timeout for key codes
-vim.o.timeout = true
-vim.o.timeoutlen = 5 * 1000
+vim.opt.timeout = true
+vim.opt.timeoutlen = 5 * 1000
 
 -- Decrease update time
 vim.opt.updatetime = 50
@@ -90,3 +89,10 @@ vim.opt.inccommand = 'nosplit'
 -- Disable spell-checking
 vim.o.spell = false
 vim.o.spelllang = ''
+
+-- Show hidden symbols
+vim.opt.list = true
+vim.opt.listchars = 'tab:→ ,space:·,nbsp:␣,trail:~,eol:↩,precedes:«,extends:»'
+
+-- Caret
+vim.opt.guicursor = 'a:block,a:blinkon250'
