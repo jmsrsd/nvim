@@ -1,19 +1,12 @@
 local on_attach = require 'jmsrsd.plugin.lsp.lib.on-attach'
 
--- This relative flutter path is hardcoded for now
-local flutter_relative_path = '/scoop/apps/fvm/current/default/bin/flutter.bat'
-
 return function(capabilities)
-	local windows_home_path = ''
-
-	if require 'jmsrsd.core.util'.is_on_windows then
-		windows_home_path = tostring(os.getenv('userprofile'))
-	else
-		windows_home_path = '/mnt/c/Users/Jemal'
-	end
+	local app_data_path = os.getenv('LOCALAPPDATA')
+	local home_path = os.getenv('USERPROFILE')
+	local flutter_path = '/scoop/apps/fvm/current/default/bin/flutter.bat'
 
 	require "flutter-tools".setup {
-		flutter_path = vim.fn.expand(windows_home_path .. flutter_relative_path),
+		flutter_path = vim.fn.expand(home_path .. flutter_path),
 
 		widget_guides = {
 			enabled = true,
@@ -23,8 +16,8 @@ return function(capabilities)
 			on_attach = on_attach,
 			settings = {
 				analysisExcludedFolders = {
-					vim.fn.expand(windows_home_path .. '/AppData/Local/Pub/Cache'),
-					vim.fn.expand(windows_home_path .. "/scoop"),
+					vim.fn.expand(app_data_path .. '/Pub/Cache'),
+					vim.fn.expand(home_path .. "/scoop"),
 				},
 			},
 			-- show the derived colours for dart variables
