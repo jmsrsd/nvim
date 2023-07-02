@@ -11,7 +11,6 @@ return {
 	'jsonls',
 	'lemminx',
 	'lua_ls',
-	'phpactor',
 	'prismals',
 	'svelte',
 	'tailwindcss',
