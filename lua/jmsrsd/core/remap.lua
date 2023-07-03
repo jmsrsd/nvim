@@ -61,7 +61,7 @@ vim.keymap.set('n', '<leader>Y', '"+Y', { noremap = true })
 vim.keymap.set('n', '<leader>d', '"_d', { noremap = true })
 
 -- Escape key functionality in various modes
-vim.keymap.set(ALL_MODES, '<C-c>', '<C-;>', { noremap = true, desc = 'Escape' })
+vim.keymap.set(ALL_MODES, '<C-c>', '<Esc>', { noremap = true, desc = 'Escape' })
 vim.keymap.set(ALL_MODES, '<C-;>', '<Esc>', { noremap = true, desc = 'Escape' })
 
 -- Go to the next quickfix list item and center the cursor

@@ -40,6 +40,7 @@ vim.wo.signcolumn = "yes"
 vim.opt.scrolloff = 25
 
 -- Highlight current line number
+vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Disable line wrapping
