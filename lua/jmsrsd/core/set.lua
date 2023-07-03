@@ -14,6 +14,7 @@ vim.opt.smarttab = true
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
+vim.opt.expandtab = true
 
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"
