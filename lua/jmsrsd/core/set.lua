@@ -78,9 +78,9 @@ vim.opt.winblend = 0
 -- Enable true color support
 vim.opt.termguicolors = true
 
--- Set timeout for key codes
+-- Set timeout for key codes (folke/which-key.nvim recommendation)
 vim.opt.timeout = true
-vim.opt.timeoutlen = 5 * 1000
+vim.opt.timeoutlen = 300
 
 -- Decrease update time
 vim.opt.updatetime = 50
