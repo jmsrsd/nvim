@@ -94,7 +94,9 @@ vim.o.spelllang = ''
 
 -- Show hidden symbols
 vim.opt.list = true
-vim.opt.listchars = 'tab:→ ,space:·,nbsp:␣,trail:~,eol:↩,precedes:«,extends:»'
+
+-- `vim.opt.listchars` initial value 'tab:→ ,space:·,nbsp:␣,trail:~,eol:↩,precedes:«,extends:»'
+vim.opt.listchars = 'tab:→ ,space:·,nbsp:␣,trail:~,precedes:«,extends:»'
 
 -- Caret
 vim.opt.guicursor = 'a:block,a:blinkon250'
