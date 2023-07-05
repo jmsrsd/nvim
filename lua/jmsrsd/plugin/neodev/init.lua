@@ -37,7 +37,7 @@ local config = {
 local servers = require 'jmsrsd.plugin.lsp.lib.servers'
 
 for _, server in ipairs(servers) do
-  config['setup' .. tostring(server)] = true
+  config['setup_' .. tostring(server)] = true
 end
 
 require('neodev').setup(config)

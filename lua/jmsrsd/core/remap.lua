@@ -11,27 +11,33 @@ local ALL_MODES = { 'n', 's', 'x', 'o', 'i', 'c', 't' }
 
 -- Open Telescope File Browser
 vim.keymap.set('n', '<leader>oo', function()
-	vim.cmd('Telescope file_browser')
+  vim.cmd('Telescope file_browser')
 end, {
-	silent = true,
-	noremap = true,
-	desc = 'Open Telescope File Browser',
+  silent = true,
+  noremap = true,
+  desc = 'telesc[o]pe file br[o]wser',
 })
 
 -- Open Nvim Tree
 vim.keymap.set('n', '<leader>pp', function()
-	vim.cmd('NvimTreeFindFile')
+  vim.cmd('NvimTreeFindFile')
 end, {
-	silent = true,
-	noremap = true,
-	desc = 'Open Nvim Tree',
+  silent = true,
+  noremap = true,
+  desc = '[p]roject [p]ane',
 })
 
 -- Move selected lines in visual mode down
-vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', { noremap = true })
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', {
+  noremap = true,
+  desc = 'Move down the selected line in visual mode',
+})
 
 -- Move selected lines in visual mode up
-vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', { noremap = true })
+vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', {
+  noremap = true,
+  desc = 'Move up the selected line in visual mode',
+})
 
 -- Join lines and keep cursor position
 vim.keymap.set('n', 'J', 'mzJ`z', { noremap = true })
@@ -75,7 +81,7 @@ vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz', { noremap = true })
 
 -- Replace all occurrences of a word in the buffer
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>',
-	{ noremap = true, desc = 'Replace all word occurrences' })
+  { noremap = true, desc = 'Replace all word occurrences' })
 
 -- Smart up and down movement
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -88,22 +94,22 @@ vim.keymap.set('n', 'q', '<nop>', { noremap = true })
 
 -- Quick quit
 vim.keymap.set('n', '<leader>wq', function()
-	pcall(function() vim.cmd('exe "normal \\<CR>"') end)
-	if pcall(function() vim.cmd('wqa') end) == false then
-		pcall(function() vim.cmd('qa!') end)
-	end
+  pcall(function() vim.cmd('exe "normal \\<CR>"') end)
+  if pcall(function() vim.cmd('wqa') end) == false then
+    pcall(function() vim.cmd('qa!') end)
+  end
 end, {
-	silent = true,
-	noremap = true,
-	desc = 'Quick quit',
+  silent = true,
+  noremap = true,
+  desc = '[w]rite & [q]uit',
 })
 
 -- Save all
 vim.keymap.set('n', '<CR>', function()
-	local filepath = vim.fn.expand('%:p')
-	vim.cmd('w ' .. filepath)
-	vim.cmd('wa')
+  local filepath = vim.fn.expand('%:p')
+  vim.cmd('w ' .. filepath)
+  vim.cmd('wa')
 end, {
-	noremap = true,
-	desc = 'Save all',
+  noremap = true,
+  desc = 'Save all',
 })

@@ -1,4 +1,4 @@
 require('neosolarized').setup({
-	comment_italics = true,
-	background_set = false,
+  comment_italics = true,
+  background_set = false,
 })

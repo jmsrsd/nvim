@@ -27,18 +27,12 @@ lsp_zero.format_on_save({
 
 lsp_zero.ensure_installed(servers)
 
--- Fix Undefined global 'vim'
--- require 'jmsrsd.plugin.lua' ()
-
--- flutter-tools setup
--- require 'jmsrsd.plugin.flutter'
-
 lsp_zero.setup()
 
 -- diagnostic setup
 vim.diagnostic.config({
   virtual_text = true,
-  signs = false,
+  signs = true,
 })
 
 -- Enable update on insert autotag setup
@@ -48,7 +42,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     underline = true,
     virtual_text = {
       spacing = 5,
-      severity_limit = 'Warning',
+      severity_limit = 'Hint',
+      -- severity_limit = 'Warning',
     },
     update_in_insert = true,
   }

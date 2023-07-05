@@ -1,8 +1,8 @@
 local colors = require('onedark')
 
 colors.setup({
-	style = 'darker',
-	transparent = true,
+  style = 'darker',
+  transparent = true,
 })
 
 colors.load()

@@ -1,25 +1,34 @@
-require('peek').setup({
-  auto_load = true,         -- whether to automatically load preview when
-                            -- entering another markdown buffer
-  close_on_bdelete = true,  -- close preview window on buffer delete
+local peek = require 'peek'
 
-  syntax = true,            -- enable syntax highlighting, affects performance
+peek.setup({
+  --  whether to automatically load preview when entering another markdown buffer
+  auto_load = true,
 
-  theme = 'dark',           -- 'dark' or 'light'
+  -- close preview window on buffer delete
+  close_on_bdelete = true,
+
+  -- enable syntax highlighting, affects performance
+  syntax = true,
+
+  -- 'dark' or 'light'
+  theme = 'dark',
+
+  -- 'webview', 'browser', string or a table of strings explained below
+  app = 'webview',
+
+  -- list of filetypes to recognize as markdown
+  filetype = { 'markdown' },
 
   update_on_change = true,
 
-  app = 'webview',          -- 'webview', 'browser', string or a table of strings
-                            -- explained below
+  -- configs below are relevant if update_on_change is true
 
-  filetype = { 'markdown' },-- list of filetypes to recognize as markdown
+  -- start throttling when file exceeds this amount of bytes in size
+  throttle_at = 200000,
 
-  -- relevant if update_on_change is true
-  throttle_at = 200000,     -- start throttling when file exceeds this
-                            -- amount of bytes in size
-  throttle_time = 'auto',   -- minimum amount of time in milliseconds
-                            -- that has to pass before starting new render
+  -- minimum amount of time in milliseconds that has to pass before starting new render
+  throttle_time = 'auto',
 })
 
-vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
-vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
+vim.api.nvim_create_user_command('PeekOpen', peek.open, {})
+vim.api.nvim_create_user_command('PeekClose', peek.close, {})

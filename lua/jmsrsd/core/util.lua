@@ -10,4 +10,13 @@ M.getrelpath = function(str)
   return tostring(result)
 end
 
+M.getmodpath = function()
+  local curpath = vim.fn.expand('%:p')
+  local configpath = vim.fn.stdpath('config')
+  local relpath = curpath:sub(#configpath + 6, #curpath - 4)
+  local modpath = relpath:gsub('\\', '.')
+
+  return modpath
+end
+
 return M

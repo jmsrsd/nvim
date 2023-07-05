@@ -56,10 +56,6 @@ vim.opt.formatoptions = vim.opt.formatoptions + { 'r' }
 vim.opt.backup = false
 vim.opt.swapfile = false
 
--- Enable persistent undo
-vim.opt.undodir = vim.fn.stdpath('config') .. "/undodir/"
-vim.opt.undofile = true
-
 -- File type detection
 vim.opt.isfname = vim.opt.isfname + { "@-@" }
 
