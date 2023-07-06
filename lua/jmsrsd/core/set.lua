@@ -46,8 +46,8 @@ vim.opt.relativenumber = true
 -- Disable line wrapping
 vim.opt.wrap = false
 
--- Disable column marker
-vim.opt.colorcolumn = ""
+-- Enable column marker
+vim.opt.colorcolumn = "80"
 
 -- Enable auto-formatting
 vim.opt.formatoptions = vim.opt.formatoptions + { 'r' }

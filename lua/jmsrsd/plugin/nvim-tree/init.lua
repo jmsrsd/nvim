@@ -16,7 +16,9 @@ require("nvim-tree").setup {
   view = {
     adaptive_size = false,
     side = "right",
+    -- side = "left",
     width = 60,
+    -- width = 80,
     preserve_window_proportions = true,
   },
   git = {
