@@ -15,7 +15,7 @@ vim.keymap.set('n', '<leader>oo', function()
 end, {
   silent = true,
   noremap = true,
-  desc = 'telesc[o]pe file br[o]wser',
+  desc = 'Telesc[o]pe File Br[o]wser',
 })
 
 -- Open Nvim Tree
@@ -45,6 +45,10 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz', { noremap = true })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true })
 vim.keymap.set('n', 'n', 'nzzzv', { noremap = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { noremap = true })
+
+-- Go to first and last letter of a line
+vim.keymap.set('n', 'H', '^', { noremap = true })
+vim.keymap.set('n', 'L', '$', { noremap = true })
 
 -- Delete selected text in visual mode and copy to the black hole register
 vim.keymap.set('x', '<leader>p', '"_dp', { noremap = true })
