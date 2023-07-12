@@ -106,6 +106,9 @@ end, {
 
 -- Save all
 vim.keymap.set('n', '<CR>', function()
+  -- Make sure formatting is applied
+  pcall(vim.cmd.LspZeroFormat)
+
   local filepath = vim.fn.expand('%:p')
   vim.cmd('w ' .. filepath)
   vim.cmd('wa')
