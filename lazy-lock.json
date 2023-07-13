@@ -1,0 +1,11 @@
+{
+  "gruvbox.nvim": { "branch": "main", "commit": "df149bccb19a02c5c2b9fa6ec0716f0c0487feb0" },
+  "indent-blankline.nvim": { "branch": "master", "commit": "4541d690816cb99a7fc248f1486aa87f3abce91c" },
+  "lazy.nvim": { "branch": "main", "commit": "14d76aac4bd3ff07c1fca074c210f28f766a931e" },
+  "nvim-autopairs": { "branch": "master", "commit": "a16989a5453e0a0a8250deab340f429353876da4" },
+  "nvim-tree.lua": { "branch": "master", "commit": "a708bd2413d467929b5019ec1bce7b1f428438bc" },
+  "nvim-treesitter": { "branch": "master", "commit": "a51236f068547487ed34c3a32d9a0b3bf793afa7" },
+  "nvim-ts-autotag": { "branch": "main", "commit": "6be1192965df35f94b8ea6d323354f7dc7a557e4" },
+  "nvim-web-devicons": { "branch": "master", "commit": "9ab9b0b894b2388a9dbcdee5f00ce72e25d85bf9" },
+  "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" }
+}
