@@ -104,3 +104,7 @@ if vim.fn.has('persistent_undo') then
   vim.opt.undodir = target_path
   vim.opt.undofile = true
 end
+
+-- Set background color to always transparent
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

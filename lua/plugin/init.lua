@@ -8,6 +8,7 @@ return {
   plugin('nvim-web-devicons'),
   plugin('nvim-tree'),
   plugin('indent-blankline'),
+  plugin('dressing'),
   plugin('telescope'),
 
   -- Git
@@ -19,8 +20,14 @@ return {
   plugin('nvim-ts-autotag'),
 
   -- LSPs
-  plugin('lsp-zero'),
+  plugin('lsp-zero.base'),
+  plugin('lsp-zero.completion'),
+  plugin('lsp-zero.lsp'),
+
+  -- Prettier
+  plugin('prettier'),
 
   -- Others
   plugin('which-key'),
+  plugin('fidget'),
 }

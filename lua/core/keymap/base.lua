@@ -67,7 +67,7 @@ vim.keymap.set('n', '<leader>d', '"_d', { noremap = true })
 
 -- Replace all occurrences of a word in the buffer
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', {
-  noremap = true, 
+  noremap = true,
   desc = 'Replace all word occurrences',
 })
 
@@ -81,8 +81,8 @@ vim.keymap.set('n', 'Q', '<nop>', { noremap = true })
 vim.keymap.set('n', 'q', '<nop>', { noremap = true })
 
 -- Quick exit insert mode
-vim.keymap.set('i', 'jk', '<ESC>', {noremap = true, desc = 'Escape' })
-vim.keymap.set('i', 'jj', '<ESC>', {noremap = true, desc = 'Escape' })
+vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, desc = 'Escape' })
+vim.keymap.set('i', 'jj', '<ESC>', { noremap = true, desc = 'Escape' })
 
 -- Write & Quit
 vim.keymap.set('n', '<leader>wq', function()
@@ -96,7 +96,7 @@ end, { noremap = true, desc = '[w]rite & [q]uit' })
 -- Save all
 vim.keymap.set('n', '<CR>', function()
   local filepath = vim.fn.expand('%:p')
-  vim.cmd('w ' .. filepath)
-  vim.cmd('wa')
-end, { noremap = true, desc = 'Save all' })
 
+  pcall(function() vim.cmd('w ' .. filepath) end)
+  pcall(function() vim.cmd('wa') end)
+end, { noremap = true, desc = 'Save all' })
