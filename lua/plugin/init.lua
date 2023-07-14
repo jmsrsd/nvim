@@ -1,10 +1,26 @@
+local plugin = function(name)
+  return require('plugin.lib.' .. name)
+end
+
 return {
-  require('plugin.gruvbox'),
-  require('plugin.nvim-web-devicons'),
-  require('plugin.nvim-tree'),
-  require('plugin.indent-blankline'),
-  require('plugin.nvim-treesitter'),
-  require('plugin.nvim-autopairs'),
-  require('plugin.nvim-ts-autotag'),
-  require('plugin.which-key'),
+  -- UIs
+  plugin('gruvbox'),
+  plugin('nvim-web-devicons'),
+  plugin('nvim-tree'),
+  plugin('indent-blankline'),
+  plugin('telescope'),
+
+  -- Git
+  plugin('gitsigns'),
+
+  -- Parsers
+  plugin('nvim-treesitter'),
+  plugin('nvim-autopairs'),
+  plugin('nvim-ts-autotag'),
+
+  -- LSPs
+  plugin('lsp-zero'),
+
+  -- Others
+  plugin('which-key'),
 }

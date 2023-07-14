@@ -12,9 +12,6 @@ return {
     require("nvim-tree").setup({
       filters = {
         dotfiles = false,
-        custom = { 
-          'undodir',
-        },
       },
       disable_netrw = true,
       hijack_netrw = true,

@@ -13,18 +13,6 @@ local ALL_MODES = { 'n', 's', 'x', 'o', 'i', 'c', 't' }
 vim.keymap.set(ALL_MODES, '<C-c>', '<ESC>', { noremap = true, desc = 'Escape' })
 vim.keymap.set(ALL_MODES, '<C-;>', '<ESC>', { noremap = true, desc = 'Escape' })
 
--- Open project pane
-vim.keymap.set('n', '<leader>pp', function()
-  if vim.g.loaded_netrw ~= 1 then
-    pcall(vim.cmd.Ex)
-  else
-    pcall(vim.cmd.NvimTreeFindFile)
-  end
-end, {
-noremap = true,
-desc = '[p]roject [p]ane',
-})
-
 -- Move selected lines in visual mode down
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv', {
   noremap = true,
