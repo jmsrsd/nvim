@@ -4,9 +4,10 @@ end
 
 return {
   -- UIs
-  plugin('gruvbox'),
+  plugin('color.gruvbox-material'),
   plugin('nvim-web-devicons'),
   plugin('nvim-tree'),
+  plugin('lualine'),
   plugin('indent-blankline'),
   plugin('dressing'),
   plugin('telescope'),
@@ -30,4 +31,5 @@ return {
   -- Others
   plugin('which-key'),
   plugin('fidget'),
+  plugin('comment'),
 }

@@ -43,13 +43,11 @@ return {
       if server == 'lua_ls' then
         -- (Optional) Configure lua language server for neovim
         config.setup(lsp.nvim_lua_ls())
-
-        return
+      else
+        config.setup({
+          capabilities = capabilities,
+        })
       end
-
-      config.setup({
-        capabilities = capabilities,
-      })
     end
 
     lsp.setup()
