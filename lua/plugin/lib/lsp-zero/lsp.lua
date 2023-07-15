@@ -44,11 +44,12 @@ return {
         -- (Optional) Configure lua language server for neovim
         config.setup(lsp.nvim_lua_ls())
       else
-        config.setup({
-          capabilities = capabilities,
-        })
+        config.setup({ capabilities = capabilities })
       end
     end
+
+    local flutter = require('plugin.lib.flutter.config')
+    flutter(capabilities, on_attach).setup()
 
     lsp.setup()
   end

@@ -5,11 +5,15 @@ return {
     { 'L3MON4D3/LuaSnip' },
 
     -- Additionals
-    { 'hrsh7th/nvim-cmp' },
     { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-path' },
-    { 'saadparwaiz1/cmp_luasnip' },
     { 'hrsh7th/cmp-cmdline' },
+    { 'hrsh7th/cmp-nvim-lsp' },
+    { 'hrsh7th/cmp-path' },
+    { 'hrsh7th/nvim-cmp' },
+    { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+    { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+    { 'hrsh7th/cmp-calc' },
+    { 'saadparwaiz1/cmp_luasnip' },
     {
       'petertriho/cmp-git',
       dependencies = {
@@ -38,10 +42,13 @@ return {
         { name = 'path' },
         { name = 'luasnip' },
         { name = 'nvim_lua' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lsp_document_symbol' },
+        { name = 'calc' },
       }, {
         { name = 'buffer' },
-      }
-      ),
+      }),
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -51,7 +58,9 @@ return {
         -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
-        ['<BS>'] = cmp.mapping.abort(),
+        ['<ESC>'] = cmp.mapping.abort(),
+        ['<C-;>'] = cmp.mapping.abort(),
+        ['<C-c>'] = cmp.mapping.abort(),
         ['<C-p>'] = cmp.mapping(function()
           if cmp.visible() then
             cmp.select_prev_item(cmp_select_opts)
@@ -99,8 +108,7 @@ return {
           name = 'cmdline',
           option = { ignore_cmds = { 'Man', '!' } }
         }
-      }
-      )
+      })
     })
   end
 }

@@ -7,7 +7,6 @@ return {
     configs.setup({
 
       ensure_installed = {
-        "dart",
         "html",
         "javascript",
         "lua",
@@ -17,6 +16,9 @@ return {
         "vim",
         "vimdoc",
       },
+
+      -- List of parsers to ignore installing (for "all")
+      ignore_install = { "dart" },
 
       sync_install = true,
 

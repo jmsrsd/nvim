@@ -1,35 +1,62 @@
+local bind = function(key, action, desc)
+  vim.keymap.set('n', key, action, {
+    noremap = true,
+    desc = desc,
+  })
+end
+
+local check_telescope_supported = function()
+  local unsupported = {
+    'dart'
+  }
+
+  for _, filetype in ipairs(unsupported) do
+    if vim.bo.filetype == filetype then
+      return false
+    end
+  end
+
+  return true
+end
+
 return function(client, bufnr)
   -- lsp.default_keymaps({buffer = bufnr})
 
-  local bind = function(key, action, desc)
-    vim.keymap.set('n', key, action, {
-      noremap = true,
-      desc = desc,
-    })
-  end
-
   bind('K', vim.lsp.buf.hover, 'Display hover info')
+  bind('gD', vim.lsp.buf.declaration, 'Jump to declaration')
+  bind('gs', vim.lsp.buf.signature_help, 'Display signature info')
   bind('gd', function()
-    -- vim.lsp.buf.definition()
-    vim.cmd.Telescope('lsp_definitions')
+    if check_telescope_supported() then
+      vim.cmd.Telescope('lsp_definitions')
+    else
+      vim.lsp.buf.definition()
+    end
   end, 'Jump to definition')
   bind('go', function()
-    -- vim.lsp.buf.type_definition()
-    vim.cmd.Telescope('lsp_type_definitions')
+    if check_telescope_supported() then
+      vim.cmd.Telescope('lsp_type_definitions')
+    else
+      vim.lsp.buf.type_definition()
+    end
   end, 'Jump to type definition')
-  bind('gD', vim.lsp.buf.declaration, 'Jump to declaration')
   bind('gi', function()
-    -- vim.lsp.buf.implementation()
-    vim.cmd.Telescope('lsp_implementations')
+    if check_telescope_supported() then
+      vim.cmd.Telescope('lsp_implementations')
+    else
+      vim.lsp.buf.implementation()
+    end
   end, 'List all implementations')
-  bind('gs', vim.lsp.buf.signature_help, 'Display signature info')
 
-  bind('<leader>rr', function()
-    -- vim.lsp.buf.references()
-    vim.cmd.Telescope('lsp_references')
-  end, 'List all references')
+  -- <LEADER> based bindings
   bind('<leader>re', vim.lsp.buf.rename, 'Rename all references')
   bind('<leader>aa', vim.lsp.buf.code_action, 'Display code actions')
+  bind('<leader>rr', function()
+    if check_telescope_supported() then
+      vim.cmd.Telescope('lsp_references')
+    else
+      vim.lsp.buf.references()
+    end
+  end, 'List all references')
 
   -- Diagnostics
   bind('[d', vim.diagnostic.goto_prev, 'Move to previous diagnostic')

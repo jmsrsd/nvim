@@ -20,7 +20,10 @@ return {
   plugin('nvim-autopairs'),
   plugin('nvim-ts-autotag'),
 
-  -- LSPs
+  -- Flutter
+  plugin('flutter'),
+
+  -- LSP
   plugin('lsp-zero.base'),
   plugin('lsp-zero.completion'),
   plugin('lsp-zero.lsp'),
@@ -32,4 +35,5 @@ return {
   plugin('which-key'),
   plugin('fidget'),
   plugin('comment'),
+  plugin('close-buffers'),
 }

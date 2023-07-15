@@ -83,6 +83,7 @@ vim.keymap.set('n', 'q', '<nop>', { noremap = true })
 -- Quick exit insert mode
 vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, desc = 'Escape' })
 vim.keymap.set('i', 'jj', '<ESC>', { noremap = true, desc = 'Escape' })
+vim.keymap.set('i', 'kk', '<ESC>', { noremap = true, desc = 'Escape' })
 
 -- Write & Quit
 vim.keymap.set('n', '<leader>wq', function()
