@@ -33,20 +33,30 @@ vim.keymap.set('n', 'n', 'nzzzv', { noremap = true })
 vim.keymap.set('n', 'N', 'Nzzzv', { noremap = true })
 
 -- Go to first and last letter of current line
-vim.keymap.set('n', 'H', '^', { noremap = true })
-vim.keymap.set('n', 'L', '$', { noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'H', '^', { noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'L', '$', { noremap = true })
 
 -- Delete selected text in visual mode and copy to the black hole register
-vim.keymap.set('x', '<leader>p', '"_dp', { noremap = true })
+vim.keymap.set('x', '<leader>p', '"_dp', {
+  noremap = true,
+})
 
 -- Delete current line and copy to the black hole register
-vim.keymap.set('n', 'x', '"_x', { noremap = true })
+vim.keymap.set('n', 'x', '"_x', {
+  noremap = true,
+})
 
 -- Delete current word without saving it to the default register
-vim.keymap.set('n', 'dw', 'vb"_d', { noremap = true })
+vim.keymap.set('n', 'dw', 'vb"_d', {
+  noremap = true,
+  desc = 'Delete current word without saving it to the default register',
+})
 
 -- Select the entire buffer
-vim.keymap.set('n', '<C-a>', 'gg<S-v>G', { noremap = true })
+vim.keymap.set('n', '<C-a>', 'gg<S-v>G', {
+  noremap = true,
+  desc = 'Select all',
+})
 
 -- Copy to the system clipboard
 vim.keymap.set('n', '<leader>y', '"+y', { noremap = true })
@@ -54,16 +64,10 @@ vim.keymap.set('v', '<leader>y', '"+y', { noremap = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { noremap = true })
 
 -- Delete the current line without saving it to the default register
-vim.keymap.set('n', '<leader>d', '"_d', { noremap = true })
-
--- -- Go to the next quickfix list item and center the cursor
--- vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz', { noremap = true })
--- -- Go to the previous quickfix list item and center the cursor
--- vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz', { noremap = true })
--- -- Go to the next location list item and center the cursor
--- vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz', { noremap = true })
--- -- Go to the previous location list item and center the cursor
--- vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz', { noremap = true })
+vim.keymap.set('n', '<leader>d', '"_d', {
+  noremap = true,
+  desc = 'Delete the current line without saving it to the default register',
+})
 
 -- Replace all occurrences of a word in the buffer
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', {
