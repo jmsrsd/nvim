@@ -20,8 +20,6 @@ local check_telescope_supported = function()
 end
 
 return function(client, bufnr)
-  -- lsp.default_keymaps({buffer = bufnr})
-
   bind('K', vim.lsp.buf.hover, 'Display hover info')
   bind('gD', vim.lsp.buf.declaration, 'Jump to declaration')
   bind('gs', vim.lsp.buf.signature_help, 'Display signature info')
@@ -62,33 +60,5 @@ return function(client, bufnr)
   bind('[d', vim.diagnostic.goto_prev, 'Move to previous diagnostic')
   bind(']d', vim.diagnostic.goto_next, 'Move to next diagnostic')
 
-  -- Autoformat
-  local group = vim.api.nvim_create_augroup("lsp_format_on_save", {
-    clear = false,
-  })
-  local event = "BufWritePre" -- or "BufWritePost"
-  local async = event == "BufWritePost"
-
-  -- if client.supports_method("textDocument/formatting") then
-  vim.keymap.set("n", "<Leader>fj", function()
-    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-  end, { buffer = bufnr, desc = "[lsp] format" })
-
-  -- format on save
-  vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-  vim.api.nvim_create_autocmd(event, {
-    buffer = bufnr,
-    group = group,
-    callback = function()
-      vim.lsp.buf.format({ bufnr = bufnr, async = async })
-    end,
-    desc = "[lsp] format on save",
-  })
-  -- end
-
-  -- if client.supports_method("textDocument/rangeFormatting") then
-  vim.keymap.set("x", "<Leader>fj", function()
-    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-  end, { buffer = bufnr, desc = "[lsp] format" })
-  -- end
+  require('plugin.lib.null-ls.keymap')(client, bufnr)
 end

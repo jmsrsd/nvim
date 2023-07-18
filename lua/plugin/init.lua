@@ -27,6 +27,7 @@ return {
   plugin('lsp-zero.base'),
   plugin('lsp-zero.completion'),
   plugin('lsp-zero.lsp'),
+  plugin('null-ls'),
 
   -- Prettier
   plugin('prettier'),
