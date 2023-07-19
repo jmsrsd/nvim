@@ -3,7 +3,7 @@ local M = {}
 M.setup = function(lsp, lspconfig, capabilities, on_attach)
   -- Each servers binaries must be installed
   local servers = {
-    'eslint',      -- npm i -g vscode-langservers-extracted
+    -- 'eslint',      -- npm i -g vscode-langservers-extracted
     'denols',      -- scoop install deno
     'tsserver',    -- npm install -g typescript typescript-language-server
     'html',        -- npm i -g vscode-langservers-extracted
