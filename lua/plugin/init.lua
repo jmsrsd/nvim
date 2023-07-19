@@ -29,8 +29,9 @@ return {
   import('lsp-zero.lsp'),
   import('null-ls'),
 
-  -- Prettier
+  -- Webdev
   import('prettier'),
+  import('eslint'),
 
   -- Others
   import('which-key'),
