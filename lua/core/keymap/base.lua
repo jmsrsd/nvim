@@ -25,8 +25,13 @@ vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv', {
   desc = 'Move up the selected line in visual mode',
 })
 
+-- Remove newline at the end of the line
+vim.keymap.set('n', 'J', 'mzJ`z', {
+  noremap = true,
+  desc = 'Remove newline at the end of the line'
+})
+
 -- Join lines and keep cursor position
-vim.keymap.set('n', 'J', 'mzJ`z', { noremap = true })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { noremap = true })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true })
 vim.keymap.set('n', 'n', 'nzzzv', { noremap = true })
@@ -39,11 +44,13 @@ vim.keymap.set({ 'n', 'x' }, 'L', '$', { noremap = true })
 -- Delete selected text in visual mode and copy to the black hole register
 vim.keymap.set('x', '<leader>p', '"_dp', {
   noremap = true,
+  desc = 'Delete selected text in visual mode and copy to the black hole register',
 })
 
 -- Delete current line and copy to the black hole register
 vim.keymap.set('n', 'x', '"_x', {
   noremap = true,
+  desc = 'Delete current line and copy to the black hole register',
 })
 
 -- Delete current word without saving it to the default register
@@ -60,8 +67,8 @@ vim.keymap.set('n', '<C-a>', 'gg<S-v>G', {
 
 -- Copy to the system clipboard
 vim.keymap.set('n', '<leader>y', '"+y', { noremap = true })
-vim.keymap.set('v', '<leader>y', '"+y', { noremap = true })
 vim.keymap.set('n', '<leader>Y', '"+Y', { noremap = true })
+vim.keymap.set('v', '<leader>y', '"+y', { noremap = true })
 
 -- Delete the current line without saving it to the default register
 vim.keymap.set('n', '<leader>d', '"_d', {
@@ -79,15 +86,14 @@ vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Disable the default behavior of the Q key
+-- Disable the default behavior of the Q & q keys
 vim.keymap.set('n', 'Q', '<nop>', { noremap = true })
--- Disable the default behavior of the q key
 vim.keymap.set('n', 'q', '<nop>', { noremap = true })
 
 -- Quick exit insert mode
-vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, desc = 'Escape' })
-vim.keymap.set('i', 'jj', '<ESC>', { noremap = true, desc = 'Escape' })
-vim.keymap.set('i', 'kk', '<ESC>', { noremap = true, desc = 'Escape' })
+vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, desc = 'Exit insert mode' })
+vim.keymap.set('i', 'jj', '<ESC>', { noremap = true, desc = 'Exit insert mode' })
+vim.keymap.set('i', 'kk', '<ESC>', { noremap = true, desc = 'Exit insert mode' })
 
 -- Write & Quit
 vim.keymap.set('n', '<leader>wq', function()

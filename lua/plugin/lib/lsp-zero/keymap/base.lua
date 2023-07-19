@@ -5,7 +5,7 @@ local bind = function(key, action, desc)
   })
 end
 
-local check_telescope_supported = function()
+local support_telescope = function()
   local unsupported = {
     'dart'
   }
@@ -24,21 +24,21 @@ return function(client, bufnr)
   bind('gD', vim.lsp.buf.declaration, 'Jump to declaration')
   bind('gs', vim.lsp.buf.signature_help, 'Display signature info')
   bind('gd', function()
-    if check_telescope_supported() then
+    if support_telescope() then
       vim.cmd.Telescope('lsp_definitions')
     else
       vim.lsp.buf.definition()
     end
   end, 'Jump to definition')
   bind('go', function()
-    if check_telescope_supported() then
+    if support_telescope() then
       vim.cmd.Telescope('lsp_type_definitions')
     else
       vim.lsp.buf.type_definition()
     end
   end, 'Jump to type definition')
   bind('gi', function()
-    if check_telescope_supported() then
+    if support_telescope() then
       vim.cmd.Telescope('lsp_implementations')
     else
       vim.lsp.buf.implementation()
@@ -49,7 +49,7 @@ return function(client, bufnr)
   bind('<leader>re', vim.lsp.buf.rename, 'Rename all references')
   bind('<leader>aa', vim.lsp.buf.code_action, 'Display code actions')
   bind('<leader>rr', function()
-    if check_telescope_supported() then
+    if support_telescope() then
       vim.cmd.Telescope('lsp_references')
     else
       vim.lsp.buf.references()
@@ -59,6 +59,4 @@ return function(client, bufnr)
   -- Diagnostics
   bind('[d', vim.diagnostic.goto_prev, 'Move to previous diagnostic')
   bind(']d', vim.diagnostic.goto_next, 'Move to next diagnostic')
-
-  require('plugin.lib.null-ls.keymap')(client, bufnr)
 end

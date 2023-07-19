@@ -54,9 +54,6 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       mapping = {
-        -- ['<C-Space>'] = cmp.mapping.complete(),
-        -- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        -- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
         ['<TAB>'] = cmp.mapping.confirm({ select = true }),
         ['<ESC>'] = cmp.mapping.abort(),
         ['<C-;>'] = cmp.mapping.abort(),
@@ -84,8 +81,7 @@ return {
         { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
       }, {
         { name = 'buffer' },
-      }
-      )
+      })
     })
 
     require("cmp_git").setup()

@@ -1,40 +1,40 @@
-local plugin = function(name)
+local import = function(name)
   return require('plugin.lib.' .. name)
 end
 
 return {
   -- UIs
-  plugin('color.gruvbox-material'),
-  plugin('nvim-web-devicons'),
-  plugin('nvim-tree'),
-  plugin('lualine'),
-  plugin('indent-blankline'),
-  plugin('dressing'),
-  plugin('telescope'),
+  import('color.gruvbox-material'),
+  import('nvim-web-devicons'),
+  import('nvim-tree'),
+  import('lualine'),
+  import('indent-blankline'),
+  import('dressing'),
+  import('telescope'),
 
   -- Git
-  plugin('gitsigns'),
+  import('gitsigns'),
 
   -- Parsers
-  plugin('nvim-treesitter'),
-  plugin('nvim-autopairs'),
-  plugin('nvim-ts-autotag'),
+  import('nvim-treesitter'),
+  import('nvim-autopairs'),
+  import('nvim-ts-autotag'),
 
   -- Flutter
-  plugin('flutter'),
+  import('flutter'),
 
   -- LSP
-  plugin('lsp-zero.base'),
-  plugin('lsp-zero.completion'),
-  plugin('lsp-zero.lsp'),
-  plugin('null-ls'),
+  import('lsp-zero.base'),
+  import('lsp-zero.completion'),
+  import('lsp-zero.lsp'),
+  import('null-ls'),
 
   -- Prettier
-  plugin('prettier'),
+  import('prettier'),
 
   -- Others
-  plugin('which-key'),
-  plugin('fidget'),
-  plugin('comment'),
-  plugin('close-buffers'),
+  import('which-key'),
+  import('fidget'),
+  import('comment'),
+  import('close-buffers'),
 }
