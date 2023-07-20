@@ -1,15 +1,21 @@
 local M = {}
 
 M.setup = function(lsp, lspconfig, capabilities, on_attach)
+  lsp.skip_server_setup({
+    'denols',
+    -- 'tsserver',
+    -- 'eslint',
+  })
+
   -- Each servers binaries must be installed
   local servers = {
-    -- 'eslint',      -- npm i -g vscode-langservers-extracted
-    'denols',      -- scoop install deno
+    -- 'denols',      -- scoop install deno
     'tsserver',    -- npm install -g typescript typescript-language-server
+    'eslint',      -- npm i -g vscode-langservers-extracted
     'html',        -- npm i -g vscode-langservers-extracted
     'cssls',       -- npm i -g vscode-langservers-extracted
-    'tailwindcss', -- npm install -g @tailwindcss/language-server
     'jsonls',      -- npm i -g vscode-langservers-extracted
+    'tailwindcss', -- npm install -g @tailwindcss/language-server
     -- 'lua_ls'       -- scoop install lua-language-server
   }
 

@@ -20,18 +20,19 @@ return {
   import('nvim-autopairs'),
   import('nvim-ts-autotag'),
 
-  -- Flutter
+  -- Languages
   import('flutter'),
 
   -- LSP
   import('lsp-zero.base'),
   import('lsp-zero.completion'),
   import('lsp-zero.lsp'),
+
   import('null-ls'),
 
-  -- Webdev
-  import('prettier'),
-  import('eslint'),
+  -- TS/JS
+  -- import('prettier'),
+  -- import('eslint'),
 
   -- Others
   import('which-key'),
