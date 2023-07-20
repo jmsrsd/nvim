@@ -31,8 +31,8 @@ return {
   import('null-ls'),
 
   -- TS/JS
-  -- import('prettier'),
-  -- import('eslint'),
+  import('prettier'),
+  import('eslint'),
 
   -- Others
   import('which-key'),

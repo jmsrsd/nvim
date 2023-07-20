@@ -11,7 +11,7 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
   local servers = {
     -- 'denols',      -- scoop install deno
     'tsserver',    -- npm install -g typescript typescript-language-server
-    'eslint',      -- npm i -g vscode-langservers-extracted
+    -- 'eslint',      -- npm i -g vscode-langservers-extracted
     'html',        -- npm i -g vscode-langservers-extracted
     'cssls',       -- npm i -g vscode-langservers-extracted
     'jsonls',      -- npm i -g vscode-langservers-extracted
