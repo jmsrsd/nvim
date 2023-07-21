@@ -1,9 +1,17 @@
 local M = {}
 
 M.setup = function(capabilities, on_attach)
-  require('flutter-tools').setup({
-    flutter_path = os.getenv('userprofile')
-        .. '/scoop/persist/fvm/versions/3.10.5/bin/flutter.bat',
+  local ok, flutter_tools = pcall(function() return require('flutter-tools') end)
+
+  if not ok then
+    return
+  end
+
+  local flutter_path = os.getenv('HOME') .. '/fvm/versions/stable/bin/flutter'
+  -- local flutter_dir_path = flutter_path:match("(.*[/\\])")
+
+  flutter_tools.setup({
+    flutter_path = flutter_path,
     lsp = {
       capabilities = capabilities,
       on_attach = on_attach,

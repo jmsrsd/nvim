@@ -13,7 +13,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = true
 
 -- Clipboard
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard:append { "unnamed", "unnamedplus" }
 
 -- Case sensitivity
 vim.opt.ignorecase = true
@@ -94,7 +94,7 @@ vim.opt.listchars = 'tab:→ ,space:·,nbsp:␣,trail:~,precedes:«,extends:»'
 vim.opt.guicursor = 'a:block,a:blinkon50'
 
 -- Enable persistent undo
-if vim.fn.has('persistent_undo') then
+if vim.fn.has('persistent_undo') == 1 then
   local target_path = vim.fn.stdpath('config') .. "/undodir/"
 
   if vim.fn.isdirectory(target_path) then

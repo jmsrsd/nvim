@@ -1,8 +1,5 @@
 local bind = function(key, action, desc)
-  vim.keymap.set('n', key, action, {
-    noremap = true,
-    desc = desc,
-  })
+  vim.keymap.set('n', key, action, { noremap = true, desc = desc })
 end
 
 local support_telescope = function()
