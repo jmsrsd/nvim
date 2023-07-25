@@ -4,10 +4,12 @@ end
 
 return {
   -- UIs
-  import('color.gruvbox-material'),
+  import('color.tokyonight'),
+  -- import('color.gruvbox-material'),
   import('nvim-web-devicons'),
   import('nvim-tree'),
   import('lualine'),
+  -- import('transparent'),
   import('indent-blankline'),
   import('dressing'),
   import('telescope'),
