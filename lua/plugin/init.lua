@@ -21,7 +21,7 @@ return {
   import('nvim-ts-autotag'),
 
   -- Languages
-  import('flutter'),
+  -- import('flutter'),
 
   -- LSP
   import('lsp-zero.base'),
