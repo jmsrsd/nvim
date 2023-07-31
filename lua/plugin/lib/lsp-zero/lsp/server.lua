@@ -3,27 +3,29 @@ local M = {}
 M.setup = function(lsp, lspconfig, capabilities, on_attach)
   lsp.skip_server_setup({
     'denols',
-    -- 'tsserver',
+    -- 'lua_ls',
     -- 'eslint',
   })
 
   -- Each servers binaries must be installed
   local servers = {
     -- 'denols',      -- scoop install deno
-    'tsserver',    -- npm install -g typescript typescript-language-server
+    -- 'lua_ls',      -- brew install lua-language-server
     -- 'eslint',      -- npm i -g vscode-langservers-extracted
+    'tsserver',    -- npm i -g typescript typescript-language-server
     'html',        -- npm i -g vscode-langservers-extracted
     'cssls',       -- npm i -g vscode-langservers-extracted
     'jsonls',      -- npm i -g vscode-langservers-extracted
-    'tailwindcss', -- npm install -g @tailwindcss/language-server
-    -- 'lua_ls'       -- scoop install lua-language-server
+    'tailwindcss', -- npm i -g @tailwindcss/language-server
   }
 
   for _, server in ipairs(servers) do
     lspconfig[server].setup({ capabilities = capabilities })
   end
 
-  lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+  lspconfig.lua_ls.setup(
+    lsp.nvim_lua_ls() -- brew install lua-language-server
+  )
 
   local flutter = require('plugin.lib.flutter.config')
   flutter.setup(capabilities, on_attach)

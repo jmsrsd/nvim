@@ -24,6 +24,7 @@ return {
 
   -- Languages
   import('flutter'),
+  import('kitty'),
 
   -- LSP
   import('lsp-zero.base'),
