@@ -24,8 +24,8 @@ return {
       diagnostics = {
         enable = true,
         report_unused_disable_directives = false,
-        run_on = "save",
-        -- run_on = "type", -- or `save`
+        run_on = "type", -- or `save`
+        -- run_on = "save",
       },
     })
   end,
