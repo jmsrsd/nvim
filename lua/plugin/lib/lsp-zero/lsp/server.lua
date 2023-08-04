@@ -11,8 +11,8 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
   local servers = {
     -- 'denols',      -- scoop install deno
     -- 'lua_ls',      -- brew install lua-language-server
-    -- 'eslint',      -- npm i -g vscode-langservers-extracted
     'tsserver',    -- npm i -g typescript typescript-language-server
+    -- 'eslint',      -- npm i -g vscode-langservers-extracted
     'html',        -- npm i -g vscode-langservers-extracted
     'cssls',       -- npm i -g vscode-langservers-extracted
     'jsonls',      -- npm i -g vscode-langservers-extracted
@@ -20,14 +20,18 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
   }
 
   for _, server in ipairs(servers) do
-    lspconfig[server].setup({ capabilities = capabilities })
+    lspconfig[server].setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
   end
 
-  lspconfig.lua_ls.setup(
-    lsp.nvim_lua_ls() -- brew install lua-language-server
-  )
+  local lua_ls_config = lsp.nvim_lua_ls() -- brew install lua-language-server
+  lua_ls_config.on_attach = on_attach
+  lspconfig.lua_ls.setup(lua_ls_config)
 
   local flutter = require('plugin.lib.flutter.config')
+
   flutter.setup(capabilities, on_attach)
 end
 

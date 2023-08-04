@@ -7,8 +7,9 @@ M.setup = function()
     requires = {
       { "nvim-lua/plenary.nvim" },
     },
-    update_in_insert = true,
+    -- update_in_insert = true,
     on_attach = require('plugin.lib.lsp-zero.keymap'),
+    -- on_attach = require('plugin.lib.null-ls.keymap'),
   })
 end
 

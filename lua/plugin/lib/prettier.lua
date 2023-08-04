@@ -8,7 +8,7 @@ return {
     local prettier = require("prettier")
 
     prettier.setup({
-      bin = 'prettierd', -- brew install fsouza/prettierd/prettierd
+      bin = 'prettierd', -- npm install -g @fsouza/prettierd
       -- bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
       filetypes = {
         "css",
@@ -36,12 +36,12 @@ return {
       --     -- return false to skip running prettier
       --     return true
       --   end,
-      --   timeout = 5000,
+      --   timeout = 10000,
       -- },
-      cli_options = {
-        -- https://prettier.io/docs/en/cli.html#--config-precedence
-        config_precedence = "prefer-file", -- or "cli-override" or "file-override"
-      },
+      -- cli_options = {
+      --   -- https://prettier.io/docs/en/cli.html#--config-precedence
+      --   config_precedence = "prefer-file", -- or "cli-override" or "file-override"
+      -- },
     })
   end,
 }
