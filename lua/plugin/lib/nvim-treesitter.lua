@@ -10,6 +10,7 @@ return {
     configs.setup({
 
       ensure_installed = {
+        "astro",
         "html",
         "javascript",
         "json",

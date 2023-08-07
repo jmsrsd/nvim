@@ -17,6 +17,7 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
     'cssls',       -- npm i -g vscode-langservers-extracted
     'jsonls',      -- npm i -g vscode-langservers-extracted
     'tailwindcss', -- npm i -g @tailwindcss/language-server
+    'astro',       -- npm install -g @astrojs/language-server
   }
 
   for _, server in ipairs(servers) do

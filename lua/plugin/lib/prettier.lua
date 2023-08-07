@@ -11,6 +11,7 @@ return {
       bin = 'prettierd', -- npm install -g @fsouza/prettierd
       -- bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
       filetypes = {
+        "astro",
         "css",
         "graphql",
         "html",

@@ -4,6 +4,7 @@ return {
     { 'neovim/nvim-lspconfig' },
   },
   filetypes = {
+    "astro",
     "css",
     "dart",
     "graphql",
