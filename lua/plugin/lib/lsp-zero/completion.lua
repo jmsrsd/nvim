@@ -25,10 +25,11 @@ return {
     -- Here is where you configure the autocompletion settings.
     -- The arguments for .extend() have the same shape as `manage_nvim_cmp`:
     -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/api-reference.md#manage_nvim_cmp
-
+    --
     require('lsp-zero.cmp').extend()
 
     -- And you can configure cmp even more, if you want to.
+    --
     local cmp = require('cmp')
     local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
@@ -76,9 +77,13 @@ return {
     })
 
     -- Set configuration for specific filetype.
+    --
     cmp.setup.filetype('gitcommit', {
       sources = cmp.config.sources({
-        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+        -- You can specify the `git` source
+        -- if [you were installed it](https://github.com/petertriho/cmp-git).
+        --
+        { name = 'git' },
       }, {
         { name = 'buffer' },
       })
@@ -86,7 +91,9 @@ return {
 
     require("cmp_git").setup()
 
-    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+    -- Use buffer source for `/` and `?`
+    -- (if you enabled `native_menu`, this won't work anymore).
+    --
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
@@ -94,7 +101,9 @@ return {
       }
     })
 
-    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    -- Use cmdline & path source for ':'
+    -- (if you enabled `native_menu`, this won't work anymore).
+    --
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({

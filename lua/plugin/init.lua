@@ -16,6 +16,7 @@ return {
 
   -- Git
   import('gitsigns'),
+  import('gitblame'),
 
   -- Parsers
   import('nvim-treesitter'),

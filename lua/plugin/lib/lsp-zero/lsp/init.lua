@@ -18,14 +18,19 @@ return {
   },
   config = function()
     -- This is where all the LSP shenanigans will live
-
+    --
     local lsp = require('lsp-zero')
     local lspconfig = require('lspconfig')
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
     local on_attach = require('plugin.lib.lsp-zero.keymap')
 
     local server = require('plugin.lib.lsp-zero.lsp.server')
-    server.setup(lsp, lspconfig, capabilities, on_attach)
+    server.setup(
+      lsp,
+      lspconfig,
+      capabilities,
+      on_attach
+    )
 
     lsp.on_attach(on_attach)
     lsp.setup()

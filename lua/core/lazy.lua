@@ -1,4 +1,7 @@
+---@diagnostic disable: deprecated
+
 -- Install
+--
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -13,8 +16,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup
+--
 require('lazy').setup(require('plugin'), {
   -- Copied from NvChad
+  --
   performance = {
     rtp = {
       disabled_plugins = {
@@ -30,8 +35,7 @@ require('lazy').setup(require('plugin'), {
         "netrwFileHandlers",
         "matchit",
         "tar",
-        "tarPlugin",
-        "rrhelper",
+        "tarPlugin", "rrhelper",
         "spellfile_plugin",
         "vimball",
         "vimballPlugin",

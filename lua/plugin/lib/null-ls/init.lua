@@ -22,7 +22,6 @@ return {
   },
   config = function()
     local config = require('plugin.lib.null-ls.config')
-
     config.setup()
   end,
 }

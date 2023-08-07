@@ -14,14 +14,38 @@ M.setup = function(capabilities, on_attach)
     flutter_path = flutter_path,
     lsp = {
       capabilities = capabilities,
+
       on_attach = on_attach,
-      color = {                                        -- show the derived colours for dart variables
-        enabled = true,                                -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-        background = false,                            -- highlight the background
-        background_color = { r = 10, g = 10, b = 10 }, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-        foreground = false,                            -- highlight the foreground
-        virtual_text = true,                           -- show the highlight using virtual text
-        virtual_text_str = "■",                      -- the virtual text character to highlight
+
+      -- show the derived colours for dart variables
+      --
+      color = {
+
+        -- whether or not to highlight color variables at all,
+        -- only supported on flutter >= 2.10
+        --
+        enabled = true,
+
+        -- highlight the background
+        --
+        background = false,
+
+        -- required, when background is transparent
+        -- (i.e. background_color = { r = 19, g = 17, b = 24},)
+        --
+        background_color = { r = 10, g = 10, b = 10 },
+
+        -- highlight the foreground
+        --
+        foreground = false,
+
+        -- show the highlight using virtual text
+        --
+        virtual_text = true,
+
+        -- the virtual text character to highlight
+        --
+        virtual_text_str = "■",
       },
     },
     decorations = {

@@ -3,6 +3,8 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
+    -- Setup tokyonight
+    --
     require('tokyonight').setup({
       style = 'night',
       transparent = true,
@@ -15,6 +17,8 @@ return {
       lualine_bold = true,
     })
 
+    -- Apply tokyonight
+    --
     vim.cmd('colorscheme tokyonight')
   end,
 }
