@@ -1,15 +1,15 @@
 local M = {}
 
 M.setup = function()
-  local null_ls = require("null-ls")
+  local on_attach = require('plugin.lib.lsp-zero.keymap')
+  local root_dir = vim.loop.cwd
 
-  null_ls.setup({
-    requires = {
-      { "nvim-lua/plenary.nvim" },
-    },
+  require("null-ls").setup({
     -- update_in_insert = true,
-    on_attach = require('plugin.lib.lsp-zero.keymap'),
     -- on_attach = require('plugin.lib.null-ls.keymap'),
+    border = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    on_attach = on_attach,
+    root_dir = root_dir,
   })
 end
 

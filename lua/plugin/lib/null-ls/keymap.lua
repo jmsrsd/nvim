@@ -1,11 +1,15 @@
 local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
 local event = "BufWritePre" -- or "BufWritePost"
 local async = event == "BufWritePost"
+local timeout_ms = 5000
 
 return function(client, bufnr)
   if client.supports_method("textDocument/formatting") then
     vim.keymap.set("n", "<leader>fj", function()
-      vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      vim.lsp.buf.format({
+        bufnr = vim.api.nvim_get_current_buf(),
+        timeout_ms = timeout_ms
+      })
     end, { buffer = bufnr, desc = "[lsp] format" })
 
     -- format on save
@@ -14,7 +18,11 @@ return function(client, bufnr)
       buffer = bufnr,
       group = group,
       callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        vim.lsp.buf.format({
+          bufnr = bufnr,
+          async = async,
+          timeout_ms = timeout_ms
+        })
       end,
       desc = "[lsp] format on save",
     })
@@ -22,7 +30,10 @@ return function(client, bufnr)
 
   if client.supports_method("textDocument/rangeFormatting") then
     vim.keymap.set("x", "<leader>fj", function()
-      vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      vim.lsp.buf.format({
+        bufnr = vim.api.nvim_get_current_buf(),
+        timeout_ms = timeout_ms
+      })
     end, { buffer = bufnr, desc = "[lsp] format" })
   end
 end

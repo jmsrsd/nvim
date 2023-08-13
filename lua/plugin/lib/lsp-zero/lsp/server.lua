@@ -15,11 +15,11 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
 
     -- npm i -g vscode-langservers-extracted
     --
-    'tsserver',
+    -- 'tsserver',
+    -- 'eslint',
     'html',
     'cssls',
     'jsonls',
-    -- 'eslint',
 
     -- npm i -g @tailwindcss/language-server
     --
@@ -36,6 +36,22 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
       capabilities = capabilities,
     })
   end
+
+  lspconfig.tsserver.setup({
+    on_attach = on_attach,
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescript.tsx",
+      "typescriptreact",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    cmd = { "typescript-language-server", "--stdio" }
+  })
 
   -- brew install lua-language-server
   --
