@@ -1,5 +1,3 @@
----@diagnostic disable: deprecated
-
 -- Install
 --
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

@@ -4,9 +4,10 @@ end
 
 return {
   -- UIs
+  --
   import('color.tokyonight'),
   -- import('color.gruvbox-material'),
-  import('nvim-web-devicons'),
+  import('icons'),
   import('nvim-tree'),
   import('lualine'),
   -- import('transparent'),
@@ -15,29 +16,35 @@ return {
   import('telescope'),
 
   -- Git
+  --
   import('gitsigns'),
   import('gitblame'),
 
   -- Parsers
-  import('nvim-treesitter'),
-  import('nvim-autopairs'),
-  import('nvim-ts-autotag'),
+  --
+  import('treesitter'),
+  import('autopairs'),
+  import('autotag'),
 
   -- Languages
+  --
   import('flutter'),
   import('kitty'),
 
   -- LSP
+  --
   import('lsp-zero.base'),
   import('lsp-zero.completion'),
   import('null-ls'),
   import('lsp-zero.lsp'),
 
   -- TS/JS
+  --
   import('prettier'),
   import('eslint'),
 
   -- Others
+  --
   import('which-key'),
   import('fidget'),
   import('comment'),

@@ -4,7 +4,10 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'hrsh7th/cmp-nvim-lsp' },
-    { -- Mason
+
+    -- Mason
+    --
+    {
       'williamboman/mason.nvim',
       build = function()
         local update = function()
