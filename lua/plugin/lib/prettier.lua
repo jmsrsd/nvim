@@ -16,12 +16,14 @@ return {
         "graphql",
         "html",
         "javascript",
+        "javascript.jsx",
         "javascriptreact",
         "json",
         "less",
         "markdown",
         "scss",
         "typescript",
+        "typescript.tsx",
         "typescriptreact",
         "yaml",
       },
@@ -32,7 +34,6 @@ return {
             check_package_json = true,
           })
         end,
-        ---@diagnostic disable-next-line: unused-local
         runtime_condition = function(params)
           -- return false to skip running prettier
           return true

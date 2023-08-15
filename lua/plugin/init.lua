@@ -30,9 +30,8 @@ return {
   -- LSP
   import('lsp-zero.base'),
   import('lsp-zero.completion'),
-  import('lsp-zero.lsp'),
-
   import('null-ls'),
+  import('lsp-zero.lsp'),
 
   -- TS/JS
   import('prettier'),

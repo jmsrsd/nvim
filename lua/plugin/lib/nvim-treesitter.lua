@@ -23,7 +23,7 @@ return {
       },
 
       -- List of parsers to ignore installing (for "all")
-      ignore_install = { "dart" },
+      ignore_install = { "dart", "java" },
 
       sync_install = true,
 

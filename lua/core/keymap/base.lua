@@ -122,6 +122,7 @@ bind('i', 'kk', '<ESC>', { desc = 'Exit insert mode' })
 --
 bind('n', '<leader>wq', function()
   pcall(function() vim.cmd('exe "normal \\<CR>"') end)
+  pcall(function() vim.cmd('silent! !prettierd stop') end)
 
   if pcall(vim.cmd.wqa) == false then
     pcall(function() vim.cmd('qa!') end)

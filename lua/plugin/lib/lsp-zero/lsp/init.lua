@@ -4,8 +4,7 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'hrsh7th/cmp-nvim-lsp' },
-    { 'williamboman/mason-lspconfig.nvim' },
-    {
+    { -- Mason
       'williamboman/mason.nvim',
       build = function()
         local update = function()
@@ -15,6 +14,7 @@ return {
         pcall(update)
       end,
     },
+    { 'williamboman/mason-lspconfig.nvim' },
   },
   config = function()
     -- This is where all the LSP shenanigans will live
