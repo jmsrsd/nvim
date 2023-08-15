@@ -13,6 +13,7 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
     -- 'denols',      -- scoop install deno
     'lua_ls', -- brew install lua-language-server
     -- 'efm',    -- brew install efm-langserver
+    'jdtls',  -- brew install jdtls
 
     -- npm i -g vscode-langservers-extracted
     --

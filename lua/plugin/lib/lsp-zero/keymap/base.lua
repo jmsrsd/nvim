@@ -3,50 +3,61 @@ local bind = function(key, action, desc)
 end
 
 local telescope = function(fn)
-  return pcall(function()
-    vim.cmd.Telescope(fn)
-  end)
+  local ignored_filetypes = {
+    'dart',
+    'java',
+  }
+
+  for _, filetype in ipairs(ignored_filetypes) do
+    if filetype == vim.bo.filetype then
+      return false
+    end
+  end
+
+  vim.cmd.Telescope(fn)
+
+  return true
 end
 
 return function(client, bufnr)
   bind('K', vim.lsp.buf.hover, 'Display hover info')
 
-  bind('gD', vim.lsp.buf.declaration, 'Jump to declaration')
+  bind('gD', vim.lsp.buf.declaration, '[g]o to [D]eclaration')
 
-  bind('gs', vim.lsp.buf.signature_help, 'Display signature info')
+  bind('gs', vim.lsp.buf.signature_help, '[g]o to [s]ignature info')
 
   bind('gd', function()
     if not telescope('lsp_definitions') then
-      pcall(vim.lsp.buf.definition)
+      vim.lsp.buf.definition()
     end
-  end, 'Jump to definition')
+  end, '[g]o to [d]efinition')
 
   bind('go', function()
     if not telescope('lsp_type_definitions') then
-      pcall(vim.lsp.buf.type_definition)
+      vim.lsp.buf.type_definition()
     end
-  end, 'Jump to type definition')
+  end, '[go] to type definition')
 
   bind('gi', function()
     if not telescope('lsp_implementations') then
-      pcall(vim.lsp.buf.implementation)
+      vim.lsp.buf.implementation()
     end
-  end, 'List all implementations')
+  end, '[g]o to the all [i]mplementations')
 
   -- <LEADER> based bindings
   --
-  bind('<leader>re', vim.lsp.buf.rename, 'Rename all references')
+  bind('<leader>re', vim.lsp.buf.rename, '[re]name all references')
 
-  bind('<leader>aa', vim.lsp.buf.code_action, 'Display code actions')
+  bind('<leader>aa', vim.lsp.buf.code_action, 'Displ[a]y code [a]ctions')
 
   bind('<leader>rr', function()
     if not telescope('lsp_references') then
-      pcall(vim.lsp.buf.references)
+      vim.lsp.buf.references()
     end
-  end, 'List all references')
+  end, 'List all [r]efe[r]ences')
 
   -- Diagnostics
   --
-  bind('[d', vim.diagnostic.goto_prev, 'Move to previous diagnostic')
-  bind(']d', vim.diagnostic.goto_next, 'Move to next diagnostic')
+  bind('[d', vim.diagnostic.goto_prev, 'Move to previous [d]iagnostic')
+  bind(']d', vim.diagnostic.goto_next, 'Move to next [d]iagnostic')
 end

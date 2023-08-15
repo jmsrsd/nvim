@@ -12,6 +12,7 @@ return {
       ensure_installed = {
         "astro",
         "html",
+        "java",
         "javascript",
         "json",
         "lua",
@@ -23,7 +24,7 @@ return {
       },
 
       -- List of parsers to ignore installing (for "all")
-      ignore_install = { "dart", "java" },
+      ignore_install = { "dart" },
 
       sync_install = true,
 
