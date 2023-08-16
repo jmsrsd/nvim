@@ -8,4 +8,6 @@ vim.keymap.set('n', '<leader>pp', function()
   else
     pcall(vim.cmd.NvimTreeFindFile)
   end
+
+  pcall(function() require('close_buffers').wipe({ type = 'other' }) end)
 end, { noremap = true, desc = '[p]roject [p]ane' })
