@@ -1,5 +1,13 @@
-local bind = function(key, action, desc)
-  vim.keymap.set('n', key, action, { noremap = true, desc = desc })
+local bind = function(config)
+  vim.keymap.set(
+    'n',
+    config.key,
+    config.action,
+    {
+      noremap = true,
+      desc = config.desc,
+    }
+  )
 end
 
 local telescope = function(fn)
@@ -20,44 +28,99 @@ local telescope = function(fn)
 end
 
 return function(client, bufnr)
-  bind('K', vim.lsp.buf.hover, 'Display hover info')
+  bind {
+    key = 'K',
+    action = vim.lsp.buf.hover,
+    desc = 'Display hover info',
+  }
 
-  bind('gD', vim.lsp.buf.declaration, '[g]o to [D]eclaration')
+  bind {
+    key = 'gD',
+    action = vim.lsp.buf.declaration,
+    desc = '[g]o to [D]eclaration',
+  }
 
-  bind('gs', vim.lsp.buf.signature_help, '[g]o to [s]ignature info')
+  bind {
+    key = 'gs',
+    action = vim.lsp.buf.signature_help,
+    desc = '[g]o to [s]ignature info',
+  }
 
-  bind('gd', function()
-    if not telescope('lsp_definitions') then
-      vim.lsp.buf.definition()
-    end
-  end, '[g]o to [d]efinition')
+  bind {
+    key = 'gd',
+    action = function()
+      if not telescope('lsp_definitions') then
+        vim.lsp.buf.definition()
+      end
+    end,
+    desc = '[g]o to [d]efinition'
+  }
 
-  bind('go', function()
-    if not telescope('lsp_type_definitions') then
-      vim.lsp.buf.type_definition()
-    end
-  end, '[go] to type definition')
+  bind {
+    key = 'go',
+    action = function()
+      if not telescope('lsp_type_definitions') then
+        vim.lsp.buf.type_definition()
+      end
+    end,
+    desc = '[go] to type definition'
+  }
 
-  bind('gi', function()
-    if not telescope('lsp_implementations') then
-      vim.lsp.buf.implementation()
-    end
-  end, '[g]o to the all [i]mplementations')
+  bind {
+    key = 'gi',
+    action = function()
+      if not telescope('lsp_implementations') then
+        vim.lsp.buf.implementation()
+      end
+    end,
+    desc = '[g]o to the all [i]mplementations'
+  }
 
-  -- <LEADER> based bindings
+  -- <leader> based bindings
   --
-  bind('<leader>re', vim.lsp.buf.rename, '[re]name all references')
+  bind {
+    key = '<leader>re',
+    action = vim.lsp.buf.rename,
+    desc = '[re]name all references'
+  }
 
-  bind('<leader>aa', vim.lsp.buf.code_action, 'Displ[a]y code [a]ctions')
+  bind {
+    key = '<leader>aa',
+    action = vim.lsp.buf.code_action,
+    desc = 'Displ[a]y code [a]ctions'
+  }
 
-  bind('<leader>rr', function()
-    if not telescope('lsp_references') then
-      vim.lsp.buf.references()
-    end
-  end, 'List all [r]efe[r]ences')
+  bind {
+    key = '<leader>rr',
+    action = function()
+      if not telescope('lsp_references') then
+        vim.lsp.buf.references()
+      end
+    end,
+    desc = 'List all [r]efe[r]ences'
+  }
 
   -- Diagnostics
   --
-  bind('[d', vim.diagnostic.goto_prev, 'Move to previous [d]iagnostic')
-  bind(']d', vim.diagnostic.goto_next, 'Move to next [d]iagnostic')
+  bind {
+    key = '[d',
+    action = vim.diagnostic.goto_prev,
+    desc = 'Move to previous [d]iagnostic'
+  }
+
+  bind {
+    key = ']d',
+    action = vim.diagnostic.goto_next,
+    desc = 'Move to next [d]iagnostic'
+  }
+
+  -- Browse media files
+  --
+  bind {
+    key = '<leader>mf',
+    action = function()
+      vim.cmd.Telescope 'media_files'
+    end,
+    desc = 'Browse [m]edia [f]iles'
+  }
 end

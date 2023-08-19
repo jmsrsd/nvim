@@ -22,34 +22,44 @@ return {
     },
   },
   config = function()
+    local cmp = require 'cmp'
+    local cmp_git = require 'cmp_git'
+    local cmp_lsp_zero = require 'lsp-zero.cmp'
+
+    local luasnip = require 'luasnip'
+
     -- Here is where you configure the autocompletion settings.
     -- The arguments for .extend() have the same shape as `manage_nvim_cmp`:
     -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/api-reference.md#manage_nvim_cmp
     --
-    require('lsp-zero.cmp').extend()
+    cmp_lsp_zero.extend()
 
     -- And you can configure cmp even more, if you want to.
     --
-    local cmp = require('cmp')
-    local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
+    local cmp_select_opts = {
+      behavior = cmp.SelectBehavior.Select,
+    }
 
-    cmp.setup({
+    cmp.setup {
       snippet = {
         expand = function(args)
-          require('luasnip').lsp_expand(args.body)
+          luasnip.lsp_expand(args.body)
         end
       },
-      sources = cmp.config.sources({
-        { name = 'path' },
-        { name = 'luasnip' },
-        { name = 'nvim_lua' },
-        { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'nvim_lsp_document_symbol' },
-        { name = 'calc' },
-      }, {
-        { name = 'buffer' },
-      }),
+      sources = cmp.config.sources(
+        {
+          { name = 'path' },
+          { name = 'luasnip' },
+          { name = 'nvim_lua' },
+          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
+          { name = 'nvim_lsp_document_symbol' },
+          { name = 'calc' },
+        },
+        {
+          { name = 'buffer' },
+        }
+      ),
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -74,46 +84,56 @@ return {
           end
         end),
       }
-    })
+    }
 
     -- Set configuration for specific filetype.
     --
-    cmp.setup.filetype('gitcommit', {
-      sources = cmp.config.sources({
-        -- You can specify the `git` source
-        -- if [you were installed it](https://github.com/petertriho/cmp-git).
-        --
-        { name = 'git' },
-      }, {
-        { name = 'buffer' },
-      })
-    })
-
-    require("cmp_git").setup()
-
-    -- Use buffer source for `/` and `?`
-    -- (if you enabled `native_menu`, this won't work anymore).
-    --
-    cmp.setup.cmdline({ '/', '?' }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = 'buffer' }
+    cmp.setup.filetype(
+      'gitcommit',
+      {
+        sources = cmp.config.sources(
+          {
+            { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+          },
+          {
+            { name = 'buffer' },
+          }
+        )
       }
-    })
+    )
 
-    -- Use cmdline & path source for ':'
-    -- (if you enabled `native_menu`, this won't work anymore).
+    cmp_git.setup()
+
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
     --
-    cmp.setup.cmdline(':', {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = 'path' }
-      }, {
-        {
-          name = 'cmdline',
-          option = { ignore_cmds = { 'Man', '!' } }
+    cmp.setup.cmdline(
+      { '/', '?' },
+      {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
         }
-      })
-    })
+      }
+    )
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    --
+    cmp.setup.cmdline(
+      ':',
+      {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources(
+          {
+            { name = 'path' }
+          },
+          {
+            {
+              name = 'cmdline',
+              option = { ignore_cmds = { 'Man', '!' } }
+            }
+          }
+        )
+      }
+    )
   end
 }

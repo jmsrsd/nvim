@@ -1,18 +1,18 @@
-local import = function(name)
-  return require('plugin.lib.' .. name)
-end
+local import = require 'plugin.import'
 
 return {
-  -- UIs
+  -- Colorscheme
   --
   import 'color.tokyonight',
-  -- import'color.gruvbox-material',
+
+  -- UIs
+  --
   import 'icons',
   import 'nvim-tree',
   import 'lualine',
-  -- import'transparent',
   import 'indent-blankline',
   import 'dressing',
+  import 'notify',
   import 'telescope',
 
   -- Git

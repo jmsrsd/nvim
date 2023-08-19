@@ -5,7 +5,9 @@ return {
   config = function()
     -- Setup tokyonight
     --
-    require('tokyonight').setup({
+    local tokyonight = require 'tokyonight'
+
+    tokyonight.setup {
       style = 'night',
       transparent = true,
       styles = {
@@ -15,10 +17,10 @@ return {
       sidebars = { "qf", "vista_kind", "terminal", "packer" },
       hide_inactive_statusline = true,
       lualine_bold = true,
-    })
+    }
 
     -- Apply tokyonight
     --
-    vim.cmd('colorscheme tokyonight')
+    vim.cmd 'colorscheme tokyonight'
   end,
 }

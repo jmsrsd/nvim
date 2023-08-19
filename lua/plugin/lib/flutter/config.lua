@@ -1,17 +1,26 @@
 local M = {}
 
 M.setup = function(capabilities, on_attach)
-  local ok, flutter_tools = pcall(function() return require('flutter-tools') end)
+  local ok, flutter_tools = pcall(function()
+    return require 'flutter-tools'
+  end)
 
   if not ok then
     return
   end
 
-  local flutter_path = os.getenv('HOME') .. '/fvm/versions/stable/bin/flutter'
-  -- local flutter_dir_path = flutter_path:match("(.*[/\\])")
+  local home_path = os.getenv 'HOME'
 
-  flutter_tools.setup({
+  local flutter_path = home_path .. '/fvm/versions/stable/bin/flutter'
+
+  flutter_tools.setup {
     flutter_path = flutter_path,
+
+    ui = {
+      notification_style = 'plugin',
+      -- notification_style = 'native',
+    },
+
     lsp = {
       capabilities = capabilities,
 
@@ -48,6 +57,12 @@ M.setup = function(capabilities, on_attach)
         virtual_text_str = "■",
       },
     },
+
+    settings = {
+      renameFilesWithClasses = "always",
+      -- renameFilesWithClasses = "prompt", -- "always"
+    },
+
     decorations = {
       statusline = {
         app_version = true,
@@ -55,7 +70,7 @@ M.setup = function(capabilities, on_attach)
         project_config = true,
       }
     },
-  })
+  }
 end
 
 return M

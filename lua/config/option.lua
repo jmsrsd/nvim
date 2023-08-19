@@ -8,11 +8,13 @@ vim.g.maplocalleader = " "
 vim.opt.breakindent = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.opt.smarttab = true
+
 vim.opt.shiftwidth = 2
+
+vim.opt.smarttab = true
+vim.opt.expandtab = true
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
-vim.opt.expandtab = true
 
 -- Clipboard
 --
@@ -114,8 +116,16 @@ vim.opt.list = true
 
 -- Show hidden chars
 --
-vim.opt.listchars = 'tab:→ ,space:·,nbsp:␣,trail:~,precedes:«,extends:»'
--- `vim.opt.listchars` initial value 'tab:→ ,space:·,nbsp:␣,trail:~,eol:↩,precedes:«,extends:»'
+vim.opt.listchars = table.concat(
+  {
+    'tab:→ ',
+    'space:·',
+    'nbsp:␣',
+    'trail:~',
+    'precedes:«',
+    'extends:»',
+  }, ',' -- comma separated
+)
 
 -- Caret
 --
@@ -123,11 +133,14 @@ vim.opt.guicursor = 'a:block,a:blinkon50'
 
 -- Enable persistent undo
 --
-if vim.fn.has('persistent_undo') == 1 then
-  local target_path = vim.fn.stdpath('config') .. "/undodir/"
+local has_persistent_undo = vim.fn.has 'persistent_undo'
+
+if has_persistent_undo == 1 then
+  local config_path = vim.fn.stdpath 'config'
+  local target_path = config_path .. '/undodir/'
 
   if vim.fn.isdirectory(target_path) then
-    vim.fn.mkdir(target_path, 'p', 0700)
+    vim.fn.mkdir(target_path, 'p', 0777)
   end
 
   vim.opt.undodir = target_path

@@ -15,10 +15,13 @@ return {
 
     -- Empty setup using defaults
     --
-    require("nvim-tree").setup({
+    local nvim_tree = require 'nvim-tree'
+    local on_attach = require 'plugin.lib.nvim-tree.on_attach'
+
+    nvim_tree.setup {
       -- Custom keymappings
       --
-      on_attach = require 'lua.plugin.lib.nvim-tree.on_attach',
+      on_attach = on_attach,
       filters = {
         dotfiles = false,
       },
@@ -37,8 +40,9 @@ return {
         width = function()
           local screen_width = vim.api.nvim_get_option 'columns'
           local padding = (screen_width - 80) / 2
+          local result = math.floor(padding)
 
-          return math.floor(padding)
+          return result
         end,
         preserve_window_proportions = true,
       },
@@ -56,6 +60,7 @@ return {
       },
       renderer = {
         root_folder_label = false,
+
         highlight_git = false,
         highlight_opened_files = "none",
 
@@ -96,6 +101,6 @@ return {
           },
         },
       },
-    })
+    }
   end,
 }

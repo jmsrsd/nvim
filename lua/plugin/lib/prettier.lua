@@ -5,9 +5,9 @@ return {
     { 'jose-elias-alvarez/null-ls.nvim' },
   },
   config = function()
-    local prettier = require("prettier")
+    local prettier = require 'prettier'
 
-    prettier.setup({
+    prettier.setup {
       bin = 'prettierd', -- npm install -g @fsouza/prettierd
       -- bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
       filetypes = {
@@ -29,11 +29,11 @@ return {
       },
       ["null-ls"] = {
         condition = function()
-          return prettier.config_exists({
+          return prettier.config_exists {
             -- if `false`, skips checking `package.json` for `"prettier"` key
             --
             check_package_json = true,
-          })
+          }
         end,
         runtime_condition = function(params)
           -- return false to skip running prettier
@@ -47,6 +47,6 @@ return {
         --
         config_precedence = "prefer-file", -- or "cli-override" or "file-override"
       },
-    })
+    }
   end,
 }

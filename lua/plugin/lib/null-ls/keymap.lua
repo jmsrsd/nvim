@@ -1,43 +1,66 @@
-local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local bind = require 'util.bind'
+local create_augroup = vim.api.nvim_create_augroup
+local lsp = vim.lsp.buf
+
 local event = "BufWritePre" -- or "BufWritePost"
 local async = event == "BufWritePost"
 local timeout_ms = 5000
 
-return function(client, bufnr)
-  -- if client.supports_method("textDocument/formatting") then
-  pcall(function()
-    vim.keymap.set("n", "<leader>fi", function()
-      vim.lsp.buf.format({
-        bufnr = vim.api.nvim_get_current_buf(),
-        timeout_ms = timeout_ms
-      })
-    end, { buffer = bufnr, desc = "[f]ormat [i]t" })
+local group = create_augroup(
+  "lsp_format_on_save",
+  {
+    clear = false
+  }
+)
 
-    -- format on save
-    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-    vim.api.nvim_create_autocmd(event, {
+return function(client, bufnr)
+  local key = '<leader>fi'
+
+  local action = function()
+    lsp.format {
+      bufnr = bufnr,
+      -- bufnr = vim.api.nvim_get_current_buf(),
+      async = async,
+      timeout_ms = timeout_ms
+    }
+  end
+
+  local opts = {
+    buffer = bufnr,
+    desc = '[f]ormat [i]t'
+  }
+
+  -- if client.supports_method("textDocument/formatting") then
+  bind {
+    mode = { 'n' },
+    lhs = key,
+    rhs = action,
+    opts = opts,
+  }
+
+  -- format on save
+  vim.api.nvim_clear_autocmds {
+    buffer = bufnr,
+    group = group,
+  }
+
+  vim.api.nvim_create_autocmd(
+    event,
+    {
       buffer = bufnr,
       group = group,
-      callback = function()
-        vim.lsp.buf.format({
-          bufnr = bufnr,
-          async = async,
-          timeout_ms = timeout_ms
-        })
-      end,
+      callback = action,
       desc = "Format on Save",
-    })
-  end)
+    }
+  )
   -- end
 
   -- if client.supports_method("textDocument/rangeFormatting") then
-  pcall(function()
-    vim.keymap.set("x", "<leader>fi", function()
-      vim.lsp.buf.format({
-        bufnr = vim.api.nvim_get_current_buf(),
-        timeout_ms = timeout_ms
-      })
-    end, { buffer = bufnr, desc = "[f]ormat [i]t" })
-  end)
+  bind {
+    mode = { 'x' },
+    lhs = key,
+    rhs = action,
+    opts = opts
+  }
   -- end
 end

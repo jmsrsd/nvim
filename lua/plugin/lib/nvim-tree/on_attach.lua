@@ -22,24 +22,6 @@ return function(bufnr)
   bind('n', '<C-x>', api.node.open.horizontal, opts('Open: Horizontal Split'))
   bind('n', '<BS>', api.node.navigate.parent_close, opts('Close Directory'))
   bind('n', '<CR>', api.node.open.edit, opts('Open'))
-  -- bind('n', '<CR>', function()
-  --   local close_buffers = function()
-  --     pcall(function()
-  --       local utils = require 'close_buffers'
-  --       utils.wipe { type = 'other' }
-  --     end)
-  --   end
-  --
-  --   local close_self = function()
-  --     pcall(function()
-  --       vim.cmd('NvimTreeClose')
-  --     end)
-  --   end
-  --
-  --   api.node.open.edit()
-  --   close_buffers()
-  --   close_self()
-  -- end, opts('Open'))
   bind('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
   bind('n', '>', api.node.navigate.sibling.next, opts('Next Sibling'))
   bind('n', '<', api.node.navigate.sibling.prev, opts('Previous Sibling'))

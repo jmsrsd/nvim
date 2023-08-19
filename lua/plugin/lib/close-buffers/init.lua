@@ -4,7 +4,9 @@ return {
     { 'nvim-tree/nvim-tree.lua' },
   },
   config = function()
-    require('close_buffers').setup({
+    local close_buffers = require 'close_buffers'
+
+    close_buffers.setup {
       -- Filetype to ignore when running deletions
       --
       filetype_ignore = {},
@@ -24,6 +26,6 @@ return {
       -- Custom function to retrieve the next buffer when preserving window layout
       --
       next_buffer_cmd = nil,
-    })
+    }
   end,
 }
