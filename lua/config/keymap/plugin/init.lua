@@ -1,5 +1,7 @@
-local config = require 'config.keymap.plugin.config'
+local setup = require 'config.keymap.plugin.setup'
 
-for _, plugin in ipairs(config) do
-  require('plugin.lib.' .. plugin .. '.keymap')
-end
+setup {
+  'telescope',
+  'nvim-tree',
+  'close-buffers',
+}
