@@ -28,7 +28,8 @@ return {
       disable_netrw = true,
       hijack_netrw = true,
       hijack_cursor = true,
-      hijack_unnamed_buffer_when_opening = false,
+      hijack_unnamed_buffer_when_opening = true,
+      -- hijack_unnamed_buffer_when_opening = false,
       sync_root_with_cwd = true,
       update_focused_file = {
         enable = true,
@@ -37,14 +38,28 @@ return {
       view = {
         adaptive_size = false,
         side = "left",
-        width = function()
-          local screen_width = vim.api.nvim_get_option 'columns'
-          local padding = (screen_width - 80) / 2
-          local result = math.floor(padding)
-
-          return result
-        end,
         preserve_window_proportions = true,
+        width = function()
+          local window_width = vim.api.nvim_get_option 'columns'
+
+          -- The buffer width should be 80.
+          -- But, appearantly, the additional 7 is necessary to whole buffer
+          -- be seen from line number up to maximum column border line.
+          --
+          local main_width = 80 + 7
+
+          local secondary_width = window_width - main_width
+
+          local padding_width = secondary_width / 2
+
+          local using_padding_width = padding_width >= (window_width / 3)
+
+          local result = (using_padding_width)
+              and (padding_width)
+              or (secondary_width)
+
+          return math.floor(result)
+        end,
       },
       git = {
         enable = false,

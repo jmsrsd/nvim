@@ -6,8 +6,13 @@ return {
     local notify = require 'notify'
 
     notify.setup {
+      level = 2,
+      timeout = 1000,
+
+      max_width = math.floor(87 / 2),
+      minimum_width = math.floor(87 / 3),
+
       background_colour = "NotifyBackground",
-      fps = 30,
       icons = {
         DEBUG = "",
         ERROR = "",
@@ -15,12 +20,15 @@ return {
         TRACE = "✎",
         WARN = ""
       },
-      level = 2,
-      minimum_width = 50,
+
+      -- Default:
+      -- stages = "fade_in_slide_out",
+      --
+      stages = "slide",
       render = "default",
-      stages = "fade_in_slide_out",
-      timeout = 5000,
-      top_down = true
+
+      fps = 30,
+      top_down = false,
     }
 
     vim.notify = notify
