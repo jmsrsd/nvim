@@ -120,7 +120,7 @@ M.setup = function(lsp, lspconfig, capabilities, on_attach)
   lua_ls_config.capabilities = capabilities
   lspconfig.lua_ls.setup(lua_ls_config)
 
-  local flutter = require('plugin.lib.flutter.config')
+  local flutter = require 'plugin.lib.flutter.config'
   flutter.setup(capabilities, on_attach)
 end
 

@@ -22,16 +22,18 @@ return {
   config = function()
     -- This is where all the LSP shenanigans will live
     --
-    local lsp = require('lsp-zero')
-    local lspconfig = require('lspconfig')
+    local lsp = require 'lsp-zero'
+    local lspconfig = require 'lspconfig'
+    local lsp_cmp = require 'cmp_nvim_lsp'
 
     -- Enable default capabitilies and autoformat
     --
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local capabilities = lsp_cmp.default_capabilities()
 
-    local on_attach = require('plugin.lib.lsp-zero.keymap')
+    local on_attach = require 'plugin.lib.lsp-zero.keymap'
 
-    local server = require('plugin.lib.lsp-zero.lsp.server')
+    local server = require 'plugin.lib.lsp-zero.lsp.server'
+
     server.setup(
       lsp,
       lspconfig,
@@ -42,6 +44,8 @@ return {
     lsp.on_attach(function(client, bufnr)
       on_attach(client, bufnr)
 
+      -- Enable autoformat via lsp-zero
+      --
       lsp.buffer_autoformat()
     end)
 
