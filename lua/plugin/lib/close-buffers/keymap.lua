@@ -1,11 +1,7 @@
 vim.keymap.set('n', '<leader>qq', function()
-  pcall(function()
-    vim.cmd.exe '"normal \\<CR>"'
-  end)
+  pcall(require 'util.save')
 
-  pcall(function()
-    vim.cmd 'NvimTreeOpen'
-  end)
+  pcall(function() vim.cmd 'NvimTreeOpen' end)
 
   pcall(function()
     local close_buffers = require 'close_buffers'

@@ -262,7 +262,7 @@ bind {
   mode = { 'n' },
   lhs = '<leader>wq',
   rhs = function()
-    pcall(function() vim.cmd('exe "normal \\<CR>"') end)
+    pcall(require 'util.save')
     pcall(function() vim.cmd('silent! !prettierd stop') end)
 
     if not pcall(vim.cmd.wqa) then
@@ -277,12 +277,7 @@ bind {
 bind {
   mode = { 'n' },
   lhs = '<CR>',
-  rhs = function()
-    local filepath = vim.fn.expand('%:p')
-
-    pcall(function() vim.cmd('w ' .. filepath) end)
-    pcall(function() vim.cmd('wa') end)
-  end,
+  rhs = require 'util.save',
   opts = {
     desc = 'Save all',
   },

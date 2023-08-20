@@ -1,17 +1,25 @@
+local bind = require 'util.bind'
+local save = require 'util.save'
+
 -- Open project pane
 --
-vim.keymap.set(
-  'n',
-  '<leader>pp',
-  function()
-    pcall(function()
-      vim.cmd.exe '"normal \\<CR>"'
-    end)
+bind {
+  mode = { 'n' },
+  lhs = '<leader>pp',
+  rhs = function()
+    pcall(save)
 
-    if vim.g.loaded_netrw ~= 1 then
+    local using_netrw = vim.g.loaded_netrw ~= 1
+
+    if using_netrw then
       pcall(vim.cmd.Ex)
     else
-      pcall(vim.cmd.NvimTreeFindFile)
+      pcall(function()
+        local window_width = vim.api.nvim_get_option 'columns'
+
+        vim.cmd.NvimTreeFindFile()
+        vim.cmd.exe('"normal ' .. window_width .. '\\<C-W>>"')
+      end)
     end
 
     -- pcall(function()
@@ -22,8 +30,8 @@ vim.keymap.set(
     --   }
     -- end)
   end,
-  {
+  opts = {
     noremap = true,
     desc = '[p]roject [p]ane',
   }
-)
+}

@@ -1,5 +1,5 @@
 return function(bufnr)
-  local api = require('nvim-tree.api')
+  local api = require 'nvim-tree.api'
 
   local function opts(desc)
     return {
@@ -21,7 +21,13 @@ return function(bufnr)
   bind('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
   bind('n', '<C-x>', api.node.open.horizontal, opts('Open: Horizontal Split'))
   bind('n', '<BS>', api.node.navigate.parent_close, opts('Close Directory'))
-  bind('n', '<CR>', api.node.open.edit, opts('Open'))
+  -- Default:
+  -- bind('n', '<CR>', api.node.open.edit, opts('Open'))
+  --
+  bind('n', '<CR>', function()
+    api.node.open.edit()
+    vim.cmd.exe('"normal \\<C-W>="')
+  end, opts('Open'))
   bind('n', '<Tab>', api.node.open.preview, opts('Open Preview'))
   bind('n', '>', api.node.navigate.sibling.next, opts('Next Sibling'))
   bind('n', '<', api.node.navigate.sibling.prev, opts('Previous Sibling'))
