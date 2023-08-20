@@ -4,7 +4,6 @@ return {
   dependencies = {
     { 'nvim-lua/popup.nvim' },
     { 'nvim-lua/plenary.nvim' },
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { "nvim-telescope/telescope-github.nvim" },
     { 'nvim-telescope/telescope-media-files.nvim' },
     { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
@@ -55,21 +54,9 @@ return {
         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
       },
       extensions = {
-        notify = {},
-        fzf = {
-          -- false will only do exact matching
+        notify = {
+          -- This config is intentionally empty
           --
-          fuzzy = true,
-          -- override the generic sorter
-          --
-          override_generic_sorter = true,
-          -- override the file sorter
-          --
-          override_file_sorter = true,
-          -- or "ignore_case" or "respect_case"
-          -- the default case_mode is "smart_case"
-          --
-          case_mode = "smart_case",
         },
         media_files = {
           -- filetypes whitelist
@@ -106,7 +93,7 @@ return {
         },
         lazy = {
           -- Optional theme (the extension doesn't set a default theme)
-          theme = "ivy",
+          theme = "dropdown",
           -- theme = "ivy",
           -- Whether or not to show the icon in the first column
           show_icon = true,
@@ -126,7 +113,6 @@ return {
     }
 
     telescope.load_extension 'notify'
-    telescope.load_extension 'fzf'
     telescope.load_extension 'gh'
     telescope.load_extension 'media_files'
     telescope.load_extension 'lsp_handlers'

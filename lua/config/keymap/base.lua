@@ -2,32 +2,33 @@ local bind = require 'util.bind'
 
 -- Map Modes
 -- n = Normal
--- i = Insert
--- c = Command-line
--- x = Visual
+-- v = Visual and Select
 -- s = Select
+-- x = Visual
 -- o = Operator-pending
+-- i = Insert
+-- l = Insert, Command-line, Lang-Arg
+-- c = Command-line
 -- t = Terminal
 
--- Appearantly, you just define empty string to indicate that a keybinding
--- would be apply to all modes of neovim
---
-local ALL_MODES = ""
+local ALL_MODES = { 'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't' }
 
 bind {
-  mode = { ALL_MODES },
+  mode = ALL_MODES,
   lhs = '<C-c>',
   rhs = '<ESC>',
   opts = {
+    noremap = true,
     desc = 'Escape key functionality in all modes',
   },
 }
 
 bind {
-  mode = { ALL_MODES },
+  mode = ALL_MODES,
   lhs = '<C-;>',
   rhs = '<ESC>',
   opts = {
+    noremap = true,
     desc = 'Escape key functionality in all modes',
   },
 }
@@ -37,6 +38,7 @@ bind {
   lhs = 'J',
   rhs = 'mzJ`z',
   opts = {
+    noremap = true,
     desc = 'Remove newline at the end of the line',
   },
 }
@@ -46,6 +48,7 @@ bind {
   lhs = '<C-d>',
   rhs = '<C-d>zz',
   opts = {
+    noremap = true,
     desc = 'Go to lowermost current screen line',
   },
 }
@@ -55,6 +58,7 @@ bind {
   lhs = '<C-u>',
   rhs = '<C-u>zz',
   opts = {
+    noremap = true,
     desc = 'Go to uppermost current screen line',
   },
 }
@@ -64,6 +68,7 @@ bind {
   lhs = 'n',
   rhs = 'nzzzv',
   opts = {
+    noremap = true,
     desc = 'Find next search occurences',
   },
 }
@@ -73,6 +78,7 @@ bind {
   lhs = 'N',
   rhs = 'Nzzzv',
   opts = {
+    noremap = true,
     desc = 'Find previous search occurences',
   },
 }
@@ -82,6 +88,7 @@ bind {
   lhs = 'x',
   rhs = '"_x',
   opts = {
+    noremap = true,
     desc = 'Delete current line and copy to the black hole register',
   },
 }
@@ -91,6 +98,7 @@ bind {
   lhs = 'dw',
   rhs = 'vb"_d',
   opts = {
+    noremap = true,
     desc = 'Delete current word without saving it to the default register',
   },
 }
@@ -100,6 +108,7 @@ bind {
   lhs = '<C-a>',
   rhs = 'gg<S-v>G',
   opts = {
+    noremap = true,
     desc = 'Select [a]ll',
   },
 }
@@ -109,6 +118,7 @@ bind {
   lhs = '<leader>y',
   rhs = '"+y',
   opts = {
+    noremap = true,
     desc = 'Copy to the system clipboard',
   },
 }
@@ -118,6 +128,7 @@ bind {
   lhs = '<leader>Y',
   rhs = '"+Y',
   opts = {
+    noremap = true,
     desc = 'Copy to the system clipboard',
   },
 }
@@ -127,6 +138,7 @@ bind {
   lhs = '<leader>y',
   rhs = '"+y',
   opts = {
+    noremap = true,
     desc = 'Copy to the system clipboard',
   },
 }
@@ -136,6 +148,7 @@ bind {
   lhs = '<leader>d',
   rhs = '"_d',
   opts = {
+    noremap = true,
     desc = '[d]elete the current line without saving it to the default register',
   },
 }
@@ -145,6 +158,7 @@ bind {
   lhs = 'Q',
   rhs = '<nop>',
   opts = {
+    noremap = true,
     desc = 'Disabled',
   },
 }
@@ -154,6 +168,7 @@ bind {
   lhs = 'q',
   rhs = '<nop>',
   opts = {
+    noremap = true,
     desc = 'Disabled',
   },
 }
@@ -163,6 +178,7 @@ bind {
   lhs = 'jk',
   rhs = '<ESC>',
   opts = {
+    noremap = true,
     desc = 'Exit insert mode',
   },
 }
@@ -172,6 +188,7 @@ bind {
   lhs = 'jj',
   rhs = '<ESC>',
   opts = {
+    noremap = true,
     desc = 'Exit insert mode',
   },
 }
@@ -181,6 +198,7 @@ bind {
   lhs = 'kk',
   rhs = '<ESC>',
   opts = {
+    noremap = true,
     desc = 'Exit insert mode',
   },
 }
@@ -190,6 +208,7 @@ bind {
   lhs = '<leader>p',
   rhs = '"_dp',
   opts = {
+    noremap = true,
     desc = 'Delete selected text in visual mode and copy to the black hole register',
   },
 }
@@ -199,6 +218,7 @@ bind {
   lhs = 'J',
   rhs = ':m \'>+1<CR>gv=gv',
   opts = {
+    noremap = true,
     desc = 'Move down the selected line in visual mode',
   },
 }
@@ -208,6 +228,7 @@ bind {
   lhs = 'K',
   rhs = ':m \'<-2<CR>gv=gv',
   opts = {
+    noremap = true,
     desc = 'Move up the selected line in visual mode',
   },
 }
@@ -217,6 +238,7 @@ bind {
   lhs = '<leader>s',
   rhs = ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>',
   opts = {
+    noremap = true,
     desc = 'Replace all word occurrences',
   },
 }
@@ -226,6 +248,7 @@ bind {
   lhs = 'k',
   rhs = "v:count == 0 ? 'gk' : 'k'",
   opts = {
+    noremap = true,
     expr = true,
     desc = 'Smart up movement'
   }
@@ -236,6 +259,7 @@ bind {
   lhs = 'j',
   rhs = "v:count == 0 ? 'gj' : 'j'",
   opts = {
+    noremap = true,
     expr = true,
     desc = 'Smart down movement'
   }
@@ -246,6 +270,7 @@ bind {
   lhs = 'H',
   rhs = '^',
   opts = {
+    noremap = true,
     desc = 'Go to the first letter of current line',
   },
 }
@@ -255,6 +280,7 @@ bind {
   lhs = 'L',
   rhs = '$',
   opts = {
+    noremap = true,
     desc = 'Go to the last letter of current line',
   },
 }
@@ -271,6 +297,7 @@ bind {
     end
   end,
   opts = {
+    noremap = true,
     desc = '[w]rite & [q]uit',
   },
 }
@@ -280,6 +307,7 @@ bind {
   lhs = '<CR>',
   rhs = require 'util.save',
   opts = {
+    noremap = true,
     desc = 'Save all',
   },
 }
