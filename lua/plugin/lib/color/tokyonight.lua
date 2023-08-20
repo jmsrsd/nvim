@@ -9,7 +9,7 @@ return {
 
     tokyonight.setup {
       style = 'night',
-      transparent = true,
+      transparent = false,
       styles = {
         sidebars = "transparent",
         floats = "transparent",

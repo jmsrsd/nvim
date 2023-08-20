@@ -42,7 +42,7 @@ return {
 
       local padding_width = secondary_width / 2
 
-      local using_padding_width = secondary_width >= (main_width * 1.5)
+      local using_padding_width = secondary_width >= main_width
 
       local result = (using_padding_width)
           and (padding_width)
