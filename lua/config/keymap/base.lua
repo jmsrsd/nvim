@@ -100,7 +100,7 @@ bind {
   lhs = '<C-a>',
   rhs = 'gg<S-v>G',
   opts = {
-    desc = 'Select all',
+    desc = 'Select [a]ll',
   },
 }
 
@@ -136,7 +136,7 @@ bind {
   lhs = '<leader>d',
   rhs = '"_d',
   opts = {
-    desc = 'Delete the current line without saving it to the default register',
+    desc = '[d]elete the current line without saving it to the default register',
   },
 }
 
@@ -154,7 +154,8 @@ bind {
   lhs = 'q',
   rhs = '<nop>',
   opts = {
-    desc = 'Disabled', },
+    desc = 'Disabled',
+  },
 }
 
 bind {

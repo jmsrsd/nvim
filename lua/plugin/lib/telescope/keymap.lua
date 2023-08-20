@@ -29,12 +29,12 @@ end, {
 })
 
 vim.keymap.set('n', '<leader>/', function()
-  local dropdown = themes.get_dropdown({
-    windblend = 0,
-    previewer = false,
-  })
-
-  builtin.current_buffer_fuzzy_find(dropdown)
+  builtin.current_buffer_fuzzy_find(
+    themes.get_dropdown {
+      windblend = 0,
+      previewer = false,
+    }
+  )
 end, {
   noremap = true,
   desc = '[/] Fuzzily search in current buffer',
