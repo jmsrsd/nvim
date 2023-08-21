@@ -10,7 +10,7 @@ local bind = require 'util.bind'
 -- l = Insert, Command-line, Lang-Arg
 -- c = Command-line
 -- t = Terminal
-
+--
 local ALL_MODES = { 'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't' }
 
 bind {
