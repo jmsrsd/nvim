@@ -13,19 +13,43 @@ return {
   config = function()
     local oil = require 'oil'
 
-    local actions = require 'oil.actions'
-    local select = actions.select
+    local action_names = {
+      'show_help',
+      'select',
+      'select_vsplit',
+      'select_split',
+      'select_tab',
+      'preview',
+      'close',
+      'refresh',
+      'parent',
+      'open_cwd',
+      'cd',
+      'tcd',
+      'toggle_hidden',
+    }
+
+    for _, name in ipairs(action_names) do
+      local action = require 'oil.actions'[name]
+      local callback = action.callback
+
+      action.callback = function()
+        pcall(require 'util.save')
+        pcall(callback)
+        pcall(close_other_buffers)
+      end
+    end
 
     oil.setup {
-      keymaps = {
-        ["<CR>"] = {
-          callback = function()
-            pcall(select.callback)
-            pcall(close_other_buffers)
-          end,
-          desc = select.desc
-        }
-      },
+      -- keymaps = {
+      --   ["<CR>"] = {
+      --     callback = function()
+      --       pcall(select.callback)
+      --       pcall(close_other_buffers)
+      --     end,
+      --     desc = select.desc
+      --   }
+      -- },
     }
 
     bind {
