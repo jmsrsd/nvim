@@ -311,3 +311,14 @@ bind {
     desc = 'Save all',
   },
 }
+
+bind {
+  mode = { 'i' },
+  lhs = "<C-v>",
+  rhs = "<Esc>\"+pa",
+  opts = {
+    noremap = true,
+    silent = true,
+    desc = "Paste on insert mode",
+  },
+}
