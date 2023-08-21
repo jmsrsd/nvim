@@ -65,7 +65,7 @@ return {
         documentation = cmp.config.window.bordered(),
       },
       mapping = {
-        ['<TAB>'] = cmp.mapping.confirm({ select = true }),
+        ['<TAB>'] = cmp.mapping.confirm { select = true },
         ['<ESC>'] = cmp.mapping.abort(),
         ['<C-;>'] = cmp.mapping.abort(),
         ['<C-c>'] = cmp.mapping.abort(),

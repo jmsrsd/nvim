@@ -10,6 +10,7 @@ return {
   import 'icons',
   import 'nvim-tree',
   import 'lualine',
+  import 'bufferline',
   import 'indent-blankline',
   import 'dressing',
   import 'notify',
