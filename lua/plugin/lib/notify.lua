@@ -7,12 +7,11 @@ return {
 
     notify.setup {
       level = 2,
+
       timeout = 1000,
 
-      max_width = math.floor(87 / 2),
-      minimum_width = math.floor(87 / 3),
-
       background_colour = "NotifyBackground",
+
       icons = {
         DEBUG = "",
         ERROR = "",
@@ -25,9 +24,11 @@ return {
       -- stages = "fade_in_slide_out",
       --
       stages = "slide",
+
       render = "default",
 
       fps = 30,
+
       top_down = false,
     }
 

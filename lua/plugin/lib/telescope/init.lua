@@ -2,11 +2,8 @@ return {
   'nvim-telescope/telescope.nvim',
   tag = '0.1.2',
   dependencies = {
-    { 'nvim-lua/popup.nvim' },
     { 'nvim-lua/plenary.nvim' },
-    { "nvim-telescope/telescope-github.nvim" },
     { 'nvim-telescope/telescope-media-files.nvim' },
-    { 'gbrlsnchs/telescope-lsp-handlers.nvim' },
     { 'tsakirist/telescope-lazy.nvim' },
   },
   config = function()
@@ -71,26 +68,6 @@ return {
           -- find command (defaults to `fd`)
           find_cmd = "rg"
         },
-        lsp_handlers = {
-          disable = {},
-          location = {
-            telescope = themes.get_dropdown {},
-            no_results_message = 'No references found',
-          },
-          symbol = {
-            telescope = themes.get_dropdown {},
-            no_results_message = 'No symbols found',
-          },
-          call_hierarchy = {
-            telescope = themes.get_dropdown {},
-            no_results_message = 'No calls found',
-          },
-          code_action = {
-            telescope = themes.get_dropdown {},
-            no_results_message = 'No code actions available',
-            prefix = '',
-          },
-        },
         lazy = {
           -- Optional theme (the extension doesn't set a default theme)
           theme = "dropdown",
@@ -113,9 +90,7 @@ return {
     }
 
     telescope.load_extension 'notify'
-    telescope.load_extension 'gh'
     telescope.load_extension 'media_files'
-    telescope.load_extension 'lsp_handlers'
     telescope.load_extension 'lazy'
   end,
 }

@@ -1,2 +1,3 @@
 require 'config.keymap.base'
-require 'config.keymap.plugin'
+require 'plugin.lib.telescope.keymap'
+require 'plugin.lib.close-buffers.keymap'

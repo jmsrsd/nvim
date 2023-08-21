@@ -49,7 +49,7 @@ return function(client, bufnr)
   bind {
     key = 'gd',
     action = function()
-      if not telescope('lsp_definitions') then
+      if not telescope 'lsp_definitions' then
         vim.lsp.buf.definition()
       end
     end,
@@ -59,7 +59,7 @@ return function(client, bufnr)
   bind {
     key = 'go',
     action = function()
-      if not telescope('lsp_type_definitions') then
+      if not telescope 'lsp_type_definitions' then
         vim.lsp.buf.type_definition()
       end
     end,
@@ -69,7 +69,7 @@ return function(client, bufnr)
   bind {
     key = 'gi',
     action = function()
-      if not telescope('lsp_implementations') then
+      if not telescope 'lsp_implementations' then
         vim.lsp.buf.implementation()
       end
     end,
@@ -93,7 +93,7 @@ return function(client, bufnr)
   bind {
     key = '<leader>rr',
     action = function()
-      if not telescope('lsp_references') then
+      if not telescope 'lsp_references' then
         vim.lsp.buf.references()
       end
     end,
@@ -112,6 +112,24 @@ return function(client, bufnr)
     key = ']d',
     action = vim.diagnostic.goto_next,
     desc = 'Move to next [d]iagnostic'
+  }
+
+  bind {
+    key = '[]',
+    action = function()
+      require 'telescope.builtin'.diagnostics {
+        -- vim.diagnostic.severity.ERROR
+        -- vim.diagnostic.severity.WARN
+        -- vim.diagnostic.severity.INFO
+        -- vim.diagnostic.severity.HINT
+        --
+        severity_limit = vim.diagnostic.severity.ERROR,
+      }
+    end,
+    opts = {
+      noremap = true,
+      desc = 'Show workspace diagnostics',
+    }
   }
 
   -- Browse media files

@@ -51,9 +51,7 @@ return {
       lhs = "-",
       rhs = function()
         pcall(require 'util.save')
-
-        pcall(function() vim.cmd 'Oil' end)
-
+        pcall(vim.cmd.Oil)
         pcall(close_other_buffers)
       end,
       opts = {

@@ -24,7 +24,7 @@ return {
   config = function()
     local cmp = require 'cmp'
     local cmp_git = require 'cmp_git'
-    local cmp_lsp_zero = require 'lsp-zero.cmp'
+    local cmp_lsp = require 'lsp-zero.cmp'
 
     local luasnip = require 'luasnip'
 
@@ -32,12 +32,19 @@ return {
     -- The arguments for .extend() have the same shape as `manage_nvim_cmp`:
     -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/api-reference.md#manage_nvim_cmp
     --
-    cmp_lsp_zero.extend()
+    cmp_lsp.extend()
 
     -- And you can configure cmp even more, if you want to.
     --
     local cmp_select_opts = {
       behavior = cmp.SelectBehavior.Select,
+    }
+
+    local cmp_buffer_source = {
+      name = 'buffer',
+      option = {
+        get_bufnrs = vim.api.nvim_list_bufs,
+      }
     }
 
     cmp.setup {
@@ -46,20 +53,16 @@ return {
           luasnip.lsp_expand(args.body)
         end
       },
-      sources = cmp.config.sources(
-        {
-          { name = 'path' },
-          { name = 'luasnip' },
-          { name = 'nvim_lua' },
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'nvim_lsp_document_symbol' },
-          { name = 'calc' },
-        },
-        {
-          { name = 'buffer' },
-        }
-      ),
+      sources = cmp.config.sources {
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_document_symbol' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lua' },
+        { name = 'luasnip' },
+        { name = 'path' },
+        { name = 'calc' },
+        cmp_buffer_source,
+      },
       window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -93,10 +96,12 @@ return {
       {
         sources = cmp.config.sources(
           {
-            { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+            -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+            --
+            { name = 'git' },
           },
           {
-            { name = 'buffer' },
+            cmp_buffer_source,
           }
         )
       }
@@ -111,7 +116,7 @@ return {
       {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' }
+          cmp_buffer_source,
         }
       }
     )
