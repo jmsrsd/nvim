@@ -51,4 +51,5 @@ return {
   import 'fidget',
   import 'comment',
   import 'close-buffers',
+  import 'tmux-navigator',
 }
