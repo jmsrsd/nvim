@@ -1,13 +1,13 @@
 -- Font styles
 --
-vim.o.guifont = 'JetBrainsMono Nerd Font Mono:h11'
+vim.o.guifont = 'JetBrainsMono Nerd Font Mono:h10'
 
 -- Padding
 --
 vim.g.neovide_padding_top = 24
 vim.g.neovide_padding_bottom = 0
-vim.g.neovide_padding_right = 0
-vim.g.neovide_padding_left = 0
+vim.g.neovide_padding_right = 12
+vim.g.neovide_padding_left = 12
 
 -- Set transparency
 --
