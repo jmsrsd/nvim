@@ -1,5 +1,11 @@
 local bind = require 'util.bind'
 
+local close_other_buffers = function()
+  local close_buffers = require 'close_buffers'
+
+  close_buffers.wipe { type = 'other' }
+end
+
 return {
   'stevearc/oil.nvim',
   -- Optional dependencies
@@ -7,7 +13,20 @@ return {
   config = function()
     local oil = require 'oil'
 
-    oil.setup {}
+    local actions = require 'oil.actions'
+    local select = actions.select
+
+    oil.setup {
+      keymaps = {
+        ["<CR>"] = {
+          callback = function()
+            pcall(select.callback)
+            pcall(close_other_buffers)
+          end,
+          desc = select.desc
+        }
+      },
+    }
 
     bind {
       mode = { "n" },
@@ -17,11 +36,7 @@ return {
 
         pcall(function() vim.cmd 'Oil' end)
 
-        pcall(function()
-          local close_buffers = require 'close_buffers'
-
-          close_buffers.wipe { type = 'other' }
-        end)
+        pcall(close_other_buffers)
       end,
       opts = {
         noremap = true,
