@@ -41,15 +41,9 @@ return {
     end
 
     oil.setup {
-      -- keymaps = {
-      --   ["<CR>"] = {
-      --     callback = function()
-      --       pcall(select.callback)
-      --       pcall(close_other_buffers)
-      --     end,
-      --     desc = select.desc
-      --   }
-      -- },
+      view_options = {
+        show_hidden = true,
+      },
     }
 
     bind {
