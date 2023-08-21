@@ -8,7 +8,8 @@ return {
   -- UIs
   --
   import 'icons',
-  import 'nvim-tree',
+  -- import 'nvim-tree',
+  import 'oil',
   import 'lualine',
   import 'bufferline',
   import 'indent-blankline',

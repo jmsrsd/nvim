@@ -2,6 +2,6 @@ local setup = require 'config.keymap.plugin.setup'
 
 setup {
   'telescope',
-  'nvim-tree',
+  -- 'nvim-tree',
   'close-buffers',
 }

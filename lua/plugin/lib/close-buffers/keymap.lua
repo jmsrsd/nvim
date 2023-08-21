@@ -1,17 +1,22 @@
-vim.keymap.set('n', '<leader>qq', function()
-  pcall(require 'util.save')
+local bind = require 'util.bind'
 
-  pcall(function() vim.cmd 'NvimTreeOpen' end)
+bind {
+  mode = { 'n' },
+  lhs = '<leader>qq',
+  rhs = function()
+    pcall(require 'util.save')
 
-  pcall(function()
-    local close_buffers = require 'close_buffers'
+    pcall(function()
+      local close_buffers = require 'close_buffers'
 
-    close_buffers.wipe { type = 'other' }
-  end)
-end, {
-  noremap = true,
-  desc = 'Delete all buffers except the current focused (Nvim Tree)',
-})
+      close_buffers.wipe { type = 'other' }
+    end)
+  end,
+  opts = {
+    noremap = true,
+    desc = 'Delete all buffers except the current focused (Nvim Tree)',
+  }
+}
 
 -- function limit_buffers(max_buffers)
 --   local buffers = vim.api.nvim_list_bufs()

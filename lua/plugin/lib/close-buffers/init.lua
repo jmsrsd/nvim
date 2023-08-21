@@ -1,8 +1,5 @@
 return {
   'kazhala/close-buffers.nvim',
-  dependencies = {
-    { 'nvim-tree/nvim-tree.lua' },
-  },
   config = function()
     local close_buffers = require 'close_buffers'
 

@@ -30,7 +30,7 @@ return {
         },
         color_icons = true,
         separator_style = "thick",
-        always_show_bufferline = true,
+        always_show_bufferline = false,
       }
     }
   end,

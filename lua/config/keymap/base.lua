@@ -313,7 +313,7 @@ bind {
 }
 
 bind {
-  mode = { 'i' },
+  mode = { 'n', 'i' },
   lhs = "<C-v>",
   rhs = "<Esc>\"+pa",
   opts = {

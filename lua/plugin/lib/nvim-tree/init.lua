@@ -20,5 +20,7 @@ return {
     local nvim_tree = require 'nvim-tree'
 
     nvim_tree.setup(config)
+
+    require 'plugin.lib.nvim-tree.keymap'
   end,
 }
