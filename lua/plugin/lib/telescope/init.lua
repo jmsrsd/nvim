@@ -1,3 +1,5 @@
+local bind = require 'util.bind'
+
 return {
   'nvim-telescope/telescope.nvim',
   tag = '0.1.2',
@@ -5,6 +7,7 @@ return {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-media-files.nvim' },
     { 'tsakirist/telescope-lazy.nvim' },
+    { "nvim-telescope/telescope-file-browser.nvim" },
   },
   config = function()
     local telescope = require 'telescope'
@@ -86,11 +89,31 @@ return {
           },
           -- Other telescope configuration options
         },
+        file_browser = {
+          -- Default:
+          -- theme = "ivy",
+          --
+          theme = 'dropdown',
+          -- disables netrw and use telescope-file-browser in its place
+          --
+          hijack_netrw = true,
+        },
       }
     }
 
     telescope.load_extension 'notify'
     telescope.load_extension 'media_files'
     telescope.load_extension 'lazy'
+
+    telescope.load_extension 'file_browser'
+    bind {
+      mode = "n",
+      lhs = "<space>pp",
+      rhs = ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+      opts = {
+        noremap = true,
+        desc = 'Open [p]roject [p]ane',
+      },
+    }
   end,
 }
