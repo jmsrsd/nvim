@@ -9,4 +9,4 @@
 -- c = Command-line
 -- t = Terminal
 --
-local ALL_MODES = { 'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't' }
+return { 'n', 'v', 's', 'x', 'o', 'i', 'l', 'c', 't' }
