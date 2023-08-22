@@ -8,13 +8,12 @@ bind {
 
     pcall(function()
       local close_buffers = require 'close_buffers'
-
       close_buffers.wipe { type = 'other' }
     end)
   end,
   opts = {
     noremap = true,
-    desc = 'Delete all buffers except the current focused (Nvim Tree)',
+    desc = 'Delete all buffers except the current focused',
   }
 }
 
