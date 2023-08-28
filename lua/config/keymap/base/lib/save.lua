@@ -26,3 +26,13 @@ bind {
     desc = 'Save all',
   },
 }
+
+bind {
+  mode = { 'n' },
+  lhs = '<leader>ww',
+  rhs = require 'util.save',
+  opts = {
+    noremap = true,
+    desc = 'Save all',
+  }
+}
