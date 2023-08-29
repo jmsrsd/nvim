@@ -11,38 +11,45 @@ return {
 		{ "nvim-telescope/telescope.nvim" },
 		{ "j-hui/fidget.nvim" },
 		{ "rcarriga/nvim-notify" },
+		{ "hrsh7th/nvim-cmp" },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
 
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 		-- npm install -g @astrojs/language-server
 		--
-		lspconfig.astro.setup({})
+		lspconfig.astro.setup({
+			capabilities = capabilities,
+		})
 
 		-- npm i -g vscode-langservers-extracted
 		--
-		lspconfig.cssls.setup({})
+		lspconfig.cssls.setup({ capabilities = capabilities })
 
 		-- npm install -g cssmodules-language-server
 		--
-		lspconfig.cssmodules_ls.setup({})
+		lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
 
 		-- npm i -g vscode-langservers-extracted
 		--
-		lspconfig.eslint.setup({})
-		lspconfig.jsonls.setup({})
+		lspconfig.eslint.setup({ capabilities = capabilities })
+		lspconfig.jsonls.setup({ capabilities = capabilities })
 
 		-- brew install lua-language-server
 		--
-		lspconfig.lua_ls.setup(use("lua_ls"))
+		lspconfig.lua_ls.setup(use("lua_ls").configure({
+			capabilities = capabilities,
+		}))
 
 		-- npm install -g @tailwindcss/language-server
 		--
-		lspconfig.tailwindcss.setup({})
+		lspconfig.tailwindcss.setup({ capabilities = capabilities })
 
 		-- npm install -g typescript typescript-language-server
 		--
-		lspconfig.tsserver.setup({})
+		lspconfig.tsserver.setup({ capabilities = capabilities })
 
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 		--

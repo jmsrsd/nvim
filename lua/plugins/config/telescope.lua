@@ -8,19 +8,23 @@ return {
 		local keymaps = require("keymaps.util")
 
 		local bind = function(lhs, rhs)
+			rhs = ":Telescope " .. rhs .. "<CR>"
+
 			keymaps.bind({
-				mode = keymaps.all_modes,
+				mode = { "n" },
 				lhs = lhs,
 				rhs = rhs,
-				opts = { noremap = true },
+				opts = {
+					silent = true,
+					noremap = true,
+					desc = rhs,
+				},
 			})
 		end
 
-		local builtin = require("telescope.builtin")
-
-		bind("<leader>ff", builtin.find_files)
-		bind("<leader>fg", builtin.live_grep)
-		bind("<leader>fb", builtin.buffers)
-		bind("<leader>fh", builtin.help_tags)
+		bind("<leader>ff", "find_files")
+		bind("<leader>fg", "live_grep")
+		bind("<leader>fb", "buffers")
+		bind("<leader>fh", "help_tags")
 	end,
 }

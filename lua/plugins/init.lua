@@ -324,5 +324,7 @@ lazy.setup({
 
 	use("fidget"),
 
+	use("cmp"),
+
 	use("lspconfig"),
 })
