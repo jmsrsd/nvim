@@ -12,6 +12,7 @@ return {
 		{ "j-hui/fidget.nvim" },
 		{ "rcarriga/nvim-notify" },
 		{ "hrsh7th/nvim-cmp" },
+		{ "stevearc/conform.nvim" },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -24,16 +25,13 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- npm i -g vscode-langservers-extracted
-		--
-		lspconfig.cssls.setup({ capabilities = capabilities })
-
 		-- npm install -g cssmodules-language-server
 		--
 		lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
 
 		-- npm i -g vscode-langservers-extracted
 		--
+		lspconfig.cssls.setup({ capabilities = capabilities })
 		lspconfig.eslint.setup({ capabilities = capabilities })
 		lspconfig.jsonls.setup({ capabilities = capabilities })
 
@@ -202,7 +200,10 @@ return {
 					mode = { "n" },
 					lhs = "<leader>fi",
 					rhs = function()
-						vim.lsp.buf.format({ async = false })
+						local conform = require("conform")
+
+						conform.format({ buf = vim.api.nvim_get_current_buf() })
+						-- vim.lsp.buf.format({ async = false })
 					end,
 					opts = opts,
 				})

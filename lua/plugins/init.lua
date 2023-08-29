@@ -290,11 +290,15 @@ lazy.setup({
 
 			conform.setup({
 				formatters_by_ft = {
-					lua = { "stylua" },
-					css = { "prettierd" },
-					html = { "prettierd" },
-					javascript = { "prettierd" },
-					typescript = { "prettierd" },
+					["lua"] = { "stylua" },
+					["css"] = { "prettier" },
+					["html"] = { "prettier" },
+					["javascript"] = { "prettier" },
+					["typescript"] = { "prettier" },
+					["javascriptreact"] = { "prettier" },
+					["javascript.jsx"] = { "prettier" },
+					["typescriptreact"] = { "prettier" },
+					["typescript.tsx"] = { "prettier" },
 				},
 
 				-- These options will be passed to conform.format()
@@ -327,4 +331,6 @@ lazy.setup({
 	use("cmp"),
 
 	use("lspconfig"),
+
+	use("flutter"),
 })
