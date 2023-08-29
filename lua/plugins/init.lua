@@ -3,7 +3,7 @@
 local datapath = vim.fn.stdpath("data")
 local lazypath = datapath .. "/lazy/lazy.nvim"
 
-if not vim.loop.fs_stat(lazypath) then
+if vim.fn.filereadable(lazypath) ~= 1 then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup
 --
 local bind = require("keymaps.util").bind
+local use = require("plugins.util").use
 local lazy = require("lazy")
 
 lazy.setup({
@@ -40,6 +41,7 @@ lazy.setup({
 			vscode.load(vim.o.background)
 		end,
 	},
+
 	-- {
 	--   'folke/tokyonight.nvim',
 	--   lazy = false,
@@ -55,6 +57,7 @@ lazy.setup({
 	--     vim.cmd.colorscheme 'tokyonight-night'
 	--   end,
 	-- },
+
 	{
 		"xiyaowong/transparent.nvim",
 		config = function()
@@ -108,6 +111,7 @@ lazy.setup({
 			pcall(vim.cmd.TransparentEnable)
 		end,
 	},
+
 	{
 		"stevearc/oil.nvim",
 		-- Optional dependencies
@@ -130,6 +134,7 @@ lazy.setup({
 			})
 		end,
 	},
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
@@ -215,6 +220,7 @@ lazy.setup({
 			})
 		end,
 	},
+
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		dependencies = {
@@ -247,12 +253,14 @@ lazy.setup({
 				trim_scope = "outer",
 
 				-- Line used to calculate context. Choices: 'cursor', 'topline'
+				--
 				mode = "cursor",
 
 				-- Separator between context and content. Should be a single character string, like '-'.
 				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
 				--
-				separator = nil,
+				separator = "─",
+				-- separator = nil,
 
 				-- The Z-index of the context window
 				--
@@ -274,6 +282,7 @@ lazy.setup({
 			})
 		end,
 	},
+
 	{
 		"stevearc/conform.nvim",
 		config = function()
@@ -282,6 +291,8 @@ lazy.setup({
 			conform.setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
+					css = { "prettierd" },
+					html = { "prettierd" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
 				},
@@ -295,216 +306,23 @@ lazy.setup({
 			})
 		end,
 	},
+
 	{
-		"neovim/nvim-lspconfig",
+		"rcarriga/nvim-notify",
 		config = function()
-			local config = require("lspconfig")
+			local notify = require("notify")
 
-			-- npm install -g @astrojs/language-server
-			--
-			config.astro.setup({})
-
-			-- npm i -g vscode-langservers-extracted
-			--
-			config.cssls.setup({})
-
-			-- npm install -g cssmodules-language-server
-			--
-			config.cssmodules_ls.setup({})
-
-			-- npm i -g vscode-langservers-extracted
-			--
-			config.eslint.setup({})
-			config.jsonls.setup({})
-
-			-- brew install lua-language-server
-			--
-			config.lua_ls.setup({
-				on_init = function(client)
-					local path = client.workspace_folders[1].name
-					if
-						not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc")
-					then
-						client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-							runtime = {
-								-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-								--
-								version = "LuaJIT",
-							},
-							-- Make the server aware of Neovim runtime files
-							--
-							workspace = {
-								library = { vim.env.VIMRUNTIME },
-								-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-								-- library = vim.api.nvim_get_runtime_file("", true)
-							},
-						})
-
-						client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-					end
-					return true
-				end,
+			notify.setup({
+				background_colour = "#000000",
 			})
 
-			-- npm install -g @tailwindcss/language-server
-			--
-			config.tailwindcss.setup({})
-
-			-- npm install -g typescript typescript-language-server
-			--
-			config.tsserver.setup({})
-
-			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-			--
-
-			bind({
-				mode = { "n" },
-				lhs = "[d",
-				rhs = vim.diagnostic.open_float,
-				opts = {
-					noremap = true,
-				},
-			})
-
-			bind({
-				mode = { "n" },
-				lhs = "]d",
-				rhs = vim.diagnostic.setloclist,
-				opts = {
-					noremap = true,
-				},
-			})
-
-			bind({
-				mode = { "n" },
-				lhs = "[g",
-				rhs = vim.diagnostic.goto_prev,
-				opts = {
-					noremap = true,
-				},
-			})
-
-			bind({
-				mode = { "n" },
-				lhs = "]g",
-				rhs = vim.diagnostic.goto_next,
-				opts = {
-					noremap = true,
-				},
-			})
-
-			-- Use LspAttach autocommand to only map the following keys
-			-- after the language server attaches to the current buffer
-			--
-
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-				callback = function(ev)
-					-- Enable completion triggered by <c-x><c-o>
-					--
-					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-					-- Buffer local mappings.
-					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					--
-					local opts = { buffer = ev.buf }
-
-					bind({
-						mode = { "n" },
-						lhs = "gD",
-						rhs = vim.lsp.buf.declaration,
-						opts = opts,
-					})
-
-					bind({
-						mode = "n",
-						lhs = "gd",
-						rhs = vim.lsp.buf.definition,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "K",
-						rhs = vim.lsp.buf.hover,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "gi",
-						rhs = vim.lsp.buf.implementation,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "gh",
-						rhs = vim.lsp.buf.signature_help,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "<leader>wa",
-						rhs = vim.lsp.buf.add_workspace_folder,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "<leader>wr",
-						rhs = vim.lsp.buf.remove_workspace_folder,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "<space>wl",
-						rhs = function()
-							print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-						end,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "gt",
-						rhs = vim.lsp.buf.type_definition,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "<leader>re",
-						rhs = vim.lsp.buf.rename,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n", "v" },
-						lhs = "<leader>aa",
-						rhs = vim.lsp.buf.code_action,
-						opts = opts,
-					})
-
-					bind({
-						mode = { "n" },
-						lhs = "<leader>rr",
-						rhs = vim.lsp.buf.references,
-						opts = opts,
-					})
-
-					bind({
-						mode = "n",
-						lhs = "<leader>fi",
-						rhs = function()
-							vim.lsp.buf.format({ async = false })
-						end,
-						opts = opts,
-					})
-				end,
-			})
+			vim.notify = notify
 		end,
 	},
+
+	use("telescope"),
+
+	use("fidget"),
+
+	use("lspconfig"),
 })
