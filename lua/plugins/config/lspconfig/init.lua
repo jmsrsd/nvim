@@ -49,45 +49,6 @@ return {
 		--
 		lspconfig.tsserver.setup({ capabilities = capabilities })
 
-		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-		--
-
-		bind({
-			mode = { "n" },
-			lhs = "[d",
-			rhs = vim.diagnostic.open_float,
-			opts = {
-				noremap = true,
-			},
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "]d",
-			rhs = vim.diagnostic.setloclist,
-			opts = {
-				noremap = true,
-			},
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "[g",
-			rhs = vim.diagnostic.goto_prev,
-			opts = {
-				noremap = true,
-			},
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "]g",
-			rhs = vim.diagnostic.goto_next,
-			opts = {
-				noremap = true,
-			},
-		})
-
 		-- Use LspAttach autocommand to only map the following keys
 		-- after the language server attaches to the current buffer
 		--
@@ -202,9 +163,51 @@ return {
 					rhs = function()
 						local conform = require("conform")
 
-						conform.format({ buf = vim.api.nvim_get_current_buf() })
+						conform.format({
+							buf = vim.api.nvim_get_current_buf(),
+							timeout_ms = 10000,
+							async = false,
+							lsp_fallback = true,
+						})
 						-- vim.lsp.buf.format({ async = false })
 					end,
+					opts = opts,
+				})
+
+				-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+				--
+				bind({
+					mode = { "n" },
+					lhs = "[d",
+					rhs = vim.diagnostic.open_float,
+					opts = opts,
+				})
+
+				bind({
+					mode = { "n" },
+					lhs = "]d",
+					rhs = function()
+						telescope.diagnostics({
+							bufnr = ev.buf,
+							severity_limit = vim.diagnostic.severity.WARN,
+							sort_by = "severity",
+						})
+					end,
+					-- rhs = vim.diagnostic.setloclist,
+					opts = opts,
+				})
+
+				bind({
+					mode = { "n" },
+					lhs = "[g",
+					rhs = vim.diagnostic.goto_prev,
+					opts = opts,
+				})
+
+				bind({
+					mode = { "n" },
+					lhs = "]g",
+					rhs = vim.diagnostic.goto_next,
 					opts = opts,
 				})
 			end,

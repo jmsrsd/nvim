@@ -18,16 +18,8 @@ end
 M.all_modes = { "n", "v", "s", "x", "o", "i", "l", "c", "t" }
 
 M.save = function()
-	local filename = vim.fn.expand("%")
-
 	pcall(vim.cmd.w)
 	pcall(vim.cmd.wa)
-	pcall(function()
-		vim.cmd.bufdo("w")
-	end)
-	pcall(function()
-		vim.cmd.edit(filename)
-	end)
 end
 
 return M

@@ -2,8 +2,9 @@
 --
 local datapath = vim.fn.stdpath("data")
 local lazypath = datapath .. "/lazy/lazy.nvim"
+local lazy_installed = vim.fn.filereadable(lazypath) == 1
 
-if vim.fn.filereadable(lazypath) ~= 1 then
+if not lazy_installed then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -48,12 +49,12 @@ lazy.setup({
 	--   priority = 1000,
 	--   config = function()
 	--     local tokyonight = require 'tokyonight'
-
+	--
 	--     tokyonight.setup {
 	--       style = 'night',
 	--       transparent = true,
 	--     }
-
+	--
 	--     vim.cmd.colorscheme 'tokyonight-night'
 	--   end,
 	-- },
@@ -136,152 +137,14 @@ lazy.setup({
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter-refactor" },
-		},
-		build = ":TSUpdate",
-		config = function()
-			local configs = require("nvim-treesitter.configs")
-
-			configs.setup({
-				-- A list of parser names, or "all"
-				--
-				ensure_installed = {
-					"css",
-					"git_config",
-					"git_rebase",
-					"gitattributes",
-					"gitcommit",
-					"gitignore",
-					"html",
-					"javascript",
-					"jsdoc",
-					"json",
-					"json5",
-					"jsonc",
-					"lua",
-					"query",
-					"scss",
-					"tsx",
-					"typescript",
-					"vim",
-					"vimdoc",
-					"xml",
-				},
-
-				-- Install parsers synchronously (only applied to `ensure_installed`)
-				--
-				sync_install = true,
-
-				-- Automatically install missing parsers when entering buffer
-				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-				--
-				auto_install = true,
-
-				-- List of parsers to ignore installing (for "all")
-				--
-				ignore_install = { "dart" },
-
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = false,
-				},
-
-				-- nvim-treesitter/nvim-treesitter-refactor configs
-				--
-				refactor = {
-					highlight_definitions = {
-						enable = true,
-						-- Set to false if you have an `updatetime` of ~100.
-						--
-						clear_on_cursor_move = false,
-					},
-					highlight_current_scope = { enable = false },
-					smart_rename = {
-						enable = true,
-						-- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
-						--
-						keymaps = {
-							smart_rename = "<leader>re",
-						},
-					},
-					navigation = {
-						enable = false,
-						-- keymaps = {
-						-- 	goto_definition = "gd",
-						-- 	list_definitions = "gl",
-						-- 	list_definitions_toc = "go",
-						-- 	goto_next_usage = "gn",
-						-- 	goto_previous_usage = "gp",
-						-- },
-					},
-				},
-			})
-		end,
+		"numToStr/Comment.nvim",
+		lazy = false,
+		opts = {},
 	},
 
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		dependencies = {
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
-		config = function()
-			local context = require("treesitter-context")
+	use("treesitter"),
 
-			context.setup({
-				-- Enable this plugin (Can be enabled/disabled later via commands)
-				--
-				enable = true,
-
-				-- How many lines the window should span. Values <= 0 mean no limit.
-				--
-				max_lines = 0,
-
-				-- Minimum editor window height to enable context. Values <= 0 mean no limit.
-				--
-				min_window_height = 0,
-
-				line_numbers = true,
-
-				-- Maximum number of lines to show for a single context
-				--
-				multiline_threshold = 20,
-
-				-- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-				--
-				trim_scope = "outer",
-
-				-- Line used to calculate context. Choices: 'cursor', 'topline'
-				--
-				mode = "cursor",
-
-				-- Separator between context and content. Should be a single character string, like '-'.
-				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-				--
-				separator = "─",
-				-- separator = nil,
-
-				-- The Z-index of the context window
-				--
-				zindex = 20,
-
-				-- (fun(buf: integer): boolean) return false to disable attaching
-				--
-				on_attach = nil,
-			})
-
-			bind({
-				mode = { "n" },
-				lhs = "[c",
-				rhs = context.go_to_context,
-				opts = {
-					silent = true,
-					desc = "Jumping to context (upwards)",
-				},
-			})
-		end,
-	},
+	use("treesitter_context"),
 
 	{
 		"stevearc/conform.nvim",
@@ -291,21 +154,23 @@ lazy.setup({
 			conform.setup({
 				formatters_by_ft = {
 					["lua"] = { "stylua" },
-					["css"] = { "prettier" },
-					["html"] = { "prettier" },
-					["javascript"] = { "prettier" },
-					["typescript"] = { "prettier" },
-					["javascriptreact"] = { "prettier" },
-					["javascript.jsx"] = { "prettier" },
-					["typescriptreact"] = { "prettier" },
-					["typescript.tsx"] = { "prettier" },
+					["dart"] = { "dart_format" },
+					["css"] = { "prettierd" },
+					["html"] = { "prettierd" },
+					["javascript"] = { "prettierd" },
+					["typescript"] = { "prettierd" },
+					["javascriptreact"] = { "prettierd" },
+					["javascript.jsx"] = { "prettierd" },
+					["typescriptreact"] = { "prettierd" },
+					["typescript.tsx"] = { "prettierd" },
 				},
 
 				-- These options will be passed to conform.format()
 				--
 				format_on_save = {
-					timeout_ms = 5000,
+					async = false,
 					lsp_fallback = true,
+					timeout_ms = 10000,
 				},
 			})
 		end,
@@ -318,6 +183,8 @@ lazy.setup({
 
 			notify.setup({
 				background_colour = "#000000",
+				timeout = 2000,
+				top_down = false,
 			})
 
 			vim.notify = notify
@@ -333,4 +200,6 @@ lazy.setup({
 	use("lspconfig"),
 
 	use("flutter"),
+
+	use("close_buffers"),
 })
