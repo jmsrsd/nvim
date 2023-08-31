@@ -33,6 +33,7 @@ lazy.setup({
 	use("notify"),
 	use("telescope"),
 	use("fidget"),
+	use("autopairs"),
 	use("cmp"),
 	use("lspconfig"),
 	use("flutter"),

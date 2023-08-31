@@ -8,11 +8,14 @@ return {
 		{ "hrsh7th/nvim-cmp" },
 		{ "L3MON4D3/LuaSnip" },
 		{ "saadparwaiz1/cmp_luasnip" },
+		{ "windwp/nvim-autopairs" },
 	},
 	config = function()
 		-- Set up nvim-cmp.
 		--
+		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		local cmp = require("cmp")
+		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		cmp.setup({
 			snippet = {
