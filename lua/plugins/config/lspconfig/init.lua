@@ -35,12 +35,6 @@ return {
 		lspconfig.eslint.setup({ capabilities = capabilities })
 		lspconfig.jsonls.setup({ capabilities = capabilities })
 
-		-- brew install lua-language-server
-		--
-		lspconfig.lua_ls.setup(use("lua_ls").configure({
-			capabilities = capabilities,
-		}))
-
 		-- npm install -g @tailwindcss/language-server
 		--
 		lspconfig.tailwindcss.setup({ capabilities = capabilities })
@@ -48,6 +42,12 @@ return {
 		-- npm install -g typescript typescript-language-server
 		--
 		lspconfig.tsserver.setup({ capabilities = capabilities })
+
+		-- brew install lua-language-server
+		--
+		lspconfig.lua_ls.setup(use("lua_ls").configure({
+			capabilities = capabilities,
+		}))
 
 		-- Use LspAttach autocommand to only map the following keys
 		-- after the language server attaches to the current buffer
