@@ -5,17 +5,37 @@ return {
 		{ "hrsh7th/cmp-buffer" },
 		{ "hrsh7th/cmp-path" },
 		{ "hrsh7th/cmp-cmdline" },
+		{ "dmitmel/cmp-cmdline-history" },
 		{ "hrsh7th/nvim-cmp" },
 		{ "L3MON4D3/LuaSnip" },
 		{ "saadparwaiz1/cmp_luasnip" },
 		{ "windwp/nvim-autopairs" },
+		{ "lukas-reineke/cmp-rg" },
+		{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+		{ "hrsh7th/cmp-nvim-lua" },
+		{ "petertriho/cmp-git" },
+		{ "ray-x/cmp-treesitter" },
+		{ "amarakon/nvim-cmp-buffer-lines" },
+		{ "roobert/tailwindcss-colorizer-cmp.nvim" },
 	},
 	config = function()
 		-- Set up nvim-cmp.
 		--
+		local cmp_colorizer = require("tailwindcss-colorizer-cmp")
+
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
 		local cmp = require("cmp")
+
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+		cmp_colorizer.setup({
+			color_square_width = 2,
+		})
+
+		cmp.config.formatting = {
+			format = cmp_colorizer.formatter,
+		}
 
 		cmp.setup({
 			snippet = {
@@ -41,9 +61,16 @@ return {
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
+				{ priority = 109, name = "nvim_lsp" },
+				{ priority = 108, name = "nvim_lsp_signature_help" },
+				{ priority = 107, name = "nvim_lua" },
+				{ priority = 106, name = "luasnip" },
+				{ priority = 105, name = "treesitter" },
+				{ priority = 104, name = "git" },
+				{ priority = 103, name = "path" },
+				{ priority = 102, name = "rg" },
 			}, {
+				{ name = "buffer-lines" },
 				{ name = "buffer" },
 			}),
 		})
@@ -76,6 +103,7 @@ return {
 				{ name = "path" },
 			}, {
 				{ name = "cmdline" },
+				{ name = "cmdline_history" },
 			}),
 		})
 	end,
