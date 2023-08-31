@@ -38,4 +38,6 @@ lazy.setup({
 	use("lspconfig"),
 	use("flutter"),
 	use("close_buffers"),
+	use("gitsigns"),
+	use("which_key"),
 })
