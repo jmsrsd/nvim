@@ -2,6 +2,7 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-refactor" },
+		{ "windwp/nvim-ts-autotag" },
 	},
 	build = ":TSUpdate",
 	config = function()
@@ -79,6 +80,12 @@ return {
 					-- 	goto_previous_usage = "gp",
 					-- },
 				},
+			},
+
+			-- windwp/nvim-ts-autotag configs
+			--
+			autotag = {
+				enable = true,
 			},
 		})
 	end,

@@ -19,8 +19,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup
 --
-local use = require("plugins.util").use
 local lazy = require("lazy")
+local use = require("plugins.util").use
 
 lazy.setup({
 	use("vscode"),
