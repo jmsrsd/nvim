@@ -1,9 +1,5 @@
 local M = {}
 
-M.bind = function(params)
-	vim.keymap.set(params.mode, params.lhs, params.rhs, params.opts)
-end
-
 -- Map Modes
 -- n = Normal
 -- v = Visual and Select
@@ -16,6 +12,10 @@ end
 -- t = Terminal
 --
 M.all_modes = { "n", "v", "s", "x", "o", "i", "l", "c", "t" }
+
+M.bind = function(params)
+	vim.keymap.set(params.mode, params.lhs, params.rhs, params.opts)
+end
 
 M.save = function()
 	pcall(vim.cmd.w)

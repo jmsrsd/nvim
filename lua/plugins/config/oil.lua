@@ -14,7 +14,12 @@ return {
 		bind({
 			mode = { "n" },
 			lhs = "-",
-			rhs = "<CMD>Oil<CR>",
+			rhs = function()
+				local close_buffers = require("plugins.config.close_buffers.util")
+
+				pcall(vim.cmd.Oil)
+				pcall(close_buffers.wipe_hiddens)
+			end,
 			opts = {
 				silent = true,
 				desc = "Open parent directory",

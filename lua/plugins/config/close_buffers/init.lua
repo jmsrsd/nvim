@@ -4,6 +4,7 @@ return {
 	"kazhala/close-buffers.nvim",
 	config = function()
 		local close_buffers = require("close_buffers")
+		local util = require("plugins.config.close_buffers.util")
 
 		close_buffers.setup({
 			-- Filetype to ignore when running deletions
@@ -30,16 +31,10 @@ return {
 		bind({
 			mode = { "n" },
 			lhs = "<leader>qq",
-			rhs = function()
-				pcall(require("keymaps.util").save)
-
-				pcall(function()
-					close_buffers.wipe({ type = "hidden" })
-				end)
-			end,
+			rhs = util.wipe_hiddens,
 			opts = {
 				noremap = true,
-				desc = "Delete all buffers except the current focused",
+				desc = "Delete all hidden buffers",
 			},
 		})
 	end,
