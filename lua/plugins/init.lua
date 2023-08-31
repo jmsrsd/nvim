@@ -40,4 +40,5 @@ lazy.setup({
 	use("close_buffers"),
 	use("gitsigns"),
 	use("which_key"),
+	use("lualine"),
 })
