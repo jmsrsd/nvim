@@ -41,4 +41,5 @@ lazy.setup({
 	use("gitsigns"),
 	use("which_key"),
 	use("lualine"),
+	use("blankline"),
 })
