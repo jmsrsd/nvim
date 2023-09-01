@@ -23,7 +23,8 @@ local lazy = require("lazy")
 local use = require("plugins.util").use
 
 lazy.setup({
-	use("vscode"),
+	use("poimandres"),
+	-- use("vscode"),
 	use("transparent"),
 	use("oil"),
 	use("comment"),
