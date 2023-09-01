@@ -2,7 +2,7 @@ local bind = require("keymaps.util").bind
 
 return {
 	"stevearc/oil.nvim",
-	-- Optional dependencies
+	--- Optional dependencies
 	dependencies = {
 		{ "nvim-tree/nvim-web-devicons" },
 	},

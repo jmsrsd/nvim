@@ -1,5 +1,5 @@
--- Installation
---
+--- Installation
+---
 local datapath = vim.fn.stdpath("data")
 local lazypath = datapath .. "/lazy/lazy.nvim"
 local lazy_installed = vim.fn.filereadable(lazypath) == 1
@@ -8,23 +8,23 @@ if not lazy_installed then
 	vim.fn.system({
 		"git",
 		"clone",
-		"--filter=blob:none",
+		"---filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
+		"---branch=stable",
 		lazypath,
 	})
 end
 
 vim.opt.rtp:prepend(lazypath)
 
--- Setup
---
+--- Setup
+---
 local lazy = require("lazy")
 local use = require("plugins.util").use
 
 lazy.setup({
 	use("poimandres"),
-	-- use("vscode"),
+	--- use("vscode"),
 	use("transparent"),
 	use("oil"),
 	use("comment"),

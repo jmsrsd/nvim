@@ -3,8 +3,8 @@ local bind = util.bind
 local all_modes = util.all_modes
 local save = util.save
 
--- Copy-related bindings
---
+--- Copy-related bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "<leader>y",
@@ -35,8 +35,8 @@ bind({
 	},
 })
 
--- Delete-related bindings
---
+--- Delete-related bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "x",
@@ -57,8 +57,8 @@ bind({
 	},
 })
 
--- Disabled keymamps bindings
---
+--- Disabled keymamps bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "Q",
@@ -79,8 +79,8 @@ bind({
 	},
 })
 
--- Editing bindings
---
+--- Editing bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "J",
@@ -131,8 +131,8 @@ bind({
 	},
 })
 
--- Escape keymaps bindings
---
+--- Escape keymaps bindings
+---
 bind({
 	mode = all_modes,
 	lhs = "<C-c>",
@@ -173,8 +173,8 @@ bind({
 	},
 })
 
--- Motion-related bindings
---
+--- Motion-related bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "<C-d>",
@@ -257,8 +257,8 @@ bind({
 	},
 })
 
--- Pasting-related binndings
---
+--- Pasting-related binndings
+---
 bind({
 	mode = { "n" },
 	lhs = "<C-v>",
@@ -292,8 +292,8 @@ bind({
 	},
 })
 
--- Saving/Writing-related bindings
---
+--- Saving/Writing-related bindings
+---
 bind({
 	mode = { "n" },
 	lhs = "<leader>wq",

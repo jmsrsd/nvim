@@ -1,5 +1,9 @@
 local M = {}
 
+--- @param tbl table
+--- @param f function
+--- @return table
+---
 M.tbl_map = function(tbl, f)
 	local t = {}
 

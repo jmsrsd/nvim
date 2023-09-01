@@ -1,10 +1,10 @@
--- Leader and Local Leader key mappings
---
+--- Leader and Local Leader key mappings
+---
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Indentation
---
+--- Indentation
+---
 vim.opt.breakindent = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -14,106 +14,106 @@ vim.opt.expandtab = true
 vim.opt.softtabstop = 2
 vim.opt.tabstop = 2
 
--- Clipboard
---
+--- Clipboard
+---
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
--- Case sensitivity
---
+--- Case sensitivity
+---
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Highlight search results
---
+--- Highlight search results
+---
 vim.opt.hlsearch = false
 
--- Incremental search
---
+--- Incremental search
+---
 vim.opt.incsearch = true
 
--- Disable mouse
---
+--- Disable mouse
+---
 vim.opt.mouse = ""
 
--- Cursorline and Signcolumn
---
+--- Cursorline and Signcolumn
+---
 vim.opt.cursorline = false
 vim.wo.signcolumn = "yes"
 
--- Enable smooth scrolling
---
+--- Enable smooth scrolling
+---
 vim.opt.scrolloff = 25
 
--- Highlight current line number
---
+--- Highlight current line number
+---
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Disable line wrapping
---
+--- Disable line wrapping
+---
 vim.opt.wrap = false
 
--- Enable column marker
---
+--- Enable column marker
+---
 vim.opt.colorcolumn = "80"
 
--- Enable auto-formatting
---
+--- Enable auto-formatting
+---
 vim.opt.formatoptions = vim.opt.formatoptions + { "r" }
 
--- Disable backups and swap files
---
+--- Disable backups and swap files
+---
 vim.opt.backup = false
 vim.opt.swapfile = false
 
--- File type detection
---
+--- File type detection
+---
 vim.opt.isfname = vim.opt.isfname + { "@-@" }
 
--- Add ** to search for files in subdirectories
---
+--- Add ** to search for files in subdirectories
+---
 vim.opt.path = vim.opt.path + { "**" }
 
--- Ignore node_modules directory while file navigation
---
+--- Ignore node_modules directory while file navigation
+---
 vim.opt.wildignore = vim.opt.wildignore + { "*/node_modules/*" }
 
--- Set PUM (Popup Menu) blend
---
+--- Set PUM (Popup Menu) blend
+---
 vim.opt.pumblend = 0
 
--- Enable transparent background for floating windows
---
+--- Enable transparent background for floating windows
+---
 vim.opt.winblend = 0
 
--- Enable true color support
---
+--- Enable true color support
+---
 vim.opt.termguicolors = true
 
--- Set timeout for key codes (folke/which-key.nvim recommendation)
---
+--- Set timeout for key codes (folke/which-key.nvim recommendation)
+---
 vim.opt.timeout = true
 vim.opt.timeoutlen = 300
 
--- Decrease update time
---
+--- Decrease update time
+---
 vim.opt.updatetime = 50
 
--- Set inccommand for live substitution preview
---
+--- Set inccommand for live substitution preview
+---
 vim.opt.inccommand = "nosplit"
 
--- Disable spell-checking
---
+--- Disable spell-checking
+---
 vim.o.spell = false
 vim.o.spelllang = ""
 
--- Show hidden symbols
---
+--- Show hidden symbols
+---
 vim.opt.list = true
 
--- Show hidden chars
---
+--- Show hidden chars
+---
 vim.opt.listchars = table.concat(
 	{
 		"tab:→ ",
@@ -123,18 +123,16 @@ vim.opt.listchars = table.concat(
 		"precedes:«",
 		"extends:»",
 	},
-	"," -- comma separated
+	"," --- Use comma separator
 )
 
--- Caret
---
+--- Caret
+---
 vim.opt.guicursor = "a:block,a:blinkon50"
 
--- Enable persistent undo
---
-local has_persistent_undo = vim.fn.has("persistent_undo")
-
-if has_persistent_undo == 1 then
+--- Enable persistent undo
+---
+if vim.fn.has("persistent_undo") == 1 then
 	local config_path = vim.fn.stdpath("config")
 	local target_path = config_path .. "/undodir/"
 

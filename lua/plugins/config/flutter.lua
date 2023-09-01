@@ -4,8 +4,8 @@ return {
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 
-		-- optional for vim.ui.select
-		--
+		--- optional for vim.ui.select
+		---
 		{ "stevearc/dressing.nvim" },
 	},
 	config = function()

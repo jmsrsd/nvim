@@ -4,8 +4,8 @@ return {
 		local transparent = require("transparent")
 
 		transparent.setup({
-			-- table: default groups
-			--
+			--- table: default groups
+			---
 			groups = {
 				"Normal",
 				"NormalNC",
@@ -31,20 +31,20 @@ return {
 				"EndOfBuffer",
 			},
 
-			-- table: additional groups that should be cleared
-			--
+			--- table: additional groups that should be cleared
+			---
 			extra_groups = {
-				-- plugins which have float panel such as Lazy, Mason, LspInfo
-				--
+				--- plugins which have float panel such as Lazy, Mason, LspInfo
+				---
 				"NormalFloat",
 
-				-- NvimTree
-				--
+				--- NvimTree
+				---
 				"NvimTreeNormal",
 			},
 
-			-- table: groups you don't want to clear
-			--
+			--- table: groups you don't want to clear
+			---
 			exclude_groups = {},
 		})
 

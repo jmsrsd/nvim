@@ -13,20 +13,20 @@ return {
 				untracked = { text = "┆" },
 			},
 
-			-- Toggle with `:Gitsigns toggle_signs`
-			--
+			--- Toggle with `:Gitsigns toggle_signs`
+			---
 			signcolumn = true,
 
-			-- Toggle with `:Gitsigns toggle_numhl`
-			--
+			--- Toggle with `:Gitsigns toggle_numhl`
+			---
 			numhl = false,
 
-			-- Toggle with `:Gitsigns toggle_linehl`
-			--
+			--- Toggle with `:Gitsigns toggle_linehl`
+			---
 			linehl = false,
 
-			-- Toggle with `:Gitsigns toggle_word_diff`
-			--
+			--- Toggle with `:Gitsigns toggle_word_diff`
+			---
 			word_diff = false,
 
 			watch_gitdir = {
@@ -35,15 +35,15 @@ return {
 
 			attach_to_untracked = true,
 
-			-- Toggle with `:Gitsigns toggle_current_line_blame`
-			--
+			--- Toggle with `:Gitsigns toggle_current_line_blame`
+			---
 			current_line_blame = false,
 
 			current_line_blame_opts = {
 				virt_text = true,
 
-				-- 'eol' | 'overlay' | 'right_align'
-				--
+				--- 'eol' | 'overlay' | 'right_align'
+				---
 				virt_text_pos = "eol",
 
 				delay = 1000,
@@ -57,17 +57,17 @@ return {
 
 			update_debounce = 100,
 
-			-- Use default
-			--
+			--- Use default
+			---
 			status_formatter = nil,
 
-			-- Disable if file is longer than this (in lines)
-			--
+			--- Disable if file is longer than this (in lines)
+			---
 			max_file_length = 40000,
 
 			preview_config = {
-				-- Options passed to nvim_open_win
-				--
+				--- Options passed to nvim_open_win
+				---
 				border = "single",
 				style = "minimal",
 				relative = "cursor",

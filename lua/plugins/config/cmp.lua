@@ -47,8 +47,8 @@ return {
 			{ name = "buffer-lines", option = { words = true, comments = false, leading_whitespace = false } },
 		}
 
-		-- Set up nvim-cmp.
-		--
+		--- Set up nvim-cmp.
+		---
 		local cmp = require("cmp")
 
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -63,11 +63,11 @@ return {
 
 		cmp.setup({
 			snippet = {
-				-- REQUIRED - you must specify a snippet engine
-				--
+				--- REQUIRED - you must specify a snippet engine
+				---
 				expand = function(args)
-					-- For `luasnip` users.
-					--
+					--- For `luasnip` users.
+					---
 					require("luasnip").lsp_expand(args.body)
 				end,
 			},
@@ -84,8 +84,8 @@ return {
 
 				["<C-e>"] = cmp.mapping.abort(),
 
-				-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				--
+				--- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				---
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources(
@@ -94,24 +94,24 @@ return {
 			),
 		})
 
-		-- Set configuration for specific filetype.
+		--- Set configuration for specific filetype.
 		cmp.setup.filetype("gitcommit", {
 			sources = cmp.config.sources({
-				-- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-				--
+				--- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+				---
 				{ name = "git" },
 			}, cmp_sources_fallbacks),
 		})
 
-		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-		--
+		--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+		---
 		cmp.setup.cmdline({ "/", "?" }, {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = cmp_sources_fallbacks,
 		})
 
-		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		--
+		--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+		---
 		cmp.setup.cmdline(":", {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = cmp.config.sources({

@@ -19,51 +19,51 @@ return {
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		-- npm install -g @astrojs/language-server
-		--
+		--- npm install -g @astrojs/language-server
+		---
 		lspconfig.astro.setup({
 			capabilities = capabilities,
 		})
 
-		-- npm install -g cssmodules-language-server
-		--
+		--- npm install -g cssmodules-language-server
+		---
 		lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
 
-		-- npm i -g vscode-langservers-extracted
-		--
+		--- npm i -g vscode-langservers-extracted
+		---
 		lspconfig.cssls.setup({ capabilities = capabilities })
 		lspconfig.eslint.setup({ capabilities = capabilities })
 		lspconfig.jsonls.setup({ capabilities = capabilities })
 
-		-- npm install -g @tailwindcss/language-server
-		--
+		--- npm install -g @tailwindcss/language-server
+		---
 		lspconfig.tailwindcss.setup({ capabilities = capabilities })
 
-		-- npm install -g typescript typescript-language-server
-		--
+		--- npm install -g typescript typescript-language-server
+		---
 		lspconfig.tsserver.setup({ capabilities = capabilities })
 
-		-- brew install lua-language-server
-		--
+		--- brew install lua-language-server
+		---
 		lspconfig.lua_ls.setup(use("lua_ls").configure({
 			capabilities = capabilities,
 		}))
 
-		-- Use LspAttach autocommand to only map the following keys
-		-- after the language server attaches to the current buffer
-		--
+		--- Use LspAttach autocommand to only map the following keys
+		--- after the language server attaches to the current buffer
+		---
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
 				local telescope = require("telescope.builtin")
 
-				-- Enable completion triggered by <c-x><c-o>
-				--
+				--- Enable completion triggered by <c-x><c-o>
+				---
 				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-				-- Buffer local mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				--
+				--- Buffer local mappings.
+				--- See `:help vim.lsp.*` for documentation on any of the below functions
+				---
 				local opts = { buffer = ev.buf }
 
 				bind({
@@ -77,7 +77,7 @@ return {
 					mode = "n",
 					lhs = "gd",
 					rhs = telescope.lsp_definitions,
-					-- rhs = vim.lsp.buf.definition,
+					--- rhs = vim.lsp.buf.definition,
 					opts = opts,
 				})
 
@@ -92,7 +92,7 @@ return {
 					mode = { "n" },
 					lhs = "gi",
 					rhs = telescope.lsp_implementations,
-					-- rhs = vim.lsp.buf.implementation,
+					--- rhs = vim.lsp.buf.implementation,
 					opts = opts,
 				})
 
@@ -122,7 +122,7 @@ return {
 					lhs = "<space>wl",
 					rhs = function()
 						vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()), vim.log.levels.INFO)
-						-- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+						--- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 					end,
 					opts = opts,
 				})
@@ -131,7 +131,7 @@ return {
 					mode = { "n" },
 					lhs = "gt",
 					rhs = telescope.lsp_type_definitions,
-					-- rhs = vim.lsp.buf.type_definition,
+					--- rhs = vim.lsp.buf.type_definition,
 					opts = opts,
 				})
 
@@ -153,7 +153,7 @@ return {
 					mode = { "n" },
 					lhs = "<leader>rr",
 					rhs = telescope.lsp_references,
-					-- rhs = vim.lsp.buf.references,
+					--- rhs = vim.lsp.buf.references,
 					opts = opts,
 				})
 
@@ -169,13 +169,13 @@ return {
 							async = false,
 							lsp_fallback = true,
 						})
-						-- vim.lsp.buf.format({ async = false })
+						--- vim.lsp.buf.format({ async = false })
 					end,
 					opts = opts,
 				})
 
-				-- See `:help vim.diagnostic.*` for documentation on any of the below functions
-				--
+				--- See `:help vim.diagnostic.*` for documentation on any of the below functions
+				---
 				bind({
 					mode = { "n" },
 					lhs = "[d",
@@ -193,7 +193,7 @@ return {
 							sort_by = "severity",
 						})
 					end,
-					-- rhs = vim.diagnostic.setloclist,
+					--- rhs = vim.diagnostic.setloclist,
 					opts = opts,
 				})
 

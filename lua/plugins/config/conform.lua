@@ -17,8 +17,8 @@ return {
 				["typescript.tsx"] = { "prettierd" },
 			},
 
-			-- These options will be passed to conform.format()
-			--
+			--- These options will be passed to conform.format()
+			---
 			format_on_save = {
 				async = false,
 				lsp_fallback = true,
