@@ -76,8 +76,13 @@ return {
 				bind({
 					mode = "n",
 					lhs = "gd",
-					rhs = telescope.lsp_definitions,
-					--- rhs = vim.lsp.buf.definition,
+					rhs = function()
+						if vim.bo.filetype == "dart" then
+							pcall(vim.lsp.buf.definition)
+						else
+							pcall(telescope.lsp_definitions)
+						end
+					end,
 					opts = opts,
 				})
 
@@ -91,8 +96,13 @@ return {
 				bind({
 					mode = { "n" },
 					lhs = "gi",
-					rhs = telescope.lsp_implementations,
-					--- rhs = vim.lsp.buf.implementation,
+					rhs = function()
+						if vim.bo.filetype == "dart" then
+							pcall(vim.lsp.buf.implementation)
+						else
+							pcall(telescope.lsp_implementations)
+						end
+					end,
 					opts = opts,
 				})
 
@@ -121,7 +131,12 @@ return {
 					mode = { "n" },
 					lhs = "<space>wl",
 					rhs = function()
-						vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()), vim.log.levels.INFO)
+						local workspace_folders = vim.lsp.buf.list_workspace_folders()
+						local msg = vim.inspect(workspace_folders)
+						local level = vim.log.levels.INFO
+
+						vim.notify(msg, level)
+
 						--- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 					end,
 					opts = opts,
@@ -130,8 +145,13 @@ return {
 				bind({
 					mode = { "n" },
 					lhs = "gt",
-					rhs = telescope.lsp_type_definitions,
-					--- rhs = vim.lsp.buf.type_definition,
+					rhs = function()
+						if vim.bo.filetype == "dart" then
+							pcall(vim.lsp.buf.type_definition)
+						else
+							pcall(telescope.lsp_type_definitions)
+						end
+					end,
 					opts = opts,
 				})
 
@@ -152,8 +172,13 @@ return {
 				bind({
 					mode = { "n" },
 					lhs = "<leader>rr",
-					rhs = telescope.lsp_references,
-					--- rhs = vim.lsp.buf.references,
+					rhs = function()
+						if vim.bo.filetype == "dart" then
+							pcall(vim.lsp.buf.references)
+						else
+							pcall(telescope.lsp_references)
+						end
+					end,
 					opts = opts,
 				})
 
@@ -187,13 +212,16 @@ return {
 					mode = { "n" },
 					lhs = "]d",
 					rhs = function()
-						telescope.diagnostics({
-							bufnr = ev.buf,
-							severity_limit = vim.diagnostic.severity.WARN,
-							sort_by = "severity",
-						})
+						if vim.bo.filetype == "dart" then
+							pcall(vim.diagnostic.setloclist)
+						else
+							telescope.diagnostics({
+								bufnr = ev.buf,
+								severity_limit = vim.diagnostic.severity.WARN,
+								sort_by = "severity",
+							})
+						end
 					end,
-					--- rhs = vim.diagnostic.setloclist,
 					opts = opts,
 				})
 

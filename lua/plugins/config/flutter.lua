@@ -12,6 +12,7 @@ return {
 		local flutter = require("flutter-tools")
 
 		flutter.setup({
+			flutter_path = "/home/jmsrsd/fvm/default/bin/flutter",
 			ui = {
 				border = "rounded",
 			},
