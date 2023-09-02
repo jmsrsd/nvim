@@ -8,8 +8,8 @@ return {
 
 		lualine.setup({
 			options = {
-				theme = "poimandres",
-				--- theme = "vscode",
+				theme = "vscode",
+				-- theme = "poimandres",
 			},
 		})
 	end,

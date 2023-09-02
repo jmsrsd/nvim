@@ -8,9 +8,9 @@ if not lazy_installed then
 	vim.fn.system({
 		"git",
 		"clone",
-		"---filter=blob:none",
+		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"---branch=stable",
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -23,8 +23,8 @@ local lazy = require("lazy")
 local use = require("plugins.util").use
 
 lazy.setup({
-	use("poimandres"),
-	--- use("vscode"),
+	-- use("poimandres"),
+	use("vscode"),
 	use("transparent"),
 	use("oil"),
 	use("comment"),
