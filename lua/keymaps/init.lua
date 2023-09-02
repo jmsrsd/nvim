@@ -3,7 +3,7 @@ local bind = util.bind
 local all_modes = util.all_modes
 local save = util.save
 
---- Copy-related bindings
+--- Yanking
 ---
 bind({
 	mode = { "n" },
@@ -11,7 +11,7 @@ bind({
 	rhs = '"+y',
 	opts = {
 		noremap = true,
-		desc = "Copy to the system clipboard",
+		desc = "Yank to the system clipboard",
 	},
 })
 
@@ -21,7 +21,7 @@ bind({
 	rhs = '"+Y',
 	opts = {
 		noremap = true,
-		desc = "Copy to the system clipboard",
+		desc = "Yank to the system clipboard",
 	},
 })
 
@@ -31,11 +31,11 @@ bind({
 	rhs = '"+y',
 	opts = {
 		noremap = true,
-		desc = "Copy to the system clipboard",
+		desc = "Yank to the system clipboard",
 	},
 })
 
---- Delete-related bindings
+--- Deleting
 ---
 bind({
 	mode = { "n" },
@@ -57,7 +57,7 @@ bind({
 	},
 })
 
---- Disabled keymamps bindings
+--- Disabled
 ---
 bind({
 	mode = { "n" },
@@ -79,7 +79,7 @@ bind({
 	},
 })
 
---- Editing bindings
+--- Editing
 ---
 bind({
 	mode = { "n" },
@@ -131,7 +131,7 @@ bind({
 	},
 })
 
---- Escape keymaps bindings
+--- Escape
 ---
 bind({
 	mode = all_modes,
@@ -154,7 +154,7 @@ bind({
 })
 
 bind({
-	mode = { "i", "l" },
+	mode = { "i", "l", "c" },
 	lhs = "jj",
 	rhs = "<ESC>",
 	opts = {
@@ -164,7 +164,7 @@ bind({
 })
 
 bind({
-	mode = { "i", "l" },
+	mode = { "i", "l", "c" },
 	lhs = "jk",
 	rhs = "<ESC>",
 	opts = {
@@ -173,7 +173,7 @@ bind({
 	},
 })
 
---- Motion-related bindings
+--- Motion
 ---
 bind({
 	mode = { "n" },
@@ -257,7 +257,7 @@ bind({
 	},
 })
 
---- Pasting-related binndings
+--- Pasting
 ---
 bind({
 	mode = { "n" },
@@ -292,7 +292,7 @@ bind({
 	},
 })
 
---- Saving/Writing-related bindings
+--- Writing (Saving)
 ---
 bind({
 	mode = { "n" },
