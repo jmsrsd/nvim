@@ -1,5 +1,5 @@
-local use = function(server)
-	return require("plugins.config.lspconfig.config." .. server)
+local use = function(server_name)
+	return require("plugins.config.lspconfig.config." .. server_name)
 end
 
 local util = require("keymaps.util")
@@ -13,41 +13,64 @@ return {
 		{ "rcarriga/nvim-notify" },
 		{ "hrsh7th/nvim-cmp" },
 		{ "stevearc/conform.nvim" },
+		{ "williamboman/mason.nvim" },
+		{ "williamboman/mason-lspconfig.nvim" },
 	},
 	config = function()
+		local mason = require("mason")
+
+		local mason_lspconfig = require("mason-lspconfig")
+
 		local lspconfig = require("lspconfig")
 
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		--- npm install -g @astrojs/language-server
-		---
-		lspconfig.astro.setup({
-			capabilities = capabilities,
+		local ensure_installed = {
+			--- npm install -g @astrojs/language-server
+			---
+			"astro",
+			--- npm install -g cssmodules-language-server
+			---
+			"cssmodules_ls",
+			--- npm i -g vscode-langservers-extracted
+			---
+			"cssls",
+			"eslint",
+			"jsonls",
+			--- npm install -g @tailwindcss/language-server
+			---
+			"tailwindcss",
+			--- npm install -g typescript typescript-language-server
+			---
+			"tsserver",
+			--- brew install lua-language-server
+			---
+			"lua_ls",
+		}
+
+		mason.setup({
+			max_concurrent_installers = #ensure_installed,
 		})
 
-		--- npm install -g cssmodules-language-server
-		---
-		lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
+		mason_lspconfig.setup({
+			ensure_installed = ensure_installed,
 
-		--- npm i -g vscode-langservers-extracted
-		---
-		lspconfig.cssls.setup({ capabilities = capabilities })
-		lspconfig.eslint.setup({ capabilities = capabilities })
-		lspconfig.jsonls.setup({ capabilities = capabilities })
+			handlers = {
+				--- Default
+				---
+				function(server_name)
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
 
-		--- npm install -g @tailwindcss/language-server
-		---
-		lspconfig.tailwindcss.setup({ capabilities = capabilities })
-
-		--- npm install -g typescript typescript-language-server
-		---
-		lspconfig.tsserver.setup({ capabilities = capabilities })
-
-		--- brew install lua-language-server
-		---
-		lspconfig.lua_ls.setup(use("lua_ls").configure({
-			capabilities = capabilities,
-		}))
+				["lua_ls"] = function()
+					lspconfig.lua_ls.setup(use("lua_ls").configure({
+						capabilities = capabilities,
+					}))
+				end,
+			},
+		})
 
 		--- Use LspAttach autocommand to only map the following keys
 		--- after the language server attaches to the current buffer
@@ -55,7 +78,7 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
-				local telescope = require("telescope.builtin")
+				local trouble = require("trouble")
 
 				--- Enable completion triggered by <c-x><c-o>
 				---
@@ -77,11 +100,7 @@ return {
 					mode = "n",
 					lhs = "gd",
 					rhs = function()
-						if vim.bo.filetype == "dart" then
-							pcall(vim.lsp.buf.definition)
-						else
-							pcall(telescope.lsp_definitions)
-						end
+						trouble.toggle("lsp_definitions")
 					end,
 					opts = opts,
 				})
@@ -97,11 +116,7 @@ return {
 					mode = { "n" },
 					lhs = "gi",
 					rhs = function()
-						if vim.bo.filetype == "dart" then
-							pcall(vim.lsp.buf.implementation)
-						else
-							pcall(telescope.lsp_implementations)
-						end
+						trouble.toggle("lsp_implementations")
 					end,
 					opts = opts,
 				})
@@ -146,11 +161,7 @@ return {
 					mode = { "n" },
 					lhs = "gt",
 					rhs = function()
-						if vim.bo.filetype == "dart" then
-							pcall(vim.lsp.buf.type_definition)
-						else
-							pcall(telescope.lsp_type_definitions)
-						end
+						trouble.toggle("lsp_type_definitions")
 					end,
 					opts = opts,
 				})
@@ -173,11 +184,7 @@ return {
 					mode = { "n" },
 					lhs = "<leader>rr",
 					rhs = function()
-						if vim.bo.filetype == "dart" then
-							pcall(vim.lsp.buf.references)
-						else
-							pcall(telescope.lsp_references)
-						end
+						trouble.toggle("lsp_references")
 					end,
 					opts = opts,
 				})
@@ -212,15 +219,7 @@ return {
 					mode = { "n" },
 					lhs = "]d",
 					rhs = function()
-						if vim.bo.filetype == "dart" then
-							pcall(vim.diagnostic.setloclist)
-						else
-							telescope.diagnostics({
-								bufnr = ev.buf,
-								severity_limit = vim.diagnostic.severity.WARN,
-								sort_by = "severity",
-							})
-						end
+						trouble.toggle("workspace_diagnostics")
 					end,
 					opts = opts,
 				})

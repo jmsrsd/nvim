@@ -36,6 +36,7 @@ lazy.setup({
 	use("fidget"),
 	use("autopairs"),
 	use("cmp"),
+	use("trouble"),
 	use("lspconfig"),
 	use("flutter"),
 	use("close_buffers"),
