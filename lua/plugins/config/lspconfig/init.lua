@@ -8,7 +8,6 @@ local bind = util.bind
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		{ "nvim-telescope/telescope.nvim" },
 		{ "j-hui/fidget.nvim" },
 		{ "rcarriga/nvim-notify" },
 		{ "hrsh7th/nvim-cmp" },
