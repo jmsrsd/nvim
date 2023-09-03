@@ -99,7 +99,7 @@ return {
 					mode = "n",
 					lhs = "gd",
 					rhs = function()
-						trouble.toggle("lsp_definitions")
+						trouble.open("lsp_definitions")
 					end,
 					opts = opts,
 				})
@@ -115,7 +115,7 @@ return {
 					mode = { "n" },
 					lhs = "gi",
 					rhs = function()
-						trouble.toggle("lsp_implementations")
+						trouble.open("lsp_implementations")
 					end,
 					opts = opts,
 				})
@@ -160,7 +160,7 @@ return {
 					mode = { "n" },
 					lhs = "gt",
 					rhs = function()
-						trouble.toggle("lsp_type_definitions")
+						trouble.open("lsp_type_definitions")
 					end,
 					opts = opts,
 				})
@@ -183,7 +183,7 @@ return {
 					mode = { "n" },
 					lhs = "<leader>rr",
 					rhs = function()
-						trouble.toggle("lsp_references")
+						trouble.open("lsp_references")
 					end,
 					opts = opts,
 				})
@@ -218,7 +218,7 @@ return {
 					mode = { "n" },
 					lhs = "]d",
 					rhs = function()
-						trouble.toggle("workspace_diagnostics")
+						trouble.open("workspace_diagnostics")
 					end,
 					opts = opts,
 				})
