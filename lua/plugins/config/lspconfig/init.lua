@@ -28,20 +28,25 @@ return {
 			--- npm install -g @astrojs/language-server
 			---
 			"astro",
+
 			--- npm install -g cssmodules-language-server
 			---
 			"cssmodules_ls",
+
 			--- npm i -g vscode-langservers-extracted
 			---
 			"cssls",
 			"eslint",
 			"jsonls",
+
 			--- npm install -g @tailwindcss/language-server
 			---
 			"tailwindcss",
+
 			--- npm install -g typescript typescript-language-server
 			---
 			"tsserver",
+
 			--- brew install lua-language-server
 			---
 			"lua_ls",
