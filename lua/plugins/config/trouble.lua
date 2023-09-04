@@ -6,7 +6,7 @@ return {
 		--- or leave it empty to use the default settings
 		--- refer to the configuration section below
 		---
-		severity = vim.diagnostic.severity.WARN,
+		-- severity = vim.diagnostic.severity.WARN,
 
 		--- for the given modes, include the declaration of the current symbol in the results
 		---
