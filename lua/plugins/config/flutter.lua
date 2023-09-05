@@ -13,12 +13,15 @@ return {
 
 		flutter.setup({
 			flutter_path = "/home/jmsrsd/fvm/default/bin/flutter",
+
 			ui = {
 				border = "rounded",
 			},
+
 			dev_log = {
 				notify_errors = true,
 			},
+
 			decorations = {
 				statusline = {
 					app_version = true,

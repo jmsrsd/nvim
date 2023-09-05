@@ -5,16 +5,19 @@ return {
 
 		conform.setup({
 			formatters_by_ft = {
-				["lua"] = { "stylua" },
 				["dart"] = { "dart_format" },
+				["astro"] = { "prettierd" },
 				["css"] = { "prettierd" },
 				["html"] = { "prettierd" },
 				["javascript"] = { "prettierd" },
-				["typescript"] = { "prettierd" },
-				["javascriptreact"] = { "prettierd" },
 				["javascript.jsx"] = { "prettierd" },
-				["typescriptreact"] = { "prettierd" },
+				["javascriptreact"] = { "prettierd" },
+				["lua"] = { "stylua" },
+				["svelte"] = { "prettierd" },
+				["typescript"] = { "prettierd" },
 				["typescript.tsx"] = { "prettierd" },
+				["typescriptreact"] = { "prettierd" },
+				["vue"] = { "prettierd" },
 			},
 
 			--- These options will be passed to conform.format()

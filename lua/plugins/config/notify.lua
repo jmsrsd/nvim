@@ -5,7 +5,7 @@ return {
 
 		notify.setup({
 			background_colour = "#000000",
-			timeout = 2000,
+			timeout = 700,
 			top_down = false,
 		})
 

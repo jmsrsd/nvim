@@ -1,30 +1,25 @@
-local use = function(server_name)
-	return require("plugins.config.lspconfig.config." .. server_name)
-end
-
-local util = require("keymaps.util")
-local bind = util.bind
-
 return {
 	"neovim/nvim-lspconfig",
+	cmd = "LspInfo",
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{ "j-hui/fidget.nvim" },
 		{ "rcarriga/nvim-notify" },
 		{ "hrsh7th/nvim-cmp" },
 		{ "stevearc/conform.nvim" },
-		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
 	},
 	config = function()
-		local mason = require("mason")
+		local use = function(server_name)
+			return require("plugins.config.lspconfig.config." .. server_name)
+		end
 
-		local mason_lspconfig = require("mason-lspconfig")
+		local bind = require("plugins.config.lspconfig.bind")
 
 		local lspconfig = require("lspconfig")
 
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local default_capabilities = require("cmp_nvim_lsp").default_capabilities
 
-		local ensure_installed = {
+		local server_names = {
 			--- npm install -g @astrojs/language-server
 			---
 			"astro",
@@ -36,45 +31,112 @@ return {
 			--- npm i -g vscode-langservers-extracted
 			---
 			"cssls",
-			"eslint",
 			"jsonls",
+			-- "eslint",
+
+			--- npm install -g eslint_d
+			--- brew install efm-langserver
+			---
+			"efm",
 
 			--- npm install -g @tailwindcss/language-server
 			---
 			"tailwindcss",
 
-			--- npm install -g typescript typescript-language-server
-			---
-			"tsserver",
-
 			--- brew install lua-language-server
 			---
 			"lua_ls",
+
+			--- npm install -g typescript typescript-language-server
+			---
+			"tsserver",
 		}
 
-		mason.setup({
-			max_concurrent_installers = #ensure_installed,
-		})
+		for _, server_name in ipairs(server_names) do
+			if server_name == "lua_ls" then
+				lspconfig[server_name].setup(use(server_name).configure({
+					on_attach = function(client)
+						client.resolved_capabilities = default_capabilities()
 
-		mason_lspconfig.setup({
-			ensure_installed = ensure_installed,
+						if client.config.flags then
+							client.config.flags.allow_incremental_sync = true
+						end
 
-			handlers = {
-				--- Default
-				---
-				function(server_name)
-					lspconfig[server_name].setup({
-						capabilities = capabilities,
-					})
-				end,
+						client.resolved_capabilities.document_formatting = false
+					end,
+				}))
+			elseif server_name == "efm" then
+				-- local eslint_parser_options = " --no-eslintrc --parser-options="
+				-- 	.. "ecmaVersion:6,"
+				-- 	.. "sourceType:module,"
+				-- 	.. "parser:@babel/eslint-parser"
 
-				["lua_ls"] = function()
-					lspconfig.lua_ls.setup(use("lua_ls").configure({
-						capabilities = capabilities,
-					}))
-				end,
-			},
-		})
+				local eslint = {
+					lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+					-- lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}" .. eslint_parser_options,
+					lintStdin = true,
+					lintFormats = { "%f:%l:%c: %m" },
+					lintIgnoreExitCode = true,
+					formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+					-- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}" .. eslint_parser_options,
+					formatStdin = true,
+				}
+
+				lspconfig[server_name].setup({
+					on_attach = function(client)
+						client.resolved_capabilities = default_capabilities()
+
+						client.resolved_capabilities.document_formatting = true
+						client.resolved_capabilities.goto_definition = false
+					end,
+					root_dir = function()
+						local function eslint_config_exists()
+							local eslintrc = vim.fn.glob(".eslintrc*", false, 1)
+
+							if not vim.tbl_isempty(eslintrc) then
+								return true
+							end
+
+							if vim.fn.filereadable("package.json") then
+								if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
+									return true
+								end
+							end
+
+							return false
+						end
+
+						if not eslint_config_exists() then
+							return nil
+						end
+
+						return vim.fn.getcwd()
+					end,
+					settings = {
+						languages = {
+							["javascript"] = { eslint },
+							["javascriptreact"] = { eslint },
+							["javascript.jsx"] = { eslint },
+							["typescript"] = { eslint },
+							["typescript.tsx"] = { eslint },
+							["typescriptreact"] = { eslint },
+						},
+					},
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescript.tsx",
+						"typescriptreact",
+					},
+				})
+			else
+				lspconfig[server_name].setup({
+					capabilities = default_capabilities(),
+				})
+			end
+		end
 
 		--- Use LspAttach autocommand to only map the following keys
 		--- after the language server attaches to the current buffer
@@ -82,8 +144,6 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
-				local trouble = require("trouble")
-
 				--- Enable completion triggered by <c-x><c-o>
 				---
 				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -93,154 +153,7 @@ return {
 				---
 				local opts = { buffer = ev.buf }
 
-				bind({
-					mode = { "n" },
-					lhs = "gD",
-					rhs = vim.lsp.buf.declaration,
-					opts = opts,
-				})
-
-				bind({
-					mode = "n",
-					lhs = "gd",
-					rhs = function()
-						trouble.open("lsp_definitions")
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "K",
-					rhs = vim.lsp.buf.hover,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "gi",
-					rhs = function()
-						trouble.open("lsp_implementations")
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "gh",
-					rhs = vim.lsp.buf.signature_help,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<leader>wa",
-					rhs = vim.lsp.buf.add_workspace_folder,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<leader>wr",
-					rhs = vim.lsp.buf.remove_workspace_folder,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<space>wl",
-					rhs = function()
-						local workspace_folders = vim.lsp.buf.list_workspace_folders()
-						local msg = vim.inspect(workspace_folders)
-						local level = vim.log.levels.INFO
-
-						vim.notify(msg, level)
-
-						--- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "gt",
-					rhs = function()
-						trouble.open("lsp_type_definitions")
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<leader>re",
-					rhs = vim.lsp.buf.rename,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n", "v" },
-					lhs = "<leader>aa",
-					rhs = vim.lsp.buf.code_action,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<leader>rr",
-					rhs = function()
-						trouble.open("lsp_references")
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "<leader>fi",
-					rhs = function()
-						local conform = require("conform")
-
-						conform.format({
-							buf = vim.api.nvim_get_current_buf(),
-							timeout_ms = 10000,
-							async = false,
-							lsp_fallback = true,
-						})
-						--- vim.lsp.buf.format({ async = false })
-					end,
-					opts = opts,
-				})
-
-				--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-				---
-				bind({
-					mode = { "n" },
-					lhs = "[d",
-					rhs = vim.diagnostic.open_float,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "]d",
-					rhs = function()
-						trouble.open("workspace_diagnostics")
-					end,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "[g",
-					rhs = vim.diagnostic.goto_prev,
-					opts = opts,
-				})
-
-				bind({
-					mode = { "n" },
-					lhs = "]g",
-					rhs = vim.diagnostic.goto_next,
-					opts = opts,
-				})
+				bind(opts)
 			end,
 		})
 	end,
