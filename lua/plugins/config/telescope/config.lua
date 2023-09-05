@@ -1,6 +1,10 @@
 local M = {}
 
 M.use = function()
+	local sorters = require("telescope.sorters")
+	local previewers = require("telescope.previewers")
+	local actions = require("telescope.actions")
+
 	return {
 		defaults = {
 			vimgrep_arguments = {
@@ -46,11 +50,11 @@ M.use = function()
 				preview_cutoff = 120,
 			},
 
-			file_sorter = require("telescope.sorters").get_fuzzy_file,
+			file_sorter = sorters.get_fuzzy_file,
 
 			file_ignore_patterns = { "node_modules" },
 
-			generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+			generic_sorter = sorters.get_generic_fuzzy_sorter,
 
 			path_display = { "truncate" },
 
@@ -62,22 +66,44 @@ M.use = function()
 
 			color_devicons = true,
 
-			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+			--- default = nil,
+			---
+			set_env = { ["COLORTERM"] = "truecolor" },
 
-			file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+			file_previewer = previewers.vim_buffer_cat.new,
 
-			grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+			grep_previewer = previewers.vim_buffer_vimgrep.new,
 
-			qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+			qflist_previewer = previewers.vim_buffer_qflist.new,
 
-			buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+			buffer_previewer_maker = previewers.buffer_previewer_maker,
 
 			mappings = {
-				n = { ["q"] = require("telescope.actions").close },
+				n = { ["q"] = actions.close },
 			},
 		},
 
 		extensions = {
+			media_files = {
+				--- filetypes whitelist
+				--- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+				---
+				filetypes = {
+					"ico",
+					"gif",
+					"jpeg",
+					"jpg",
+					"mp4",
+					"png",
+					"webm",
+					"webp",
+				},
+
+				--- find command (defaults to `fd`)
+				---
+				find_cmd = "rg",
+			},
+
 			fzf = {
 				--- false will only do exact matching
 				---

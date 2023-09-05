@@ -8,6 +8,7 @@ return {
 		local vscode = require("vscode")
 
 		vscode.setup({
+			style = "dark",
 			transparent = true,
 			italic_comments = true,
 			disable_nvimtree_bg = true,
