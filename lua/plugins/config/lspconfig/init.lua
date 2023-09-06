@@ -7,6 +7,8 @@ return {
 		{ "rcarriga/nvim-notify" },
 		{ "hrsh7th/nvim-cmp" },
 		{ "stevearc/conform.nvim" },
+		{ "williamboman/mason.nvim" },
+		{ "williamboman/mason-lspconfig.nvim" },
 	},
 	config = function()
 		local use = function(server_name)
@@ -18,6 +20,10 @@ return {
 		local lspconfig = require("lspconfig")
 
 		local default_capabilities = require("cmp_nvim_lsp").default_capabilities
+
+		local mason = require("mason")
+
+		local mason_lspconfig = require("mason-lspconfig")
 
 		local server_names = {
 			--- npm install -g @astrojs/language-server
@@ -37,7 +43,7 @@ return {
 			--- npm install -g eslint_d
 			--- brew install efm-langserver
 			---
-			"efm",
+			-- "efm",
 
 			--- npm install -g @tailwindcss/language-server
 			---
@@ -50,93 +56,61 @@ return {
 			--- npm install -g typescript typescript-language-server
 			---
 			"tsserver",
+
+			--- curl https://c.quick-lint-js.com/quick-lint-js-release.key | sudo apt-key add -
+			--- printf '\n# From: https://quick-lint-js.com/install/neovim/debian/\ndeb [arch=amd64,arm64] https://c.quick-lint-js.com/debian experimental main\n' | sudo tee /etc/apt/sources.list.d/quick-lint-js.list
+			--- sudo apt-get update
+			--- sudo apt-get install quick-lint-js quick-lint-js-vim
+			---
+			"quick_lint_js",
 		}
 
-		for _, server_name in ipairs(server_names) do
-			if server_name == "lua_ls" then
-				lspconfig[server_name].setup(use(server_name).configure({
-					on_attach = function(client)
-						client.resolved_capabilities = default_capabilities()
+		mason.setup({
+			max_concurrent_installers = #server_names,
+		})
 
-						if client.config.flags then
-							client.config.flags.allow_incremental_sync = true
-						end
+		mason_lspconfig.setup({
+			ensure_installed = server_names,
 
-						client.resolved_capabilities.document_formatting = false
-					end,
-				}))
-			elseif server_name == "efm" then
-				-- local eslint_parser_options = " --no-eslintrc --parser-options="
-				-- 	.. "ecmaVersion:6,"
-				-- 	.. "sourceType:module,"
-				-- 	.. "parser:@babel/eslint-parser"
+			handlers = {
+				--- Default
+				---
+				function(server_name)
+					lspconfig[server_name].setup({
+						capabilities = default_capabilities(),
+					})
+				end,
 
-				local eslint = {
-					lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-					-- lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}" .. eslint_parser_options,
-					lintStdin = true,
-					lintFormats = { "%f:%l:%c: %m" },
-					lintIgnoreExitCode = true,
-					formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-					-- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}" .. eslint_parser_options,
-					formatStdin = true,
-				}
+				["quick_lint_js"] = function()
+					lspconfig["quick_lint_js"].setup({
+						capabilities = default_capabilities(),
 
-				lspconfig[server_name].setup({
-					on_attach = function(client)
-						client.resolved_capabilities = default_capabilities()
-
-						client.resolved_capabilities.document_formatting = true
-						client.resolved_capabilities.goto_definition = false
-					end,
-					root_dir = function()
-						local function eslint_config_exists()
-							local eslintrc = vim.fn.glob(".eslintrc*", false, 1)
-
-							if not vim.tbl_isempty(eslintrc) then
-								return true
-							end
-
-							if vim.fn.filereadable("package.json") then
-								if vim.fn.json_decode(vim.fn.readfile("package.json"))["eslintConfig"] then
-									return true
-								end
-							end
-
-							return false
-						end
-
-						if not eslint_config_exists() then
-							return nil
-						end
-
-						return vim.fn.getcwd()
-					end,
-					settings = {
-						languages = {
-							["javascript"] = { eslint },
-							["javascriptreact"] = { eslint },
-							["javascript.jsx"] = { eslint },
-							["typescript"] = { eslint },
-							["typescript.tsx"] = { eslint },
-							["typescriptreact"] = { eslint },
+						filetypes = {
+							"javascript",
+							"javascriptreact",
+							"javascript.jsx",
+							"typescript",
+							"typescriptreact",
+							"typescript.tsx",
 						},
-					},
-					filetypes = {
-						"javascript",
-						"javascriptreact",
-						"javascript.jsx",
-						"typescript",
-						"typescript.tsx",
-						"typescriptreact",
-					},
-				})
-			else
-				lspconfig[server_name].setup({
-					capabilities = default_capabilities(),
-				})
-			end
-		end
+					})
+				end,
+
+				["lua_ls"] = function()
+					lspconfig["lua_ls"].setup(use("lua_ls").configure({
+						on_attach = function(client)
+							client.resolved_capabilities = default_capabilities()
+
+							if client.config.flags then
+								client.config.flags.allow_incremental_sync = true
+							end
+
+							client.resolved_capabilities.document_formatting = false
+						end,
+					}))
+				end,
+			},
+		})
 
 		--- Use LspAttach autocommand to only map the following keys
 		--- after the language server attaches to the current buffer
