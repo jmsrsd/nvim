@@ -1,7 +1,7 @@
 local M = {}
 
 --- @param plugin string
---- @return table
+--- @return unknown, unknown
 M.use = function(plugin)
 	return require("plugins.config." .. plugin)
 end

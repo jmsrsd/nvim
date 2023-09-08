@@ -25,6 +25,8 @@ return {
 				"json5",
 				"jsonc",
 				"lua",
+				"markdown",
+				"markdown_inline",
 				"query",
 				"scss",
 				"tsx",

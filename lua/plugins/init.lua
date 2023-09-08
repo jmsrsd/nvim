@@ -38,6 +38,7 @@ lazy.setup({
 	use("cmp"),
 	use("trouble"),
 	use("lspconfig"),
+	use("dressing"),
 	use("flutter"),
 	use("close_buffers"),
 	use("gitsigns"),

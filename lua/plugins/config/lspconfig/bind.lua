@@ -1,95 +1,82 @@
 --- @param opts table
 ---
 return function(opts)
-	local trouble = require("trouble")
-
 	local keymaps = require("keymaps.util")
 
 	local bind = keymaps.bind
 
+	--- @type number
 	local buffer = opts.buffer
 
+	--- @param desc string
+	--- @return { buffer: number, desc: string, silent: boolean }
 	local describe = function(desc)
 		return {
 			buffer = buffer,
 			desc = desc,
+			silent = true,
 		}
 	end
 
-	bind({
-		mode = { "n" },
-		lhs = "gD",
-		rhs = vim.lsp.buf.declaration,
-		opts = describe("Go to declaration"),
+	vim.diagnostic.config({
+		virtual_text = true,
+		severity_sort = true,
+		float = {
+			border = "rounded",
+			source = "always",
+		},
 	})
+
+	-- bind({
+	-- 	mode = { "n" },
+	-- 	lhs = "gD",
+	-- 	rhs = vim.lsp.buf.declaration,
+	-- 	opts = describe("Go to declaration"),
+	-- })
 
 	bind({
 		mode = "n",
 		lhs = "gd",
-		rhs = function()
-			trouble.open("lsp_definitions")
-		end,
+		rhs = ":Lspsaga finder def<CR>",
+		-- rhs = function()
+		-- 	trouble.open("lsp_definitions")
+		-- end,
 		opts = describe("Go to definitions"),
 	})
 
 	bind({
 		mode = { "n" },
-		lhs = "K",
-		rhs = vim.lsp.buf.hover,
-		opts = describe("Displays hover information"),
-	})
-
-	bind({
-		mode = { "n" },
 		lhs = "gi",
-		rhs = function()
-			trouble.open("lsp_implementations")
-		end,
+		rhs = ":Lspsaga finder imp<CR>",
+		-- rhs = function()
+		-- 	trouble.open("lsp_implementations")
+		-- end,
 		opts = describe("Go to implementations"),
 	})
 
 	bind({
 		mode = { "n" },
-		lhs = "gh",
+		lhs = "K",
+		rhs = ":Lspsaga hover_doc<CR>",
+		-- rhs = vim.lsp.buf.hover,
+		opts = describe("Displays hover information"),
+	})
+
+	bind({
+		mode = { "n" },
+		lhs = "<leader>k",
+		-- lhs = "gh",
 		rhs = vim.lsp.buf.signature_help,
 		opts = describe("Displays signature information"),
 	})
 
-	-- bind({
-	-- 	mode = { "n" },
-	-- 	lhs = "<leader>wa",
-	-- 	rhs = vim.lsp.buf.add_workspace_folder,
-	-- 	opts = opts,
-	-- })
-	--
-	-- bind({
-	-- 	mode = { "n" },
-	-- 	lhs = "<leader>wr",
-	-- 	rhs = vim.lsp.buf.remove_workspace_folder,
-	-- 	opts = opts,
-	-- })
-	--
-	-- bind({
-	-- 	mode = { "n" },
-	-- 	lhs = "<space>wl",
-	-- 	rhs = function()
-	-- 		local workspace_folders = vim.lsp.buf.list_workspace_folders()
-	-- 		local msg = vim.inspect(workspace_folders)
-	-- 		local level = vim.log.levels.INFO
-	--
-	-- 		vim.notify(msg, level)
-	--
-	-- 		-- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	-- 	end,
-	-- 	opts = opts,
-	-- })
-
 	bind({
 		mode = { "n" },
 		lhs = "gt",
-		rhs = function()
-			trouble.open("lsp_type_definitions")
-		end,
+		rhs = ":Telescope lsp_type_definitions<CR>",
+		-- rhs = function()
+		-- 	trouble.open("lsp_type_definitions")
+		-- end,
 		opts = describe("Go to type definitions"),
 	})
 
@@ -97,12 +84,14 @@ return function(opts)
 		mode = { "n" },
 		lhs = "<leader>re",
 		rhs = vim.lsp.buf.rename,
+		-- rhs = '"Lspsaga lsp_rename ++project<CR>',
 		opts = describe("Apply rename"),
 	})
 
 	bind({
 		mode = { "n", "v" },
 		lhs = "<leader>aa",
+		-- rhs = ":Lspsaga code_action<CR>",
 		rhs = vim.lsp.buf.code_action,
 		opts = describe("Display code action"),
 	})
@@ -110,9 +99,10 @@ return function(opts)
 	bind({
 		mode = { "n" },
 		lhs = "<leader>rr",
-		rhs = function()
-			trouble.open("lsp_references")
-		end,
+		rhs = ":Lspsaga finder ref<CR>",
+		-- rhs = function()
+		-- 	trouble.open("lsp_references")
+		-- end,
 		opts = describe("Go to references"),
 	})
 
@@ -140,29 +130,34 @@ return function(opts)
 		mode = { "n" },
 		lhs = "[d",
 		rhs = vim.diagnostic.open_float,
+		-- rhs = ":Lspsaga show_line_diagnostics<CR>",
 		opts = describe("Show diagnostics"),
 	})
 
 	bind({
 		mode = { "n" },
 		lhs = "]d",
-		rhs = function()
-			trouble.open("workspace_diagnostics")
-		end,
+		rhs = ":Telescope diagnostics severity_limit=WARN",
+		-- rhs = ":Lspsaga show_workspace_diagnostics<CR>",
+		-- rhs = function()
+		-- 	trouble.open("workspace_diagnostics")
+		-- end,
 		opts = describe("Show workspace diagnostics"),
 	})
 
 	bind({
 		mode = { "n" },
 		lhs = "[g",
-		rhs = vim.diagnostic.goto_prev,
+		rhs = ":Lspsaga diagnostic_jump_prev<CR>",
+		-- rhs = vim.diagnostic.goto_prev,
 		opts = describe("Go to previous diagnostic"),
 	})
 
 	bind({
 		mode = { "n" },
 		lhs = "]g",
-		rhs = vim.diagnostic.goto_next,
+		rhs = ":Lspsaga diagnostic_jump_next<CR>",
+		-- rhs = vim.diagnostic.goto_next,
 		opts = describe("Go to next diagnostic"),
 	})
 end

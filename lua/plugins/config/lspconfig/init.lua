@@ -9,6 +9,7 @@ return {
 		{ "stevearc/conform.nvim" },
 		{ "williamboman/mason.nvim" },
 		{ "williamboman/mason-lspconfig.nvim" },
+		{ "nvimdev/lspsaga.nvim" },
 	},
 	config = function()
 		local use = function(server_name)
@@ -18,6 +19,8 @@ return {
 		local bind = require("plugins.config.lspconfig.bind")
 
 		local lspconfig = require("lspconfig")
+
+		local lspsaga = require("lspsaga")
 
 		local default_capabilities = require("cmp_nvim_lsp").default_capabilities
 
@@ -109,6 +112,12 @@ return {
 						end,
 					}))
 				end,
+			},
+		})
+
+		lspsaga.setup({
+			ui = {
+				border = "rounded",
 			},
 		})
 

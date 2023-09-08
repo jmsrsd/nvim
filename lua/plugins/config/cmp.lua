@@ -18,6 +18,7 @@ return {
 		{ "ray-x/cmp-treesitter" },
 		{ "amarakon/nvim-cmp-buffer-lines" },
 		{ "roobert/tailwindcss-colorizer-cmp.nvim" },
+		{ "onsails/lspkind.nvim" },
 	},
 	config = function()
 		local util = require("util")
@@ -26,8 +27,8 @@ return {
 
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-		local cmp_sources_primaries_tbl_map_f = function(k, v)
-			v["priority"] = 100 - k
+		local cmp_sources_primaries_sorter = function(k, v)
+			v.priority = 100 - k
 
 			return v
 		end
@@ -48,6 +49,8 @@ return {
 			{ name = "buffer-lines", option = { words = true, comments = false, leading_whitespace = false } },
 		}
 
+		local lspkind = require("lspkind")
+
 		--- Set up nvim-cmp.
 		---
 		local cmp = require("cmp")
@@ -58,11 +61,24 @@ return {
 			color_square_width = 2,
 		})
 
-		cmp.config.formatting = {
-			format = cmp_colorizer.formatter,
-		}
-
 		cmp.setup({
+			formatting = {
+				fields = {
+					"menu",
+					"abbr",
+					"kind",
+				},
+				format = lspkind.cmp_format({
+					mode = "text",
+
+					before = function(_, vim_item)
+						vim_item.menu = lspkind.presets.default[vim_item.kind] or ""
+
+						return vim_item
+					end,
+				}),
+				-- format = cmp_colorizer.formatter,
+			},
 			snippet = {
 				--- REQUIRED - you must specify a snippet engine
 				---
@@ -90,7 +106,7 @@ return {
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources(
-				util.tbl_map(cmp_sources_primaries, cmp_sources_primaries_tbl_map_f),
+				util.tbl_map(cmp_sources_primaries, cmp_sources_primaries_sorter),
 				cmp_sources_fallbacks
 			),
 		})
