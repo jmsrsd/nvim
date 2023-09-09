@@ -27,17 +27,18 @@ return function(opts)
 		},
 	})
 
-	-- bind({
-	-- 	mode = { "n" },
-	-- 	lhs = "gD",
-	-- 	rhs = vim.lsp.buf.declaration,
-	-- 	opts = describe("Go to declaration"),
-	-- })
+	bind({
+		mode = { "n" },
+		lhs = "gD",
+		rhs = vim.lsp.buf.declaration,
+		opts = describe("Go to declaration"),
+	})
 
 	bind({
 		mode = "n",
 		lhs = "gd",
-		rhs = ":Lspsaga finder def<CR>",
+		rhs = ":Telescope lsp_definitions<CR>",
+		-- rhs = ":Lspsaga finder def<CR>",
 		-- rhs = function()
 		-- 	trouble.open("lsp_definitions")
 		-- end,
@@ -47,7 +48,8 @@ return function(opts)
 	bind({
 		mode = { "n" },
 		lhs = "gi",
-		rhs = ":Lspsaga finder imp<CR>",
+		rhs = ":Telescope lsp_implementations<CR>",
+		-- rhs = ":Lspsaga finder imp<CR>",
 		-- rhs = function()
 		-- 	trouble.open("lsp_implementations")
 		-- end,
@@ -91,15 +93,16 @@ return function(opts)
 	bind({
 		mode = { "n", "v" },
 		lhs = "<leader>a",
-		-- rhs = ":Lspsaga code_action<CR>",
 		rhs = vim.lsp.buf.code_action,
+		-- rhs = ":Lspsaga code_action<CR>",
 		opts = describe("Display code action"),
 	})
 
 	bind({
 		mode = { "n" },
 		lhs = "<leader>e",
-		rhs = ":Lspsaga finder ref<CR>",
+		rhs = ":Telescope lsp_references<CR>",
+		-- rhs = ":Lspsaga finder ref<CR>",
 		-- rhs = function()
 		-- 	trouble.open("lsp_references")
 		-- end,
@@ -137,7 +140,7 @@ return function(opts)
 	bind({
 		mode = { "n" },
 		lhs = "]d",
-		rhs = ":Telescope diagnostics severity_limit=WARN",
+		rhs = ":Telescope diagnostics severity_limit=WARN<CR>",
 		-- rhs = ":Lspsaga show_workspace_diagnostics<CR>",
 		-- rhs = function()
 		-- 	trouble.open("workspace_diagnostics")

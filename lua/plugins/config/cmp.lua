@@ -16,7 +16,6 @@ return {
 		{ "hrsh7th/cmp-nvim-lua" },
 		{ "petertriho/cmp-git" },
 		{ "ray-x/cmp-treesitter" },
-		{ "amarakon/nvim-cmp-buffer-lines" },
 		{ "roobert/tailwindcss-colorizer-cmp.nvim" },
 		{ "onsails/lspkind.nvim" },
 	},
@@ -27,13 +26,17 @@ return {
 
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-		local cmp_sources_primaries_sorter = function(k, v)
-			v.priority = 100 - k
+		local cmp_sort_sources = function(sources)
+			return util.tbl_map(sources, function(k, v)
+				v.priority = 100 - k
+				-- v.group_index = k
+				-- v.max_item_count = 10
 
-			return v
+				return v
+			end)
 		end
 
-		local cmp_sources_primaries = {
+		local cmp_primary_sources = {
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
 			{ name = "nvim_lua" },
@@ -42,11 +45,24 @@ return {
 			{ name = "git" },
 			{ name = "path" },
 			{ name = "rg" },
+
+			--- Buffer sources
+			---
+			{ name = "buffer" },
 		}
 
-		local cmp_sources_fallbacks = {
-			{ name = "buffer" },
-			{ name = "buffer-lines", option = { words = true, comments = false, leading_whitespace = false } },
+		local cmp_source_ids = {
+			["nvim_lsp"] = "LSP",
+			["nvim_lsp_signature_help"] = "SGN",
+			["nvim_lua"] = "LUA",
+			["luasnip"] = "LSP",
+			["treesitter"] = "TRS",
+			["git"] = "GIT",
+			["path"] = "PTH",
+			["rg"] = "RGP",
+			["buffer"] = "BFR",
+			["cmdline"] = "CDL",
+			["cmdline_history"] = "CDH",
 		}
 
 		local lspkind = require("lspkind")
@@ -71,8 +87,11 @@ return {
 				format = lspkind.cmp_format({
 					mode = "text",
 
-					before = function(_, vim_item)
+					before = function(entry, vim_item)
+						local name = cmp_source_ids[entry.source.name]
+
 						vim_item.menu = lspkind.presets.default[vim_item.kind] or ""
+						vim_item.menu = vim_item.menu .. " [" .. name .. "]"
 
 						return vim_item
 					end,
@@ -105,35 +124,42 @@ return {
 				---
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
-			sources = cmp.config.sources(
-				util.tbl_map(cmp_sources_primaries, cmp_sources_primaries_sorter),
-				cmp_sources_fallbacks
-			),
+			sources = cmp_sort_sources(cmp_primary_sources),
 		})
 
 		--- Set configuration for specific filetype.
 		cmp.setup.filetype("gitcommit", {
-			sources = cmp.config.sources({
+			sources = cmp_sort_sources({
 				--- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
 				---
 				{ name = "git" },
-			}, cmp_sources_fallbacks),
+
+				--- Buffer sources
+				---
+				{ name = "buffer" },
+			}),
 		})
 
 		--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 		---
 		cmp.setup.cmdline({ "/", "?" }, {
 			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp_sources_fallbacks,
+			sources = cmp_sort_sources({
+				--- Buffer sources
+				---
+				{ name = "buffer" },
+			}),
 		})
 
 		--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 		---
 		cmp.setup.cmdline(":", {
 			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({
+			sources = cmp_sort_sources({
 				{ name = "path" },
-			}, {
+
+				--- CMD sources
+				---
 				{ name = "cmdline" },
 				{ name = "cmdline_history" },
 			}),

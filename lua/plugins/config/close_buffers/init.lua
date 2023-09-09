@@ -30,7 +30,7 @@ return {
 
 		bind({
 			mode = { "n" },
-			lhs = "<leader>w",
+			lhs = "<leader><CR>",
 			rhs = util.wipe_hiddens,
 			opts = {
 				noremap = true,

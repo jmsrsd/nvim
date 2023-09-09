@@ -1,22 +1,22 @@
 local M = {}
 
-M.use = function()
+M.configure = function()
 	local sorters = require("telescope.sorters")
 	local previewers = require("telescope.previewers")
 	local actions = require("telescope.actions")
 
 	return {
 		defaults = {
-			vimgrep_arguments = {
-				"rg",
-				"-L",
-				"--color=never",
-				"--no-heading",
-				"--with-filename",
-				"--line-number",
-				"--column",
-				"--smart-case",
-			},
+			-- vimgrep_arguments = {
+			-- 	"rg",
+			-- 	"-L",
+			-- 	"--color=never",
+			-- 	"--no-heading",
+			-- 	"--with-filename",
+			-- 	"--line-number",
+			-- 	"--column",
+			-- 	"--smart-case",
+			-- },
 
 			prompt_prefix = "   ",
 
@@ -30,24 +30,32 @@ M.use = function()
 
 			sorting_strategy = "ascending",
 
-			layout_strategy = "horizontal",
+			--- Can be set with:
+			--- "vertical", or "horizontal"
+			---
+			layout_strategy = "vertical",
 
 			layout_config = {
-				horizontal = {
-					prompt_position = "top",
-					preview_width = 0.55,
-					results_width = 0.8,
-				},
-
 				vertical = {
-					mirror = false,
+					preview_height = 0.6,
+					results_height = 0.4,
 				},
 
-				width = 0.87,
-
-				height = 0.80,
-
-				preview_cutoff = 120,
+				-- horizontal = {
+				-- 	prompt_position = "top",
+				-- 	preview_width = 0.55,
+				-- 	results_width = 0.8,
+				-- },
+				--
+				-- vertical = {
+				-- 	mirror = false,
+				-- },
+				--
+				-- width = 0.87,
+				--
+				-- height = 0.80,
+				--
+				-- preview_cutoff = 120,
 			},
 
 			file_sorter = sorters.get_fuzzy_file,

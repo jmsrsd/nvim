@@ -14,14 +14,15 @@ return {
 		local telescope = require("telescope")
 		local load_extension = telescope.load_extension
 
-		telescope.setup(config.use())
+		telescope.setup(config.configure())
 
 		--- Default keybindings
 		---
-		bind("<leader>f", "find_files")
+		bind("<leader>f", "find_files previewer=false")
 		bind("<leader>g", "live_grep")
-		bind("<leader>b", "buffers")
+		bind("<leader>b", "buffers previewer=false")
 		bind("<leader>h", "help_tags")
+		bind("<leader>/", "current_buffer_fuzzy_find previewer=false")
 
 		--- To get fzf loaded and working with telescope, you need to call
 		--- load_extension, somewhere after setup function:
