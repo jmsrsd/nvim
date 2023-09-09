@@ -324,3 +324,13 @@ bind({
 		desc = "Save all",
 	},
 })
+
+bind({
+	mode = { "n" },
+	lhs = "<leader>w",
+	rhs = save,
+	opts = {
+		noremap = true,
+		desc = "Save all",
+	},
+})
