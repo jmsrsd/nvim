@@ -9,7 +9,13 @@ return {
 	config = function()
 		local oil = require("oil")
 
-		oil.setup({})
+		oil.setup({
+			view_options = {
+				--- Show files and directories that start with "."
+				---
+				show_hidden = true,
+			},
+		})
 
 		bind({
 			mode = { "n" },
