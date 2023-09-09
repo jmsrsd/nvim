@@ -18,10 +18,10 @@ return {
 
 		--- Default keybindings
 		---
-		bind("<leader>ff", "find_files")
-		bind("<leader>fg", "live_grep")
-		bind("<leader>fb", "buffers")
-		bind("<leader>fh", "help_tags")
+		bind("<leader>f", "find_files")
+		bind("<leader>g", "live_grep")
+		bind("<leader>b", "buffers")
+		bind("<leader>h", "help_tags")
 
 		--- To get fzf loaded and working with telescope, you need to call
 		--- load_extension, somewhere after setup function:
@@ -32,6 +32,6 @@ return {
 		---
 		load_extension("media_files")
 
-		bind("<leader>mf", "media_files")
+		bind("<leader>m", "media_files")
 	end,
 }

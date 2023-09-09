@@ -82,7 +82,7 @@ return function(opts)
 
 	bind({
 		mode = { "n" },
-		lhs = "<leader>re",
+		lhs = "<leader>r",
 		rhs = vim.lsp.buf.rename,
 		-- rhs = '"Lspsaga lsp_rename ++project<CR>',
 		opts = describe("Apply rename"),
@@ -90,7 +90,7 @@ return function(opts)
 
 	bind({
 		mode = { "n", "v" },
-		lhs = "<leader>aa",
+		lhs = "<leader>a",
 		-- rhs = ":Lspsaga code_action<CR>",
 		rhs = vim.lsp.buf.code_action,
 		opts = describe("Display code action"),
@@ -98,7 +98,7 @@ return function(opts)
 
 	bind({
 		mode = { "n" },
-		lhs = "<leader>rr",
+		lhs = "<leader>e",
 		rhs = ":Lspsaga finder ref<CR>",
 		-- rhs = function()
 		-- 	trouble.open("lsp_references")
@@ -108,7 +108,7 @@ return function(opts)
 
 	bind({
 		mode = { "n" },
-		lhs = "<leader>fi",
+		lhs = "<leader>i",
 		rhs = function()
 			local conform = require("conform")
 

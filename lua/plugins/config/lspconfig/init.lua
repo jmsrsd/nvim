@@ -119,6 +119,11 @@ return {
 			ui = {
 				border = "rounded",
 			},
+			finder = {
+				--- default to "o"
+				---
+				toggle_or_open = "<CR>",
+			},
 		})
 
 		--- Use LspAttach autocommand to only map the following keys

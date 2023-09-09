@@ -47,7 +47,9 @@ return {
 
 			--- List of parsers to ignore installing (for "all")
 			---
-			ignore_install = { "dart" },
+			ignore_install = {
+				"dart",
+			},
 
 			highlight = {
 				enable = true,
@@ -59,21 +61,27 @@ return {
 			refactor = {
 				highlight_definitions = {
 					enable = true,
+
 					--- Set to false if you have an `updatetime` of ~100.
 					---
 					clear_on_cursor_move = false,
 				},
+
 				highlight_current_scope = { enable = false },
+
 				smart_rename = {
-					enable = true,
+					enable = false,
+
 					--- Assign keymaps to false to disable them, e.g. `smart_rename = false`.
 					---
 					keymaps = {
-						smart_rename = "<leader>re",
+						smart_rename = "<leader>r",
 					},
 				},
+
 				navigation = {
 					enable = false,
+
 					--- keymaps = {
 					--- 	goto_definition = "gd",
 					--- 	list_definitions = "gl",

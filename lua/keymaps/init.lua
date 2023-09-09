@@ -296,7 +296,7 @@ bind({
 ---
 bind({
 	mode = { "n" },
-	lhs = "<leader>wq",
+	lhs = "<leader>q",
 	rhs = function()
 		pcall(save)
 		pcall(function()
@@ -318,16 +318,6 @@ bind({
 bind({
 	mode = { "n" },
 	lhs = "<CR>",
-	rhs = save,
-	opts = {
-		noremap = true,
-		desc = "Save all",
-	},
-})
-
-bind({
-	mode = { "n" },
-	lhs = "<leader>ww",
 	rhs = save,
 	opts = {
 		noremap = true,
