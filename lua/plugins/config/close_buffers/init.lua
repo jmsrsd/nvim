@@ -1,10 +1,10 @@
 local bind = require("keymaps.util").bind
+local util = require("plugins.config.close_buffers.util")
 
 return {
 	"kazhala/close-buffers.nvim",
 	config = function()
 		local close_buffers = require("close_buffers")
-		local util = require("plugins.config.close_buffers.util")
 
 		close_buffers.setup({
 			--- Filetype to ignore when running deletions
