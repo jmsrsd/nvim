@@ -120,9 +120,11 @@ return {
 				border = "rounded",
 			},
 			finder = {
-				--- default to "o"
-				---
-				toggle_or_open = "<CR>",
+				keys = {
+					--- default to "o"
+					---
+					toggle_or_open = "<CR>",
+				},
 			},
 		})
 
