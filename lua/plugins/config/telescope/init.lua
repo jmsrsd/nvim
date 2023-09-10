@@ -4,7 +4,8 @@ local bind = require(basepath .. ".util").bind
 
 return {
 	"nvim-telescope/telescope.nvim",
-	branch = "0.1.x",
+	branch = "master",
+	-- branch = "0.1.x",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -32,6 +33,10 @@ return {
 		--- `Media files` configs
 		---
 		load_extension("media_files")
+
+		--- `Flutter` configs
+		---
+		load_extension("flutter")
 
 		bind("<leader>m", "media_files")
 	end,
