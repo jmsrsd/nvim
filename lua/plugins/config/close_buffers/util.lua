@@ -1,9 +1,10 @@
-local close_buffers = require("close_buffers")
 local keymaps = require("keymaps.util")
 
 local M = {}
 
 M.wipe_hiddens = function()
+	local close_buffers = require("close_buffers")
+
 	local fn = close_buffers.wipe
 	local opts = { type = "hidden" }
 

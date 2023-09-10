@@ -13,6 +13,7 @@ return {
 			---
 			ensure_installed = {
 				"css",
+				-- "dart",
 				"git_config",
 				"git_rebase",
 				"gitattributes",

@@ -121,7 +121,7 @@ return {
 			},
 			finder = {
 				keys = {
-					--- default to "o"
+					--- Default to "o"
 					---
 					toggle_or_open = "<CR>",
 				},
