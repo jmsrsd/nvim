@@ -1,11 +1,25 @@
-local bind = require("keymaps.util").bind
+local open_parent_directory = function()
+	local close_buffers = require("plugins.config.close_buffers.util")
+
+	pcall(vim.cmd.Oil)
+	pcall(close_buffers.wipe_hiddens)
+end
 
 return {
 	"stevearc/oil.nvim",
+
+	lazy = false,
+
 	--- Optional dependencies
+	---
 	dependencies = {
 		{ "nvim-tree/nvim-web-devicons" },
 	},
+
+	keys = {
+		{ "-", open_parent_directory, desc = "Open Parent Directory" },
+	},
+
 	config = function()
 		local oil = require("oil")
 
@@ -14,21 +28,6 @@ return {
 				--- Show files and directories that start with "."
 				---
 				show_hidden = true,
-			},
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "-",
-			rhs = function()
-				local close_buffers = require("plugins.config.close_buffers.util")
-
-				pcall(vim.cmd.Oil)
-				pcall(close_buffers.wipe_hiddens)
-			end,
-			opts = {
-				silent = true,
-				desc = "Open parent directory",
 			},
 		})
 	end,

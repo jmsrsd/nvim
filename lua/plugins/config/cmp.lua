@@ -1,6 +1,8 @@
 return {
 	"hrsh7th/nvim-cmp",
+
 	event = "InsertEnter",
+
 	dependencies = {
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-buffer" },
@@ -18,13 +20,38 @@ return {
 		{ "ray-x/cmp-treesitter" },
 		{ "roobert/tailwindcss-colorizer-cmp.nvim" },
 		{ "onsails/lspkind.nvim" },
+		{ "tzachar/fuzzy.nvim" },
+		{ "tzachar/cmp-fuzzy-buffer" },
+		{ "tzachar/cmp-fuzzy-path" },
 	},
+
 	config = function()
 		local util = require("util")
 
 		local cmp_colorizer = require("tailwindcss-colorizer-cmp")
 
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
+		local cmp_primary_sources = {
+			{ name = "nvim_lsp" },
+			{ name = "nvim_lsp_signature_help" },
+			{ name = "nvim_lua" },
+			{ name = "luasnip" },
+			{ name = "treesitter" },
+			{ name = "git" },
+
+			--- Path sources
+			---
+			{ name = "fuzzy_path" },
+			{ name = "path" },
+
+			{ name = "rg" },
+
+			--- Buffer sources
+			---
+			{ name = "fuzzy_buffer" },
+			{ name = "buffer" },
+		}
 
 		local cmp_sort_sources = function(sources)
 			return util.tbl_map(sources, function(k, v)
@@ -35,35 +62,6 @@ return {
 				return v
 			end)
 		end
-
-		local cmp_primary_sources = {
-			{ name = "nvim_lsp" },
-			{ name = "nvim_lsp_signature_help" },
-			{ name = "nvim_lua" },
-			{ name = "luasnip" },
-			{ name = "treesitter" },
-			{ name = "git" },
-			{ name = "path" },
-			{ name = "rg" },
-
-			--- Buffer sources
-			---
-			{ name = "buffer" },
-		}
-
-		local cmp_source_ids = {
-			["nvim_lsp"] = "LSP",
-			["nvim_lsp_signature_help"] = "SGN",
-			["nvim_lua"] = "LUA",
-			["luasnip"] = "LSP",
-			["treesitter"] = "TRS",
-			["git"] = "GIT",
-			["path"] = "PTH",
-			["rg"] = "RGP",
-			["buffer"] = "BFR",
-			["cmdline"] = "CDL",
-			["cmdline_history"] = "CDH",
-		}
 
 		local lspkind = require("lspkind")
 
@@ -88,10 +86,17 @@ return {
 					mode = "text",
 
 					before = function(entry, vim_item)
-						local name = cmp_source_ids[entry.source.name]
+						local name = entry.source.name
+						name = name:lower()
+						name = name:gsub("_", "")
+						name = name:gsub("[aiueo]", "")
+						-- local name = cmp_source_ids[entry.source.name]
 
 						vim_item.menu = lspkind.presets.default[vim_item.kind] or ""
-						vim_item.menu = vim_item.menu .. " [" .. name .. "]"
+						-- vim_item.menu = vim_item.menu .. name .. " │"
+
+						vim_item.kind = name
+						-- vim_item.kind = "│ " .. vim_item.kind
 
 						return vim_item
 					end,
@@ -136,6 +141,7 @@ return {
 
 				--- Buffer sources
 				---
+				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
 			}),
 		})
@@ -147,6 +153,7 @@ return {
 			sources = cmp_sort_sources({
 				--- Buffer sources
 				---
+				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
 			}),
 		})
@@ -156,6 +163,9 @@ return {
 		cmp.setup.cmdline(":", {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = cmp_sort_sources({
+				--- Path sources
+				---
+				{ name = "fuzzy_path" },
 				{ name = "path" },
 
 				--- CMD sources

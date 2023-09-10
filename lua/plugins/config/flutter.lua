@@ -1,15 +1,23 @@
 return {
 	"akinsho/flutter-tools.nvim",
+
 	lazy = false,
+
+	ft = { "dart" },
+
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 
 		--- optional for vim.ui.select
 		---
 		{ "stevearc/dressing.nvim" },
+
+		{ "hrsh7th/nvim-cmp" },
 	},
+
 	config = function()
 		local flutter = require("flutter-tools")
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		flutter.setup({
 			flutter_path = "/home/jmsrsd/fvm/default/bin/flutter",
@@ -30,7 +38,7 @@ return {
 				},
 			},
 			lsp = {
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				capabilities = cmp_nvim_lsp.default_capabilities(),
 			},
 		})
 	end,

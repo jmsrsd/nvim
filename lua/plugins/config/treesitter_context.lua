@@ -1,10 +1,26 @@
-local bind = require("keymaps.util").bind
+local util = require("plugins.config.treesitter.util")
+
+local go_to_context = function()
+	local context = require("treesitter-context")
+
+	context.go_to_context()
+end
 
 return {
 	"nvim-treesitter/nvim-treesitter-context",
+
+	ft = util.ensure_installed,
+
+	lazy = false,
+
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter" },
 	},
+
+	keys = {
+		{ "[c", go_to_context, desc = "Jumping to context (upwards)" },
+	},
+
 	config = function()
 		local context = require("treesitter-context")
 
@@ -48,16 +64,6 @@ return {
 			--- (fun(buf: integer): boolean) return false to disable attaching
 			---
 			on_attach = nil,
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "[c",
-			rhs = context.go_to_context,
-			opts = {
-				silent = true,
-				desc = "Jumping to context (upwards)",
-			},
 		})
 	end,
 }

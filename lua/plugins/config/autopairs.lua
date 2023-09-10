@@ -1,9 +1,12 @@
 return {
 	"windwp/nvim-autopairs",
+
+	event = "InsertEnter",
+
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter" },
 	},
-	event = "InsertEnter",
+
 	config = function()
 		local autopairs = require("nvim-autopairs")
 

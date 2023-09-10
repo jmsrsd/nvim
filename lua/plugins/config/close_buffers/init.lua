@@ -1,8 +1,10 @@
-local bind = require("keymaps.util").bind
 local util = require("plugins.config.close_buffers.util")
 
 return {
 	"kazhala/close-buffers.nvim",
+	keys = {
+		{ "<leader><CR>", util.wipe_hiddens_and_save, desc = "Delete all hidden buffers" },
+	},
 	config = function()
 		local close_buffers = require("close_buffers")
 
@@ -26,16 +28,6 @@ return {
 			--- Custom function to retrieve the next buffer when preserving window layout
 			---
 			next_buffer_cmd = nil,
-		})
-
-		bind({
-			mode = { "n" },
-			lhs = "<leader><CR>",
-			rhs = util.wipe_hiddens_and_save,
-			opts = {
-				noremap = true,
-				desc = "Delete all hidden buffers",
-			},
 		})
 	end,
 }
