@@ -31,7 +31,7 @@ return {
 		bind({
 			mode = { "n" },
 			lhs = "<leader><CR>",
-			rhs = util.wipe_hiddens,
+			rhs = util.wipe_hiddens_and_save,
 			opts = {
 				noremap = true,
 				desc = "Delete all hidden buffers",

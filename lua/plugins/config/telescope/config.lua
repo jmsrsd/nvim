@@ -2,21 +2,21 @@ local M = {}
 
 M.configure = function()
 	local sorters = require("telescope.sorters")
-	local previewers = require("telescope.previewers")
 	local actions = require("telescope.actions")
+	local previewers = require("telescope.previewers")
 
 	return {
 		defaults = {
-			-- vimgrep_arguments = {
-			-- 	"rg",
-			-- 	"-L",
-			-- 	"--color=never",
-			-- 	"--no-heading",
-			-- 	"--with-filename",
-			-- 	"--line-number",
-			-- 	"--column",
-			-- 	"--smart-case",
-			-- },
+			vimgrep_arguments = {
+				"rg",
+				"-L",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+			},
 
 			prompt_prefix = "   ",
 
@@ -46,15 +46,15 @@ M.configure = function()
 				-- 	preview_width = 0.55,
 				-- 	results_width = 0.8,
 				-- },
-				--
+
 				-- vertical = {
 				-- 	mirror = false,
 				-- },
-				--
+
 				-- width = 0.87,
-				--
+
 				-- height = 0.80,
-				--
+
 				-- preview_cutoff = 120,
 			},
 

@@ -1,6 +1,9 @@
 local util = require("keymaps.util")
-local bind = util.bind
+
 local all_modes = util.all_modes
+
+local bind = util.bind
+
 local save = util.save
 
 --- Yanking

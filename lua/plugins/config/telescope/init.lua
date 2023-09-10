@@ -34,10 +34,10 @@ return {
 		---
 		load_extension("media_files")
 
+		bind("<leader>m", "media_files")
+
 		--- `Flutter` configs
 		---
 		load_extension("flutter")
-
-		bind("<leader>m", "media_files")
 	end,
 }

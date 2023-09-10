@@ -5,24 +5,24 @@ return {
 
 		notify.setup({
 			background_colour = "#000000",
-			timeout = 700,
+			timeout = 300,
 			top_down = false,
 		})
+
+		local msg_blacklist = {
+			"",
+			"No information available",
+		}
 
 		local notifier = function(msg, level, opts)
 			--- Trim msg
 			---
-			msg = string.gsub(msg, "^%s*(.-)%s*$", "%1")
-
-			local banned_messages = {
-				"",
-				"No information available",
-			}
+			msg = msg:gsub("^%s*(.-)%s*$", "%1")
 
 			--- Should not notify when msg is empty
 			---
-			for _, banned in ipairs(banned_messages) do
-				if msg == banned then
+			for _, blacklisted in ipairs(msg_blacklist) do
+				if msg == blacklisted then
 					return
 				end
 			end
