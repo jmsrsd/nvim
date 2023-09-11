@@ -4,6 +4,8 @@ local config = require(basepath .. ".config")
 return {
 	"nvim-telescope/telescope.nvim",
 
+	lazy = false,
+
 	branch = "master",
 	-- branch = "0.1.x",
 
