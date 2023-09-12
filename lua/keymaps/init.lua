@@ -302,14 +302,11 @@ bind({
 	lhs = "<leader>q",
 	rhs = function()
 		pcall(save)
-		pcall(function()
-			vim.cmd("silent! !prettierd stop")
-		end)
 
-		if not pcall(vim.cmd.wqa) then
-			pcall(function()
-				vim.cmd("qa!")
-			end)
+		pcall(vim.cmd, "silent! !prettierd stop")
+
+		if not pcall(vim.cmd, "wqa") then
+			pcall(vim.cmd, "qa!")
 		end
 	end,
 	opts = {

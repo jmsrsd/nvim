@@ -23,6 +23,11 @@ return {
 		{ "tzachar/fuzzy.nvim" },
 		{ "tzachar/cmp-fuzzy-buffer" },
 		{ "tzachar/cmp-fuzzy-path" },
+
+		--- Emmet
+		---
+		{ "mattn/emmet-vim" },
+		{ "dcampos/cmp-emmet-vim" },
 	},
 
 	config = function()
@@ -35,17 +40,22 @@ return {
 		local cmp_primary_sources = {
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
+
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
+
 			{ name = "treesitter" },
+
+			{ name = "emmet_vim" },
+
 			{ name = "git" },
+
+			{ name = "rg" },
 
 			--- Path sources
 			---
 			{ name = "fuzzy_path" },
 			{ name = "path" },
-
-			{ name = "rg" },
 
 			--- Buffer sources
 			---
@@ -55,9 +65,7 @@ return {
 
 		local cmp_sort_sources = function(sources)
 			return util.tbl_map(sources, function(k, v)
-				v.priority = 100 - k
-				-- v.group_index = k
-				-- v.max_item_count = 10
+				v.priority = #sources - k - 1
 
 				return v
 			end)
@@ -87,16 +95,36 @@ return {
 
 					before = function(entry, vim_item)
 						local name = entry.source.name
+
 						name = name:lower()
 						name = name:gsub("_", "")
 						name = name:gsub("[aiueo]", "")
-						-- local name = cmp_source_ids[entry.source.name]
+						name = name:gsub("nvm", "")
+
+						local _name = {}
+
+						for n in name:gmatch(".") do
+							table.insert(_name, n)
+						end
+
+						for k, v in ipairs(_name) do
+							if k == #_name then
+								break
+							end
+
+							local n = k + 1
+
+							if v == _name[n] then
+								_name[n] = "_"
+							end
+						end
+
+						name = table.concat(_name, "")
+						name = name:gsub("_", "")
+						name = name:upper()
 
 						vim_item.menu = lspkind.presets.default[vim_item.kind] or ""
-						-- vim_item.menu = vim_item.menu .. name .. " │"
-
 						vim_item.kind = name
-						-- vim_item.kind = "│ " .. vim_item.kind
 
 						return vim_item
 					end,
@@ -125,7 +153,8 @@ return {
 
 				["<C-e>"] = cmp.mapping.abort(),
 
-				--- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				--- Accept currently selected item. Set `select` to `false` to
+				--- only confirm explicitly selected items.
 				---
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),

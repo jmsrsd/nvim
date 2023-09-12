@@ -114,12 +114,14 @@ return function(opts)
 		lhs = "<leader>i",
 		rhs = function()
 			local conform = require("conform")
+			local util = require("plugins.config.conform.util")
 
 			conform.format({
 				buf = vim.api.nvim_get_current_buf(),
 				timeout_ms = 10000,
 				async = false,
 				lsp_fallback = true,
+				formatters = { util.formatters_by_ft[vim.bo.filetype] },
 			})
 
 			-- vim.lsp.buf.format({ async = false })
