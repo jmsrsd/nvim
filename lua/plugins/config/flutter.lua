@@ -22,12 +22,15 @@ return {
 		flutter.setup({
 			flutter_path = "/home/jmsrsd/fvm/default/bin/flutter",
 
+			fvm = true,
+
 			ui = {
 				border = "rounded",
 			},
 
 			dev_log = {
-				notify_errors = true,
+				notify_errors = false,
+				open_cmd = "vnew",
 			},
 
 			decorations = {

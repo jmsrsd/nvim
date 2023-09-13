@@ -40,6 +40,10 @@ vim.opt.mouse = ""
 vim.opt.cursorline = false
 vim.wo.signcolumn = "yes"
 
+--- Split behaviour
+---
+vim.opt.splitright = true
+
 --- Enable smooth scrolling
 ---
 vim.opt.scrolloff = 25
