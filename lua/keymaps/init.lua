@@ -157,7 +157,8 @@ bind({
 })
 
 bind({
-	mode = { "i", "l", "c" },
+	mode = { "i" },
+	-- mode = { "i", "l", "c" },
 	lhs = "jj",
 	rhs = "<ESC>",
 	opts = {
@@ -167,7 +168,8 @@ bind({
 })
 
 bind({
-	mode = { "i", "l", "c" },
+	mode = { "i" },
+	-- mode = { "i", "l", "c" },
 	lhs = "jk",
 	rhs = "<ESC>",
 	opts = {
