@@ -66,6 +66,12 @@ return {
 			--- sudo apt-get install quick-lint-js quick-lint-js-vim
 			---
 			"quick_lint_js",
+
+			--- brew install composer
+			--- curl -Lo phpactor.phar https://github.com/phpactor/phpactor/releases/latest/download/phpactor.phar
+			--- chmod a+x phpactor.phar
+			--- mv phpactor.phar ~/.local/bin/phpactor
+			"phpactor",
 		}
 
 		mason.setup({
