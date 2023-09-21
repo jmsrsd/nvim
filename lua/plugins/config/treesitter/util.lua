@@ -23,7 +23,6 @@ M.ensure_installed = {
 	"typescript",
 	"vim",
 	"vimdoc",
-	"xml",
 }
 
 return M
