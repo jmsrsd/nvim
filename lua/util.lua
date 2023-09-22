@@ -4,7 +4,7 @@ local M = {}
 --- @params f fun(key: string, value: any): any
 --- @return table
 ---
-M.tbl_map = function(tbl, f)
+M.map_table = function(tbl, f)
 	local t = {}
 
 	for key, value in pairs(tbl) do

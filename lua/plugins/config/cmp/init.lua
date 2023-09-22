@@ -50,20 +50,34 @@ return {
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 		local cmp_primary_sources = {
+			--- Codeium
+			---
 			{ name = "codeium" },
 
+			--- LSP
+			---
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
 
+			--- Lua
+			---
 			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 
+			--- Treesitter
+			---
 			{ name = "treesitter" },
 
+			--- Emmet
+			---
 			{ name = "emmet_vim" },
 
+			--- Git
+			---
 			{ name = "git" },
 
+			--- Ripgrep
+			---
 			{ name = "rg" },
 
 			--- Path sources
@@ -78,18 +92,12 @@ return {
 		}
 
 		local cmp_sort_sources = function(sources)
-			return util.tbl_map(sources, function(k, v)
+			return util.map_table(sources, function(k, v)
 				v.priority = #sources - k - 1
 
 				return v
 			end)
 		end
-
-		local lspkind = require("lspkind")
-
-		local custom_lspkinds = {
-			["codeium"] = "",
-		}
 
 		--- Set up nvim-cmp.
 		---
@@ -98,55 +106,8 @@ return {
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		cmp.setup({
-			formatting = {
-				fields = {
-					"menu",
-					"abbr",
-					"kind",
-				},
-				format = lspkind.cmp_format({
-					mode = "text",
+			formatting = require("plugins.config.cmp.config.formatting"),
 
-					before = function(entry, vim_item)
-						local name = entry.source.name
-
-						name = name:lower()
-						name = name:gsub("_", "")
-						name = name:gsub("[aiueo]", "")
-						name = name:gsub("nvm", "")
-
-						local name_letters = {}
-
-						for n in name:gmatch(".") do
-							table.insert(name_letters, n)
-						end
-
-						for key, _ in ipairs(name_letters) do
-							if key == #name_letters then
-								break
-							end
-
-							local next_key = key + 1
-							local value = name_letters[key]
-
-							if value == name_letters[next_key] then
-								name_letters[next_key] = ""
-							end
-						end
-
-						name = table.concat(name_letters, "")
-						name = name:upper()
-
-						vim_item.menu = custom_lspkinds[entry.source.name:lower()]
-							or lspkind.presets.default[vim_item.kind]
-							or ""
-
-						vim_item.kind = name
-
-						return vim_item
-					end,
-				}),
-			},
 			snippet = {
 				--- REQUIRED - you must specify a snippet engine
 				---
