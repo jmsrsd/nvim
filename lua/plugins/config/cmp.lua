@@ -18,7 +18,6 @@ return {
 		{ "hrsh7th/cmp-nvim-lua" },
 		{ "petertriho/cmp-git" },
 		{ "ray-x/cmp-treesitter" },
-		{ "roobert/tailwindcss-colorizer-cmp.nvim" },
 		{ "onsails/lspkind.nvim" },
 		{ "tzachar/fuzzy.nvim" },
 		{ "tzachar/cmp-fuzzy-buffer" },
@@ -28,16 +27,31 @@ return {
 		---
 		{ "mattn/emmet-vim" },
 		{ "dcampos/cmp-emmet-vim" },
+
+		--- Codeium
+		---
+		{
+			"Exafunction/codeium.nvim",
+			dependencies = {
+				{ "nvim-lua/plenary.nvim" },
+				{ "hrsh7th/nvim-cmp" },
+			},
+			config = function()
+				local codeium = require("codeium")
+
+				codeium.setup({})
+			end,
+		},
 	},
 
 	config = function()
 		local util = require("util")
 
-		local cmp_colorizer = require("tailwindcss-colorizer-cmp")
-
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 		local cmp_primary_sources = {
+			{ name = "codeium" },
+
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
 
@@ -73,15 +87,15 @@ return {
 
 		local lspkind = require("lspkind")
 
+		local custom_lspkinds = {
+			["codeium"] = "",
+		}
+
 		--- Set up nvim-cmp.
 		---
 		local cmp = require("cmp")
 
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-		cmp_colorizer.setup({
-			color_square_width = 2,
-		})
 
 		cmp.setup({
 			formatting = {
@@ -101,35 +115,37 @@ return {
 						name = name:gsub("[aiueo]", "")
 						name = name:gsub("nvm", "")
 
-						local _name = {}
+						local name_letters = {}
 
 						for n in name:gmatch(".") do
-							table.insert(_name, n)
+							table.insert(name_letters, n)
 						end
 
-						for k, v in ipairs(_name) do
-							if k == #_name then
+						for key, _ in ipairs(name_letters) do
+							if key == #name_letters then
 								break
 							end
 
-							local n = k + 1
+							local next_key = key + 1
+							local value = name_letters[key]
 
-							if v == _name[n] then
-								_name[n] = "_"
+							if value == name_letters[next_key] then
+								name_letters[next_key] = ""
 							end
 						end
 
-						name = table.concat(_name, "")
-						name = name:gsub("_", "")
+						name = table.concat(name_letters, "")
 						name = name:upper()
 
-						vim_item.menu = lspkind.presets.default[vim_item.kind] or ""
+						vim_item.menu = custom_lspkinds[entry.source.name:lower()]
+							or lspkind.presets.default[vim_item.kind]
+							or ""
+
 						vim_item.kind = name
 
 						return vim_item
 					end,
 				}),
-				-- format = cmp_colorizer.formatter,
 			},
 			snippet = {
 				--- REQUIRED - you must specify a snippet engine
@@ -137,7 +153,9 @@ return {
 				expand = function(args)
 					--- For `luasnip` users.
 					---
-					require("luasnip").lsp_expand(args.body)
+					local luasnip = require("luasnip")
+
+					luasnip.lsp_expand(args.body)
 				end,
 			},
 			window = {
