@@ -16,7 +16,10 @@ vim.opt.tabstop = 2
 
 --- Clipboard
 ---
-vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
+vim.opt.clipboard:append({
+	"unnamed",
+	"unnamedplus",
+})
 
 --- Case sensitivity
 ---

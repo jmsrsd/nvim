@@ -2,13 +2,13 @@ local M = {}
 
 M.formatters_by_ft = {
 	["dart"] = { "dart_format" },
+	["lua"] = { "stylua" },
 	["astro"] = { "prettierd" },
 	["css"] = { "prettierd" },
 	["html"] = { "prettierd" },
 	["javascript"] = { "prettierd" },
 	["javascript.jsx"] = { "prettierd" },
 	["javascriptreact"] = { "prettierd" },
-	["lua"] = { "stylua" },
 	["svelte"] = { "prettierd" },
 	["typescript"] = { "prettierd" },
 	["typescript.tsx"] = { "prettierd" },
