@@ -1,48 +1,48 @@
 return {
-	"akinsho/flutter-tools.nvim",
+  "akinsho/flutter-tools.nvim",
 
-	lazy = false,
+  lazy = false,
 
-	ft = { "dart" },
+  ft = { "dart" },
 
-	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
+  dependencies = {
+    { "nvim-lua/plenary.nvim" },
 
-		--- optional for vim.ui.select
-		---
-		{ "stevearc/dressing.nvim" },
+    --- optional for vim.ui.select
+    ---
+    { "stevearc/dressing.nvim" },
 
-		{ "hrsh7th/nvim-cmp" },
-	},
+    { "hrsh7th/nvim-cmp" },
+  },
 
-	config = function()
-		local flutter = require("flutter-tools")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+  config = function()
+    local flutter = require("flutter-tools")
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-		flutter.setup({
-			flutter_path = "/home/jmsrsd/fvm/default/bin/flutter",
+    flutter.setup({
+      flutter_path = vim.fn.expand("$HOME") .. "/fvm/default/bin/flutter",
 
-			fvm = true,
+      fvm = true,
 
-			ui = {
-				border = "rounded",
-			},
+      ui = {
+        border = "rounded",
+      },
 
-			dev_log = {
-				notify_errors = false,
-				open_cmd = "vnew",
-			},
+      dev_log = {
+        notify_errors = false,
+        open_cmd = "vnew",
+      },
 
-			decorations = {
-				statusline = {
-					app_version = true,
-					device = true,
-					project_config = true,
-				},
-			},
-			lsp = {
-				capabilities = cmp_nvim_lsp.default_capabilities(),
-			},
-		})
-	end,
+      decorations = {
+        statusline = {
+          app_version = true,
+          device = true,
+          project_config = true,
+        },
+      },
+      lsp = {
+        capabilities = cmp_nvim_lsp.default_capabilities(),
+      },
+    })
+  end,
 }
