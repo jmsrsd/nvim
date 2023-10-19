@@ -1,5 +1,3 @@
-local telescope = require 'telescope.builtin'
-
 --- Use LspAttach autocommand to only map the following keys
 ---
 --- after the language server attaches to the current buffer
@@ -34,14 +32,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     )
 
     vim.keymap.set('n', 'gd',
-      telescope.lsp_definitions,
-      -- UNUSED: vim.lsp.buf.definition,
+      vim.lsp.buf.definition,
       describe 'Jumps to the definition of the symbol under the cursor.'
     )
 
     vim.keymap.set('n', 'gt',
-      telescope.lsp_type_definitions,
-      -- UNUSED: vim.lsp.buf.type_definition,
+      vim.lsp.buf.type_definition,
       describe(
         'Jumps to the definition of ' ..
         'the type of the ' ..
@@ -50,8 +46,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     )
 
     vim.keymap.set('n', 'gi',
-      telescope.lsp_implementations,
-      -- UNUSED: vim.lsp.buf.implementation,
+      vim.lsp.buf.implementation,
       describe(
         'Lists all the implementations for the ' ..
         'symbol under the cursor in the ' ..
@@ -60,8 +55,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     )
 
     vim.keymap.set('n', 'gr',
-      telescope.lsp_references,
-      -- UNUSED: vim.lsp.buf.references,
+      vim.lsp.buf.references,
       describe(
         'Lists all the references to the ' ..
         'symbol under the cursor in the ' ..
@@ -85,12 +79,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       )
     )
 
-    -- UNUSED: vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-    -- UNUSED: vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    -- UNUSED: vim.keymap.set('n', '<leader>wl', function()
-    -- UNUSED:   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- UNUSED: end, opts)
-
     vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action,
       describe(
         'Selects a code action available at ' ..
@@ -102,9 +90,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename,
       describe 'Renames all references to the symbol under the cursor.'
     )
-
-    -- UNUSED: vim.keymap.set('n', '<leader>f', function()
-    -- UNUSED:   vim.lsp.buf.format { async = false }
-    -- UNUSED: end, opts)
   end,
 })

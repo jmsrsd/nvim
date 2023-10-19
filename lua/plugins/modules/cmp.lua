@@ -1,6 +1,45 @@
 --- @diagnostic disable: missing-fields
 ---
 
+local cmp_primary_sources = {
+
+  --- LSP
+  ---
+  { name = "nvim_lsp" },
+  { name = "nvim_lsp_signature_help" },
+
+  --- Lua
+  ---
+  { name = "nvim_lua" },
+  { name = "luasnip" },
+
+  --- Treesitter
+  ---
+  { name = "treesitter" },
+
+  --- Emmet
+  ---
+  { name = "emmet_vim" },
+
+  --- Git
+  ---
+  { name = "git" },
+
+  --- Ripgrep
+  ---
+  { name = "rg" },
+
+  --- Path sources
+  ---
+  { name = "fuzzy_path" },
+  { name = "path" },
+
+  --- Buffer sources
+  ---
+  { name = "fuzzy_buffer" },
+  { name = "buffer" },
+}
+
 return {
 
   "hrsh7th/nvim-cmp",
@@ -8,77 +47,38 @@ return {
   event = "InsertEnter",
 
   dependencies = {
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    { "hrsh7th/cmp-cmdline" },
-    { "dmitmel/cmp-cmdline-history" },
-    { "hrsh7th/nvim-cmp" },
-    { "L3MON4D3/LuaSnip" },
-    { "saadparwaiz1/cmp_luasnip" },
-    { "windwp/nvim-autopairs" },
-    { "lukas-reineke/cmp-rg" },
-    { "hrsh7th/cmp-nvim-lsp-signature-help" },
-    { "hrsh7th/cmp-nvim-lua" },
-    { "petertriho/cmp-git" },
-    { "ray-x/cmp-treesitter" },
-    { "onsails/lspkind.nvim" },
-    { "tzachar/fuzzy.nvim" },
-    { "tzachar/cmp-fuzzy-buffer" },
-    { "tzachar/cmp-fuzzy-path" },
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "dmitmel/cmp-cmdline-history",
+    "hrsh7th/nvim-cmp",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
+    "windwp/nvim-autopairs",
+    "lukas-reineke/cmp-rg",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+    "hrsh7th/cmp-nvim-lua",
+    "petertriho/cmp-git",
+    "ray-x/cmp-treesitter",
+    "onsails/lspkind.nvim",
+    "tzachar/fuzzy.nvim",
+    "tzachar/cmp-fuzzy-buffer",
+    "tzachar/cmp-fuzzy-path",
 
     --- Emmet
     ---
-    { "mattn/emmet-vim" },
-    { "dcampos/cmp-emmet-vim" },
+    "mattn/emmet-vim",
+    "dcampos/cmp-emmet-vim",
 
   },
 
   config = function()
-    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-
-    local cmp_primary_sources = {
-
-      --- LSP
-      ---
-      { name = "nvim_lsp" },
-      { name = "nvim_lsp_signature_help" },
-
-      --- Lua
-      ---
-      { name = "nvim_lua" },
-      { name = "luasnip" },
-
-      --- Treesitter
-      ---
-      { name = "treesitter" },
-
-      --- Emmet
-      ---
-      { name = "emmet_vim" },
-
-      --- Git
-      ---
-      { name = "git" },
-
-      --- Ripgrep
-      ---
-      { name = "rg" },
-
-      --- Path sources
-      ---
-      { name = "fuzzy_path" },
-      { name = "path" },
-
-      --- Buffer sources
-      ---
-      { name = "fuzzy_buffer" },
-      { name = "buffer" },
-    }
-
     --- Set up nvim-cmp.
     ---
     local cmp = require "cmp"
+
+    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
@@ -98,7 +98,9 @@ return {
       },
 
       window = {
+
         completion = cmp.config.window.bordered(),
+
         documentation = cmp.config.window.bordered(),
       },
 
