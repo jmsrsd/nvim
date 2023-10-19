@@ -155,10 +155,13 @@ vim.keymap.set('n', '<C-a>', 'ggVG', {
   desc = 'Select all'
 })
 
-vim.keymap.set('n', '<leader>w', '<CMD>w<CR>', {
+vim.keymap.set('n', '<leader>w', function()
+  pcall(function() vim.cmd 'w' end)
+  pcall(function() vim.cmd 'wa' end)
+end, {
   noremap = true,
   silent = true,
-  desc = 'Save current buffer'
+  desc = 'Save all buffers'
 })
 
 vim.keymap.set('n', '<leader>q', '<CMD>wqa<CR>', {

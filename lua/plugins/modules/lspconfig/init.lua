@@ -4,8 +4,12 @@ local import = function(name)
   end)
 end
 
+local keymap = function(name)
+  return import('keymaps.' .. name)
+end
+
 local setup = function(server)
-  return import('setups.' .. server)
+  return import('servers.' .. server)
 end
 
 return {
@@ -40,6 +44,7 @@ return {
 
     --- Configure related keymaps
     ---
-    import 'keymaps'
+    keymap 'diagnostic'
+    keymap 'lsp'
   end,
 }
