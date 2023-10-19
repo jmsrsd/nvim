@@ -1,6 +1,4 @@
 {
-    "diagnostics.globals": [
-        "vim",
-        "bi"
+    "diagnostics.disable": [
     ]
 }

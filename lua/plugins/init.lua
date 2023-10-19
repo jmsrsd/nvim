@@ -1,47 +1,26 @@
---- Installation
----
-local datapath = vim.fn.stdpath("data")
-local lazypath = datapath .. "/lazy/lazy.nvim"
-local lazy_installed = vim.fn.filereadable(lazypath) == 1
+local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-if not lazy_installed then
-  vim.fn.system({
+if not vim.loop.fs_stat(lazy_path) then
+  vim.fn.system {
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+    "--branch=main",
+    lazy_path,
+  }
 end
 
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(lazy_path)
 
---- Setup
----
-local lazy = require("lazy")
-local use = require("plugins.util").use
+local lazy = require 'lazy'
 
-lazy.setup({
-  use("vscode"),
-  use("transparent"),
-  use("oil"),
-  use("comment"),
-  use("treesitter"),
-  use("treesitter_context"),
-  use("conform"),
-  use("notify"),
-  use("fidget"),
-  use("autopairs"),
-  use("cmp"),
-  use("trouble"),
-  use("lspconfig"),
-  use("dressing"),
-  use("flutter"),
-  use("telescope"),
-  use("close_buffers"),
-  use("gitsigns"),
-  use("which_key"),
-  use("lualine"),
-  use("blankline"),
-})
+local lazy_modules = 'plugins.modules'
+
+local lazy_options = {
+  change_detection = {
+    notify = false,
+  }
+}
+
+lazy.setup(lazy_modules, lazy_options)
