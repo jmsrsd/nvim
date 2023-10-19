@@ -1,19 +1,19 @@
-local telescope = require 'telescope.builtin'
+local telescope = require("telescope.builtin")
 
-local diagnostics = telescope.diagnostics
-
-local diagnostics_opts = {
-  bufnr = nil,
-  severity_limit = vim.diagnostic.severity.WARN,
-  sort_by = 'severity'
-}
+local diagnostics = function()
+	return telescope.diagnostics({
+		bufnr = nil,
+		severity_limit = vim.diagnostic.severity.WARN,
+		sort_by = "severity",
+	})
+end
 
 local describe = function(desc)
-  return {
-    noremap = true,
-    silent = true,
-    desc = desc
-  }
+	return {
+		noremap = true,
+		silent = true,
+		desc = desc,
+	}
 end
 
 --- Global mappings.
@@ -22,22 +22,10 @@ end
 ---
 --- below functions
 ---
-vim.keymap.set('n', '[d', vim.diagnostic.open_float,
-  describe 'Show diagnostics in a floating window.'
-)
+vim.keymap.set("n", "[d", vim.diagnostic.open_float, describe("Show diagnostics in a floating window."))
 
-vim.keymap.set('n', ']d', function() diagnostics(diagnostics_opts) end,
-  describe 'Lists diagnostics'
-)
+vim.keymap.set("n", "]d", diagnostics, describe("Lists diagnostics"))
 
--- UNUSED: vim.keymap.set('n', ']d', vim.diagnostic.setloclist,
--- UNUSED:   describe 'Add buffer diagnostics to the location list.'
--- UNUSED: )
+vim.keymap.set("n", "[g", vim.diagnostic.goto_prev, describe("Move to the previous diagnostic in the current buffer."))
 
-vim.keymap.set('n', '[g', vim.diagnostic.goto_prev,
-  describe 'Move to the previous diagnostic in the current buffer.'
-)
-
-vim.keymap.set('n', ']g', vim.diagnostic.goto_next,
-  describe 'Move to the next diagnostic.'
-)
+vim.keymap.set("n", "]g", vim.diagnostic.goto_next, describe("Move to the next diagnostic."))

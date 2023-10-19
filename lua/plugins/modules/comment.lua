@@ -2,13 +2,13 @@
 ---
 
 return {
-  'numToStr/Comment.nvim',
+	"numToStr/Comment.nvim",
 
-  lazy = false,
+	lazy = false,
 
-  config = function()
-    local comment = require 'Comment'
+	config = function()
+		local comment = require("Comment")
 
-    comment.setup {}
-  end,
+		comment.setup({})
+	end,
 }

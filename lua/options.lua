@@ -16,7 +16,7 @@ vim.opt.tabstop = 2
 
 --- Folding
 ---
-vim.o.foldcolumn = '0'
+vim.o.foldcolumn = "0"
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
@@ -24,8 +24,8 @@ vim.o.foldenable = true
 --- Clipboard
 ---
 vim.opt.clipboard:append({
-  "unnamed",
-  "unnamedplus",
+	"unnamed",
+	"unnamedplus",
 })
 
 --- Search
@@ -117,28 +117,25 @@ vim.o.spelllang = ""
 --- List
 ---
 vim.opt.list = true
-vim.opt.listchars = table.concat(
-  {
-    "tab:→ ",
-    "space:·",
-    "nbsp:␣",
-    "trail:~",
-    "precedes:«",
-    "extends:»",
-  },
-  ","
-)
+vim.opt.listchars = table.concat({
+	"tab:→ ",
+	"space:·",
+	"nbsp:␣",
+	"trail:~",
+	"precedes:«",
+	"extends:»",
+}, ",")
 
 --- Undo
 ---
 if vim.fn.has("persistent_undo") == 1 then
-  local config_path = vim.fn.stdpath("config")
-  local target_path = config_path .. "/undodir/"
+	local config_path = vim.fn.stdpath("config")
+	local target_path = config_path .. "/undodir/"
 
-  if vim.fn.isdirectory(target_path) then
-    vim.fn.mkdir(target_path, "p", 0777)
-  end
+	if vim.fn.isdirectory(target_path) then
+		vim.fn.mkdir(target_path, "p", 0777)
+	end
 
-  vim.opt.undodir = target_path
-  vim.opt.undofile = true
+	vim.opt.undodir = target_path
+	vim.opt.undofile = true
 end

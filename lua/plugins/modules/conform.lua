@@ -1,50 +1,54 @@
 return {
 
-  'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 
-  config = function()
-    local conform = require 'conform'
+	config = function()
+		local conform = require("conform")
 
-    local format_opts = {
+		local format_opts = {
 
-      timeout_ms = 5000,
+			timeout_ms = 5000,
 
-      lsp_fallback = true,
-    }
+			lsp_fallback = true,
+		}
 
-    local format = function() conform.format(format_opts) end
+		local format = function()
+			conform.format(format_opts)
+		end
 
-    conform.setup {
-      --- These options will be passed to conform.format()
-      ---
-      format_on_save = format_opts,
+		conform.setup({
+			--- These options will be passed to conform.format()
+			---
+			format_on_save = format_opts,
 
-      formatters_by_ft = {
+			formatters_by_ft = {
 
-        json = { 'prettierd' },
+				lua = { "stylua" },
 
-        javascript = { 'prettierd' },
+				json = { "prettierd" },
 
-        jsx = { 'prettierd' },
+				javascript = { "prettierd" },
 
-        typescript = { 'prettierd' },
+				jsx = { "prettierd" },
 
-        tsx = { 'prettierd' },
+				typescript = { "prettierd" },
 
-        html = { 'prettierd' },
+				tsx = { "prettierd" },
 
-        css = { 'prettierd' },
+				html = { "prettierd" },
 
-        yaml = { 'prettierd' },
-      },
-    }
+				css = { "prettierd" },
 
-    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+				yaml = { "prettierd" },
+			},
+		})
 
-    vim.keymap.set('n', '<leader>c', format, {
-      noremap = true,
-      silent = true,
-      desc = 'Format current buffer with conform.nvim'
-    })
-  end
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
+		vim.keymap.set("n", "<leader>c", format, {
+			noremap = true,
+			silent = true,
+			desc = "Format current buffer with conform.nvim",
+		})
+	end,
 }

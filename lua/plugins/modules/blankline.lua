@@ -1,14 +1,14 @@
 return {
 
-  "lukas-reineke/indent-blankline.nvim",
+	"lukas-reineke/indent-blankline.nvim",
 
-  branch = 'master',
+	branch = "master",
 
-  main = 'ibl',
+	main = "ibl",
 
-  config = function()
-    local blankline = require "ibl"
+	config = function()
+		local blankline = require("ibl")
 
-    blankline.setup {}
-  end,
+		blankline.setup({})
+	end,
 }

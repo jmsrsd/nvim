@@ -4,13 +4,13 @@ local M = {}
 --- @return string
 ---
 M.getparentmodule = function(callback)
-  local file = debug.getinfo(callback, "S").source
-  local parent = vim.fn.fnamemodify(file, ':h'):sub(2)
-  local root = vim.fn.stdpath('config') .. '/lua/'
+	local file = debug.getinfo(callback, "S").source
+	local parent = vim.fn.fnamemodify(file, ":h"):sub(2)
+	local root = vim.fn.stdpath("config") .. "/lua/"
 
-  parent = parent:gsub(root, ''):gsub('/', '.')
+	parent = parent:gsub(root, ""):gsub("/", ".")
 
-  return callback(parent)
+	return callback(parent)
 end
 
 return M

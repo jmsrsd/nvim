@@ -1,24 +1,23 @@
 return {
-  'stevearc/dressing.nvim',
+	"stevearc/dressing.nvim",
 
-  config = function()
-    local dressing = require 'dressing'
+	config = function()
+		local dressing = require("dressing")
 
-    dressing.setup {
+		dressing.setup({
 
-      input = {
+			input = {
 
-        mappings = {
+				mappings = {
 
-          n = {
+					n = {
 
-            ['<ESC>'] = false,
+						["<ESC>"] = false,
 
-            ['q'] = 'Close',
-          }
-        }
-
-      }
-    }
-  end,
+						["q"] = "Close",
+					},
+				},
+			},
+		})
+	end,
 }

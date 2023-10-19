@@ -1,39 +1,39 @@
 return {
-  "j-hui/fidget.nvim",
+	"j-hui/fidget.nvim",
 
-  tag = "legacy",
+	tag = "legacy",
 
-  event = "LspAttach",
+	event = "LspAttach",
 
-  config = function()
-    local fidget = require "fidget"
+	config = function()
+		local fidget = require("fidget")
 
-    fidget.setup {
+		fidget.setup({
 
-      text = {
+			text = {
 
-        spinner = {
-          "🕐",
-          "🕑",
-          "🕒",
-          "🕓",
-          "🕔",
-          "🕕",
-          "🕖",
-          "🕗",
-          "🕘",
-          "🕙",
-          "🕚",
-          "🕛",
-        },
-      },
+				spinner = {
+					"🕐",
+					"🕑",
+					"🕒",
+					"🕓",
+					"🕔",
+					"🕕",
+					"🕖",
+					"🕗",
+					"🕘",
+					"🕙",
+					"🕚",
+					"🕛",
+				},
+			},
 
-      window = {
+			window = {
 
-        blend = 0,
+				blend = 0,
 
-        border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      },
-    }
-  end,
+				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			},
+		})
+	end,
 }
