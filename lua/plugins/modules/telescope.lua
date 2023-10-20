@@ -46,7 +46,7 @@ return {
 			defaults = {
 				mappings = {
 					n = {
-						["<ESC>"] = false,
+						["<Esc>"] = false,
 						["q"] = actions.close,
 					},
 				},

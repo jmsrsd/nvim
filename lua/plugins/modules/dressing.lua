@@ -12,7 +12,7 @@ return {
 
 					n = {
 
-						["<ESC>"] = false,
+						["<Esc>"] = false,
 
 						["q"] = "Close",
 					},

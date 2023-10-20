@@ -125,13 +125,13 @@ vim.keymap.set("n", "Q", "", {
 	desc = "No-op",
 })
 
-vim.keymap.set("i", "jk", "<ESC>", {
+vim.keymap.set("i", "jk", "<Esc>", {
 	noremap = true,
 	silent = true,
 	desc = "Exit insert mode",
 })
 
-vim.keymap.set("i", "jj", "<ESC>", {
+vim.keymap.set("i", "jj", "<Esc>", {
 	noremap = true,
 	silent = true,
 	desc = "Exit insert mode",
