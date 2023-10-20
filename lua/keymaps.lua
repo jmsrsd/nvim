@@ -234,6 +234,6 @@ end, {
 
 vim.keymap.set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>", {
 	noremap = true,
-	silent = false,
+	silent = true,
 	desc = "Spawn terminal window",
 })
