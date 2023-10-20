@@ -30,13 +30,27 @@ return {
 		})
 
 		vim.keymap.set("n", "<leader><CR>", function()
-			xpcall(function()
-				vim.cmd("w")
-				vim.cmd("wa")
-				close_buffers.wipe({ type = "hidden" })
-			end, function(err)
-				vim.notify("Error occured: " .. err)
-			end)
+			local cmds = {}
+
+			cmds = { "w", "wa" }
+
+			for _, cmd in ipairs(cmds) do
+				xpcall(function()
+					vim.cmd(cmd)
+				end, function()
+					vim.cmd(cmd .. "!")
+				end)
+			end
+
+			cmds = { "BWipeout" }
+
+			for _, cmd in ipairs(cmds) do
+				xpcall(function()
+					vim.cmd(cmd .. " hidden")
+				end, function()
+					vim.cmd(cmd .. "! hidden")
+				end)
+			end
 		end, {
 			noremap = true,
 			silent = true,

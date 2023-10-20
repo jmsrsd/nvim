@@ -198,20 +198,42 @@ vim.keymap.set("n", "<C-a>", "ggVG", {
 })
 
 vim.keymap.set("n", "<leader>w", function()
-	pcall(function()
-		vim.cmd("w")
-	end)
-	pcall(function()
-		vim.cmd("wa")
-	end)
+	local cmds = { "w", "wa" }
+
+	for _, cmd in ipairs(cmds) do
+		xpcall(function()
+			vim.cmd(cmd)
+		end, function()
+			vim.cmd(cmd .. "!")
+		end)
+	end
 end, {
 	noremap = true,
 	silent = true,
 	desc = "Save all buffers",
 })
 
-vim.keymap.set("n", "<leader>q", "<CMD>wqa<CR>", {
+vim.keymap.set("n", "<leader>q", function()
+	local cmds = { "w", "wa", "wqa", "q", "qa" }
+
+	for _, cmd in ipairs(cmds) do
+		xpcall(function()
+			vim.cmd(cmd)
+		end, function()
+			vim.cmd(cmd .. "!")
+		end)
+	end
+end, {
 	noremap = true,
 	silent = true,
 	desc = "Save all and quit",
+})
+
+--- Window
+---
+
+vim.keymap.set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>", {
+	noremap = true,
+	silent = false,
+	desc = "Spawn terminal window",
 })
