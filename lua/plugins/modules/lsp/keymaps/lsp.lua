@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		vim.keymap.set(
 			"n",
-			"<C-k>",
+			"<leader>k",
 			vim.lsp.buf.signature_help,
 			describe(
 				"Displays signature information about the " .. "symbol under the cursor in a " .. "floating window."

@@ -77,6 +77,30 @@ vim.keymap.set({ "n" }, "j", "v:count == 0 ? 'gj' : 'j'", {
 	desc = "Smart downward movement",
 })
 
+vim.keymap.set({ "n", "i", "t" }, "<C-j>", "<Esc>:wincmd j<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "Moves to the window below the current one",
+})
+
+vim.keymap.set({ "n", "i", "t" }, "<C-k>", "<Esc>:wincmd k<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "Moves to the window above the current one",
+})
+
+vim.keymap.set({ "n", "i", "t" }, "<C-h>", "<Esc>:wincmd h<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "Moves to the window left the current one",
+})
+
+vim.keymap.set({ "n", "i", "t" }, "<C-l>", "<Esc>:wincmd l<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "Moves to the window right the current one",
+})
+
 --- Visual Mode
 ---
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {
@@ -123,6 +147,24 @@ vim.keymap.set("n", "Q", "", {
 	noremap = true,
 	silent = true,
 	desc = "No-op",
+})
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {
+	noremap = true,
+	silent = true,
+	desc = "Exit terminal mode",
+})
+
+vim.keymap.set("t", "jk", "<C-\\><C-n>", {
+	noremap = true,
+	silent = true,
+	desc = "Exit terminal mode",
+})
+
+vim.keymap.set("t", "jj", "<C-\\><C-n>", {
+	noremap = true,
+	silent = true,
+	desc = "Exit terminal mode",
 })
 
 vim.keymap.set("i", "jk", "<Esc>", {
