@@ -70,32 +70,32 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", {
 	desc = "Smart upward movement",
 })
 
-vim.keymap.set({ "n" }, "j", "v:count == 0 ? 'gj' : 'j'", {
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", {
 	noremap = true,
 	expr = true,
 	silent = true,
 	desc = "Smart downward movement",
 })
 
-vim.keymap.set({ "n", "i", "t" }, "<C-j>", "<Esc>:wincmd j<CR>", {
+vim.keymap.set("n", "<C-j>", "<Esc>:wincmd j<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "Moves to the window below the current one",
 })
 
-vim.keymap.set({ "n", "i", "t" }, "<C-k>", "<Esc>:wincmd k<CR>", {
+vim.keymap.set("n", "<C-k>", "<Esc>:wincmd k<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "Moves to the window above the current one",
 })
 
-vim.keymap.set({ "n", "i", "t" }, "<C-h>", "<Esc>:wincmd h<CR>", {
+vim.keymap.set("n", "<C-h>", "<Esc>:wincmd h<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "Moves to the window left the current one",
 })
 
-vim.keymap.set({ "n", "i", "t" }, "<C-l>", "<Esc>:wincmd l<CR>", {
+vim.keymap.set("n", "<C-l>", "<Esc>:wincmd l<CR>", {
 	noremap = true,
 	silent = true,
 	desc = "Moves to the window right the current one",
