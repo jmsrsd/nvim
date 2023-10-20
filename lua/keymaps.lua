@@ -214,15 +214,11 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>q", function()
-	local cmds = { "w", "wa", "wqa", "q", "qa" }
-
-	for _, cmd in ipairs(cmds) do
-		xpcall(function()
-			vim.cmd(cmd)
-		end, function()
-			vim.cmd(cmd .. "!")
-		end)
-	end
+	xpcall(function()
+		vim.cmd("w || wa || wqa")
+	end, function()
+		vim.cmd('qa! || exe "normal \\<CR>"')
+	end)
 end, {
 	noremap = true,
 	silent = true,

@@ -30,27 +30,11 @@ return {
 		})
 
 		vim.keymap.set("n", "<leader><CR>", function()
-			local cmds = {}
+			pcall(function()
+				vim.cmd("w || wa")
+			end)
 
-			cmds = { "w", "wa" }
-
-			for _, cmd in ipairs(cmds) do
-				xpcall(function()
-					vim.cmd(cmd)
-				end, function()
-					vim.cmd(cmd .. "!")
-				end)
-			end
-
-			cmds = { "BWipeout" }
-
-			for _, cmd in ipairs(cmds) do
-				xpcall(function()
-					vim.cmd(cmd .. " hidden")
-				end, function()
-					vim.cmd(cmd .. "! hidden")
-				end)
-			end
+			vim.cmd("BWipeout hidden || BWipeout! hidden")
 		end, {
 			noremap = true,
 			silent = true,
