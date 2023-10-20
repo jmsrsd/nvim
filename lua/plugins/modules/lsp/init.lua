@@ -1,18 +1,8 @@
 --- @diagnostic disable: duplicate-set-field
 ---
 
-local import = function(name)
-	return require("utils.import")(function(base)
-		return base .. "." .. name
-	end)
-end
-
-local keymap = function(name)
-	return import("keymaps." .. name)
-end
-
-local setup = function(server)
-	return import("servers." .. server)
+local import_all = function(name)
+	return require("utils.import_all")(name, function(_) end)
 end
 
 return {
@@ -74,11 +64,10 @@ return {
 
 		--- Configure Neovim LSP client(s)
 		---
-		setup("lua_ls")
+		import_all("servers")
 
 		--- Configure related keymaps
 		---
-		keymap("diagnostic")
-		keymap("lsp")
+		import_all("keymaps")
 	end,
 }
