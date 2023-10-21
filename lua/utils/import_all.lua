@@ -2,12 +2,13 @@ local path_util = require("utils.path")
 
 local import = require("utils.import")
 
-return function(name, use_parent_module_callback)
-	local callback = use_parent_module_callback
-
-	local dir_path = path_util.use_relative_module_path(name, callback)
-
+--- @param name string
+--- @param parent_module_callback fun(parent_module: string): string | nil
+---
+return function(name, parent_module_callback)
 	local result = {}
+
+	local dir_path = path_util.use_relative_module_path(name, parent_module_callback)
 
 	local file_paths = vim.split(vim.fn.glob(dir_path .. "/*"), "\n")
 

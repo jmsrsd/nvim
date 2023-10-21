@@ -2,7 +2,7 @@
 ---
 
 local import_all = function(name)
-	return require("utils.import_all")(name, function(_) end)
+	return require("utils.import_all")(name, function() end)
 end
 
 return {
