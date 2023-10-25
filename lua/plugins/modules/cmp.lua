@@ -53,7 +53,7 @@ return {
 		"hrsh7th/cmp-cmdline",
 		"dmitmel/cmp-cmdline-history",
 		"hrsh7th/nvim-cmp",
-		"L3MON4D3/LuaSnip",
+
 		"saadparwaiz1/cmp_luasnip",
 		"windwp/nvim-autopairs",
 		"lukas-reineke/cmp-rg",
@@ -73,7 +73,14 @@ return {
 
 		--- Snippets
 		---
-		"rafamadriz/friendly-snippets",
+		{
+			"L3MON4D3/LuaSnip",
+			branch = "master",
+			build = "make install_jsregexp",
+			dependencies = {
+				"rafamadriz/friendly-snippets",
+			},
+		},
 	},
 
 	config = function()
@@ -106,9 +113,21 @@ return {
 						require("luasnip.loaders.from_" .. type).lazy_load()
 					end, { "vscode", "snipmate", "lua" })
 
-					--- Using friendly-snippets
+					--- friendly-snippets - enable standardized comments snippets
 					---
-					luasnip.filetype_extend("all", { "friendly-snippets" })
+					luasnip.filetype_extend("typescript", { "tsdoc" })
+					luasnip.filetype_extend("javascript", { "jsdoc" })
+					luasnip.filetype_extend("lua", { "luadoc" })
+					luasnip.filetype_extend("python", { "pydoc" })
+					luasnip.filetype_extend("rust", { "rustdoc" })
+					luasnip.filetype_extend("cs", { "csharpdoc" })
+					luasnip.filetype_extend("java", { "javadoc" })
+					luasnip.filetype_extend("c", { "cdoc" })
+					luasnip.filetype_extend("cpp", { "cppdoc" })
+					luasnip.filetype_extend("php", { "phpdoc" })
+					luasnip.filetype_extend("kotlin", { "kdoc" })
+					luasnip.filetype_extend("ruby", { "rdoc" })
+					luasnip.filetype_extend("sh", { "shelldoc" })
 				end,
 			},
 
