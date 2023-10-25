@@ -7,7 +7,7 @@
 ---
 --- Prerequisite:
 ---
---- npm install -g @astrojs/language-server
+--- npm i -g vscode-langservers-extracted
 ---
 
 local lspconfig = require("lspconfig")
@@ -20,6 +20,6 @@ capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-lspconfig.astro.setup({
+lspconfig.html.setup({
 	capabilities = capabilities,
 })
