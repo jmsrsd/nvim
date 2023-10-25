@@ -1,44 +1,45 @@
 --- @diagnostic disable: missing-fields
 ---
 
-local cmp_primary_sources = {
-
+local cmp_primary_sources = vim.tbl_map(function(name)
+	return { ["name"] = name }
+end, {
 	--- LSP
 	---
-	{ name = "nvim_lsp" },
-	{ name = "nvim_lsp_signature_help" },
+	"nvim_lsp",
+	"nvim_lsp_signature_help",
 
 	--- Lua
 	---
-	{ name = "nvim_lua" },
-	{ name = "luasnip" },
+	"nvim_lua",
+	"luasnip",
 
 	--- Treesitter
 	---
-	{ name = "treesitter" },
+	"treesitter",
 
 	--- Emmet
 	---
-	{ name = "emmet_vim" },
+	"emmet_vim",
 
 	--- Git
 	---
-	{ name = "git" },
+	"git",
 
 	--- Ripgrep
 	---
-	{ name = "rg" },
+	"rg",
 
 	--- Path sources
 	---
-	{ name = "fuzzy_path" },
-	{ name = "path" },
+	"fuzzy_path",
+	"path",
 
 	--- Buffer sources
 	---
-	{ name = "fuzzy_buffer" },
-	{ name = "buffer" },
-}
+	"fuzzy_buffer",
+	"buffer",
+})
 
 return {
 
@@ -53,7 +54,6 @@ return {
 		"hrsh7th/cmp-cmdline",
 		"dmitmel/cmp-cmdline-history",
 		"hrsh7th/nvim-cmp",
-
 		"saadparwaiz1/cmp_luasnip",
 		"windwp/nvim-autopairs",
 		"lukas-reineke/cmp-rg",
@@ -112,22 +112,6 @@ return {
 					vim.tbl_map(function(type)
 						require("luasnip.loaders.from_" .. type).lazy_load()
 					end, { "vscode", "snipmate", "lua" })
-
-					--- friendly-snippets - enable standardized comments snippets
-					---
-					luasnip.filetype_extend("typescript", { "tsdoc" })
-					luasnip.filetype_extend("javascript", { "jsdoc" })
-					luasnip.filetype_extend("lua", { "luadoc" })
-					luasnip.filetype_extend("python", { "pydoc" })
-					luasnip.filetype_extend("rust", { "rustdoc" })
-					luasnip.filetype_extend("cs", { "csharpdoc" })
-					luasnip.filetype_extend("java", { "javadoc" })
-					luasnip.filetype_extend("c", { "cdoc" })
-					luasnip.filetype_extend("cpp", { "cppdoc" })
-					luasnip.filetype_extend("php", { "phpdoc" })
-					luasnip.filetype_extend("kotlin", { "kdoc" })
-					luasnip.filetype_extend("ruby", { "rdoc" })
-					luasnip.filetype_extend("sh", { "shelldoc" })
 				end,
 			},
 
