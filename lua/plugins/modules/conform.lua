@@ -42,6 +42,28 @@ return {
 				css = { "prettierd" },
 
 				yaml = { "prettierd" },
+
+				--- Use the "*" filetype to run formatters on all filetypes.
+				---
+				--- Prerequisite:
+				---
+				--- brew install codespell
+				---
+				["*"] = { "codespell" },
+
+				--- Use the "_" filetype to
+				---
+				--- run formatters on filetypes that don't
+				---
+				--- have other formatters configured.
+				---
+				--- Note:
+				---
+				--- trim_whitespace means using awk to
+				---
+				--- trim whitespaces
+				---
+				["_"] = { "trim_whitespace" },
 			},
 		})
 
