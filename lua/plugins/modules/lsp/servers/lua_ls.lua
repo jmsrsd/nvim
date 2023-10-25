@@ -9,11 +9,16 @@
 
 local lspconfig = require("lspconfig")
 
+local _, capabilities = pcall(function()
+	return require("cmp_nvim_lsp").default_capabilities()
+end)
+
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.lua_ls.setup({
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			--- Disable telemetry

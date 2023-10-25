@@ -70,6 +70,10 @@ return {
 		---
 		"mattn/emmet-vim",
 		"dcampos/cmp-emmet-vim",
+
+		--- Snippets
+		---
+		"rafamadriz/friendly-snippets",
 	},
 
 	config = function()
@@ -93,6 +97,18 @@ return {
 					local luasnip = require("luasnip")
 
 					luasnip.lsp_expand(args.body)
+
+					--- To use existing VS Code style snippets from a plugin
+					---
+					--- (eg. rafamadriz/friendly-snippets)
+					---
+					vim.tbl_map(function(type)
+						require("luasnip.loaders.from_" .. type).lazy_load()
+					end, { "vscode", "snipmate", "lua" })
+
+					--- Using friendly-snippets
+					---
+					luasnip.filetype_extend("all", { "friendly-snippets" })
 				end,
 			},
 

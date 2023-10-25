@@ -9,4 +9,10 @@
 
 local lspconfig = require("lspconfig")
 
-lspconfig.tsserver.setup({})
+local _, capabilities = pcall(function()
+	return require("cmp_nvim_lsp").default_capabilities()
+end)
+
+lspconfig.tsserver.setup({
+	capabilities = capabilities,
+})

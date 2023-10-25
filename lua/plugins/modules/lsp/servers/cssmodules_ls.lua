@@ -9,4 +9,10 @@
 
 local lspconfig = require("lspconfig")
 
-lspconfig.cssmodules_ls.setup({})
+local _, capabilities = pcall(function()
+	return require("cmp_nvim_lsp").default_capabilities()
+end)
+
+lspconfig.cssmodules_ls.setup({
+	capabilities = capabilities,
+})

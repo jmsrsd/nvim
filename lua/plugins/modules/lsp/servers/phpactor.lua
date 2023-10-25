@@ -9,4 +9,10 @@
 
 local lspconfig = require("lspconfig")
 
-lspconfig.phpactor.setup({})
+local _, capabilities = pcall(function()
+	return require("cmp_nvim_lsp").default_capabilities()
+end)
+
+lspconfig.phpactor.setup({
+	capabilities = capabilities,
+})
