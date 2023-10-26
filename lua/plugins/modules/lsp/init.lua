@@ -1,8 +1,20 @@
---- @diagnostic disable: duplicate-set-field
+--- @diagnostic disable: duplicate-set-field, inject-field
 ---
 
 local import_all = function(name)
 	return require("utils.import_all")(name, function() end)
+end
+
+local get_capabilities = function()
+	local result = vim.lsp.protocol.make_client_capabilities()
+
+	pcall(function()
+		result = require("cmp_nvim_lsp").default_capabilities() or result
+	end)
+
+	result.textDocument.completion.completionItem.snippetSupport = true
+
+	return result
 end
 
 return {
@@ -64,7 +76,15 @@ return {
 
 		--- Configure Neovim LSP client(s)
 		---
-		import_all("servers")
+		local lspconfig = require("lspconfig")
+
+		local capabilities = get_capabilities()
+
+		local setups = import_all("servers")
+
+		vim.tbl_map(function(setup)
+			setup(lspconfig, capabilities)
+		end, setups)
 
 		--- Configure related keymaps
 		---

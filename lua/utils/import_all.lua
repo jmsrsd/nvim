@@ -12,13 +12,17 @@ return function(name, parent_module_callback)
 
 	local file_paths = vim.split(vim.fn.glob(dir_path .. "/*"), "\n")
 
-	for _, file_path in ipairs(file_paths) do
+	vim.tbl_map(function(file_path)
+		if file_path == "" then
+			return
+		end
+
 		local module = path_util.to_module(file_path)
 
 		result[module] = import(function(_)
 			return module
 		end)
-	end
+	end, file_paths)
 
 	return result
 end

@@ -10,56 +10,51 @@
 --- brew install lua-language-server
 ---
 
-local lspconfig = require("lspconfig")
+return function(lspconfig, capabilities)
+	local runtime_path = vim.split(package.path, ";")
+	table.insert(runtime_path, "lua/?.lua")
+	table.insert(runtime_path, "lua/?/init.lua")
 
-local _, capabilities = pcall(function()
-	return require("cmp_nvim_lsp").default_capabilities()
-end)
+	local server_name = "lua_ls"
+	local server = lspconfig[server_name]
 
-capabilities = capabilities or vim.lsp.protocol.make_client_capabilities()
-
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-lspconfig.lua_ls.setup({
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			--- Disable telemetry
-			---
-			telemetry = {
-				enable = false,
-			},
-
-			runtime = {
-				--- Tell the language server which version of
+	server.setup({
+		capabilities = capabilities,
+		settings = {
+			Lua = {
+				--- Disable telemetry
 				---
-				--- Lua you're using
-				---
-				--- (most likely LuaJIT in the case of Neovim)
-				---
-				version = "LuaJIT",
-				path = runtime_path,
-			},
+				telemetry = {
+					enable = false,
+				},
 
-			diagnostics = {
-				--- Get the language server to recognize the `vim` global
-				---
-				globals = { "vim" },
-			},
-
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					--- Make the server aware of Neovim runtime files
+				runtime = {
+					--- Tell the language server which version of
 					---
-					vim.fn.expand("$VIMRUNTIME/lua"),
-					vim.fn.stdpath("config") .. "/lua",
+					--- Lua you're using
+					---
+					--- (most likely LuaJIT in the case of Neovim)
+					---
+					version = "LuaJIT",
+					path = runtime_path,
+				},
+
+				diagnostics = {
+					--- Get the language server to recognize the `vim` global
+					---
+					globals = { "vim" },
+				},
+
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						--- Make the server aware of Neovim runtime files
+						---
+						vim.fn.expand("$VIMRUNTIME/lua"),
+						vim.fn.stdpath("config") .. "/lua",
+					},
 				},
 			},
 		},
-	},
-})
+	})
+end
