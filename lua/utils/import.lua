@@ -1,10 +1,10 @@
 local path_utils = require("utils.path")
 
---- @param callback fun(value: string): string
+--- @param parent_module_callback fun(value: string): string
 --- @return unknown
 ---
-return function(callback)
-	local module = path_utils.use_parent_module(callback)
+return function(parent_module_callback)
+	local module = path_utils.get_parent_module(parent_module_callback)
 
-	return require(module)
+	return require(parent_module_callback(module))
 end

@@ -1,17 +1,14 @@
----@diagnostic disable: inject-field
----
+local server_bin = "astro-ls"
 
---- Language:
----
---- Astro
----
---- Prerequisite:
----
---- npm install -g @astrojs/language-server
----
+local server_install = "npm install -g @astrojs/language-server"
+
+local server_name = "astro"
+
+local lsp_util = require("utils.lsp")
+
+lsp_util.ensure_server_installed(server_bin, server_install)
 
 return function(lspconfig, capabilities)
-	local server_name = "astro"
 	local server = lspconfig[server_name]
 
 	server.setup({

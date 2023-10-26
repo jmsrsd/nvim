@@ -1,17 +1,14 @@
----@diagnostic disable: inject-field
----
+local server_bin = "vscode-html-language-server"
 
---- Language:
----
---- Astro
----
---- Prerequisite:
----
---- npm i -g vscode-langservers-extracted
----
+local server_install = "npm i -g vscode-langservers-extracted"
+
+local server_name = "html"
+
+local lsp_util = require("utils.lsp")
+
+lsp_util.ensure_server_installed(server_bin, server_install)
 
 return function(lspconfig, capabilities)
-	local server_name = "html"
 	local server = lspconfig[server_name]
 
 	server.setup({

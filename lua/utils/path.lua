@@ -2,21 +2,28 @@ local M = {}
 
 M.lua = vim.fn.stdpath("config") .. "/lua"
 
---- @param callback fun(result: string):string | nil
+--- Get the parent directory of the
+---
+--- source file where
+---
+--- the `source_function` is defined.
+---
+--- @param source_function fun(result: string):string | nil
+---
 --- @return string
 ---
-M.use_parent_module = function(callback)
-	local file = debug.getinfo(callback, "S").source
+M.get_parent_module = function(source_function)
+	local file = debug.getinfo(source_function, "S").source
 
 	local parent = vim.fn.fnamemodify(file, ":h"):sub(2)
 
 	parent = parent:gsub(M.lua .. "/", ""):gsub("/", ".")
 
-	return callback(parent) or parent
+	return parent
 end
 
-M.use_parent_module_path = function(parent_module_callback)
-	local parent_module = M.use_parent_module(parent_module_callback)
+M.get_parent_module_path = function(source_function)
+	local parent_module = M.get_parent_module(source_function)
 
 	local result = parent_module:gsub("%.", "/")
 
@@ -25,8 +32,8 @@ M.use_parent_module_path = function(parent_module_callback)
 	return result
 end
 
-M.use_relative_module_path = function(module, parent_module_callback)
-	local parent_path = M.use_parent_module_path(parent_module_callback)
+M.get_relative_module_path = function(module, source_function)
+	local parent_path = M.get_parent_module_path(source_function)
 
 	local result = parent_path .. "/" .. module
 

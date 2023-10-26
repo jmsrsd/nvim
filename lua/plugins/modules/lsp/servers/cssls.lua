@@ -1,8 +1,8 @@
-local server_bin = "typescript-language-server"
+local server_bin = "vscode-css-language-server"
 
-local server_install = "npm install -g typescript typescript-language-server"
+local server_install = "npm i -g vscode-langservers-extracted"
 
-local server_name = "tsserver"
+local server_name = "cssls"
 
 local lsp_util = require("utils.lsp")
 

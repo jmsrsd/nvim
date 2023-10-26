@@ -1,26 +1,26 @@
----@diagnostic disable: inject-field
----
+local server_bin = "lua-language-server"
 
---- Language:
----
---- Lua
----
---- Prerequisite:
----
---- brew install lua-language-server
----
+local server_install = "brew install lua-language-server"
+
+local server_name = "lua_ls"
+
+local lsp_util = require("utils.lsp")
+
+lsp_util.ensure_server_installed(server_bin, server_install)
 
 return function(lspconfig, capabilities)
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 
-	local server_name = "lua_ls"
 	local server = lspconfig[server_name]
 
 	server.setup({
+
 		capabilities = capabilities,
+
 		settings = {
+
 			Lua = {
 				--- Disable telemetry
 				---
