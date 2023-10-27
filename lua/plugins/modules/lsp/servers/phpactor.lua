@@ -12,7 +12,7 @@ if is_server_bin_exist == false then
 	vim.notify(
 		server_bin
 			.. " doesn't exist."
-			.. "\n"
+			.. "\n\n"
 			.. "Make sure its location is defined in PATH variable and it is installed via: "
 			.. server_install
 	)

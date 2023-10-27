@@ -23,6 +23,21 @@ return {
 		{ "folke/neoconf.nvim" },
 		{ "folke/neodev.nvim" },
 		{ "nvim-telescope/telescope.nvim" },
+		{
+
+			"akinsho/flutter-tools.nvim",
+
+			lazy = false,
+
+			dependencies = {
+
+				"nvim-lua/plenary.nvim",
+
+				--- OPTIONAL for vim.ui.select
+				---
+				"stevearc/dressing.nvim",
+			},
+		},
 	},
 	config = function()
 		--- Configure default
