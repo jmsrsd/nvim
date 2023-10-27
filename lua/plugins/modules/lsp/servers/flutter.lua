@@ -2,10 +2,7 @@ local server_bin = "flutter"
 
 local server_install = "fvm install stable"
 
-local server_path = table.concat({
-	vim.fn.expand("$HOME"),
-	"/fvm/default/bin/flutter",
-})
+local server_path = vim.fn.system("which " .. server_bin) .. ""
 
 local lsp_util = require("utils.lsp")
 
@@ -16,9 +13,7 @@ if is_server_bin_exist == false then
 		server_bin
 			.. " doesn't exist."
 			.. "\n\n"
-			.. "Make sure its location is at `"
-			.. server_path
-			.. "` and it is installed via: "
+			.. "Make sure its location is defined in PATH variable and it is installed via: "
 			.. server_install
 	)
 end
@@ -28,7 +23,7 @@ return function(_, capabilities)
 
 	flutter.setup({
 
-		flutter_path = server_path,
+		flutter_path = is_server_bin_exist and server_path or nil,
 
 		dev_log = {
 
