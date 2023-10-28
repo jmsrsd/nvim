@@ -49,7 +49,7 @@ return {
 				---
 				--- brew install codespell
 				---
-				["*"] = { "codespell" },
+				--- UNUSED: ["*"] = { "codespell" },
 
 				--- Use the "_" filetype to
 				---

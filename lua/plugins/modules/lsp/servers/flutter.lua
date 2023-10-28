@@ -1,22 +1,17 @@
-local server_bin = "flutter"
-
-local server_install = "fvm install stable"
-
-local server_path = vim.fn.system("which " .. server_bin) .. ""
-
 local lsp_util = require("utils.lsp")
 
-local is_server_bin_exist = lsp_util.is_server_bin_exist(server_bin)
+local server_opts = lsp_util.check_server_availability({
 
-if is_server_bin_exist == false then
-	vim.notify(
-		server_bin
-			.. " doesn't exist."
-			.. "\n\n"
-			.. "Make sure its location is defined in PATH variable and it is installed via: "
-			.. server_install
-	)
-end
+	bin = "flutter",
+
+	install = "fvm install stable",
+
+	name = "",
+})
+
+local is_server_bin_exist = lsp_util.is_server_bin_exist(server_opts.bin)
+
+local server_path = vim.fn.system("which " .. server_opts.bin) .. ""
 
 return function(_, capabilities)
 	local flutter = require("flutter-tools")

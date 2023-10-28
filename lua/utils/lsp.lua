@@ -1,5 +1,12 @@
+--- @class ServerOpts
+--- @field bin string
+--- @field install string
+--- @field name string
+
 local M = {}
 
+--- @param server_bin string
+---
 M.is_server_bin_exist = function(server_bin)
 	local server_path = vim.fn.system("which " .. server_bin) .. ""
 
@@ -16,6 +23,26 @@ M.ensure_server_installed = function(server_bin, server_install)
 		vim.notify(server_path)
 		vim.notify(vim.fn.system(server_install))
 	end
+end
+
+--- @param server_opts ServerOpts
+---
+M.check_server_availability = function(server_opts)
+	local is_server_bin_exist = M.is_server_bin_exist(server_opts.bin)
+
+	if is_server_bin_exist == false then
+		vim.notify(
+			server_opts.bin
+				.. " doesn't exist."
+				.. "\n\n"
+				.. "Make sure its location is defined in PATH variable and it is installed via: "
+				.. server_opts.install
+		)
+	end
+
+	--- @type ServerOpts
+	---
+	return server_opts
 end
 
 return M

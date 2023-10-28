@@ -1,15 +1,16 @@
-local server_bin = "cssmodules-language-server"
-
-local server_install = "npm install -g cssmodules-language-server"
-
-local server_name = "cssmodules_ls"
-
 local lsp_util = require("utils.lsp")
 
-lsp_util.ensure_server_installed(server_bin, server_install)
+local server_opts = lsp_util.check_server_availability({
+
+	bin = "cssmodules-language-server",
+
+	install = "npm install -g cssmodules-language-server",
+
+	name = "cssmodules_ls",
+})
 
 return function(lspconfig, capabilities)
-	local server = lspconfig[server_name]
+	local server = lspconfig[server_opts.name]
 
 	server.setup({
 		capabilities = capabilities,
