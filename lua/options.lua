@@ -23,10 +23,16 @@ vim.o.foldenable = true
 
 --- Clipboard
 ---
-vim.opt.clipboard:append({
-	"unnamed",
-	"unnamedplus",
-})
+local is_xclip_exist = (vim.fn.system("which xclip") .. ""):match("not found") == nil
+
+if is_xclip_exist == false then
+	vim.notify("`xclip` is not found. Make sure to install `xclip` to enable copy to clipboard option.")
+else
+	vim.opt.clipboard:append({
+		"unnamed",
+		"unnamedplus",
+	})
+end
 
 --- Search
 ---
