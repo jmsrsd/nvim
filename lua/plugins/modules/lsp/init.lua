@@ -8,11 +8,13 @@ end
 local get_capabilities = function()
 	local result = vim.lsp.protocol.make_client_capabilities()
 
-	local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-	pcall(function()
-		result = cmp_nvim_lsp.default_capabilities() or result
+	local is_cmp_nvim_lsp_installed, cmp_nvim_lsp = pcall(function()
+		return require("cmp_nvim_lsp")
 	end)
+
+	if is_cmp_nvim_lsp_installed then
+		result = cmp_nvim_lsp.default_capabilities() or result
+	end
 
 	result.textDocument.completion.completionItem.snippetSupport = true
 
