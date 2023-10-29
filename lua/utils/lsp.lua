@@ -1,8 +1,13 @@
+--- Type definitions
+---
+
 --- @class ServerOpts
 --- @field bin string
 --- @field install string
 --- @field name string
 
+--- Module
+---
 local M = {}
 
 --- @param server_bin string

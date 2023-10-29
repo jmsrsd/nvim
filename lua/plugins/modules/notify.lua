@@ -22,6 +22,10 @@ return {
 			"No information available",
 		}
 
+		--- @param msg string
+		--- @param level integer|nil
+		--- @param opts table|nil
+		---
 		vim.notify = function(msg, level, opts)
 			--- Trim msg
 			---

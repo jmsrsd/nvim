@@ -17,7 +17,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		---
 		--- below functions
 		---
+
+		--- @param desc string
+		---
 		local describe = function(desc)
+			--- @type { buffer: unknown, noremap: boolean, silent: boolean, desc: string }
+			---
 			return {
 				buffer = ev.buf,
 				noremap = true,

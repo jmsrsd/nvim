@@ -8,7 +8,11 @@ local diagnostics = function()
 	})
 end
 
+--- @param desc string
+---
 local describe = function(desc)
+	--- @type { noremap: boolean, silent: boolean, desc: string }
+	---
 	return {
 		noremap = true,
 		silent = true,
@@ -22,6 +26,7 @@ end
 ---
 --- below functions
 ---
+
 vim.keymap.set("n", "[d", vim.diagnostic.open_float, describe("Show diagnostics in a floating window."))
 
 vim.keymap.set("n", "]d", diagnostics, describe("Lists diagnostics"))
