@@ -9,16 +9,16 @@ local server_opts = lsp_util.check_server_availability({
 	name = "",
 })
 
-local is_server_bin_exist = lsp_util.is_server_bin_exist(server_opts.bin)
-
-local server_path = vim.fn.system("which " .. server_opts.bin) .. ""
-
-return function(_, capabilities)
+return function(capabilities)
 	local flutter = require("flutter-tools")
+
+	local is_flutter_exist = lsp_util.is_server_bin_exist(server_opts.bin)
+
+	local flutter_path = vim.fn.system("which " .. server_opts.bin) .. ""
 
 	flutter.setup({
 
-		flutter_path = is_server_bin_exist and server_path or nil,
+		flutter_path = is_flutter_exist and flutter_path or nil,
 
 		dev_log = {
 

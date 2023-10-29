@@ -1,6 +1,6 @@
 local lsp_util = require("utils.lsp")
 
-local server_opts = lsp_util.check_server_availability({
+lsp_util.check_server_availability({
 
 	bin = "lua-language-server",
 
@@ -9,14 +9,12 @@ local server_opts = lsp_util.check_server_availability({
 	name = "lua_ls",
 })
 
-return function(lspconfig, capabilities)
+return function(capabilities)
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
 
-	local server = lspconfig[server_opts.name]
-
-	server.setup({
+	return {
 
 		capabilities = capabilities,
 
@@ -57,5 +55,5 @@ return function(lspconfig, capabilities)
 				},
 			},
 		},
-	})
+	}
 end

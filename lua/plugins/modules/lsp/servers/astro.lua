@@ -1,6 +1,6 @@
 local lsp_util = require("utils.lsp")
 
-local server_opts = lsp_util.check_server_availability({
+lsp_util.check_server_availability({
 
 	bin = "astro-ls",
 
@@ -9,10 +9,8 @@ local server_opts = lsp_util.check_server_availability({
 	name = "astro",
 })
 
-return function(lspconfig, capabilities)
-	local server = lspconfig[server_opts.name]
-
-	server.setup({
+return function(capabilities)
+	return {
 		capabilities = capabilities,
-	})
+	}
 end
