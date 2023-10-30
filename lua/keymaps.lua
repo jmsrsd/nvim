@@ -232,7 +232,7 @@ end, {
 --- Window
 ---
 
-vim.keymap.set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>", {
+vim.keymap.set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>a", {
 	noremap = true,
 	silent = true,
 	desc = "Spawn terminal window",
