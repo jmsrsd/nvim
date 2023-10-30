@@ -34,11 +34,11 @@ return {
 				vim.cmd(command)
 			end
 
-			pcall(cmd, "w")
-			pcall(cmd, "wa")
+			local commands = { "wa", "wa", "BWipeout hidden", "BWipeout! hidden" }
 
-			pcall(cmd, "BWipeout hidden")
-			pcall(cmd, "BWipeout! hidden")
+			vim.tbl_map(function(command)
+				pcall(cmd, command)
+			end, commands)
 		end, {
 			noremap = true,
 			silent = true,
