@@ -9,7 +9,7 @@ lsp_util.check_server_availability({
 	name = "intelephense",
 })
 
-return function(lspconfig, capabilities)
+return function(capabilities)
 	return {
 		capabilities = capabilities,
 	}

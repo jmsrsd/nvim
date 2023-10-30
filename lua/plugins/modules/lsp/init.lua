@@ -28,7 +28,7 @@ local setup_all = function()
 
 	local setups = import_all("servers")
 
-	local uniques = { "flutter" }
+	local skips = { "flutter" }
 
 	for server, config in pairs(setups) do
 		local opts = config(capabilities)
@@ -36,7 +36,7 @@ local setup_all = function()
 		server = vim.split(server, "%.")
 		server = server[#server]
 
-		if table.concat(uniques, ","):match(server) == nil then
+		if table.concat(skips, ","):match(server) == nil then
 			lspconfig[server].setup(opts)
 		end
 	end
