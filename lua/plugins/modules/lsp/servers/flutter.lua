@@ -45,4 +45,10 @@ return function(capabilities)
 			},
 		},
 	})
+
+	pcall(function()
+		local telescope = require("telescope")
+
+		telescope.load_extension("flutter")
+	end)
 end

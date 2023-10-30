@@ -5,6 +5,10 @@ return {
 
 	"rcarriga/nvim-notify",
 
+	dependencies = {
+		"nvim-telescope/telescope.nvim",
+	},
+
 	config = function()
 		vim.opt.termguicolors = true
 
@@ -18,6 +22,12 @@ return {
 
 			top_down = false,
 		})
+
+		pcall(function()
+			local telescope = require("telescope")
+
+			telescope.load_extension("notify")
+		end)
 
 		local blacklist = {
 			"",

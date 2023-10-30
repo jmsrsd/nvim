@@ -61,6 +61,8 @@ return {
 				--- OPTIONAL for vim.ui.select
 				---
 				"stevearc/dressing.nvim",
+
+				"nvim-telescope/telescope.nvim",
 			},
 		},
 	},

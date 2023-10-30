@@ -1,18 +1,24 @@
 return {
+
 	"nvim-telescope/telescope.nvim",
+
 	lazy = false,
+
 	branch = "master",
+
 	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
+
+		"nvim-lua/plenary.nvim",
+
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
+
 	config = function()
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
 		local sorters = require("telescope.sorters")
 		local previewers = require("telescope.previewers")
-		local load_extension = telescope.load_extension
 
 		local create_buffer_previewer_maker = function()
 			local Job = require("plenary.job")
@@ -141,7 +147,13 @@ return {
 			},
 		})
 
-		load_extension("fzf")
+		--- Extensions
+		---
+
+		telescope.load_extension("fzf")
+
+		--- Keymaps
+		---
 
 		vim.keymap.set("n", "<leader>f", builtin.find_files, {
 			noremap = true,
