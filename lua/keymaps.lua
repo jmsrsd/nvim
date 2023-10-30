@@ -23,6 +23,8 @@
 --- }
 ---
 
+local buffer_util = require("utils.buffer")
+
 --- Paste
 ---
 vim.keymap.set({ "n", "v" }, "<C-v>", '"+P', {
@@ -197,36 +199,33 @@ vim.keymap.set("n", "<C-a>", "ggVG", {
 	desc = "Select all",
 })
 
-vim.keymap.set("n", "<leader>w", function()
-	local cmd = function(command)
-		vim.cmd(command)
-	end
+--- Buffer
+---
 
-	local commands = { "w", "wa" }
-
-	vim.tbl_map(function(command)
-		pcall(cmd, command)
-	end, commands)
-end, {
+vim.keymap.set("n", "<leader>w", buffer_util.save_all, {
 	noremap = true,
 	silent = true,
-	desc = "Save all buffers",
+	desc = "Save all",
 })
 
-vim.keymap.set("n", "<leader>q", function()
+vim.keymap.set("n", "<leader>q", buffer_util.quit_all, {
+	noremap = true,
+	silent = true,
+	desc = "Quit all",
+})
+
+vim.keymap.set("n", "<leader>d", function()
 	local cmd = function(command)
 		vim.cmd(command)
 	end
 
-	local commands = { "w", "wa", "wqa", "qa!", 'exe "normal \\<CR>"' }
+	pcall(buffer_util.save_all)
 
-	vim.tbl_map(function(command)
-		pcall(cmd, command)
-	end, commands)
+	pcall(cmd, "q!")
 end, {
 	noremap = true,
 	silent = true,
-	desc = "Save all and quit",
+	desc = "Close current buffer",
 })
 
 --- Window

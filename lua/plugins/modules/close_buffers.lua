@@ -29,7 +29,7 @@ return {
 			next_buffer_cmd = nil,
 		})
 
-		vim.keymap.set("n", "<leader><CR>", function()
+		local wipe_hidden_buffers = function()
 			local cmd = function(command)
 				vim.cmd(command)
 			end
@@ -39,10 +39,12 @@ return {
 			vim.tbl_map(function(command)
 				pcall(cmd, command)
 			end, commands)
-		end, {
+		end
+
+		vim.keymap.set("n", "<leader><CR>", wipe_hidden_buffers, {
 			noremap = true,
 			silent = true,
-			desc = "Save all and then wipe hidden buffers",
+			desc = "Wipe hidden buffers",
 		})
 	end,
 }
