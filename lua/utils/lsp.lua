@@ -26,7 +26,7 @@ M.ensure_server_installed = function(server_bin, server_install)
 
 	if server_path:match("not found") ~= nil then
 		vim.notify(server_path)
-		vim.notify(vim.fn.system(server_install))
+		vim.notify(vim.fn.system(server_install) .. "")
 	end
 end
 

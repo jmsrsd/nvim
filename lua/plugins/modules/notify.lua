@@ -29,9 +29,11 @@ return {
 		--- @param opts table|nil
 		---
 		vim.notify = function(msg, level, opts)
+			local string_util = require("utils.string")
+
 			--- Trim msg
 			---
-			msg = msg:gsub("^%s*(.-)%s*$", "%1")
+			msg = string_util.trim(msg)
 
 			--- Should not notify when msg is empty
 			---

@@ -1,5 +1,7 @@
 local lsp_util = require("utils.lsp")
 
+local string_util = require("utils.string")
+
 local server_opts = lsp_util.check_server_availability({
 
 	bin = "flutter",
@@ -12,13 +14,19 @@ local server_opts = lsp_util.check_server_availability({
 return function(capabilities)
 	local flutter = require("flutter-tools")
 
-	local is_flutter_exist = lsp_util.is_server_bin_exist(server_opts.bin)
+	--- @type string
+	---
+	local flutter_path = ""
 
-	local flutter_path = vim.fn.system("which " .. server_opts.bin) .. ""
+	flutter_path = vim.fn.expand("$HOME") .. "/fvm/default"
+
+	flutter_path = string_util.trim(vim.fn.system("realpath " .. flutter_path) .. "")
+
+	flutter_path = flutter_path .. "/bin/" .. server_opts.bin
 
 	flutter.setup({
 
-		flutter_path = is_flutter_exist and flutter_path or nil,
+		flutter_path = flutter_path,
 
 		dev_log = {
 
