@@ -198,15 +198,15 @@ vim.keymap.set("n", "<C-a>", "ggVG", {
 })
 
 vim.keymap.set("n", "<leader>w", function()
-	local cmds = { "w", "wa" }
-
-	for _, cmd in ipairs(cmds) do
-		xpcall(function()
-			vim.cmd(cmd)
-		end, function()
-			vim.cmd(cmd .. "!")
-		end)
+	local cmd = function(command)
+		vim.cmd(command)
 	end
+
+	local commands = { "w", "wa" }
+
+	vim.tbl_map(function(command)
+		pcall(cmd, command)
+	end, commands)
 end, {
 	noremap = true,
 	silent = true,
@@ -214,11 +214,15 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>q", function()
-	xpcall(function()
-		vim.cmd("w || wa || wqa")
-	end, function()
-		vim.cmd('qa! || exe "normal \\<CR>"')
-	end)
+	local cmd = function(command)
+		vim.cmd(command)
+	end
+
+	local commands = { "w", "wa", "wqa", "qa!", 'exe "normal \\<CR>"' }
+
+	vim.tbl_map(function(command)
+		pcall(cmd, command)
+	end, commands)
 end, {
 	noremap = true,
 	silent = true,
