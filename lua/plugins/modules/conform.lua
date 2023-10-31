@@ -23,6 +23,8 @@ return {
 
 			formatters_by_ft = {
 
+				astro = { "prettier" },
+
 				php = { "php_cs_fixer" },
 
 				lua = { "stylua" },
