@@ -52,6 +52,8 @@ return {
 
 			"akinsho/flutter-tools.nvim",
 
+			branch = "main",
+
 			lazy = false,
 
 			dependencies = {

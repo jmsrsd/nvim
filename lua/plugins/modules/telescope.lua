@@ -150,7 +150,9 @@ return {
 		--- Extensions
 		---
 
-		telescope.load_extension("fzf")
+		local extensions = { "fzf", "flutter" }
+
+		vim.tbl_map(telescope.load_extension, extensions)
 
 		--- Keymaps
 		---
