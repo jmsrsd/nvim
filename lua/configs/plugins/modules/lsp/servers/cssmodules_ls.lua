@@ -1,6 +1,6 @@
-local lsp_util = require("utils.lsp")
+local lsp = require("utils.lsp")
 
-lsp_util.check_server_availability({
+lsp.check_server_availability({
 
 	bin = "cssmodules-language-server",
 
