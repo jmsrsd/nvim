@@ -1,6 +1,8 @@
 --- @diagnostic disable: duplicate-set-field, inject-field
 ---
 
+local string = require("utils.string")
+
 local import_all = function(name)
 	return require("utils.import_all")(name, function() end)
 end
@@ -33,7 +35,8 @@ local setup_all = function()
 	for server, config in pairs(setups) do
 		local opts = config(capabilities)
 
-		server = vim.split(server, "%.")
+		server = string.split(server, ".")
+
 		server = server[#server]
 
 		if table.concat(skips, ","):match(server) == nil then
