@@ -44,13 +44,19 @@ end
 --- @return string
 ---
 M.to_module = function(path)
+	local string = require("utils.string")
+
 	local module = path:gsub(M.lua .. "/", ""):gsub("/", ".")
 
 	--- Remove .lua extension
 	---
-	module = module:sub(1, -5)
+	local split = string.split(module, ".")
 
-	return module
+	if split[#split] == "lua" then
+		table.remove(split, #split)
+	end
+
+	return table.concat(split, ".")
 end
 
 return M

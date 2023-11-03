@@ -1,27 +1,28 @@
+local cmd = function(arg)
+	vim.cmd(arg)
+end
+
+local execute = function(command)
+	pcall(cmd, command)
+end
+
 local M = {}
 
 M.save_all = function()
-	local cmd = function(command)
-		vim.cmd(command)
-	end
-
-	local commands = { "w", "wa" }
-
-	vim.tbl_map(function(command)
-		pcall(cmd, command)
-	end, commands)
+	vim.tbl_map(execute, {
+		"w",
+		"wa",
+	})
 end
 
 M.quit_all = function()
-	local cmd = function(command)
-		vim.cmd(command)
-	end
-
-	local commands = { "w", "wa", "wqa", "qa!", 'exe "normal \\<CR>"' }
-
-	vim.tbl_map(function(command)
-		pcall(cmd, command)
-	end, commands)
+	vim.tbl_map(execute, {
+		"w",
+		"wa",
+		"wqa",
+		"qa!",
+		'exe "normal \\<CR>"',
+	})
 end
 
 return M

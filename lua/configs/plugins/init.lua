@@ -13,9 +13,19 @@ end
 
 vim.opt.rtp:prepend(lazy_path)
 
+local path = require("utils.path")
+
 local lazy = require("lazy")
 
-local lazy_modules = "plugins.modules"
+-- local lazy_modules = "configs.plugins.modules"
+
+--- @type string | nil
+---
+local lazy_modules
+
+lazy_modules = path.get_relative_module_path("modules", function() end)
+
+lazy_modules = path.to_module(lazy_modules)
 
 local lazy_options = {
 	change_detection = {
