@@ -11,6 +11,8 @@ return {
 		"nvim-lua/plenary.nvim",
 
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+		"akinsho/flutter-tools.nvim",
 	},
 
 	config = function()
@@ -150,9 +152,10 @@ return {
 		--- Extensions
 		---
 
-		local extensions = { "fzf", "flutter" }
-
-		vim.tbl_map(telescope.load_extension, extensions)
+		vim.tbl_map(telescope.load_extension, {
+			"fzf",
+			"flutter",
+		})
 
 		--- Keymaps
 		---
