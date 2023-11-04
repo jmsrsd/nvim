@@ -25,4 +25,9 @@ M.quit_all = function()
 	})
 end
 
+M.close = function()
+	M.save_all()
+	execute("q!")
+end
+
 return M

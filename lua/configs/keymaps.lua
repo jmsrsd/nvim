@@ -23,216 +23,98 @@
 --- }
 ---
 
-local buffer_util = require("utils.buffer")
+local keymap = require("utils.keymap")
+
+local describe = keymap.describe
+
+local describeExpression = keymap.describeExpression
+
+local set = vim.keymap.set
 
 --- Paste
 ---
-vim.keymap.set({ "n", "v" }, "<C-v>", '"+P', {
-	noremap = true,
-	silent = true,
-	desc = "Paste on normal, visual & select",
-})
 
-vim.keymap.set("l", "<C-V>", "<C-r>+", {
-	noremap = true,
-	silent = true,
-	desc = "Paste on insert, command-line & lang-arg",
-})
+set({ "n", "v" }, "<C-v>", '"+P', describe("Paste on normal, visual & select"))
+
+set("l", "<C-V>", "<C-r>+", describe("Paste on insert, command-line & lang-arg"))
 
 -- Navigation
 --
-vim.keymap.set("n", "<C-d>", "<C-d>zz", {
-	noremap = true,
-	silent = true,
-	desc = "Go to lowermost current screen line",
-})
 
-vim.keymap.set("n", "<C-u>", "<C-u>zz", {
-	noremap = true,
-	silent = true,
-	desc = "Go to uppermost current screen line",
-})
+set("n", "<C-d>", "<C-d>zz", describe("Go to lowermost current screen line"))
 
-vim.keymap.set("n", "n", "nzzzv", {
-	noremap = true,
-	silent = true,
-	desc = "Find next search occurences",
-})
+set("n", "<C-u>", "<C-u>zz", describe("Go to uppermost current screen line"))
 
-vim.keymap.set("n", "N", "Nzzzv", {
-	noremap = true,
-	silent = true,
-	desc = "Find previous search occurences",
-})
+set("n", "n", "nzzzv", describe("Find next search occurences"))
 
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", {
-	noremap = true,
-	expr = true,
-	silent = true,
-	desc = "Smart upward movement",
-})
+set("n", "N", "Nzzzv", describe("Find previous search occurences"))
 
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", {
-	noremap = true,
-	expr = true,
-	silent = true,
-	desc = "Smart downward movement",
-})
+set("n", "k", "v:count == 0 ? 'gk' : 'k'", describeExpression("Smart upward movement"))
 
-vim.keymap.set("n", "<C-j>", "<Esc>:wincmd j<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Moves to the window below the current one",
-})
+set("n", "j", "v:count == 0 ? 'gj' : 'j'", describeExpression("Smart downward movement"))
 
-vim.keymap.set("n", "<C-k>", "<Esc>:wincmd k<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Moves to the window above the current one",
-})
+set("n", "<C-j>", "<Esc>:wincmd j<CR>", describe("Moves to the window below the current one"))
 
-vim.keymap.set("n", "<C-h>", "<Esc>:wincmd h<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Moves to the window left the current one",
-})
+set("n", "<C-k>", "<Esc>:wincmd k<CR>", describe("Moves to the window above the current one"))
 
-vim.keymap.set("n", "<C-l>", "<Esc>:wincmd l<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Moves to the window right the current one",
-})
+set("n", "<C-h>", "<Esc>:wincmd h<CR>", describe("Moves to the window left the current one"))
+
+set("n", "<C-l>", "<Esc>:wincmd l<CR>", describe("Moves to the window right the current one"))
+
+set({ "n", "v" }, "H", "^", describe("Go to the first character of current line"))
+
+set({ "n", "v" }, "L", "$", describe("Go to the end character of current line"))
 
 --- Visual Mode
 ---
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {
-	noremap = true,
-	silent = true,
-	desc = "Move down the selected line in visual mode",
-})
 
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {
-	noremap = true,
-	silent = true,
-	desc = "Move up the selected line in visual mode",
-})
+set("v", "J", ":m '>+1<CR>gv=gv", describe("Move down the selected line in visual mode"))
+
+set("v", "K", ":m '<-2<CR>gv=gv", describe("Move up the selected line in visual mode"))
+
+set("n", "<C-a>", "ggVG", describe("Select all"))
 
 --- Search and Replace
 ---
-vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", {
-	noremap = true,
-	silent = true,
-	desc = "Replace all word occurrences",
-})
 
---- Miscellaneous
+set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", describe("Replace all word occurrences"))
+
+--- Editing
 ---
-vim.keymap.set("n", "J", "mzJ`z", {
-	noremap = true,
-	silent = true,
-	desc = "Remove newline at the end of the line",
-})
 
--- UNUSED: vim.keymap.set('n', '-', '<CMD>Ex<CR>', {
--- UNUSED:   noremap = true,
--- UNUSED:   silent = true,
--- UNUSED:   desc = 'Open netrw file explorer'
--- UNUSED: })
+set("n", "J", "mzJ`z", describe("Remove newline at the end of the line"))
 
-vim.keymap.set("n", "q", "", {
-	noremap = true,
-	silent = true,
-	desc = "No-op",
-})
+--- No-op
+---
 
-vim.keymap.set("n", "Q", "", {
-	noremap = true,
-	silent = true,
-	desc = "No-op",
-})
+set("n", "q", "", describe("No-op"))
 
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {
-	noremap = true,
-	silent = true,
-	desc = "Exit terminal mode",
-})
+set("n", "Q", "", describe("No-op"))
 
-vim.keymap.set("t", "jk", "<C-\\><C-n>", {
-	noremap = true,
-	silent = true,
-	desc = "Exit terminal mode",
-})
+--- Escape
+---
 
-vim.keymap.set("t", "jj", "<C-\\><C-n>", {
-	noremap = true,
-	silent = true,
-	desc = "Exit terminal mode",
-})
+local escape_keys = { "jj", "jk", "kk" }
 
-vim.keymap.set("i", "jk", "<Esc>", {
-	noremap = true,
-	silent = true,
-	desc = "Exit insert mode",
-})
+set("t", "<Esc>", "<C-\\><C-n>", describe("Exit terminal mode"))
 
-vim.keymap.set("i", "jj", "<Esc>", {
-	noremap = true,
-	silent = true,
-	desc = "Exit insert mode",
-})
-
-vim.keymap.set({ "n", "v" }, "H", "^", {
-	noremap = true,
-	silent = true,
-	desc = "Go to the first character of current line",
-})
-
-vim.keymap.set({ "n", "v" }, "L", "$", {
-	noremap = true,
-	silent = true,
-	desc = "Go to the end character of current line",
-})
-
-vim.keymap.set("n", "<C-a>", "ggVG", {
-	noremap = true,
-	silent = true,
-	desc = "Select all",
-})
+vim.tbl_map(function(lhs)
+	set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
+	set("i", lhs, "<Esc>", describe("Exit insert mode"))
+end, escape_keys)
 
 --- Buffer
 ---
 
-vim.keymap.set("n", "<leader>w", buffer_util.save_all, {
-	noremap = true,
-	silent = true,
-	desc = "Save all",
-})
+local buffer = require("utils.buffer")
 
-vim.keymap.set("n", "<leader>q", buffer_util.quit_all, {
-	noremap = true,
-	silent = true,
-	desc = "Quit all",
-})
+set("n", "<leader>w", buffer.save_all, describe("Save all"))
 
-vim.keymap.set("n", "<leader>d", function()
-	local cmd = function(command)
-		vim.cmd(command)
-	end
+set("n", "<leader>q", buffer.quit_all, describe("Quit all"))
 
-	pcall(buffer_util.save_all)
-
-	pcall(cmd, "q!")
-end, {
-	noremap = true,
-	silent = true,
-	desc = "Close current buffer",
-})
+set("n", "<leader>d", buffer.close, describe("Close current buffer"))
 
 --- Window
 ---
 
-vim.keymap.set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>:wincmd J<CR>a", {
-	noremap = true,
-	silent = true,
-	desc = "Spawn terminal window",
-})
+set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>:wincmd J<CR>a", describe("Spawn terminal window"))
