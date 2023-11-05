@@ -29,25 +29,25 @@ return {
 
 				lua = { "stylua" },
 
-				json = { { "prettierd", "prettier" } },
+				json = { { "prettier", "prettierd" } },
 
-				javascript = { { "prettierd", "prettier" } },
+				javascript = { { "prettier", "prettierd" } },
 
-				javascriptreact = { { "prettierd", "prettier" } },
+				javascriptreact = { { "prettier", "prettierd" } },
 
-				jsx = { { "prettierd", "prettier" } },
+				jsx = { { "prettier", "prettierd" } },
 
-				typescript = { { "prettierd", "prettier" } },
+				typescript = { { "prettier", "prettierd" } },
 
-				typescriptreact = { { "prettierd", "prettier" } },
+				typescriptreact = { { "prettier", "prettierd" } },
 
-				tsx = { { "prettierd", "prettier" } },
+				tsx = { { "prettier", "prettierd" } },
 
-				html = { { "prettierd", "prettier" } },
+				html = { { "prettier", "prettierd" } },
 
-				css = { { "prettierd", "prettier" } },
+				css = { { "prettier", "prettierd" } },
 
-				yaml = { { "prettierd", "prettier" } },
+				yaml = { { "prettier", "prettierd" } },
 
 				--- Note:
 				---
