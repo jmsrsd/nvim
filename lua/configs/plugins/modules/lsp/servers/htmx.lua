@@ -12,5 +12,15 @@ lsp.check_server_availability({
 return function(capabilities)
 	return {
 		capabilities = capabilities,
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"html",
+			"astro",
+		},
 	}
 end
