@@ -29,7 +29,12 @@ local describe = keymap.describe
 
 local describeExpression = keymap.describeExpression
 
-local set = vim.keymap.set
+local set = function(mode, lhs, rhs, opts)
+	pcall(function()
+    vim.keymap.del(mode, lhs, opts)
+  end)
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 --- Paste
 ---
