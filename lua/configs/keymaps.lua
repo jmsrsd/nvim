@@ -94,7 +94,7 @@ set("n", "Q", "", describe("No-op"))
 --- Escape
 ---
 
-local escape_keys = { "jj", "jk", "kk" }
+local escape_keys = { "jj", "jk", "kk", "<C-[>" }
 
 set("t", "<Esc>", "<C-\\><C-n>", describe("Exit terminal mode"))
 
