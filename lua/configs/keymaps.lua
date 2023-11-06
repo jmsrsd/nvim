@@ -31,8 +31,8 @@ local describeExpression = keymap.describeExpression
 
 local set = function(mode, lhs, rhs, opts)
 	pcall(function()
-    vim.keymap.del(mode, lhs, opts)
-  end)
+		vim.keymap.del(mode, lhs, opts)
+	end)
 	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -122,4 +122,4 @@ set("n", "<leader>d", buffer.close, describe("Close current buffer"))
 --- Window
 ---
 
-set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>:wincmd J<CR>a", describe("Spawn terminal window"))
+--- UNUSED: set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>:wincmd J<CR>a", describe("Spawn terminal window"))
