@@ -11,6 +11,12 @@ return {
 		local oil = require("oil")
 
 		oil.setup({
+			keymaps = {
+				["<C-s>"] = false,
+				["<C-h>"] = false,
+				["<C-t>"] = false,
+				["<C-l>"] = false,
+			},
 			view_options = {
 				show_hidden = true,
 			},

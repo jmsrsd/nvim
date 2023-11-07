@@ -2,16 +2,12 @@ local lsp = require("utils.lsp")
 
 lsp.check_server_availability({
 
-	bin = "deno",
+	bin = "tailwindcss-language-server",
 
-	install = "brew install deno",
+	install = "pnpm i -g @tailwindcss/language-server",
 
-	name = "denols",
+	name = "tailwindcss",
 })
-
-vim.g.markdown_fenced_languages = {
-	"ts=typescript",
-}
 
 return function(capabilities, on_attach)
 	return {
