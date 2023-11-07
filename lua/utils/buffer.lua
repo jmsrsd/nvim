@@ -1,10 +1,6 @@
-local cmd = function(arg)
-	vim.cmd(arg)
-end
+local cmd = require("utils.cmd")
 
-local execute = function(command)
-	pcall(cmd, command)
-end
+local execute = cmd.execute
 
 local M = {}
 
@@ -25,9 +21,15 @@ M.quit_all = function()
 	})
 end
 
+M.quit = function(opts)
+	local force = opts.force
+
+	return execute("q" .. (force and "!" or ""))
+end
+
 M.close = function()
 	M.save_all()
-	execute("q!")
+	M.quit({ force = true })
 end
 
 return M
