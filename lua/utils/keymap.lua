@@ -8,6 +8,15 @@ M.describe = function(desc)
 	}
 end
 
+M.describeBuffer = function(buffer, desc)
+	return {
+		buffer = buffer,
+		noremap = true,
+		silent = true,
+		desc = desc,
+	}
+end
+
 M.describeExpression = function(desc)
 	return {
 		expr = true,

@@ -8,58 +8,40 @@ M.on_attach = function(client, bufnr)
 	--- below functions
 	---
 
-	--- @param desc string
-	---
+	local set = vim.keymap.set
+
+	local lsp = vim.lsp.buf
+
+	local keymap = require("utils.keymap")
+
 	local describe = function(desc)
-		--- @type { buffer: unknown, noremap: boolean, silent: boolean, desc: string }
-		---
-		return {
-			buffer = bufnr,
-			noremap = true,
-			silent = true,
-			desc = desc,
-		}
+		return keymap.describeBuffer(bufnr, desc)
 	end
 
-	vim.keymap.set(
-		"n",
-		"gD",
-		vim.lsp.buf.declaration,
-		describe("Jumps to the declaration of the symbol under the cursor.")
-	)
+	set("n", "gD", lsp.declaration, describe("Jumps to the declaration of the symbol under the cursor."))
 
-	vim.keymap.set(
-		"n",
-		"gd",
-		vim.lsp.buf.definition,
-		describe("Jumps to the definition of the symbol under the cursor.")
-	)
+	set("n", "gd", lsp.definition, describe("Jumps to the definition of the symbol under the cursor."))
 
-	vim.keymap.set(
-		"n",
-		"gt",
-		vim.lsp.buf.type_definition,
-		describe("Jumps to the definition of " .. "the type of the " .. "symbol under the cursor.")
-	)
+	set("n", "gt", lsp.type_definition, describe("Jumps to the definition of the type of the symbol under the cursor."))
 
-	vim.keymap.set(
+	set(
 		"n",
 		"gi",
-		vim.lsp.buf.implementation,
-		describe("Lists all the implementations for the " .. "symbol under the cursor in the " .. "quickfix window.")
+		lsp.implementation,
+		describe("Lists all the implementations for the symbol under the cursor in the quickfix window.")
 	)
 
-	vim.keymap.set(
+	set(
 		"n",
 		"gr",
-		vim.lsp.buf.references,
-		describe("Lists all the references to the " .. "symbol under the cursor in the " .. "quickfix window.")
+		lsp.references,
+		describe("Lists all the references to the symbol under the cursor in the quickfix window.")
 	)
 
-	vim.keymap.set(
+	set(
 		"n",
 		"K",
-		vim.lsp.buf.hover,
+		lsp.hover,
 		describe(
 			"Displays hover information about the symbol under the "
 				.. "cursor in a floating window. Calling the "
@@ -67,26 +49,21 @@ M.on_attach = function(client, bufnr)
 		)
 	)
 
-	vim.keymap.set(
+	set(
 		"n",
 		"<leader>k",
-		vim.lsp.buf.signature_help,
-		describe("Displays signature information about the " .. "symbol under the cursor in a " .. "floating window.")
+		lsp.signature_help,
+		describe("Displays signature information about the symbol under the cursor in a floating window.")
 	)
 
-	vim.keymap.set(
+	set(
 		{ "n", "v" },
 		"<leader>a",
-		vim.lsp.buf.code_action,
-		describe("Selects a code action available at " .. "the current " .. "cursor position.")
+		lsp.code_action,
+		describe("Selects a code action available at the current cursor position.")
 	)
 
-	vim.keymap.set(
-		"n",
-		"<leader>r",
-		vim.lsp.buf.rename,
-		describe("Renames all references to the symbol under the cursor.")
-	)
+	set("n", "<leader>r", lsp.rename, describe("Renames all references to the symbol under the cursor."))
 end
 
 M.setup = function()
