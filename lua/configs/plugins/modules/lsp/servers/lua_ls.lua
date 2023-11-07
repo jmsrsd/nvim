@@ -9,7 +9,7 @@ lsp.check_server_availability({
 	name = "lua_ls",
 })
 
-return function(capabilities)
+return function(capabilities, on_attach)
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
@@ -17,6 +17,8 @@ return function(capabilities)
 	return {
 
 		capabilities = capabilities,
+
+		on_attach = on_attach,
 
 		settings = {
 

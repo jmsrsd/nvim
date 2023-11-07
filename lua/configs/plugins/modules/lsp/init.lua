@@ -4,7 +4,18 @@
 local string = require("utils.string")
 
 local import_all = function(name)
-	return require("utils.import_all")(name, function() end)
+	local result = {}
+
+	local modules = require("utils.import_all")(name, function() end)
+
+	for key, value in pairs(modules) do
+		key = string.split(key .. "", ".")
+		key = key[#key]
+
+		result[key] = value
+	end
+
+	return result
 end
 
 local get_capabilities = function()
@@ -23,7 +34,7 @@ local get_capabilities = function()
 	return result
 end
 
-local setup_all = function()
+local setup_all = function(on_attach)
 	local lspconfig = require("lspconfig")
 
 	local capabilities = get_capabilities()
@@ -33,11 +44,7 @@ local setup_all = function()
 	local skips = { "flutter" }
 
 	for server, config in pairs(setups) do
-		local opts = config(capabilities)
-
-		server = string.split(server, ".")
-
-		server = server[#server]
+		local opts = config(capabilities, on_attach)
 
 		if table.concat(skips, ","):match(server) == nil then
 			lspconfig[server].setup(opts)
@@ -121,12 +128,16 @@ return {
 			},
 		})
 
+		local keymaps = import_all("keymaps")
+
 		--- Configure Neovim LSP client(s)
 		---
-		setup_all()
+		setup_all(keymaps["lsp"].on_attach)
 
 		--- Configure related keymaps
 		---
-		import_all("keymaps")
+		vim.tbl_map(function(keymap)
+			return keymap.setup()
+		end, keymaps)
 	end,
 }

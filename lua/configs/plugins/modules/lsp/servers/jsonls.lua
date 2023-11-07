@@ -9,8 +9,9 @@ lsp.check_server_availability({
 	name = "jsonls",
 })
 
-return function(capabilities)
+return function(capabilities, on_attach)
 	return {
 		capabilities = capabilities,
+		on_attach = on_attach,
 	}
 end

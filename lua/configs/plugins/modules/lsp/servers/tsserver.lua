@@ -1,3 +1,5 @@
+local lspconfig = require("lspconfig")
+
 local lsp = require("utils.lsp")
 
 lsp.check_server_availability({
@@ -9,8 +11,15 @@ lsp.check_server_availability({
 	name = "tsserver",
 })
 
-return function(capabilities)
+return function(capabilities, on_attach)
 	return {
+
 		capabilities = capabilities,
+
+		on_attach = on_attach,
+
+		root_dir = lspconfig.util.root_pattern("package.json"),
+
+		single_file_support = false,
 	}
 end

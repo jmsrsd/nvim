@@ -11,7 +11,7 @@ local server = lsp.check_server_availability({
 	name = "",
 })
 
-return function(capabilities)
+return function(capabilities, on_attach)
 	local flutter = require("flutter-tools")
 
 	--- @type string
@@ -38,6 +38,8 @@ return function(capabilities)
 		lsp = {
 
 			capabilities = capabilities,
+
+			on_attach = on_attach,
 
 			color = {
 
