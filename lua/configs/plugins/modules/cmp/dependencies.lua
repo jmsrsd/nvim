@@ -13,14 +13,12 @@ return {
 	"petertriho/cmp-git",
 	"ray-x/cmp-treesitter",
 	"onsails/lspkind.nvim",
-	"tzachar/fuzzy.nvim",
-	"tzachar/cmp-fuzzy-buffer",
-	"tzachar/cmp-fuzzy-path",
+	{ "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
+	{ "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
 
 	--- Emmet
 	---
-	"mattn/emmet-vim",
-	"dcampos/cmp-emmet-vim",
+	{ "dcampos/cmp-emmet-vim", dependencies = { "mattn/emmet-vim" } },
 
 	--- Snippets
 	---

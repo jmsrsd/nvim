@@ -39,10 +39,35 @@ local sources = {
 local result = {}
 
 for index, name in ipairs(sources) do
-	table.insert(result, {
+	local source = {
 		["name"] = name,
 		["priority"] = #sources - index + 1,
-	})
+	}
+
+	if name == "emmet_vim" then
+		source.option = {
+			filetypes = {
+				"astro",
+				"css",
+				"heex",
+				"html",
+				"javascript",
+				"javascript.jsx",
+				"javascriptreact",
+				"jsx",
+				"less",
+				"sass",
+				"scss",
+				"tsx",
+				"typescript",
+				"typescript.tsx",
+				"typescriptreact",
+				"xml",
+			},
+		}
+	end
+
+	table.insert(result, source)
 end
 
 return result
