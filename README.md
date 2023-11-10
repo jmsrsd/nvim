@@ -56,7 +56,7 @@ This configuration is organized into multiple Lua files in the `configs` directo
 - [`autopairs.lua`](https://github.com/windwp/nvim-autopairs): Configuration for the `nvim-autopairs` plugin
 - [`blankline.lua`](https://github.com/lukas-reineke/indent-blankline.nvim): Configuration for the `indent-blankline.nvim` plugin
 - [`catppuccin.lua`](https://github.com/catppuccin/nvim): Configuration for the `catppuccin` theme
-- [`close_buffers.lua`](https://github.com/Asheq/close-buffers.vim): Configuration for the `close-buffers.nvim` plugin
+- [`close_buffers.lua`](https://github.com/kazhala/close-buffers.nvim): Configuration for the `close-buffers.nvim` plugin
 - [`comment.lua`](https://github.com/numToStr/Comment.nvim): Configuration for the `Comment.nvim` plugin
 - [`conform.lua`](https://github.com/stevearc/conform.nvim): Configuration for the `conform.nvim` plugin
 - [`dressing.lua`](https://github.com/stevearc/dressing.nvim): Configuration for the `dressing.nvim` plugin
