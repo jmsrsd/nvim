@@ -4,7 +4,7 @@ return {
 
 	name = "catppuccin",
 
-	priority = require("utils.number").maxFinite - 0,
+	priority = require("utils.prioritization").of(0),
 
 	config = function()
 		local catppuccin = require("catppuccin")
