@@ -4,6 +4,8 @@ return {
 
 	lazy = false,
 
+	priority = require("utils.number").maxFinite - 2,
+
 	branch = "master",
 
 	dependencies = {
@@ -155,6 +157,7 @@ return {
 		vim.tbl_map(telescope.load_extension, {
 			"fzf",
 			"flutter",
+			"notify",
 		})
 
 		--- Keymaps

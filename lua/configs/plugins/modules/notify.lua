@@ -9,6 +9,8 @@ return {
 		"nvim-telescope/telescope.nvim",
 	},
 
+	priority = require("utils.number").maxFinite - 1,
+
 	config = function()
 		vim.opt.termguicolors = true
 
@@ -22,12 +24,6 @@ return {
 
 			top_down = false,
 		})
-
-		pcall(function()
-			local telescope = require("telescope")
-
-			telescope.load_extension("notify")
-		end)
 
 		local blacklist = {
 			"",
