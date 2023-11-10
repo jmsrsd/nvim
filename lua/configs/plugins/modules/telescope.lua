@@ -4,7 +4,7 @@ return {
 
 	lazy = false,
 
-	priority = require("utils.prioritization").of(2),
+	priority = require("utils.priority").order(2),
 
 	branch = "master",
 
