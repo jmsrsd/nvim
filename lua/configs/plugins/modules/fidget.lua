@@ -1,7 +1,7 @@
 return {
 	"j-hui/fidget.nvim",
 
-	tag = "legacy",
+	branch = "main",
 
 	event = "LspAttach",
 
@@ -10,29 +10,14 @@ return {
 
 		fidget.setup({
 
-			text = {
+			notification = {
 
-				spinner = {
-					"🕐",
-					"🕑",
-					"🕒",
-					"🕓",
-					"🕔",
-					"🕕",
-					"🕖",
-					"🕗",
-					"🕘",
-					"🕙",
-					"🕚",
-					"🕛",
+				window = {
+
+					winblend = 0,
+
+					border = "rounded",
 				},
-			},
-
-			window = {
-
-				blend = 0,
-
-				border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 			},
 		})
 	end,
