@@ -2,8 +2,8 @@
 
 🔧 This is my maintained configuration for the Neovim text editor, which includes various modules and dependencies. I regularly update it, focusing on improvements, new features, and bug fixes.
 
-```html
-<b>Neovim</b> is a highly configurable text editor built to enable efficient text editing. This configuration aims to enhance the out-of-the-box experience of Neovim by providing a set of pre-configured modules and dependencies.
+```markdown
+**Neovim*** is a highly configurable text editor built to enable efficient text editing. This configuration aims to enhance the out-of-the-box experience of Neovim by providing a set of pre-configured modules and dependencies.
 ```
 
 
