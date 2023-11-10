@@ -33,7 +33,7 @@ git clone https://github.com/jmsrsd/nvim.git
 Then, create a symbolic link to the cloned repository:
 
 ```bash
-ln -s neovim-config $HOME/.config/nvim
+ln -s nvim $HOME/.config/nvim
 ```
 
 ## Usage
