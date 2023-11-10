@@ -59,7 +59,7 @@ This configuration is organized into multiple Lua files in the `configs` directo
 - [`close_buffers.lua`](https://github.com/Asheq/close-buffers.vim): Configuration for the `close-buffers.nvim` plugin
 - [`comment.lua`](https://github.com/numToStr/Comment.nvim): Configuration for the `Comment.nvim` plugin
 - [`conform.lua`](https://github.com/stevearc/conform.nvim): Configuration for the `conform.nvim` plugin
-- [`dressing.lua`](https://github.com/steelsojka/dressing.nvim): Configuration for the `dressing.nvim` plugin
+- [`dressing.lua`](https://github.com/stevearc/dressing.nvim): Configuration for the `dressing.nvim` plugin
 - [`fidget.lua`](https://github.com/tweekmonster/fidget.nvim): Configuration for the `fidget` plugin
 - [`gitsigns.lua`](https://github.com/lewis6991/gitsigns.nvim): Configuration for the `gitsigns.nvim` plugin
 - [`notify.lua`](https://github.com/rcarriga/nvim-notify): Configuration for the `nvim-notify` plugin
