@@ -41,7 +41,7 @@ local result = {}
 for index, name in ipairs(sources) do
 	local source = {
 		["name"] = name,
-		["priority"] = require("utils.priority").order(index),
+		["priority"] = require("utils.prioritization").of(index),
 	}
 
 	if name == "emmet_vim" then
