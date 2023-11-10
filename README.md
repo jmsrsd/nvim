@@ -57,7 +57,7 @@ This configuration is organized into multiple Lua files in the `configs` directo
 - [`blankline.lua`](https://github.com/lukas-reineke/indent-blankline.nvim): Configuration for the `indent-blankline.nvim` plugin
 - [`catppuccin.lua`](https://github.com/catppuccin/nvim): Configuration for the `catppuccin` theme
 - [`close_buffers.lua`](https://github.com/Asheq/close-buffers.vim): Configuration for the `close-buffers.nvim` plugin
-- [`comment.lua`](https://github.com/terrortylor/nvim-comment): Configuration for the `nvim-comment` plugin
+- [`comment.lua`](https://github.com/numToStr/Comment.nvim): Configuration for the `Comment.nvim` plugin
 - [`conform.lua`](https://github.com/stevearc/conform.nvim): Configuration for the `conform.nvim` plugin
 - [`dressing.lua`](https://github.com/steelsojka/dressing.nvim): Configuration for the `dressing.nvim` plugin
 - [`fidget.lua`](https://github.com/tweekmonster/fidget.nvim): Configuration for the `fidget` plugin
