@@ -9,7 +9,7 @@ return {
 		"nvim-telescope/telescope.nvim",
 	},
 
-	priority = require("utils.prioritization").of(1),
+	priority = require("utils.priority").order(1),
 
 	config = function()
 		vim.opt.termguicolors = true
