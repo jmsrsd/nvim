@@ -48,20 +48,20 @@ This configuration includes various plugins and settings for different purposes.
 
 This configuration is organized into multiple Lua files in the `configs` directory:
 
-- [`cmp.lua`](https://github.com/hrsh7th/nvim-cmp): Configuration for the `nv8m-/cmp` plugin
+- [`cmp.lua`](https://github.com/hrsh7th/nvim-cmp): Configuration for the `nvim-cmp` plugin
 - [`lsp.lua`](https://github.com/neovim/nvim-lspconfig): Configuration for the `nvim-lspconfig` plugin
 - [`treesitter.lua`](https://github.com/nvim-treesitter/nvim-treesitter): Configuration for the `nvim-treesitter` plugin
 - [`telescope.lua`](https://github.com/nvim-telescope/telescope.nvim): Configuration for the `telescope.nvim` plugin
 - [`lualine.lua`](https://github.com/hoob3rt/lualine.nvim): Configuration for the `lualine.nvim` plugin
 - [`autopairs.lua`](https://github.com/windwp/nvim-autopairs): Configuration for the `nvim-autopairs` plugin
 - [`blankline.lua`](https://github.com/lukas-reineke/indent-blankline.nvim): Configuration for the `indent-blankline.nvim` plugin
-- [`catppuccin.lua`](https://github.com/Pocco81/Catppuccin): Configuration for the `Catppuccin` theme
+- [`catppuccin.lua`](https://github.com/catppuccin/nvim): Configuration for the `catppuccin` theme
 - [`close_buffers.lua`](https://github.com/Asheq/close-buffers.vim): Configuration for the `close-buffers.nvim` plugin
 - [`comment.lua`](https://github.com/terrortylor/nvim-comment): Configuration for the `nvim-comment` plugin
-- [`conform.lua`](https://github.com/mhartington/formatter.nvim): Configuration for the `conform` plugin
+- [`conform.lua`](https://github.com/stevearc/conform.nvim): Configuration for the `conform.nvim` plugin
 - [`dressing.lua`](https://github.com/steelsojka/dressing.nvim): Configuration for the `dressing.nvim` plugin
 - [`fidget.lua`](https://github.com/tweekmonster/fidget.nvim): Configuration for the `fidget` plugin
 - [`gitsigns.lua`](https://github.com/lewis6991/gitsigns.nvim): Configuration for the `gitsigns.nvim` plugin
 - [`notify.lua`](https://github.com/rcarriga/nvim-notify): Configuration for the `nvim-notify` plugin
-- [`oil.lua`](https://github.com/dylanaraps/oil.vim): Configuration for the `oil.vim` plugin
+- [`oil.lua`](https://github.com/stevearc/oil.nvim): Configuration for the `oil.nvim` plugin
 - [`which_key.lua`](https://github.com/folke/which-key.nvim): Configuration for the `which-key.nvim` plugin
