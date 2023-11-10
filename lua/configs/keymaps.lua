@@ -92,9 +92,9 @@ set("n", "J", "mzJ`z", describe("Remove newline at the end of the line"))
 --- No-op
 ---
 
-set("n", "q", "", describe("No-op"))
+set({ "n", "v" }, "q", "", describe("No-op"))
 
-set("n", "Q", "", describe("No-op"))
+set({ "n", "v" }, "Q", "", describe("No-op"))
 
 --- Escape
 ---
