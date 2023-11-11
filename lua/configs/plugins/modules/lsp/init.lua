@@ -54,6 +54,9 @@ end
 
 return {
 	"neovim/nvim-lspconfig",
+
+	event = "VeryLazy",
+
 	dependencies = {
 		{ "folke/neoconf.nvim" },
 		{ "folke/neodev.nvim" },
@@ -78,6 +81,7 @@ return {
 			},
 		},
 	},
+
 	config = function()
 		--- Configure default
 		---

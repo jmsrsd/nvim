@@ -4,11 +4,13 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 
+	event = "VeryLazy",
+
 	build = ":TSUpdate",
 
 	dependencies = {
-		"nvim-treesitter/nvim-treesitter-context",
-		"windwp/nvim-ts-autotag",
+		{ "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy" },
+		{ "windwp/nvim-ts-autotag", event = "InsertEnter" },
 	},
 
 	config = function()

@@ -7,8 +7,10 @@ end
 return {
 	"tpope/vim-fugitive",
 
+	event = "VeryLazy",
+
 	dependencies = {
-		"lewis6991/gitsigns.nvim",
+		{ "lewis6991/gitsigns.nvim", event = "VeryLazy" },
 	},
 
 	config = function()

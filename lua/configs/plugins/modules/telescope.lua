@@ -2,7 +2,7 @@ return {
 
 	"nvim-telescope/telescope.nvim",
 
-	lazy = false,
+	lazy = "VeryLazy",
 
 	priority = require("utils.priority").order(2),
 
@@ -10,13 +10,13 @@ return {
 
 	dependencies = {
 
-		"nvim-lua/plenary.nvim",
+		{ "nvim-lua/plenary.nvim", event = "VeryLazy" },
 
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", event = "VeryLazy" },
 
-		"akinsho/flutter-tools.nvim",
+		{ "akinsho/flutter-tools.nvim", event = "VeryLazy" },
 
-		"rcarriga/nvim-notify",
+		{ "rcarriga/nvim-notify", event = "VeryLazy" },
 	},
 
 	config = function()

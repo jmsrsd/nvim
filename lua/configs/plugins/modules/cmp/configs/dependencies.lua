@@ -32,10 +32,10 @@ return {
 
 		build = "make install_jsregexp",
 
-		lazy = false,
+		event = "InsertEnter",
 
 		dependencies = {
-			{ "rafamadriz/friendly-snippets", branch = "main", lazy = false },
+			{ "rafamadriz/friendly-snippets", branch = "main", event = "InsertEnter" },
 		},
 
 		config = function(_, opts)

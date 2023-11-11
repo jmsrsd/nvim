@@ -4,7 +4,7 @@
 return {
 	"numToStr/Comment.nvim",
 
-	lazy = false,
+	event = "VeryLazy",
 
 	config = function()
 		local comment = require("Comment")
