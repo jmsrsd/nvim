@@ -5,6 +5,7 @@ return {
 		local gitsigns = require("gitsigns")
 
 		gitsigns.setup({
+
 			signs = {
 				add = { text = "│" },
 				change = { text = "│" },
