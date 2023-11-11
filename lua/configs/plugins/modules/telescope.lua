@@ -15,6 +15,8 @@ return {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
 		"akinsho/flutter-tools.nvim",
+
+		"rcarriga/nvim-notify",
 	},
 
 	config = function()
