@@ -5,7 +5,7 @@
 ---
 local import = function(module)
 	return require("utils.import")(function(parent)
-		return parent .. "." .. module
+		return parent .. ".configs." .. module
 	end, function() end)
 end
 

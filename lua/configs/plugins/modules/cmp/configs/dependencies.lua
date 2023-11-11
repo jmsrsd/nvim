@@ -13,6 +13,9 @@ return {
 	"petertriho/cmp-git",
 	"ray-x/cmp-treesitter",
 	"onsails/lspkind.nvim",
+
+	--- Fuzzy
+	---
 	{ "tzachar/cmp-fuzzy-buffer", dependencies = { "tzachar/fuzzy.nvim" } },
 	{ "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
 
