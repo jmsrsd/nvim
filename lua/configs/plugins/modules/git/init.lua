@@ -1,7 +1,7 @@
-local import = function(module)
+local configure = function(module)
 	return require("utils.import")(function(parent)
 		return parent .. ".configs." .. module
-	end, function() end)
+	end, function() end).setup()
 end
 
 return {
@@ -12,6 +12,9 @@ return {
 	},
 
 	config = function()
-		import("gitsigns").setup()
+		vim.tbl_map(configure, {
+			"fugitive",
+			"gitsigns",
+		})
 	end,
 }
