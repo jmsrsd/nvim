@@ -4,6 +4,8 @@
 
 🔧 This is my maintained configuration for the Neovim text editor, which includes various modules and dependencies. I regularly update it, focusing on improvements, new features, and bug fixes.
 
+![Screenshot](/screenshots/202311120924.png)
+
 ## Table of Contents
 
 - [Requirements](#requirements)
