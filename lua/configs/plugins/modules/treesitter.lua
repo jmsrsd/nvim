@@ -2,7 +2,10 @@
 ---
 
 return {
+
 	"nvim-treesitter/nvim-treesitter",
+
+	branch = "master",
 
 	event = "VeryLazy",
 
@@ -15,17 +18,24 @@ return {
 
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
+
 		local context = require("treesitter-context")
 
 		treesitter.setup({
 
-			ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+			ensure_installed = {
+				"c",
+				"lua",
+				"vim",
+				"vimdoc",
+				"query",
+			},
 
 			sync_install = true,
 
 			auto_install = true,
 
-			ignore_install = { "dart", "markdown", "markdown_inline" },
+			ignore_install = { "dart" },
 
 			highlight = {
 
