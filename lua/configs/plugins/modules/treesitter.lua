@@ -25,7 +25,7 @@ return {
 
 			auto_install = true,
 
-			ignore_install = { "dart" },
+			ignore_install = { "dart", "markdown", "markdown_inline" },
 
 			highlight = {
 
