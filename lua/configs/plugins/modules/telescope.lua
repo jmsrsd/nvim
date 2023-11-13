@@ -68,6 +68,7 @@ return {
 					"-L",
 					"--color=never",
 					"--no-heading",
+					"--no-ignore",
 					"--with-filename",
 					"--line-number",
 					"--column",
@@ -165,10 +166,17 @@ return {
 		--- Keymaps
 		---
 
-		vim.keymap.set("n", "<leader>f", builtin.find_files, {
+		vim.keymap.set("n", "<leader>f", function()
+			return builtin.find_files({
+				follow = true,
+				hidden = true,
+				no_ignore = true,
+				no_ignore_parent = true,
+			})
+		end, {
 			noremap = true,
 			silent = true,
-			desc = "Search for files (respecting .gitignore)",
+			desc = "Search for files",
 		})
 
 		vim.keymap.set("n", "<leader>g", builtin.live_grep, {
