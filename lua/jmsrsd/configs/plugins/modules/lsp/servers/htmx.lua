@@ -1,5 +1,7 @@
 local lsp = require("jmsrsd.utils.lsp")
 
+local root_pattern = require("lspconfig.util").root_pattern
+
 lsp.check_server_availability({
 
 	bin = "htmx-lsp",
@@ -34,5 +36,7 @@ return function(capabilities, on_attach)
 
 			"astro",
 		},
+
+		root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
 	}
 end

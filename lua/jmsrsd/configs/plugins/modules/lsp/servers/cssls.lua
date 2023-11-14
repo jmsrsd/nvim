@@ -1,5 +1,7 @@
 local lsp = require("jmsrsd.utils.lsp")
 
+local root_pattern = require("lspconfig.util").root_pattern
+
 lsp.check_server_availability({
 
 	bin = "vscode-css-language-server",
@@ -15,5 +17,7 @@ return function(capabilities, on_attach)
 		capabilities = capabilities,
 
 		on_attach = on_attach,
+
+		root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
 	}
 end
