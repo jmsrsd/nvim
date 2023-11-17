@@ -51,6 +51,8 @@ return {
 
 				yaml = { { "prettier", "prettierd" } },
 
+				markdown = { { "markdownlint" } },
+
 				--- Note:
 				---
 				--- trim_whitespace means using awk to
