@@ -1,6 +1,6 @@
 local M = {}
 
---- @param s string|number
+--- @param s string
 --- @return string
 ---
 M.trim = function(s)
