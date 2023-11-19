@@ -16,6 +16,8 @@ end
 return function()
 	local incline = require("incline")
 
+	local errors = {}
+
 	incline.setup({
 		debounce_threshold = {
 			falling = 500,
@@ -29,21 +31,37 @@ return function()
 				return ""
 			end
 
-			local search = import("search").render()
+			local ok, view = xpcall(function()
+				local search = import("search").render()
 
-			local diagnostics = import("diagnostics").render(props)
+				local diagnostics = import("diagnostics").render(props)
 
-			local view = {}
+				local view = {}
 
-			for _, buf in ipairs(diagnostics) do
-				table.insert(view, buf)
-			end
+				for _, buf in ipairs(diagnostics) do
+					table.insert(view, buf)
+				end
 
-			for _, buf in ipairs(search) do
-				table.insert(view, buf)
-			end
+				for _, buf in ipairs(search) do
+					table.insert(view, buf)
+				end
 
-			return view
+				return view
+			end, function(error)
+				error = error .. ""
+
+				for _, e in ipairs(errors) do
+					if e == error then
+						return
+					end
+				end
+
+				table.insert(errors, error)
+
+				vim.notify(error)
+			end)
+
+			return ok and view or ""
 		end,
 
 		window = {

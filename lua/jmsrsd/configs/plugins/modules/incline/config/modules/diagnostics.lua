@@ -10,7 +10,7 @@ M.view = function(props)
 		Error = "",
 		Warn = "",
 		Info = "",
-		Hint = "",
+		Hint = "󰌵",
 	}
 
 	local label = {}
@@ -30,12 +30,38 @@ M.view = function(props)
 	return label
 end
 
+M.filename = function(bufname)
+	local ok, result = pcall(function()
+		local string = require("jmsrsd.utils.string")
+
+		local filename = vim.fn.fnamemodify(bufname, ":t")
+
+		local filename_split = string.split(filename, ".")
+
+		filename = filename_split[1]
+
+		for i = 2, #filename_split - 1, 1 do
+			filename = filename .. "." .. filename_split[i]
+		end
+
+		if #filename > 20 then
+			filename = filename:sub(1, 19) .. "…"
+		end
+
+		local extension = filename_split[#filename_split]
+
+		return filename .. "." .. extension
+	end)
+
+	return ok and result or ""
+end
+
 M.render = function(props)
 	local icons = require("nvim-web-devicons")
 
 	local bufname = vim.api.nvim_buf_get_name(props.buf)
 
-	local filename = vim.fn.fnamemodify(bufname, ":t")
+	local filename = M.filename(bufname)
 
 	local view = M.view(props)
 
