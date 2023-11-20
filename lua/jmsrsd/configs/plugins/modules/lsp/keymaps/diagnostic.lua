@@ -1,3 +1,5 @@
+local catch = require("jmsrsd.utils.catch")
+
 local M = {}
 
 M.setup = function()
@@ -22,13 +24,13 @@ M.setup = function()
 
 	local set = vim.keymap.set
 
-	set("n", "[d", diagnostic.open_float, describe("Show diagnostics in a floating window."))
+	set("n", "[d", catch(diagnostic.open_float), describe("Show diagnostics in a floating window."))
 
-	set("n", "]d", diagnostics, describe("Lists diagnostics"))
+	set("n", "]d", catch(diagnostics), describe("Lists diagnostics"))
 
-	set("n", "[g", diagnostic.goto_prev, describe("Move to the previous diagnostic in the current buffer."))
+	set("n", "[g", catch(diagnostic.goto_prev), describe("Move to the previous diagnostic in the current buffer."))
 
-	set("n", "]g", diagnostic.goto_next, describe("Move to the next diagnostic."))
+	set("n", "]g", catch(diagnostic.goto_next), describe("Move to the next diagnostic."))
 end
 
 return M

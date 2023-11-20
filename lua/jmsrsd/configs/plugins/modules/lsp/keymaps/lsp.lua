@@ -1,3 +1,10 @@
+--- @diagnostic disable: unused-local
+---
+
+local keymap = require("jmsrsd.utils.keymap")
+
+local catch = require("jmsrsd.utils.catch")
+
 local M = {}
 
 M.on_attach = function(client, bufnr)
@@ -12,36 +19,39 @@ M.on_attach = function(client, bufnr)
 
 	local lsp = vim.lsp.buf
 
-	local keymap = require("jmsrsd.utils.keymap")
-
 	local describe = function(desc)
 		return keymap.describeBuffer(bufnr, desc)
 	end
 
-	set("n", "gD", lsp.declaration, describe("Jumps to the declaration of the symbol under the cursor."))
+	set("n", "gD", catch(lsp.declaration), describe("Jumps to the declaration of the symbol under the cursor."))
 
-	set("n", "gd", lsp.definition, describe("Jumps to the definition of the symbol under the cursor."))
+	set("n", "gd", catch(lsp.definition), describe("Jumps to the definition of the symbol under the cursor."))
 
-	set("n", "gt", lsp.type_definition, describe("Jumps to the definition of the type of the symbol under the cursor."))
+	set(
+		"n",
+		"gt",
+		catch(lsp.type_definition),
+		describe("Jumps to the definition of the type of the symbol under the cursor.")
+	)
 
 	set(
 		"n",
 		"gi",
-		lsp.implementation,
+		catch(lsp.implementation),
 		describe("Lists all the implementations for the symbol under the cursor in the quickfix window.")
 	)
 
 	set(
 		"n",
 		"gr",
-		lsp.references,
+		catch(lsp.references),
 		describe("Lists all the references to the symbol under the cursor in the quickfix window.")
 	)
 
 	set(
 		"n",
 		"K",
-		lsp.hover,
+		catch(lsp.hover),
 		describe(
 			"Displays hover information about the symbol under the "
 				.. "cursor in a floating window. Calling the "
@@ -52,18 +62,18 @@ M.on_attach = function(client, bufnr)
 	set(
 		"n",
 		"<leader>k",
-		lsp.signature_help,
+		catch(lsp.signature_help),
 		describe("Displays signature information about the symbol under the cursor in a floating window.")
 	)
 
 	set(
 		{ "n", "v" },
 		"<leader>a",
-		lsp.code_action,
+		catch(lsp.code_action),
 		describe("Selects a code action available at the current cursor position.")
 	)
 
-	set("n", "<leader>r", lsp.rename, describe("Renames all references to the symbol under the cursor."))
+	set("n", "<leader>r", catch(lsp.rename), describe("Renames all references to the symbol under the cursor."))
 end
 
 M.setup = function()

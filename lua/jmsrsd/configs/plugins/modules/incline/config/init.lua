@@ -14,9 +14,23 @@ local import = function(module)
 end
 
 return function()
-	local incline = require("incline")
-
 	local errors = {}
+
+	local on_error = function(error)
+		error = error .. ""
+
+		for _, e in ipairs(errors) do
+			if e == error then
+				return
+			end
+		end
+
+		table.insert(errors, error)
+
+		vim.notify(error)
+	end
+
+	local incline = require("incline")
 
 	incline.setup({
 		debounce_threshold = {
@@ -47,25 +61,15 @@ return function()
 				end
 
 				return view
-			end, function(error)
-				error = error .. ""
-
-				for _, e in ipairs(errors) do
-					if e == error then
-						return
-					end
-				end
-
-				table.insert(errors, error)
-
-				vim.notify(error)
-			end)
+			end, on_error)
 
 			return ok and view or ""
 		end,
 
 		window = {
+
 			margin = { horizontal = 0 },
+
 			padding = 0,
 		},
 	})

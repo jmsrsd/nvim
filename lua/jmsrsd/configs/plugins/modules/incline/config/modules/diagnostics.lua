@@ -3,20 +3,22 @@
 
 local M = {}
 
+M.view_icons = {
+	Error = "",
+	Warn = "",
+	Info = "",
+	Hint = "󰌵",
+}
+
 ---@param props InclineRenderProps
 ---
 M.view = function(props)
-	local icons = {
-		Error = "",
-		Warn = "",
-		Info = "",
-		Hint = "󰌵",
-	}
-
 	local label = {}
 
-	for severity, icon in pairs(icons) do
-		local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
+	for severity, icon in pairs(M.view_icons) do
+		local n = #vim.diagnostic.get(props.buf, {
+			severity = vim.diagnostic.severity[string.upper(severity)],
+		})
 
 		if n > 0 then
 			local hl = vim.api.nvim_get_hl_by_name("DiagnosticSign" .. severity, true)
@@ -30,10 +32,10 @@ M.view = function(props)
 	return label
 end
 
-M.filename = function(bufname)
-	local ok, result = pcall(function()
-		local string = require("jmsrsd.utils.string")
+M.get_filename = function(bufname)
+	local string = require("jmsrsd.utils.string")
 
+	local ok, result = pcall(function()
 		local filename = vim.fn.fnamemodify(bufname, ":t")
 
 		local filename_split = string.split(filename, ".")
@@ -61,7 +63,7 @@ M.render = function(props)
 
 	local bufname = vim.api.nvim_buf_get_name(props.buf)
 
-	local filename = M.filename(bufname)
+	local filename = M.get_filename(bufname)
 
 	local view = M.view(props)
 
