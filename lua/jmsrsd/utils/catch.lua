@@ -1,7 +1,9 @@
-return function(fn)
+return function(f)
 	return function()
-		return xpcall(fn, function(error)
+		local ok, result = xpcall(f, function(error)
 			return vim.notify(error .. "", vim.log.levels.ERROR)
 		end)
+
+		return ok and result or nil
 	end
 end

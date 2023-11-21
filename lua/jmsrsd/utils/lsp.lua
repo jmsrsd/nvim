@@ -35,14 +35,14 @@ end
 M.check_server_availability = function(server_opts)
 	local is_server_bin_exist = M.is_server_bin_exist(server_opts.bin)
 
-	if is_server_bin_exist == false then
-		vim.notify(
-			server_opts.bin
-				.. " doesn't exist."
-				.. "\n\n"
-				.. "Make sure its location is defined in PATH variable and it is installed via: "
-				.. server_opts.install
-		)
+	if not is_server_bin_exist then
+		local message = server_opts.bin
+			.. " doesn't exist."
+			.. "\n\n"
+			.. "Make sure its location is defined in PATH variable and it is installed via: "
+			.. server_opts.install
+
+		vim.notify(message, vim.log.levels.WARN)
 	end
 
 	--- @type ServerOpts

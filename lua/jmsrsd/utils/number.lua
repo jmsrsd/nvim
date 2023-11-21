@@ -13,7 +13,9 @@ M.maxFinite = (function()
 
 	bin = string.gsub(bin, "2", "1")
 
-	return tonumber(bin, 16)
+	local result = tonumber(bin, 16)
+
+	return result
 end)()
 
 return M

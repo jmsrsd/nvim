@@ -22,30 +22,34 @@ M.setup = function()
 		"No information available",
 	}
 
-	--- @param msg string|string[]
+	--- @param message string|string[]
 	--- @param level integer|string|nil
 	--- @param opts table|nil
 	---
-	vim.notify = function(msg, level, opts)
-		local string_util = require("jmsrsd.utils.string")
+	vim.notify = function(message, level, opts)
+		local string = require("jmsrsd.utils.string")
 
-		if type(msg) ~= "string" then
-			msg = table.concat(msg, " ")
+		if type(message) ~= "string" then
+			message = table.concat(message, " ")
 		end
 
 		--- Trim msg
 		---
-		msg = string_util.trim(msg)
+		message = string.trim(message)
 
 		--- Should not notify when msg is empty
 		---
 		for _, blacklisted in ipairs(blacklist) do
-			if msg == blacklisted then
-				return
+			if message == blacklisted then
+				return nil
 			end
 		end
 
-		return notify.notify(msg, level or "", opts or {})
+		local ok, result = pcall(function()
+			return notify.notify(message, level or "", opts or {})
+		end)
+
+		return ok and result or nil
 	end
 end
 
