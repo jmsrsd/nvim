@@ -1,6 +1,12 @@
----@diagnostic disable: undefined-field
+--- @diagnostic disable: undefined-field
 ---
 
+--- @class InclineDiagnosticsModule
+--- @field get_filename function
+--- @field render fun(props: InclineRenderProps)
+--- @field view function
+--- @field view_icons table
+---
 local M = {}
 
 M.view_icons = {
@@ -10,7 +16,7 @@ M.view_icons = {
 	Hint = "󰌵",
 }
 
----@param props InclineRenderProps
+--- @param props InclineRenderProps
 ---
 M.view = function(props)
 	local label = {}

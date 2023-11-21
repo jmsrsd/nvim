@@ -1,10 +1,10 @@
----@diagnostic disable: undefined-field
+--- @diagnostic disable: undefined-field
 ---
 
----@class InclineRenderProps
----@field buf number
----@field win number
----@field focused boolean
+--- @class InclineRenderProps
+--- @field buf number
+--- @field win number
+--- @field focused boolean
 ---
 
 local import = function(module)
@@ -38,7 +38,7 @@ return function()
 			rising = 250,
 		},
 
-		---@param props InclineRenderProps
+		--- @param props InclineRenderProps
 		---
 		render = function(props)
 			if not props.focused then
@@ -46,9 +46,18 @@ return function()
 			end
 
 			local ok, view = xpcall(function()
-				local search = import("search").render()
+				local modules = {
+					--- @type InclineDiagnosticsModule
+					---
+					diagnostics = import("diagnostics"),
 
-				local diagnostics = import("diagnostics").render(props)
+					--- @type InclineSearchModule
+					---
+					search = import("search"),
+				}
+				local search = modules.search.render()
+
+				local diagnostics = modules.diagnostics.render(props)
 
 				local view = {}
 

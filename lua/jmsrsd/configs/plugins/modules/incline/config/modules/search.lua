@@ -1,5 +1,8 @@
 local string = require("jmsrsd.utils.string")
 
+--- @class InclineSearchModule
+--- @field render function
+---
 local M = {}
 
 M.render = function()
