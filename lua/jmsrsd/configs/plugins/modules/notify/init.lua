@@ -10,11 +10,13 @@ return {
 
 	"rcarriga/nvim-notify",
 
+	priority = priority.order(1),
+
+	lazy = false,
+
 	dependencies = {
 		"mrded/nvim-lsp-notify",
 	},
-
-	priority = priority.order(1),
 
 	config = function()
 		vim.tbl_map(configure, {
