@@ -21,7 +21,7 @@ return {
 	config = function()
 		vim.tbl_map(configure, {
 			"notify",
-			"lsp_notify",
+			--- UNUSED: "lsp_notify",
 		})
 	end,
 }

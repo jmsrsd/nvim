@@ -53,6 +53,8 @@ return {
 
 				markdown = { { "markdownlint" } },
 
+				cs = { { "csharpier" } },
+
 				--- Note:
 				---
 				--- trim_whitespace means using awk to

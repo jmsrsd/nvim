@@ -101,6 +101,8 @@ local override_float_borders = function()
 			},
 		},
 	})
+
+	require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
 return function()
@@ -132,7 +134,7 @@ return function()
 
 	setup_servers(keymaps.lsp.on_attach)
 
-	for _, keymap in ipairs(keymaps) do
-		keymap.setup()
-	end
+	vim.tbl_map(function(keymap)
+		return keymap.setup()
+	end, keymaps)
 end

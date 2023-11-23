@@ -5,6 +5,8 @@ return {
 
 	"dnlhc/glance.nvim",
 
+	"Hoffs/omnisharp-extended-lsp.nvim",
+
 	--- Flutter
 	---
 	"nvim-lua/plenary.nvim",
