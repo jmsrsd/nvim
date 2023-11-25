@@ -23,4 +23,10 @@ M.split = function(str, separator)
 	return result
 end
 
+--- @param s string|number
+---
+M.lower = function(s)
+	return string.lower(s)
+end
+
 return M

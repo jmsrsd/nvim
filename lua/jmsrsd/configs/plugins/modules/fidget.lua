@@ -1,35 +1,80 @@
+--- @diagnostic disable: duplicate-set-field
+---
 return {
 
 	"j-hui/fidget.nvim",
 
-	opts = {
+	lazy = false,
 
-		-- Options related to notification subsystem
-		notification = {
+	config = function()
+		local fidget = require("fidget")
 
-			-- Options related to the notification window and buffer
-			window = {
+		fidget.setup({
 
-				normal_hl = "Comment", -- Base highlight group in the notification window
+			-- Options related to notification subsystem
+			notification = {
 
-				winblend = 0, -- Background color opacity in the notification window
+				-- Options related to the notification window and buffer
+				window = {
 
-				border = "rounded", -- Border around the notification window
+					normal_hl = "Comment", -- Base highlight group in the notification window
 
-				zindex = 45, -- Stacking priority of the notification window
+					winblend = 0, -- Background color opacity in the notification window
 
-				max_width = 0, -- Maximum width of the notification window
+					border = "rounded", -- Border around the notification window
 
-				max_height = 0, -- Maximum height of the notification window
+					zindex = 45, -- Stacking priority of the notification window
 
-				x_padding = 0, -- Padding from right edge of window boundary
+					max_width = 0, -- Maximum width of the notification window
 
-				y_padding = 0, -- Padding from bottom edge of window boundary
+					max_height = 0, -- Maximum height of the notification window
 
-				align_bottom = true, -- Whether to bottom-align the notification window
+					x_padding = 0, -- Padding from right edge of window boundary
 
-				relative = "editor", -- What the notification window position is relative to
+					y_padding = 0, -- Padding from bottom edge of window boundary
+
+					align_bottom = true, -- Whether to bottom-align the notification window
+
+					relative = "editor", -- What the notification window position is relative to
+				},
 			},
-		},
-	},
+		})
+
+		local string = require("jmsrsd.utils.string")
+
+		local blacklisted_messages = {
+			"",
+			"No information available",
+		}
+
+		--- @param message string|string[]
+		--- @param level integer|string|nil
+		--- @param opts table|nil
+		---
+		vim.notify = function(message, level, opts)
+			if type(message) ~= "string" then
+				message = table.concat(message, " ")
+			end
+
+			--- Trim msg
+			---
+			message = string.trim(message)
+
+			--- Should not notify when msg is empty
+			---
+			for _, blacklisted in ipairs(blacklisted_messages) do
+				blacklisted = string.trim(blacklisted)
+
+				if string.lower(message) == string.lower(blacklisted) then
+					return nil
+				end
+			end
+
+			local ok, result = pcall(function()
+				return fidget.notify(message, level, opts)
+			end)
+
+			return ok and result or nil
+		end
+	end,
 }

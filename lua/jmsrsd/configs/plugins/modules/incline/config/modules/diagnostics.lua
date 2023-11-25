@@ -3,8 +3,8 @@
 
 --- @class InclineDiagnosticsModule
 --- @field get_filename function
---- @field render fun(props: InclineRenderProps)
---- @field view function
+--- @field render fun(props: InclineRenderProps): table
+--- @field view fun(props: InclineRenderProps): table
 --- @field view_icons table
 ---
 local M = {}
