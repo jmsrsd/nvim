@@ -24,6 +24,9 @@ lazy_modules = path.get_relative_module_path("modules", function() end)
 lazy_modules = path.to_module(lazy_modules)
 
 local lazy_options = {
+	ui = {
+		border = "rounded",
+	},
 	change_detection = {
 		notify = false,
 	},
