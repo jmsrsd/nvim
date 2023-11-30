@@ -18,7 +18,12 @@ return {
 	config = function()
 		local zen = require("zen-mode")
 
-		zen.setup({ window = { width = 86 } })
+		zen.setup({
+			window = { width = 86 },
+			plugins = {
+				twilight = { enabled = false },
+			},
+		})
 
 		local toggle = zen.toggle
 
