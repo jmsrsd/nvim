@@ -16,6 +16,7 @@ return {
 				["<C-h>"] = false,
 				["<C-t>"] = false,
 				["<C-l>"] = false,
+				["gr"] = "actions.refresh",
 			},
 			view_options = {
 				show_hidden = true,
