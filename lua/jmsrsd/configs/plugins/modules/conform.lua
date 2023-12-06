@@ -9,13 +9,13 @@ return {
 
 		local format_opts = {
 
-			timeout_ms = 5000,
+			timeout_ms = 10000,
 
 			lsp_fallback = true,
 		}
 
 		local format = function()
-			conform.format(format_opts)
+			return conform.format(format_opts)
 		end
 
 		conform.setup({
@@ -25,11 +25,11 @@ return {
 
 			formatters_by_ft = {
 
-				astro = { "prettier" },
+				astro = { { "prettier", "prettierd" } },
 
-				php = { "php_cs_fixer" },
+				php = { { "php_cs_fixer" } },
 
-				lua = { "stylua" },
+				lua = { { "stylua" } },
 
 				json = { { "prettier", "prettierd" } },
 
