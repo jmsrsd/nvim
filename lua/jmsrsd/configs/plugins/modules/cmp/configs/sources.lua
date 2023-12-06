@@ -29,7 +29,7 @@ local sources = {
 
 	--- Path sources
 	---
-	"fuzzy_path",
+	--- UNUSED: "fuzzy_path",
 	"path",
 
 	--- Buffer sources

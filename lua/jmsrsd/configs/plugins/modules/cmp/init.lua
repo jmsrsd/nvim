@@ -109,7 +109,7 @@ return {
 			sources = {
 				--- Path sources
 				---
-				{ name = "fuzzy_path" },
+				--- UNUSED: { name = "fuzzy_path" },
 				{ name = "path" },
 
 				--- CMD sources
