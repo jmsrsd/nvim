@@ -4,7 +4,7 @@ lsp.check_server_availability({
 
 	bin = "bash-language-server",
 
-	install = "npm i -g bash-language-server",
+	install = "pnpm i -g bash-language-server",
 
 	name = "bashls",
 })

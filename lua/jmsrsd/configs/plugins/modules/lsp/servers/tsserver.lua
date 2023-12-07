@@ -6,7 +6,7 @@ lsp.check_server_availability({
 
 	bin = "typescript-language-server",
 
-	install = "npm install -g typescript typescript-language-server",
+	install = "pnpm install -g typescript typescript-language-server",
 
 	name = "tsserver",
 })

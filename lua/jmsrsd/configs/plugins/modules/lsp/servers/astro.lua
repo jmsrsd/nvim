@@ -6,7 +6,7 @@ lsp.check_server_availability({
 
 	bin = "astro-ls",
 
-	install = "npm install -g @astrojs/language-server",
+	install = "pnpm install -g @astrojs/language-server",
 
 	name = "astro",
 })

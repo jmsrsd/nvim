@@ -6,7 +6,7 @@ lsp.check_server_availability({
 
 	bin = "vscode-css-language-server",
 
-	install = "npm i -g vscode-langservers-extracted",
+	install = "pnpm i -g vscode-langservers-extracted",
 
 	name = "cssls",
 })

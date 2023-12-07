@@ -4,7 +4,7 @@ lsp.check_server_availability({
 
 	bin = "vscode-json-language-server",
 
-	install = "npm i -g vscode-langservers-extracted",
+	install = "pnpm i -g vscode-langservers-extracted",
 
 	name = "jsonls",
 })

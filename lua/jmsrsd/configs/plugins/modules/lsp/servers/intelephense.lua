@@ -4,7 +4,7 @@ lsp.check_server_availability({
 
 	bin = "intelephense",
 
-	install = "npm install -g intelephense",
+	install = "pnpm install -g intelephense",
 
 	name = "intelephense",
 })

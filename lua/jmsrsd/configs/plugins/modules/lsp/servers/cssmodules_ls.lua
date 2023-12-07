@@ -6,7 +6,7 @@ lsp.check_server_availability({
 
 	bin = "cssmodules-language-server",
 
-	install = "npm install -g cssmodules-language-server",
+	install = "pnpm install -g cssmodules-language-server",
 
 	name = "cssmodules_ls",
 })
