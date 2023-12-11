@@ -1,3 +1,11 @@
+local path = require("jmsrsd.utils.path")
+
+local import = function(module)
+	return path.import(function(parent)
+		return parent .. "/" .. module
+	end, function() end)
+end
+
 return {
 
 	"stevearc/oil.nvim",
@@ -23,7 +31,14 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "-", "<CMD>Oil<CR>", {
+		vim.keymap.set("n", "-", function()
+			vim.cmd("Oil")
+
+			local close_buffers = import("close_buffers/utils.lua")
+
+			close_buffers.wipe_hidden_buffers()
+		end, {
+
 			noremap = true,
 			silent = true,
 			desc = "Open parent directory",

@@ -17,6 +17,8 @@ M.get_parent_module = function(source_function)
 
 	local parent = string.sub(vim.fn.fnamemodify(file, ":h") .. "", 2)
 
+	parent = vim.fs.normalize(parent)
+
 	parent = parent:gsub(M.lua .. "/", ""):gsub("/", ".")
 
 	return parent
@@ -29,7 +31,7 @@ M.get_parent_module_path = function(source_function)
 
 	result = M.lua .. "/" .. result
 
-	return result
+	return vim.fs.normalize(result)
 end
 
 M.get_relative_module_path = function(module, source_function)
@@ -37,7 +39,7 @@ M.get_relative_module_path = function(module, source_function)
 
 	local result = parent_path .. "/" .. module
 
-	return result
+	return vim.fs.normalize(result)
 end
 
 --- @param path string
@@ -46,7 +48,7 @@ end
 M.to_module = function(path)
 	local string = require("jmsrsd.utils.string")
 
-	local module = path:gsub(M.lua .. "/", ""):gsub("/", ".")
+	local module = vim.fs.normalize(path):gsub(M.lua .. "/", ""):gsub("/", ".")
 
 	--- Remove .lua extension
 	---
@@ -57,6 +59,12 @@ M.to_module = function(path)
 	end
 
 	return table.concat(split, ".")
+end
+
+M.import = function(middleware, source_function)
+	local module = M.get_parent_module(source_function)
+
+	return require(M.to_module(middleware(module)))
 end
 
 return M

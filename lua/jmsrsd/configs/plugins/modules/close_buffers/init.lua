@@ -1,3 +1,11 @@
+local import = function(module)
+	return require("jmsrsd.utils.import")(function(parent)
+		return parent .. "." .. module
+	end, function() end)
+end
+
+local utils = import("utils")
+
 return {
 
 	"kazhala/close-buffers.nvim",
@@ -29,19 +37,7 @@ return {
 			next_buffer_cmd = nil,
 		})
 
-		local wipe_hidden_buffers = function()
-			local cmd = function(command)
-				vim.cmd(command)
-			end
-
-			local commands = { "wa", "wa", "BWipeout hidden", "BWipeout! hidden" }
-
-			vim.tbl_map(function(command)
-				pcall(cmd, command)
-			end, commands)
-		end
-
-		vim.keymap.set("n", "<leader><CR>", wipe_hidden_buffers, {
+		vim.keymap.set("n", "<leader><CR>", utils.wipe_hidden_buffers, {
 			noremap = true,
 			silent = true,
 			desc = "Wipe hidden buffers",
