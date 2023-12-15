@@ -1,14 +1,3 @@
-local lsp = require("jmsrsd.utils.lsp")
-
-lsp.check_server_availability({
-
-	bin = "lua-language-server",
-
-	install = "brew install lua-language-server",
-
-	name = "lua_ls",
-})
-
 return function(capabilities, on_attach)
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")

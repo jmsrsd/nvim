@@ -1,15 +1,4 @@
-local lsp = require("jmsrsd.utils.lsp")
-
 local string = require("jmsrsd.utils.string")
-
-local server = lsp.check_server_availability({
-
-	bin = "flutter",
-
-	install = "fvm install stable",
-
-	name = "",
-})
 
 return function(capabilities, on_attach)
 	local flutter = require("flutter-tools")
@@ -22,7 +11,7 @@ return function(capabilities, on_attach)
 
 	flutter_path = string.trim(vim.fn.system("realpath " .. flutter_path) .. "")
 
-	flutter_path = flutter_path .. "/bin/" .. server.bin
+	flutter_path = flutter_path .. "/bin/flutter"
 
 	flutter.setup({
 

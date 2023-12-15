@@ -2,9 +2,7 @@ local path = require("jmsrsd.utils.path")
 
 local import = function(module)
 	return path.import(function(parent)
-		local result = parent .. module
-
-		return result
+		return parent .. module
 	end, function() end)
 end
 

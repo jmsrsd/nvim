@@ -56,17 +56,17 @@ local setup_servers = function(on_attach)
 	local skipped = { "flutter" }
 
 	local setup = path.import(function(parent)
-		local result = parent .. "../servers"
-
-		return result
+		return parent .. "../servers"
 	end, function() end)
 
 	local servers = setup(capabilities, on_attach)
 
-	vim.tbl_map(function(server)
+	return vim.tbl_map(function(server)
 		if table.concat(skipped, ","):match(server.name) == nil then
-			lspconfig[server.name].setup(server.opts)
+			return lspconfig[server.name].setup(server.opts)
 		end
+
+		return nil
 	end, servers)
 
 	--- UNUSED: for server, config in pairs(setups) do
