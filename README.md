@@ -4,6 +4,8 @@ This repository contains my personal Neovim configuration files, also known as
 dotfiles. The configuration is written in Lua and is organized into several
 modules, each responsible for a specific feature or plugin.
 
+![Screenshot](/screenshots/202311201429.png)
+
 The main configuration file is `init.lua`, which initializes the Neovim
 environment and loads the rest of the configuration files. The `lua` directory
 contains the main configuration files for the Neovim setup, including key
@@ -19,10 +21,6 @@ The `lua/jmsrsd/utils` directory contains utility files for the configuration,
 such as `array.lua`, `buffer.lua`, `catch.lua`, `cmd.lua`, `import_all.lua`,
 `import.lua`, `keymap.lua`, `lsp.lua`, `number.lua`, `path.lua`,
 `priority.lua`, and `string.lua`.
-
-The `README.md` file provides an overview of the repository and instructions
-for setting up and using the configuration. The `screenshots` directory
-contains screenshots of the Neovim setup in action.
 
 This repository is a work in progress and is continually updated as I add new
 plugins and features to my Neovim setup. Feel free to clone, fork, or
