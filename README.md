@@ -30,7 +30,7 @@ features you want to add.
 To clone this repository, you can use the following command:
 
 ```bash
-git clone https://github.com/yourusername/neovim-config.git
+git clone https://github.com/jmsrsd/nvim.git
 ```
 
 To use this configuration, you can copy the `init.lua` file and the `lua`
