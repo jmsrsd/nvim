@@ -1,4 +1,4 @@
-# Jmsrsd's Neovim Configuration
+# Neovim Dotfiles
 
 🚀 Welcome to my Neovim setup! This repo is where I store my Neovim configuration files, aka dotfiles. Let's take a quick tour! 👇
 
