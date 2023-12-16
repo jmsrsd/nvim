@@ -51,8 +51,6 @@ local setup_servers = function(on_attach)
 
 	local capabilities = create_capabilities()
 
-	--- UNUSED: local setups = import_all("servers")
-
 	local skipped = { "flutter" }
 
 	local setup = path.import(function(parent)
@@ -68,14 +66,6 @@ local setup_servers = function(on_attach)
 
 		return nil
 	end, servers)
-
-	--- UNUSED: for server, config in pairs(setups) do
-	--- UNUSED: 	local opts = config(capabilities, on_attach)
-
-	--- UNUSED: 	if table.concat(skipped, ","):match(server) == nil then
-	--- UNUSED: 		lspconfig[server].setup(opts)
-	--- UNUSED: 	end
-	--- UNUSED: end
 end
 
 local override_lsp_functions = function()
