@@ -7,7 +7,7 @@ M.setup = function()
 
 	local set = vim.keymap.set
 
-	set("n", "g;", "<CMD>Git<CR>", describe("Show fugitive"))
+	set("n", "g;", "<CMD>Git<CR><C-w>L<C-w>=", describe("Show fugitive"))
 end
 
 return M
