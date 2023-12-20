@@ -70,7 +70,9 @@ To get started with this Neovim configuration, you need to have Neovim
 installed on your system. Then, clone this repository and run the following
 command to set up the configuration:
 
-```bash git clone <https://github.com/jmsrsd/nvim.git>```
+```bash
+git clone https://github.com/jmsrsd/nvim.git
+```
 
 This will open Neovim with the configuration from this repository.
 
