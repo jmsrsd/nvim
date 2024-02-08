@@ -4,7 +4,7 @@ This repository contains my custom Neovim configuration. The configuration is
 based on a variety of plugins that provide a rich set of features and
 enhancements to the Neovim editor.
 
-![Screenshot](/screenshots/202312252215.png)
+![Screenshot](/screenshots/20240208170736.png)
 
 ## Plugins
 
