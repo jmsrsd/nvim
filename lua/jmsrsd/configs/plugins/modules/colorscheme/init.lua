@@ -6,4 +6,4 @@ local import = function(module)
 	end, function() end)
 end
 
-return import("vitesse")
+return import("catppuccin")
