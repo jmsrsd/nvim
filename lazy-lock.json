@@ -32,6 +32,7 @@
   "lazy.nvim": { "branch": "main", "commit": "aedcd79811d491b60d0a6577a9c1701063c2a609" },
   "lspkind.nvim": { "branch": "master", "commit": "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf" },
   "lualine.nvim": { "branch": "master", "commit": "7d131a8d3ba5016229e8a1d08bf8782acea98852" },
+  "mini.bufremove": { "branch": "main", "commit": "f53c7f27e36009fe61563c11cde154b94a0e5b94" },
   "neoconf.nvim": { "branch": "main", "commit": "ccf3c1c9bf7f4dbd5d26158b8934a6d8ee631ca2" },
   "neodev.nvim": { "branch": "main", "commit": "0ee95ecefc8ea45898a0383364f736e098c8703f" },
   "nvim-autopairs": { "branch": "master", "commit": "096d0baecc34f6c5d8a6dd25851e9d5ad338209b" },
