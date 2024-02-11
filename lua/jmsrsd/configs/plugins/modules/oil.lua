@@ -38,6 +38,31 @@ return {
 		})
 
 		vim.keymap.set("n", "-", function()
+			local is_tsserver_filetype = (function()
+				local filetypes = {
+					"javascript",
+					"javascriptreact",
+					"javascript.jsx",
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
+					"html",
+					"astro",
+				}
+
+				for _, filetype in ipairs(filetypes) do
+					if string.find(filetype, vim.bo.filetype) then
+						return true
+					end
+				end
+
+				return false
+			end)()
+
+			if is_tsserver_filetype then
+				cmd("LspStop")
+			end
+
 			cmd("Oil")
 
 			local close_buffers = import("close_buffers/utils.lua")
