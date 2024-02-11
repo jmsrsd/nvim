@@ -6,6 +6,12 @@ local import = function(module)
 	end, function() end)
 end
 
+local cmd = function(command)
+	return pcall(function()
+		return vim.cmd(command)
+	end)
+end
+
 return {
 
 	"stevearc/oil.nvim",
@@ -32,7 +38,7 @@ return {
 		})
 
 		vim.keymap.set("n", "-", function()
-			vim.cmd("Oil")
+			cmd("Oil")
 
 			local close_buffers = import("close_buffers/utils.lua")
 
