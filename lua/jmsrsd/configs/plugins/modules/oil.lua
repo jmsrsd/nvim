@@ -8,7 +8,11 @@ end
 
 local cmd = function(command)
 	return pcall(function()
-		return vim.cmd(command)
+		local result = vim.cmd(command)
+
+		vim.wait(100)
+
+		return result
 	end)
 end
 
