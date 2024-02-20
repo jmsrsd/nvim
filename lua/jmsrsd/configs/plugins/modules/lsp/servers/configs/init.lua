@@ -39,11 +39,11 @@ return {
 		install = "cargo install htmx-lsp",
 		name = "htmx",
 	},
-	{
-		bin = "intelephense",
-		install = "pnpm install -g intelephense",
-		name = "intelephense",
-	},
+	--- UNUSED: {
+	--- UNUSED: 	bin = "intelephense",
+	--- UNUSED: 	install = "pnpm install -g intelephense",
+	--- UNUSED: 	name = "intelephense",
+	--- UNUSED: },
 	{
 		bin = "vscode-json-language-server",
 		install = "pnpm i -g vscode-langservers-extracted",
