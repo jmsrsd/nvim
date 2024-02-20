@@ -34,11 +34,11 @@ return {
 		install = "pnpm i -g vscode-langservers-extracted",
 		name = "html",
 	},
-	{
-		bin = "htmx-lsp",
-		install = "cargo install htmx-lsp",
-		name = "htmx",
-	},
+	--- UNUSED: {
+	--- UNUSED: 	bin = "htmx-lsp",
+	--- UNUSED: 	install = "cargo install htmx-lsp",
+	--- UNUSED: 	name = "htmx",
+	--- UNUSED: },
 	--- UNUSED: {
 	--- UNUSED: 	bin = "intelephense",
 	--- UNUSED: 	install = "pnpm install -g intelephense",
