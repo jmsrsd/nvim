@@ -1,4 +1,6 @@
-local path = require("jmsrsd.utils.path")
+--- @type PathUtil
+---
+local path = require("jmsrsd.utils.path"):new()
 
 local string = require("jmsrsd.utils.string")
 
@@ -9,7 +11,7 @@ local catch = require("jmsrsd.utils.catch")
 local import_all = function(name)
 	local result = {}
 
-	local curdir = path.get_parent_module_path(function() end)
+	local curdir = path:get_parent_module_path(function() end)
 
 	local curdir_split = string.split(curdir, "/")
 
@@ -17,7 +19,9 @@ local import_all = function(name)
 
 	local files = string.split(vim.fn.glob(basedir .. "/" .. name .. "/*"), "\n")
 
-	local modules = vim.tbl_map(path.to_module, files)
+	local modules = vim.tbl_map(function(file)
+		return path:to_module(file)
+	end, files)
 
 	for _, module in pairs(modules) do
 		local module_split = string.split(module, ".")
@@ -53,7 +57,7 @@ local setup_servers = function(on_attach)
 
 	local skipped = { "flutter" }
 
-	local setup = path.import(function(parent)
+	local setup = path:import(function(parent)
 		return parent .. "../servers"
 	end, function() end)
 

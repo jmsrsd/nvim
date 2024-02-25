@@ -1,6 +1,32 @@
-local M = {}
+--- @class PathUtil
+--- @field lua string
+---
+local PathUtil = {}
+PathUtil.__index = PathUtil
 
-M.lua = vim.fn.stdpath("config") .. "/lua"
+local instanceOfPathUtil = nil
+
+--- @return PathUtil
+---
+function PathUtil:_new(this)
+	this = this or {}
+	setmetatable(this, self)
+	self.__index = self
+
+	this.lua = vim.fn.stdpath("config") .. "/lua"
+
+	return this
+end
+
+function PathUtil:new()
+	if instanceOfPathUtil == nil then
+		instanceOfPathUtil = PathUtil:_new()
+	end
+
+	return instanceOfPathUtil
+end
+
+--- @alias SourceCallback fun(result: string): string | nil
 
 --- Get the parent directory of the
 ---
@@ -8,34 +34,39 @@ M.lua = vim.fn.stdpath("config") .. "/lua"
 ---
 --- the `source_function` is defined.
 ---
---- @param source_function fun(result: string):string | nil
+--- @param source_function SourceCallback
 ---
 --- @return string
 ---
-M.get_parent_module = function(source_function)
+function PathUtil:get_parent_module(source_function)
 	local file = debug.getinfo(source_function, "S").source
 
 	local parent = string.sub(vim.fn.fnamemodify(file, ":h") .. "", 2)
 
 	parent = vim.fn.fnamemodify(parent, ":p")
 
-	parent = parent:gsub(M.lua .. "/", ""):gsub("/", ".")
+	parent = parent:gsub(self.lua .. "/", ""):gsub("/", ".")
 
 	return parent
 end
 
-M.get_parent_module_path = function(source_function)
-	local parent_module = M.get_parent_module(source_function)
+--- @param source_function SourceCallback
+---
+function PathUtil:get_parent_module_path(source_function)
+	local parent_module = self:get_parent_module(source_function)
 
 	local result = parent_module:gsub("%.", "/")
 
-	result = M.lua .. "/" .. result
+	result = self.lua .. "/" .. result
 
 	return vim.fn.fnamemodify(result, ":p")
 end
 
-M.get_relative_module_path = function(module, source_function)
-	local parent_path = M.get_parent_module_path(source_function)
+--- @param module string
+--- @param source_function SourceCallback
+---
+function PathUtil:get_relative_module_path(module, source_function)
+	local parent_path = self:get_parent_module_path(source_function)
 
 	local result = parent_path .. "/" .. module
 
@@ -43,9 +74,10 @@ M.get_relative_module_path = function(module, source_function)
 end
 
 --- @param path string
+---
 --- @return string
 ---
-M.to_module = function(path)
+function PathUtil:to_module(path)
 	local string = require("jmsrsd.utils.string")
 
 	path = vim.fn.fnamemodify(path, ":p")
@@ -54,7 +86,7 @@ M.to_module = function(path)
 		path = path:gsub("//", "/")
 	end
 
-	local module = path:gsub(M.lua .. "/", ""):gsub("/", ".")
+	local module = path:gsub(self.lua .. "/", ""):gsub("/", ".")
 
 	--- Remove .lua extension
 	---
@@ -69,8 +101,8 @@ M.to_module = function(path)
 	return result
 end
 
-M.import = function(middleware, source_function)
-	local module = M.get_parent_module_path(source_function)
+function PathUtil:import(middleware, source_function)
+	local module = self:get_parent_module_path(source_function)
 
 	local path = middleware(module)
 
@@ -78,9 +110,9 @@ M.import = function(middleware, source_function)
 
 	local before, after = string.match(path, "(.*)/nvim/lua/(.*)")
 
-	local result = M.to_module(M.lua .. "/" .. after)
+	local result = self:to_module(self.lua .. "/" .. after)
 
 	return require(result)
 end
 
-return M
+return PathUtil

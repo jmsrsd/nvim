@@ -1,27 +1,46 @@
---- Type definitions
----
-
 --- @class ServerOpts
 --- @field bin string
 --- @field install string
 --- @field name string
 
---- Module
+--- @class LSPUtil
 ---
-local M = {}
+local LSPUtil = {}
+LSPUtil.__index = LSPUtil
+
+local instanceOfLSPUtil = nil
+
+function LSPUtil:_new(this)
+	this = this or {}
+	setmetatable(this, self)
+	self.__index = self
+
+	return this
+end
+
+--- @return LSPUtil
+---
+function LSPUtil:new()
+	if instanceOfLSPUtil == nil then
+		instanceOfLSPUtil = LSPUtil:_new()
+	end
+
+	return instanceOfLSPUtil
+end
 
 --- @param server_bin string
 ---
-M.is_server_bin_exist = function(server_bin)
-	local server_path = vim.fn.system("which " .. server_bin) .. ""
+function LSPUtil:is_server_bin_exist(server_bin)
+	local server_path = vim.fn.system("which" .. server_bin) .. ""
+	local result = server_path:match("not found") ~= nil
 
-	return server_path:match("not found") == nil
+	return result
 end
 
 --- @param server_bin string
 --- @param server_install string
 ---
-M.ensure_server_installed = function(server_bin, server_install)
+function LSPUtil:ensure_server_installed(server_bin, server_install)
 	local server_path = vim.fn.system("which " .. server_bin) .. ""
 
 	if server_path:match("not found") ~= nil then
@@ -32,8 +51,8 @@ end
 
 --- @param server_opts ServerOpts
 ---
-M.check_server_availability = function(server_opts)
-	local is_server_bin_exist = M.is_server_bin_exist(server_opts.bin)
+function LSPUtil:check_server_availability(server_opts)
+	local is_server_bin_exist = self:is_server_bin_exist(server_opts.bin)
 
 	if not is_server_bin_exist then
 		local message = server_opts.bin
@@ -50,4 +69,4 @@ M.check_server_availability = function(server_opts)
 	return server_opts
 end
 
-return M
+return LSPUtil

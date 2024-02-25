@@ -1,11 +1,13 @@
 return function()
-	local path = require("jmsrsd.utils.path")
+	--- @type PathUtil
+	---
+	local path = require("jmsrsd.utils.path"):new()
 
 	local lazy = require("lazy")
 
-	local paths = path.get_relative_module_path("modules", function() end)
+	local paths = path:get_relative_module_path("modules", function() end)
 
-	local modules = path.to_module(paths)
+	local modules = path:to_module(paths)
 
 	local options = {
 		ui = {
