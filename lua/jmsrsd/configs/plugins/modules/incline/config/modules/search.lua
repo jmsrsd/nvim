@@ -6,12 +6,10 @@ local string = require("jmsrsd.utils.string")
 local M = {}
 
 M.render = function()
-	--- @type {current: number, total: number}
-	---
 	local count = vim.fn.searchcount({
 		recompute = 1,
 		maxcount = -1,
-	}) or { current = 0, total = 0 }
+	}) or { current = 0, total = 0 } --[[@as {current: number, total: number}]]
 
 	local contents = string.trim(vim.fn.getreg("/") .. "")
 

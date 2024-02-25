@@ -1,6 +1,4 @@
---- @type PathUtil
----
-local path = require("jmsrsd.utils.path"):new()
+local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
 local import = function(module)
 	return path:import(function(parent)

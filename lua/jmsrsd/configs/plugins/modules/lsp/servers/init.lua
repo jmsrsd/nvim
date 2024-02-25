@@ -1,10 +1,6 @@
---- @type LSPUtil
----
-local lsp = require("jmsrsd.utils.lsp"):new()
+local lsp = require("jmsrsd.utils.lsp"):new() --[[@as LSPUtil]]
 
---- @type PathUtil
----
-local path = require("jmsrsd.utils.path"):new()
+local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
 local import = function(module)
 	return path:import(function(parent)
@@ -26,9 +22,7 @@ local configure = function(server)
 		end
 end
 
---- @type table
----
-local configs = import("configs")
+local configs = import("configs") --[[@as table]]
 
 return function(capabilities, on_attach)
 	return vim.tbl_map(function(config)

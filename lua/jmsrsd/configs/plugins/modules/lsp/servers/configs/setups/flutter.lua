@@ -3,9 +3,7 @@ local string = require("jmsrsd.utils.string")
 return function(capabilities, on_attach)
 	local flutter = require("flutter-tools")
 
-	--- @type string
-	---
-	local flutter_path = ""
+	local flutter_path = "" --[[@as string]]
 
 	flutter_path = vim.fn.expand("$HOME") .. "/fvm/default"
 

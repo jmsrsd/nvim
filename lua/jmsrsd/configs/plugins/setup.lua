@@ -1,7 +1,5 @@
 return function()
-	--- @type PathUtil
-	---
-	local path = require("jmsrsd.utils.path"):new()
+	local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
 	local lazy = require("lazy")
 

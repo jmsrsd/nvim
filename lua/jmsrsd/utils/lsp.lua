@@ -15,17 +15,15 @@ function LSPUtil:_new(this)
 	setmetatable(this, self)
 	self.__index = self
 
-	return this
+	return this --[[@as LSPUtil]]
 end
 
---- @return LSPUtil
----
 function LSPUtil:new()
 	if instanceOfLSPUtil == nil then
 		instanceOfLSPUtil = LSPUtil:_new()
 	end
 
-	return instanceOfLSPUtil
+	return instanceOfLSPUtil --[[@as LSPUtil]]
 end
 
 --- @param server_bin string
@@ -64,9 +62,7 @@ function LSPUtil:check_server_availability(server_opts)
 		vim.notify(message, vim.log.levels.WARN)
 	end
 
-	--- @type ServerOpts
-	---
-	return server_opts
+	return server_opts --[[@as ServerOpts]]
 end
 
 return LSPUtil

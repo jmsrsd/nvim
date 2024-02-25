@@ -47,13 +47,9 @@ return function()
 
 			local ok, view = xpcall(function()
 				local modules = {
-					--- @type InclineDiagnosticsModule
-					---
-					diagnostics = import("diagnostics"),
+					diagnostics = import("diagnostics") --[[@as InclineDiagnosticsModule]],
 
-					--- @type InclineSearchModule
-					---
-					search = import("search"),
+					search = import("search") --[[@as InclineSearchModule]],
 				}
 				local search = modules.search.render()
 
