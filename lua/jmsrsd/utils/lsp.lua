@@ -8,7 +8,7 @@
 local LSPUtil = {}
 LSPUtil.__index = LSPUtil
 
-local instanceOfLSPUtil = nil
+local _instance = nil
 
 function LSPUtil:_new(this)
 	this = this or {}
@@ -19,11 +19,11 @@ function LSPUtil:_new(this)
 end
 
 function LSPUtil:new()
-	if instanceOfLSPUtil == nil then
-		instanceOfLSPUtil = LSPUtil:_new()
+	if _instance == nil then
+		_instance = self:_new()
 	end
 
-	return instanceOfLSPUtil --[[@as LSPUtil]]
+	return _instance --[[@as LSPUtil]]
 end
 
 --- @param server_bin string

@@ -1,35 +1,9 @@
 local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
-local string = require("jmsrsd.utils.string")
-
-local array = require("jmsrsd.utils.array")
-
 local catch = require("jmsrsd.utils.catch")
 
 local import_all = function(name)
-	local result = {}
-
-	local curdir = path:get_parent_module_path(function() end)
-
-	local curdir_split = string.split(curdir, "/")
-
-	local basedir = "/" .. table.concat(array.slice(curdir_split, 1, #curdir_split - 1), "/")
-
-	local files = string.split(vim.fn.glob(basedir .. "/" .. name .. "/*"), "\n")
-
-	local modules = vim.tbl_map(function(file)
-		return path:to_module(file)
-	end, files)
-
-	for _, module in pairs(modules) do
-		local module_split = string.split(module, ".")
-
-		local module_name = module_split[#module_split]
-
-		result[module_name] = require(module)
-	end
-
-	return result
+	return require("jmsrsd.utils.import_all")("../" .. name, function() end)
 end
 
 local create_capabilities = function()
@@ -56,7 +30,9 @@ local setup_servers = function(on_attach)
 	local skipped = { "flutter" }
 
 	local setup = path:import(function(parent)
-		return parent .. "../servers"
+		local result = parent .. "/../servers"
+
+		return result
 	end, function() end)
 
 	local servers = setup(capabilities, on_attach)

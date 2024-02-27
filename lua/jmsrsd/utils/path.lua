@@ -6,7 +6,7 @@
 local PathUtil = {}
 PathUtil.__index = PathUtil
 
-local instanceOfPathUtil = nil
+local _instance = nil
 
 --- @return PathUtil
 ---
@@ -21,16 +21,78 @@ function PathUtil:_new(this)
 end
 
 function PathUtil:new()
-	if instanceOfPathUtil == nil then
-		instanceOfPathUtil = PathUtil:_new()
+	if _instance == nil then
+		_instance = self:_new()
 	end
 
-	return instanceOfPathUtil
+	return _instance
+end
+
+--- @param absolute_path string
+---
+function PathUtil:normalize_absolute_path(absolute_path)
+	local trim = require("jmsrsd.utils.string").trim
+
+	absolute_path = vim.fs.normalize(absolute_path)
+
+	absolute_path = trim(absolute_path)
+
+	absolute_path = vim.fn.system("realpath " .. absolute_path)
+
+	absolute_path = trim(absolute_path)
+
+	return absolute_path
+end
+
+--- @param absolute_path string
+---
+function PathUtil:relativized_path(absolute_path)
+	local trim = require("jmsrsd.utils.string").trim
+
+	local path = absolute_path
+
+	local base_path = vim.fn.system("realpath " .. vim.fn.stdpath("config"))
+
+	base_path = trim(base_path)
+
+	base_path = base_path .. "/lua"
+
+	path = path:gsub(base_path, "")
+
+	return path
+end
+
+--- @param relative_path string
+---
+function PathUtil:relative_path_to_module(relative_path)
+	local trim = require("jmsrsd.utils.string").trim
+
+	local path = relative_path
+
+	path = path:gsub("%init.lua$", "")
+
+	path = path:gsub("%.lua$", "")
+
+	path = path:gsub("/", " ")
+
+	path = trim(path)
+
+	local module = path:gsub(" ", "%.")
+
+	return module
+end
+
+--- @param absolute_path string
+---
+function PathUtil:absolute_path_to_module(absolute_path)
+	local path = self:relativized_path(absolute_path)
+
+	return self:relative_path_to_module(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_current_absolute_path(source_callback)
+function PathUtil:get_current_absolute_path(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = debug.getinfo(source_callback, "S").source
@@ -50,48 +112,26 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_current_relative_path(source_callback)
-	local trim = require("jmsrsd.utils.string").trim
+function PathUtil:get_current_relative_path(source_callback)
+	local path = self:get_current_absolute_path(source_callback)
 
-	local path = self:_get_current_absolute_path(source_callback)
-
-	local base_path = vim.fn.system("realpath " .. vim.fn.stdpath("config"))
-
-	base_path = trim(base_path)
-
-	base_path = base_path .. "/lua"
-
-	path = path:gsub(base_path, "")
-
-	return path
+	return self:relativized_path(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_current_module_path(source_callback)
-	local trim = require("jmsrsd.utils.string").trim
+function PathUtil:get_current_module_path(source_callback)
+	local path = self:get_current_relative_path(source_callback)
 
-	local path = self:_get_current_relative_path(source_callback)
-
-	path = path:gsub("%init.lua$", "")
-
-	path = path:gsub("%.lua$", "")
-
-	path = path:gsub("/", " ")
-
-	path = trim(path)
-
-	local module = path:gsub(" ", "%.")
-
-	return module
+	return self:relative_path_to_module(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_parent_absolute_path(source_callback)
+function PathUtil:get_parent_absolute_path(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
-	local path = self:_get_current_absolute_path(source_callback)
+	local path = self:get_current_absolute_path(source_callback)
 
 	path = vim.fn.system("dirname " .. path)
 
@@ -102,129 +142,35 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_parent_relative_path(source_callback)
-	local trim = require("jmsrsd.utils.string").trim
+function PathUtil:get_parent_relative_path(source_callback)
+	local path = self:get_parent_absolute_path(source_callback)
 
-	local path = self:_get_parent_absolute_path(source_callback)
-
-	local base_path = vim.fn.system("realpath " .. vim.fn.stdpath("config"))
-
-	base_path = trim(base_path)
-
-	base_path = base_path .. "/lua"
-
-	path = path:gsub(base_path, "")
-
-	return path
+	return self:relativized_path(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:_get_parent_module_path(source_callback)
-	local trim = require("jmsrsd.utils.string").trim
+function PathUtil:get_parent_module_path(source_callback)
+	local path = self:get_parent_relative_path(source_callback)
 
-	local path = self:_get_parent_relative_path(source_callback)
-
-	path = path:gsub("%init.lua$", "")
-
-	path = path:gsub("%.lua$", "")
-
-	path = path:gsub("/", " ")
-
-	path = trim(path)
-
-	local module = path:gsub(" ", "%.")
-
-	return module
+	return self:relative_path_to_module(path)
 end
 
---- @alias SourceCallback fun(result: string): string | nil
-
---- Get the parent directory of the
+--- @param source_callback SourceCallback
+--- @param middleware fun(parent: string): string
 ---
---- source file where
+--- @return unknown
 ---
---- the `source_function` is defined.
----
---- @param source_function SourceCallback
----
---- @return string
----
-function PathUtil:get_parent_module(source_function)
-	local file = debug.getinfo(source_function, "S").source
+function PathUtil:import(middleware, source_callback)
+	local parent = self:get_parent_absolute_path(source_callback)
 
-	local parent = string.sub(vim.fn.fnamemodify(file, ":h") .. "", 2)
+	local path = middleware(parent)
 
-	parent = vim.fn.fnamemodify(parent, ":p")
+	path = self:normalize_absolute_path(path)
 
-	parent = parent:gsub(self.lua .. "/", ""):gsub("/", ".")
+	local module = self:absolute_path_to_module(path)
 
-	return parent
-end
-
---- @param source_function SourceCallback
----
-function PathUtil:get_parent_module_path(source_function)
-	local parent_module = self:get_parent_module(source_function)
-
-	local result = parent_module:gsub("%.", "/")
-
-	result = self.lua .. "/" .. result
-
-	return vim.fn.fnamemodify(result, ":p")
-end
-
---- @param module string
---- @param source_function SourceCallback
----
-function PathUtil:get_relative_module_path(module, source_function)
-	local parent_path = self:get_parent_module_path(source_function)
-
-	local result = parent_path .. "/" .. module
-
-	return vim.fn.fnamemodify(result, ":p")
-end
-
---- @param path string
----
---- @return string
----
-function PathUtil:to_module(path)
-	local string = require("jmsrsd.utils.string")
-
-	path = vim.fn.fnamemodify(path, ":p")
-
-	while path:match("//") do
-		path = path:gsub("//", "/")
-	end
-
-	local module = path:gsub(self.lua .. "/", ""):gsub("/", ".")
-
-	--- Remove .lua extension
-	---
-	local split = string.split(module, ".")
-
-	if split[#split] == "lua" then
-		table.remove(split, #split)
-	end
-
-	local result = table.concat(split, ".")
-
-	return result
-end
-
-function PathUtil:import(middleware, source_function)
-	local module = self:get_parent_module_path(source_function)
-
-	local path = middleware(module)
-
-	path = vim.fn.fnamemodify(path, ":p")
-
-	local before, after = string.match(path, "(.*)/nvim/lua/(.*)")
-
-	local result = self:to_module(self.lua .. "/" .. after)
-
-	return require(result)
+	return require(module)
 end
 
 return PathUtil

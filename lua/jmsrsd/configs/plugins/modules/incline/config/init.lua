@@ -9,7 +9,7 @@
 
 local import = function(module)
 	return require("jmsrsd.utils.import")(function(parent)
-		return parent .. ".modules." .. module
+		return parent .. "/modules/" .. module
 	end, function() end)
 end
 

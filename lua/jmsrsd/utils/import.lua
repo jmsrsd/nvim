@@ -1,18 +1,10 @@
 local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
---- @param middleware fun(value: string): string
+--- @param middleware fun(parent: string): string
+--- @param source_callback SourceCallback
 ---
 --- @return unknown
 ---
 return function(middleware, source_callback)
-	local parent = path:get_parent_module(source_callback)
-	local module = middleware(parent)
-
-	while module:match("%.%.") do
-		module = module:gsub("%.%.", "%.")
-	end
-
-	local result = require(module)
-
-	return result
+	return path:import(middleware, source_callback)
 end

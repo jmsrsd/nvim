@@ -1,6 +1,6 @@
 local import = function(module)
 	return require("jmsrsd.utils.import")(function(parent)
-		return parent .. "." .. module
+		return parent .. "/" .. module
 	end, function() end)
 end
 

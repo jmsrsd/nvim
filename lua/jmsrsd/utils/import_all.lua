@@ -2,26 +2,30 @@ local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
 
 local string = require("jmsrsd.utils.string")
 
---- @param name string
+--- @param target string
 --- @param source_callback SourceCallback
 ---
-return function(name, source_callback)
+return function(target, source_callback)
+	local trim = require("jmsrsd.utils.string").trim
+
 	local result = {}
 
-	local dir = path:get_relative_module_path(name, source_callback)
+	local dir = path:get_parent_absolute_path(source_callback)
+
+	dir = path:normalize_absolute_path(dir .. "/" .. target)
 
 	local files = string.split(vim.fn.glob(dir .. "/*"), "\n")
 
 	local modules = vim.tbl_map(function(file)
-		return path:to_module(file)
+		return path:absolute_path_to_module(file)
 	end, files)
 
 	for _, module in pairs(modules) do
-		local module_split = string.split(module, ".")
+		local split = string.split(module, ".")
 
-		local module_name = module_split[#module_split]
+		local name = split[#split]
 
-		result[module_name] = require(module)
+		result[name] = require(module)
 	end
 
 	return result

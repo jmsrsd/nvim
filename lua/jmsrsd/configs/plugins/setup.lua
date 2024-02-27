@@ -3,9 +3,10 @@ return function()
 
 	local lazy = require("lazy")
 
-	local paths = path:get_relative_module_path("modules", function() end)
 
-	local modules = path:to_module(paths)
+	local paths = path:get_parent_absolute_path(function() end) .. '/modules'
+
+	local modules = path:absolute_path_to_module(paths)
 
 	local options = {
 		ui = {

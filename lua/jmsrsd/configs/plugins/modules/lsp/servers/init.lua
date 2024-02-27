@@ -10,7 +10,7 @@ end
 
 local configure = function(server)
 	local setup_ok, setup = pcall(function()
-		return import("configs/setups/" .. server)
+		return import("/configs/setups/" .. server)
 	end)
 
 	return setup_ok and setup
@@ -22,7 +22,7 @@ local configure = function(server)
 		end
 end
 
-local configs = import("configs") --[[@as table]]
+local configs = import("/configs") --[[@as table]]
 
 return function(capabilities, on_attach)
 	return vim.tbl_map(function(config)
