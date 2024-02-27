@@ -17,6 +17,8 @@ M.setup = function()
 
 				border = "rounded", -- Border around the notification window
 
+				border_hl = "NONE",
+
 				zindex = 45, -- Stacking priority of the notification window
 
 				max_width = 0, -- Maximum width of the notification window

@@ -95,7 +95,12 @@ return {
 
 			--- (fun(buf: integer): boolean) return false to disable attaching
 			---
-			on_attach = nil,
+			on_attach = function()
+				vim.cmd("highlight TreesitterContext guibg=NONE")
+				vim.cmd("highlight TreesitterContextSeparator guibg=NONE")
+
+				return true
+			end,
 		})
 
 		vim.keymap.set("n", "[c", context.go_to_context, {
