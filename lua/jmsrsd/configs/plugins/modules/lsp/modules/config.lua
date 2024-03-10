@@ -1,4 +1,4 @@
-local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
+local path = require("jmsrsd.utils.path"):new() --[[@as Path]]
 
 local catch = require("jmsrsd.utils.catch")
 

@@ -1,6 +1,6 @@
-local lsp = require("jmsrsd.utils.lsp"):new() --[[@as LSPUtil]]
+local lsp = require("jmsrsd.utils.lsp"):new() --[[@as LSP]]
 
-local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
+local path = require("jmsrsd.utils.path"):new() --[[@as Path]]
 
 local import = function(module)
 	return path:import(function(parent)

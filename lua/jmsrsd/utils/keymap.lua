@@ -9,21 +9,19 @@ M.describe = function(desc)
 end
 
 M.describeBuffer = function(buffer, desc)
-	return {
-		buffer = buffer,
-		noremap = true,
-		silent = true,
-		desc = desc,
-	}
+	local description = M.describe(desc)
+
+	description.buffer = buffer
+
+	return description
 end
 
 M.describeExpression = function(desc)
-	return {
-		expr = true,
-		noremap = true,
-		silent = true,
-		desc = desc,
-	}
+	local description = M.describe(desc)
+
+	description.expr = true
+
+	return description
 end
 
 return M

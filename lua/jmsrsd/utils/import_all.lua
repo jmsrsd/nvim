@@ -1,4 +1,4 @@
-local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
+local path = require("jmsrsd.utils.path"):new() --[[@as Path]]
 
 local string = require("jmsrsd.utils.string")
 
@@ -6,8 +6,6 @@ local string = require("jmsrsd.utils.string")
 --- @param source_callback SourceCallback
 ---
 return function(target, source_callback)
-	local trim = require("jmsrsd.utils.string").trim
-
 	local result = {}
 
 	local dir = path:get_parent_absolute_path(source_callback)

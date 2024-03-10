@@ -3,32 +3,32 @@
 --- @field install string
 --- @field name string
 
---- @class LSPUtil
+--- @class LSP
 ---
-local LSPUtil = {}
-LSPUtil.__index = LSPUtil
+local LSP = {}
+LSP.__index = LSP
 
 local _instance = nil
 
-function LSPUtil:_new(this)
+function LSP:_new(this)
 	this = this or {}
 	setmetatable(this, self)
 	self.__index = self
 
-	return this --[[@as LSPUtil]]
+	return this --[[@as LSP]]
 end
 
-function LSPUtil:new()
+function LSP:new()
 	if _instance == nil then
 		_instance = self:_new()
 	end
 
-	return _instance --[[@as LSPUtil]]
+	return _instance --[[@as LSP]]
 end
 
 --- @param server_bin string
 ---
-function LSPUtil:is_server_bin_exist(server_bin)
+function LSP:is_server_bin_exist(server_bin)
 	local server_path = vim.fn.system("which" .. server_bin) .. ""
 	local result = server_path:match("not found") ~= nil
 
@@ -38,7 +38,7 @@ end
 --- @param server_bin string
 --- @param server_install string
 ---
-function LSPUtil:ensure_server_installed(server_bin, server_install)
+function LSP:ensure_server_installed(server_bin, server_install)
 	local server_path = vim.fn.system("which " .. server_bin) .. ""
 
 	if server_path:match("not found") ~= nil then
@@ -49,7 +49,7 @@ end
 
 --- @param server_opts ServerOpts
 ---
-function LSPUtil:check_server_availability(server_opts)
+function LSP:check_server_availability(server_opts)
 	local is_server_bin_exist = self:is_server_bin_exist(server_opts.bin)
 
 	if not is_server_bin_exist then
@@ -65,4 +65,4 @@ function LSPUtil:check_server_availability(server_opts)
 	return server_opts --[[@as ServerOpts]]
 end
 
-return LSPUtil
+return LSP

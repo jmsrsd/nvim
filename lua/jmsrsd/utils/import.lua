@@ -1,4 +1,4 @@
-local path = require("jmsrsd.utils.path"):new() --[[@as PathUtil]]
+local path = require("jmsrsd.utils.path"):new() --[[@as Path]]
 
 --- @param middleware fun(parent: string): string
 --- @param source_callback SourceCallback

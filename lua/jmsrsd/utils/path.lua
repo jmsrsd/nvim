@@ -1,16 +1,16 @@
 --- @alias SourceCallback fun(result: string): string | nil
---
---- @class PathUtil
+
+--- @class Path
 --- @field lua string
 ---
-local PathUtil = {}
-PathUtil.__index = PathUtil
+local Path = {}
+Path.__index = Path
 
 local _instance = nil
 
---- @return PathUtil
+--- @return Path
 ---
-function PathUtil:_new(this)
+function Path:_new(this)
 	this = this or {}
 	setmetatable(this, self)
 	self.__index = self
@@ -20,7 +20,7 @@ function PathUtil:_new(this)
 	return this
 end
 
-function PathUtil:new()
+function Path:new()
 	if _instance == nil then
 		_instance = self:_new()
 	end
@@ -30,7 +30,7 @@ end
 
 --- @param absolute_path string
 ---
-function PathUtil:normalize_absolute_path(absolute_path)
+function Path:normalize_absolute_path(absolute_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	absolute_path = vim.fs.normalize(absolute_path)
@@ -46,7 +46,7 @@ end
 
 --- @param absolute_path string
 ---
-function PathUtil:relativized_path(absolute_path)
+function Path:relativized_path(absolute_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = absolute_path
@@ -64,7 +64,7 @@ end
 
 --- @param relative_path string
 ---
-function PathUtil:relative_path_to_module(relative_path)
+function Path:relative_path_to_module(relative_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = relative_path
@@ -84,7 +84,7 @@ end
 
 --- @param absolute_path string
 ---
-function PathUtil:absolute_path_to_module(absolute_path)
+function Path:absolute_path_to_module(absolute_path)
 	local path = self:relativized_path(absolute_path)
 
 	return self:relative_path_to_module(path)
@@ -92,7 +92,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_current_absolute_path(source_callback)
+function Path:get_current_absolute_path(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = debug.getinfo(source_callback, "S").source
@@ -112,7 +112,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_current_relative_path(source_callback)
+function Path:get_current_relative_path(source_callback)
 	local path = self:get_current_absolute_path(source_callback)
 
 	return self:relativized_path(path)
@@ -120,7 +120,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_current_module_path(source_callback)
+function Path:get_current_module_path(source_callback)
 	local path = self:get_current_relative_path(source_callback)
 
 	return self:relative_path_to_module(path)
@@ -128,7 +128,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_parent_absolute_path(source_callback)
+function Path:get_parent_absolute_path(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = self:get_current_absolute_path(source_callback)
@@ -142,7 +142,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_parent_relative_path(source_callback)
+function Path:get_parent_relative_path(source_callback)
 	local path = self:get_parent_absolute_path(source_callback)
 
 	return self:relativized_path(path)
@@ -150,7 +150,7 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function PathUtil:get_parent_module_path(source_callback)
+function Path:get_parent_module_path(source_callback)
 	local path = self:get_parent_relative_path(source_callback)
 
 	return self:relative_path_to_module(path)
@@ -161,7 +161,7 @@ end
 ---
 --- @return unknown
 ---
-function PathUtil:import(middleware, source_callback)
+function Path:import(middleware, source_callback)
 	local parent = self:get_parent_absolute_path(source_callback)
 
 	local path = middleware(parent)
@@ -173,4 +173,4 @@ function PathUtil:import(middleware, source_callback)
 	return require(module)
 end
 
-return PathUtil
+return Path
