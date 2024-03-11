@@ -1,4 +1,4 @@
-local path = require("jmsrsd.utils.path"):new() --[[@as Path]]
+local path = require("jmsrsd.utils.path") --[[@as Path]]
 
 local catch = require("jmsrsd.utils.catch")
 
@@ -29,7 +29,7 @@ local setup_servers = function(on_attach)
 
 	local skipped = { "flutter" }
 
-	local setup = path:import(function(parent)
+	local setup = path.import(function(parent)
 		local result = parent .. "/../servers"
 
 		return result

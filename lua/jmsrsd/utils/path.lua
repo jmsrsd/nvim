@@ -3,34 +3,12 @@
 --- @class Path
 --- @field lua string
 ---
-local Path = {}
-Path.__index = Path
-
-local _instance = nil
-
---- @return Path
----
-function Path:_new(this)
-	this = this or {}
-	setmetatable(this, self)
-	self.__index = self
-
-	this.lua = vim.fn.stdpath("config") .. "/lua"
-
-	return this
-end
-
-function Path:new()
-	if _instance == nil then
-		_instance = self:_new()
-	end
-
-	return _instance
-end
+local M = {}
+M.__index = M
 
 --- @param absolute_path string
 ---
-function Path:normalize_absolute_path(absolute_path)
+M.normalize_absolute_path = function(absolute_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	absolute_path = vim.fs.normalize(absolute_path)
@@ -46,7 +24,7 @@ end
 
 --- @param absolute_path string
 ---
-function Path:relativized_path(absolute_path)
+M.relativized_path = function(absolute_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = absolute_path
@@ -64,7 +42,7 @@ end
 
 --- @param relative_path string
 ---
-function Path:relative_path_to_module(relative_path)
+M.relative_path_to_module = function(relative_path)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = relative_path
@@ -84,15 +62,15 @@ end
 
 --- @param absolute_path string
 ---
-function Path:absolute_path_to_module(absolute_path)
-	local path = self:relativized_path(absolute_path)
+M.absolute_path_to_module = function(absolute_path)
+	local path = M.relativized_path(absolute_path)
 
-	return self:relative_path_to_module(path)
+	return M.relative_path_to_module(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_current_absolute_path(source_callback)
+M.get_current_absolute_path = function(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
 	local path = debug.getinfo(source_callback, "S").source
@@ -112,26 +90,26 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_current_relative_path(source_callback)
-	local path = self:get_current_absolute_path(source_callback)
+M.get_current_relative_path = function(source_callback)
+	local path = M.get_current_absolute_path(source_callback)
 
-	return self:relativized_path(path)
+	return M.relativized_path(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_current_module_path(source_callback)
-	local path = self:get_current_relative_path(source_callback)
+M.get_current_module_path = function(source_callback)
+	local path = M.get_current_relative_path(source_callback)
 
-	return self:relative_path_to_module(path)
+	return M.relative_path_to_module(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_parent_absolute_path(source_callback)
+M.get_parent_absolute_path = function(source_callback)
 	local trim = require("jmsrsd.utils.string").trim
 
-	local path = self:get_current_absolute_path(source_callback)
+	local path = M.get_current_absolute_path(source_callback)
 
 	path = vim.fn.system("dirname " .. path)
 
@@ -142,18 +120,18 @@ end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_parent_relative_path(source_callback)
-	local path = self:get_parent_absolute_path(source_callback)
+M.get_parent_relative_path = function(source_callback)
+	local path = M.get_parent_absolute_path(source_callback)
 
-	return self:relativized_path(path)
+	return M.relativized_path(path)
 end
 
 --- @param source_callback SourceCallback
 ---
-function Path:get_parent_module_path(source_callback)
-	local path = self:get_parent_relative_path(source_callback)
+M.get_parent_module_path = function(source_callback)
+	local path = M.get_parent_relative_path(source_callback)
 
-	return self:relative_path_to_module(path)
+	return M.relative_path_to_module(path)
 end
 
 --- @param source_callback SourceCallback
@@ -161,16 +139,16 @@ end
 ---
 --- @return unknown
 ---
-function Path:import(middleware, source_callback)
-	local parent = self:get_parent_absolute_path(source_callback)
+M.import = function(middleware, source_callback)
+	local parent = M.get_parent_absolute_path(source_callback)
 
 	local path = middleware(parent)
 
-	path = self:normalize_absolute_path(path)
+	path = M.normalize_absolute_path(path)
 
-	local module = self:absolute_path_to_module(path)
+	local module = M.absolute_path_to_module(path)
 
 	return require(module)
 end
 
-return Path
+return M
