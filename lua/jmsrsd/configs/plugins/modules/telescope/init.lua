@@ -16,7 +16,7 @@ return {
 
 	lazy = "VeryLazy",
 
-	priority = priority.order(2),
+	priority = priority.order(1),
 
 	dependencies = module("dependencies"),
 

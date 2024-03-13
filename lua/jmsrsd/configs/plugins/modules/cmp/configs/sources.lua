@@ -6,6 +6,10 @@ local sources = {
 	"nvim_lsp",
 	"nvim_lsp_signature_help",
 
+	--- Codeium
+	---
+	"codeium",
+
 	--- Lua
 	---
 	"nvim_lua",
