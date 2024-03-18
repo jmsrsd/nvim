@@ -42,30 +42,9 @@ return {
 		})
 
 		vim.keymap.set("n", "-", function()
-			local is_tsserver_filetype = (function()
-				local filetypes = {
-					"javascript",
-					"javascriptreact",
-					"javascript.jsx",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-					"html",
-					"astro",
-				}
+			local lsp = import("lsp/util.lua") --[[@as LspModuleUtil]]
 
-				for _, filetype in ipairs(filetypes) do
-					if string.find(filetype, vim.bo.filetype) then
-						return true
-					end
-				end
-
-				return false
-			end)()
-
-			if is_tsserver_filetype then
-				cmd("LspStop")
-			end
+			lsp.stop_lsp_servers_on_web_filetypes()
 
 			cmd("Oil")
 
