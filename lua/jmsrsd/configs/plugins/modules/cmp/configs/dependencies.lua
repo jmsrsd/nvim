@@ -18,7 +18,6 @@ return {
 	---
 	"tzachar/fuzzy.nvim",
 	"tzachar/cmp-fuzzy-buffer",
-	--- UNUSED: "tzachar/cmp-fuzzy-path",
 
 	--- Emmet
 	---

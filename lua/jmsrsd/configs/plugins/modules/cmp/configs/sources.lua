@@ -33,7 +33,6 @@ local sources = {
 
 	--- Path sources
 	---
-	--- UNUSED: "fuzzy_path",
 	"path",
 
 	--- Buffer sources
@@ -48,6 +47,8 @@ for index, name in ipairs(sources) do
 	local source = {
 		["name"] = name,
 		["priority"] = priority.order(index),
+		["max_item_count"] = #sources - index + 1,
+		["group_index"] = index,
 	}
 
 	if name == "emmet_vim" then

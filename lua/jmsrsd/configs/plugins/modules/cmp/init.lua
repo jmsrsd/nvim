@@ -13,6 +13,8 @@ return {
 
 	"hrsh7th/nvim-cmp",
 
+	branch = "main",
+
 	event = "VeryLazy",
 
 	dependencies = import("dependencies"),
@@ -22,11 +24,18 @@ return {
 		---
 		local cmp = require("cmp")
 
+		local compare = cmp.config.compare
+
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		cmp.setup({
+
+			experimental = {
+
+				ghost_text = true,
+			},
 
 			snippet = {
 
@@ -39,6 +48,11 @@ return {
 
 					luasnip.lsp_expand(args.body)
 				end,
+			},
+
+			completion = {
+
+				completeopt = "menu,menuone",
 			},
 
 			window = {
@@ -67,12 +81,38 @@ return {
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
 
-			sources = import("sources"),
+			sorting = {
+
+				priority_weight = 10,
+
+				comparators = {
+
+					compare.score,
+					compare.order,
+
+					compare.offset,
+					compare.exact,
+
+					compare.recently_used,
+					compare.locality,
+
+					compare.kind,
+					compare.length,
+				},
+			},
+
+			sources = cmp.config.sources(import("sources")),
+
+			view = {
+				docs = {
+					auto_open = true,
+				},
+			},
 		})
 
 		--- Set configuration for specific filetype.
 		cmp.setup.filetype("gitcommit", {
-			sources = {
+			sources = cmp.config.sources({
 				--- You can specify the `git` source if
 				---
 				--- [you were installed it](https://github.com/petertriho/cmp-git).
@@ -83,7 +123,7 @@ return {
 				---
 				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
-			},
+			}),
 		})
 
 		--- Use buffer source for `/` and `?`
@@ -91,13 +131,15 @@ return {
 		--- (if you enabled `native_menu`, this won't work anymore).
 		---
 		cmp.setup.cmdline({ "/", "?" }, {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
+
+			mapping = cmp.mapping.preset.insert(),
+
+			sources = cmp.config.sources({
 				--- Buffer sources
 				---
 				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
-			},
+			}),
 		})
 
 		--- Use cmdline & path source for ':'
@@ -105,18 +147,24 @@ return {
 		--- (if you enabled `native_menu`, this won't work anymore).
 		---
 		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = {
+
+			mapping = cmp.mapping.preset.insert(),
+
+			sources = cmp.config.sources({
 				--- Path sources
 				---
-				--- UNUSED: { name = "fuzzy_path" },
 				{ name = "path" },
+
+				--- Buffer sources
+				---
+				{ name = "fuzzy_buffer" },
+				{ name = "buffer" },
 
 				--- CMD sources
 				---
 				{ name = "cmdline" },
 				{ name = "cmdline_history" },
-			},
+			}),
 		})
 	end,
 }
