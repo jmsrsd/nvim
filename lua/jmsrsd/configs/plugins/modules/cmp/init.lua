@@ -22,20 +22,17 @@ return {
 	config = function()
 		--- Set up nvim-cmp.
 		---
+		local lspkind = require("lspkind")
+
 		local cmp = require("cmp")
 
-		local compare = cmp.config.compare
+		--- local compare = cmp.config.compare
 
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		cmp.setup({
-
-			experimental = {
-
-				ghost_text = true,
-			},
 
 			snippet = {
 
@@ -62,6 +59,67 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 
+			formatting = {
+
+				expandable_indicator = true,
+
+				fields = { "kind", "abbr", "menu" },
+
+				format = function(_, vim_item)
+					--- Assign symbol and type
+					---
+
+					local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
+
+					symbol_type = require("jmsrsd.utils.string").split(symbol_type, " ")
+
+					if #symbol_type < 2 then
+						symbol_type = { " ", symbol_type[1] }
+					end
+
+					local symbol = symbol_type[1]
+
+					local type = symbol_type[2]
+
+					vim_item.kind = symbol
+
+					vim_item.menu = type
+
+					--- Prevent duplicates
+					---
+
+					local dup = {
+						nvim_lsp = 0,
+						nvim_lsp_signature_help = 0,
+						codeium = 0,
+						nvim_lua = 0,
+						luasnip = 0,
+						treesitter = 1,
+						emmet_vim = 0,
+						path = 1,
+						buffer = 1,
+					}
+
+					vim_item.dup = dup --[[@as unknown]]
+
+					--- Truncate text
+					---
+
+					local maxwidth = 20
+
+					local ellipsis_char = "..."
+
+					if vim.fn.strchars(vim_item.abbr) > maxwidth then
+						vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, maxwidth) .. ellipsis_char
+					end
+
+					--- Done
+					---
+
+					return vim_item
+				end,
+			},
+
 			mapping = cmp.mapping.preset.insert({
 
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -81,27 +139,7 @@ return {
 				["<Tab>"] = cmp.mapping.confirm({ select = true }),
 			}),
 
-			sorting = {
-
-				priority_weight = 10,
-
-				comparators = {
-
-					compare.score,
-					compare.order,
-
-					compare.offset,
-					compare.exact,
-
-					compare.recently_used,
-					compare.locality,
-
-					compare.kind,
-					compare.length,
-				},
-			},
-
-			sources = cmp.config.sources(import("sources")),
+			sources = import("sources"),
 
 			view = {
 				docs = {
@@ -112,7 +150,7 @@ return {
 
 		--- Set configuration for specific filetype.
 		cmp.setup.filetype("gitcommit", {
-			sources = cmp.config.sources({
+			sources = {
 				--- You can specify the `git` source if
 				---
 				--- [you were installed it](https://github.com/petertriho/cmp-git).
@@ -121,9 +159,8 @@ return {
 
 				--- Buffer sources
 				---
-				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
-			}),
+			},
 		})
 
 		--- Use buffer source for `/` and `?`
@@ -132,14 +169,13 @@ return {
 		---
 		cmp.setup.cmdline({ "/", "?" }, {
 
-			mapping = cmp.mapping.preset.insert(),
+			mapping = cmp.mapping.preset.cmdline(),
 
-			sources = cmp.config.sources({
+			sources = {
 				--- Buffer sources
 				---
-				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
-			}),
+			},
 		})
 
 		--- Use cmdline & path source for ':'
@@ -148,23 +184,22 @@ return {
 		---
 		cmp.setup.cmdline(":", {
 
-			mapping = cmp.mapping.preset.insert(),
+			mapping = cmp.mapping.preset.cmdline(),
 
-			sources = cmp.config.sources({
+			sources = {
+				--- CMD sources
+				---
+				{ name = "cmdline" },
+				{ name = "cmdline_history" },
+
 				--- Path sources
 				---
 				{ name = "path" },
 
 				--- Buffer sources
 				---
-				{ name = "fuzzy_buffer" },
 				{ name = "buffer" },
-
-				--- CMD sources
-				---
-				{ name = "cmdline" },
-				{ name = "cmdline_history" },
-			}),
+			},
 		})
 	end,
 }

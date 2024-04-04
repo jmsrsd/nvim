@@ -1,23 +1,19 @@
 local priority = require("jmsrsd.utils.priority")
 
 local sources = {
+	--- Codeium
+	---
+	"codeium",
+
 	--- LSP
 	---
 	"nvim_lsp",
 	"nvim_lsp_signature_help",
 
-	--- Codeium
-	---
-	"codeium",
-
 	--- Lua
 	---
 	"nvim_lua",
 	"luasnip",
-
-	--- Treesitter
-	---
-	"treesitter",
 
 	--- Emmet
 	---
@@ -25,19 +21,22 @@ local sources = {
 
 	--- Git
 	---
-	"git",
+	--- "git",
 
 	--- Ripgrep
 	---
-	"rg",
+	--- "rg",
 
 	--- Path sources
 	---
 	"path",
 
+	--- Treesitter
+	---
+	"treesitter",
+
 	--- Buffer sources
 	---
-	"fuzzy_buffer",
 	"buffer",
 }
 
@@ -47,8 +46,7 @@ for index, name in ipairs(sources) do
 	local source = {
 		["name"] = name,
 		["priority"] = priority.order(index),
-		["max_item_count"] = #sources - index + 1,
-		["group_index"] = index,
+		--- UNUSED: ["group_index"] = index,
 	}
 
 	if name == "emmet_vim" then
