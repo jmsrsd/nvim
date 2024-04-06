@@ -83,7 +83,6 @@ return {
 				local dup = {
 					nvim_lsp = 0,
 					nvim_lsp_signature_help = 0,
-					codeium = 0,
 					nvim_lua = 0,
 					luasnip = 0,
 					treesitter = 1,

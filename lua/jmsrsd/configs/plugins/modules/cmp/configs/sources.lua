@@ -1,10 +1,6 @@
 local priority = require("jmsrsd.utils.priority")
 
 local sources = {
-	--- Codeium
-	---
-	"codeium",
-
 	--- LSP
 	---
 	"nvim_lsp",
