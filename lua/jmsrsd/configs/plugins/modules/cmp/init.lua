@@ -26,7 +26,116 @@ return {
 
 		local cmp = require("cmp")
 
-		--- local compare = cmp.config.compare
+		local snippet = {
+
+			--- REQUIRED - you must specify a snippet engine
+			---
+			expand = function(args)
+				--- For `luasnip` users.
+				---
+				local luasnip = require("luasnip")
+
+				luasnip.lsp_expand(args.body)
+			end,
+		}
+
+		local completion = {
+
+			completeopt = "menu,menuone",
+		}
+
+		local window = {
+
+			completion = cmp.config.window.bordered(),
+
+			documentation = cmp.config.window.bordered(),
+		}
+
+		local formatting = {
+
+			expandable_indicator = true,
+
+			fields = { "kind", "abbr", "menu" },
+
+			format = function(_, vim_item)
+				--- Assign symbol and type
+				---
+
+				local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
+
+				symbol_type = require("jmsrsd.utils.string").split(symbol_type, " ")
+
+				if #symbol_type < 2 then
+					symbol_type = { " ", symbol_type[1] }
+				end
+
+				local symbol = symbol_type[1]
+
+				local type = symbol_type[2]
+
+				vim_item.kind = symbol
+
+				vim_item.menu = type
+
+				--- Prevent duplicates
+				---
+
+				local dup = {
+					nvim_lsp = 0,
+					nvim_lsp_signature_help = 0,
+					codeium = 0,
+					nvim_lua = 0,
+					luasnip = 0,
+					treesitter = 1,
+					emmet_vim = 0,
+					path = 1,
+					buffer = 1,
+				}
+
+				vim_item.dup = dup --[[@as unknown]]
+
+				--- Truncate text
+				---
+
+				local maxwidth = 20
+
+				local ellipsis_char = "..."
+
+				if vim.fn.strchars(vim_item.abbr) > maxwidth then
+					vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, maxwidth) .. ellipsis_char
+				end
+
+				--- Done
+				---
+
+				return vim_item
+			end,
+		}
+
+		local mapping = {
+
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+
+			["<C-Space>"] = cmp.mapping.complete(),
+
+			["<C-e>"] = cmp.mapping.abort(),
+
+			--- Accept currently selected item.
+			---
+			--- Set `select` to `false` to
+			---
+			--- only confirm explicitly selected items.
+			---
+			["<Tab>"] = cmp.mapping.confirm({ select = true }),
+		}
+
+		local view = {
+			docs = {
+				auto_open = true,
+			},
+		}
 
 		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
@@ -34,122 +143,34 @@ return {
 
 		cmp.setup({
 
-			snippet = {
+			snippet = snippet,
 
-				--- REQUIRED - you must specify a snippet engine
-				---
-				expand = function(args)
-					--- For `luasnip` users.
-					---
-					local luasnip = require("luasnip")
+			completion = completion,
 
-					luasnip.lsp_expand(args.body)
-				end,
-			},
+			window = window,
 
-			completion = {
+			formatting = formatting,
 
-				completeopt = "menu,menuone",
-			},
-
-			window = {
-
-				completion = cmp.config.window.bordered(),
-
-				documentation = cmp.config.window.bordered(),
-			},
-
-			formatting = {
-
-				expandable_indicator = true,
-
-				fields = { "kind", "abbr", "menu" },
-
-				format = function(_, vim_item)
-					--- Assign symbol and type
-					---
-
-					local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
-
-					symbol_type = require("jmsrsd.utils.string").split(symbol_type, " ")
-
-					if #symbol_type < 2 then
-						symbol_type = { " ", symbol_type[1] }
-					end
-
-					local symbol = symbol_type[1]
-
-					local type = symbol_type[2]
-
-					vim_item.kind = symbol
-
-					vim_item.menu = type
-
-					--- Prevent duplicates
-					---
-
-					local dup = {
-						nvim_lsp = 0,
-						nvim_lsp_signature_help = 0,
-						codeium = 0,
-						nvim_lua = 0,
-						luasnip = 0,
-						treesitter = 1,
-						emmet_vim = 0,
-						path = 1,
-						buffer = 1,
-					}
-
-					vim_item.dup = dup --[[@as unknown]]
-
-					--- Truncate text
-					---
-
-					local maxwidth = 20
-
-					local ellipsis_char = "..."
-
-					if vim.fn.strchars(vim_item.abbr) > maxwidth then
-						vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, maxwidth) .. ellipsis_char
-					end
-
-					--- Done
-					---
-
-					return vim_item
-				end,
-			},
-
-			mapping = cmp.mapping.preset.insert({
-
-				["<C-b>"] = cmp.mapping.scroll_docs(-4),
-
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-				["<C-Space>"] = cmp.mapping.complete(),
-
-				["<C-e>"] = cmp.mapping.abort(),
-
-				--- Accept currently selected item.
-				---
-				--- Set `select` to `false` to
-				---
-				--- only confirm explicitly selected items.
-				---
-				["<Tab>"] = cmp.mapping.confirm({ select = true }),
-			}),
+			mapping = cmp.mapping.preset.insert(mapping),
 
 			sources = import("sources"),
 
-			view = {
-				docs = {
-					auto_open = true,
-				},
-			},
+			view = view,
 		})
 
 		--- Set configuration for specific filetype.
 		cmp.setup.filetype("gitcommit", {
+
+			snippet = snippet,
+
+			completion = completion,
+
+			window = window,
+
+			formatting = formatting,
+
+			mapping = cmp.mapping.preset.insert(mapping),
+
 			sources = {
 				--- You can specify the `git` source if
 				---
@@ -161,6 +182,8 @@ return {
 				---
 				{ name = "buffer" },
 			},
+
+			view = view,
 		})
 
 		--- Use buffer source for `/` and `?`
@@ -169,13 +192,23 @@ return {
 		---
 		cmp.setup.cmdline({ "/", "?" }, {
 
-			mapping = cmp.mapping.preset.cmdline(),
+			snippet = snippet,
+
+			completion = completion,
+
+			window = window,
+
+			formatting = formatting,
+
+			mapping = cmp.mapping.preset.cmdline(mapping),
 
 			sources = {
 				--- Buffer sources
 				---
 				{ name = "buffer" },
 			},
+
+			view = view,
 		})
 
 		--- Use cmdline & path source for ':'
@@ -184,7 +217,15 @@ return {
 		---
 		cmp.setup.cmdline(":", {
 
-			mapping = cmp.mapping.preset.cmdline(),
+			snippet = snippet,
+
+			completion = completion,
+
+			window = window,
+
+			formatting = formatting,
+
+			mapping = cmp.mapping.preset.cmdline(mapping),
 
 			sources = {
 				--- CMD sources
@@ -200,6 +241,8 @@ return {
 				---
 				{ name = "buffer" },
 			},
+
+			view = view,
 		})
 	end,
 }
