@@ -44,11 +44,16 @@ return {
 			completeopt = "menu,menuone",
 		}
 
+		local bordered = cmp.config.window.bordered({
+
+			winhighlight = "Normal:Normal,FloatBorder:None,CursorLine:Visual,Search:None",
+		})
+
 		local window = {
 
-			completion = cmp.config.window.bordered(),
+			completion = bordered,
 
-			documentation = cmp.config.window.bordered(),
+			documentation = bordered,
 		}
 
 		local formatting = {
@@ -58,22 +63,24 @@ return {
 			fields = { "kind", "abbr", "menu" },
 
 			format = function(_, vim_item)
+				local string = require("jmsrsd.utils.string")
+
 				--- Assign symbol and type
 				---
 
 				local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
 
-				symbol_type = require("jmsrsd.utils.string").split(symbol_type, " ")
+				symbol_type = string.split(symbol_type, " ")
 
 				if #symbol_type < 2 then
 					symbol_type = { " ", symbol_type[1] }
 				end
 
-				local symbol = symbol_type[1]
+				local symbol = string.trim(symbol_type[1])
 
 				local type = symbol_type[2]
 
-				vim_item.kind = symbol
+				vim_item.kind = symbol ~= "" and symbol or ""
 
 				vim_item.menu = type
 
@@ -131,7 +138,9 @@ return {
 		}
 
 		local view = {
+
 			docs = {
+
 				auto_open = true,
 			},
 		}
@@ -158,6 +167,7 @@ return {
 		})
 
 		--- Set configuration for specific filetype.
+		---
 		cmp.setup.filetype("gitcommit", {
 
 			snippet = snippet,
