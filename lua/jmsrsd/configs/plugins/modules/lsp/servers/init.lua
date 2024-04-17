@@ -1,4 +1,4 @@
-local lsp = require("jmsrsd.utils.lsp"):new() --[[@as LSP]]
+local lsp = require("jmsrsd.utils.lsp") --[[@as LSP]]
 
 local path = require("jmsrsd.utils.path") --[[@as Path]]
 
@@ -26,7 +26,7 @@ local configs = import("/configs") --[[@as table]]
 
 return function(capabilities, on_attach)
 	return vim.tbl_map(function(config)
-		lsp:check_server_availability(config)
+		lsp.check_server_availability(config)
 
 		local name = config.name
 

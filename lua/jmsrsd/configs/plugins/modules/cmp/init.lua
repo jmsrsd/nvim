@@ -56,66 +56,68 @@ return {
 			documentation = bordered,
 		}
 
+		local formatting_format = function(_, vim_item)
+			local string = require("jmsrsd.utils.string")
+
+			--- Assign symbol and type
+			---
+
+			local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
+
+			symbol_type = string.split(symbol_type, " ")
+
+			if #symbol_type < 2 then
+				symbol_type = { " ", symbol_type[1] }
+			end
+
+			local symbol = string.trim(symbol_type[1])
+
+			local type = symbol_type[2]
+
+			vim_item.kind = symbol ~= "" and symbol or ""
+
+			vim_item.menu = type
+
+			--- Prevent duplicates
+			---
+
+			local dup = {
+				nvim_lsp = 0,
+				nvim_lsp_signature_help = 0,
+				nvim_lua = 0,
+				luasnip = 0,
+				treesitter = 1,
+				emmet_vim = 0,
+				path = 1,
+				buffer = 1,
+			}
+
+			vim_item.dup = dup --[[@as unknown]]
+
+			--- Truncate text
+			---
+
+			local maxwidth = 20
+
+			local ellipsis_char = "..."
+
+			if vim.fn.strchars(vim_item.abbr) > maxwidth then
+				vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, maxwidth) .. ellipsis_char
+			end
+
+			--- Done
+			---
+
+			return vim_item
+		end
+
 		local formatting = {
 
 			expandable_indicator = true,
 
 			fields = { "kind", "abbr", "menu" },
 
-			format = function(_, vim_item)
-				local string = require("jmsrsd.utils.string")
-
-				--- Assign symbol and type
-				---
-
-				local symbol_type = lspkind.symbolic(vim_item.kind, "symbol")
-
-				symbol_type = string.split(symbol_type, " ")
-
-				if #symbol_type < 2 then
-					symbol_type = { " ", symbol_type[1] }
-				end
-
-				local symbol = string.trim(symbol_type[1])
-
-				local type = symbol_type[2]
-
-				vim_item.kind = symbol ~= "" and symbol or ""
-
-				vim_item.menu = type
-
-				--- Prevent duplicates
-				---
-
-				local dup = {
-					nvim_lsp = 0,
-					nvim_lsp_signature_help = 0,
-					nvim_lua = 0,
-					luasnip = 0,
-					treesitter = 1,
-					emmet_vim = 0,
-					path = 1,
-					buffer = 1,
-				}
-
-				vim_item.dup = dup --[[@as unknown]]
-
-				--- Truncate text
-				---
-
-				local maxwidth = 20
-
-				local ellipsis_char = "..."
-
-				if vim.fn.strchars(vim_item.abbr) > maxwidth then
-					vim_item.abbr = vim.fn.strcharpart(vim_item.abbr, 0, maxwidth) .. ellipsis_char
-				end
-
-				--- Done
-				---
-
-				return vim_item
-			end,
+			format = formatting_format,
 		}
 
 		local mapping = {
