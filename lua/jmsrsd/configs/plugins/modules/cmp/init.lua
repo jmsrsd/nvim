@@ -81,16 +81,11 @@ return {
 			--- Prevent duplicates
 			---
 
-			local dup = {
-				nvim_lsp = 0,
-				nvim_lsp_signature_help = 0,
-				nvim_lua = 0,
-				luasnip = 0,
-				treesitter = 1,
-				emmet_vim = 0,
-				path = 1,
-				buffer = 1,
-			}
+			local dup = {}
+
+			for _, source in ipairs(import("sources")) do
+				dup[source.name] = 1
+			end
 
 			vim_item.dup = dup --[[@as unknown]]
 
