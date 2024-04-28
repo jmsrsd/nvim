@@ -46,15 +46,15 @@ return {
 		})
 
 		vim.keymap.set("n", "-", function()
-			--- UNUSED: local lsp = import("lsp/util.lua") --[[@as LspModuleUtil]]
+			local lsp = import("lsp/util.lua") --[[@as LspModuleUtil]]
 
-			--- UNUSED: lsp.stop_lsp_servers_on_web_filetypes()
+			lsp.stop_lsp_servers_on_web_filetypes()
 
 			cmd("Oil")
 
-			--- UNUSED: local close_buffers = import("close_buffers/utils.lua")
+			local close_buffers = import("close_buffers/utils.lua")
 
-			--- UNUSED: close_buffers.wipe_hidden_buffers()
+			close_buffers.wipe_hidden_buffers()
 		end, {
 
 			noremap = true,

@@ -84,7 +84,7 @@ return {
 			local dup = {}
 
 			for _, source in ipairs(import("sources")) do
-				dup[source.name] = 1
+				dup[source.name] = 0
 			end
 
 			vim_item.dup = dup --[[@as unknown]]
