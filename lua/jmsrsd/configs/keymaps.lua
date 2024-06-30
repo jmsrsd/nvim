@@ -163,4 +163,5 @@ set("n", "<leader>d", close, describe("Close current buffer"))
 
 --- Explorer
 ---
-set("n", "-", function() execute("Ex") end, describe("Open Explorer"))
+
+--- UNUSED: set("n", "-", function() execute("Ex") end, describe("Open Explorer"))

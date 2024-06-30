@@ -1,1 +1,1 @@
-require("jmsrsd")
+require "jmsrsd"
