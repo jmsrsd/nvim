@@ -23,17 +23,26 @@
 --- }
 ---
 
-local keymap = require("jmsrsd.utils.keymap")
+local describe = function(desc)
+  return {
+    noremap = true,
+    silent = true,
+    desc = desc,
+  }
+end
 
-local describe = keymap.describe
+local describeExpression = function(desc)
+  local description = describe(desc)
 
-local describeExpression = keymap.describeExpression
+  description.expr = true
+
+  return description
+end
 
 local set = function(mode, lhs, rhs, opts)
-	pcall(function()
-		vim.keymap.del(mode, lhs, opts)
-	end)
-	vim.keymap.set(mode, lhs, rhs, opts)
+  pcall(function() vim.keymap.del(mode, lhs, opts) end)
+
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 --- Paste
@@ -104,22 +113,54 @@ local escape_keys = { "jj", "jk", "kk", "<C-[>" }
 set("t", "<Esc>", "<C-\\><C-n>", describe("Exit terminal mode"))
 
 vim.tbl_map(function(lhs)
-	set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
-	set("i", lhs, "<Esc>", describe("Exit insert mode"))
+  set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
+  set("i", lhs, "<Esc>", describe("Exit insert mode"))
 end, escape_keys)
 
 --- Buffer
 ---
 
-local buffer = require("jmsrsd.utils.buffer")
+local cmd = function(command)
+  return vim.cmd(command)
 
-set("n", "<leader>w", buffer.save_all, describe("Save all"))
+end
 
-set("n", "<leader>q", buffer.quit_all, describe("Quit all"))
+local execute = function(command)
+  return pcall(cmd, command)
+end
 
-set("n", "<leader>d", buffer.close, describe("Close current buffer"))
+local save_all = function()
+  vim.tbl_map(execute, {
+    "w", "wa"
+  })
+end
 
---- Window
+local quit = function(opts)
+  local force = opts.force
+
+  return execute("q" .. (force and "!"or ""))
+end
+
+local close = function()
+  save_all()
+  quit({force = true})
+
+end
+
+set("n", "<leader>w", save_all, describe("Save all"))
+
+set("n", "<leader>q", function()
+  vim.tbl_map(execute, {
+    "w",
+    "wa",
+    "wqa",
+    "qa!",
+    'exe "normal \\<CR>"',
+  })
+end, describe("Quit all"))
+
+set("n", "<leader>d", close, describe("Close current buffer"))
+
+--- Explorer
 ---
-
---- UNUSED: set("n", "T", "<Esc><C-w>s:wincmd j<CR>:term<CR>:wincmd J<CR>a", describe("Spawn terminal window"))
+set("n", "-", function() execute("Ex") end, describe("Open Explorer"))
