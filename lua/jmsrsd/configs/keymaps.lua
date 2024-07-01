@@ -24,25 +24,27 @@
 ---
 
 local describe = function(desc)
-  return {
-    noremap = true,
-    silent = true,
-    desc = desc,
-  }
+	return {
+		noremap = true,
+		silent = true,
+		desc = desc,
+	}
 end
 
 local describeExpression = function(desc)
-  local description = describe(desc)
+	local description = describe(desc)
 
-  description.expr = true
+	description.expr = true
 
-  return description
+	return description
 end
 
 local set = function(mode, lhs, rhs, opts)
-  pcall(function() vim.keymap.del(mode, lhs, opts) end)
+	pcall(function()
+		vim.keymap.del(mode, lhs, opts)
+	end)
 
-  vim.keymap.set(mode, lhs, rhs, opts)
+	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 --- Paste
@@ -113,50 +115,49 @@ local escape_keys = { "jj", "jk", "kk", "<C-[>" }
 set("t", "<Esc>", "<C-\\><C-n>", describe("Exit terminal mode"))
 
 vim.tbl_map(function(lhs)
-  set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
-  set("i", lhs, "<Esc>", describe("Exit insert mode"))
+	set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
+	set("i", lhs, "<Esc>", describe("Exit insert mode"))
 end, escape_keys)
 
 --- Buffer
 ---
 
 local cmd = function(command)
-  return vim.cmd(command)
-
+	return vim.cmd(command)
 end
 
 local execute = function(command)
-  return pcall(cmd, command)
+	return pcall(cmd, command)
 end
 
 local save_all = function()
-  vim.tbl_map(execute, {
-    "w", "wa"
-  })
+	vim.tbl_map(execute, {
+		"w",
+		"wa",
+	})
 end
 
 local quit = function(opts)
-  local force = opts.force
+	local force = opts.force
 
-  return execute("q" .. (force and "!"or ""))
+	return execute("q" .. (force and "!" or ""))
 end
 
 local close = function()
-  save_all()
-  quit({force = true})
-
+	save_all()
+	quit({ force = true })
 end
 
 set("n", "<leader>w", save_all, describe("Save all"))
 
 set("n", "<leader>q", function()
-  vim.tbl_map(execute, {
-    "w",
-    "wa",
-    "wqa",
-    "qa!",
-    'exe "normal \\<CR>"',
-  })
+	vim.tbl_map(execute, {
+		"w",
+		"wa",
+		"wqa",
+		"qa!",
+		'exe "normal \\<CR>"',
+	})
 end, describe("Quit all"))
 
 set("n", "<leader>d", close, describe("Close current buffer"))

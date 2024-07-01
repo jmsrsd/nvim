@@ -2,6 +2,8 @@
   "diagnostics.disable": [
     "duplicate-doc-alias",
     "duplicate-doc-field",
-    "duplicate-set-field"
+    "duplicate-set-field",
+    "missing-fields",
+    "assign-type-mismatch"
   ]
 }

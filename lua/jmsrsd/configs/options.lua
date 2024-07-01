@@ -24,11 +24,11 @@ vim.o.foldenable = true
 --- Clipboard
 ---
 
-pcall(function() 
-  vim.opt.clipboard:append({
-    "unnamed",
-    "unnamedplus",
-  })
+pcall(function()
+	vim.opt.clipboard:append({
+		"unnamed",
+		"unnamedplus",
+	})
 end)
 
 --- Search

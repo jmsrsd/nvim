@@ -4,6 +4,6 @@ local configs = function(module)
 	return require(module)
 end
 
-configs "options"
-configs "keymaps"
-configs "plugins"
+configs("options")
+configs("keymaps")
+configs("plugins")
