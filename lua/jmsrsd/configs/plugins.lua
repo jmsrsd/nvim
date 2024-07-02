@@ -62,21 +62,23 @@ require("lazy").setup({
 
 	spec = {
 		{
-			"folke/tokyonight.nvim",
+			"Mofiqul/dracula.nvim",
 
 			lazy = false,
 
 			priority = 1000,
 
 			config = function()
-				local tokyonight = require("tokyonight")
+				local colors = require("dracula").colors()
 
-				tokyonight.setup({})
+				require("dracula").setup({
 
-				vim.opt.winblend = 0
-				vim.opt.pumblend = 0
+					transparent_bg = true,
 
-				vim.cmd.colorscheme("tokyonight-storm")
+					lualine_bg_color = colors["selection"],
+				})
+
+				vim.cmd([[colorscheme dracula]])
 			end,
 		},
 		{
@@ -667,7 +669,7 @@ require("lazy").setup({
 
 				lualine.setup({
 					options = {
-						theme = "tokyonight",
+						theme = "dracula-nvim",
 					},
 				})
 			end,
@@ -849,6 +851,13 @@ require("lazy").setup({
 			end,
 		},
 		{
+			"williamboman/mason.nvim",
+
+			config = function()
+				require("mason").setup()
+			end,
+		},
+		{
 			"neovim/nvim-lspconfig",
 
 			dependencies = {
@@ -875,8 +884,6 @@ require("lazy").setup({
 				--- JSON files
 				---
 				require("neoconf").setup({})
-
-				require("mason").setup()
 
 				local telescope = require("telescope.builtin")
 
@@ -1092,8 +1099,6 @@ require("lazy").setup({
 			},
 
 			config = function()
-				require("mason").setup()
-
 				local conform = require("conform")
 
 				local format_opts = {
