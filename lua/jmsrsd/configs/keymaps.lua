@@ -23,29 +23,19 @@
 --- }
 ---
 
-local describe = function(desc)
-	return {
-		noremap = true,
-		silent = true,
-		desc = desc,
-	}
-end
+local common = {
+	buffer = require("jmsrsd.commons.buffer"),
+}
 
-local describeExpression = function(desc)
-	local description = describe(desc)
+local helper = {
+	keymap = require("jmsrsd.helpers.keymap"),
+}
 
-	description.expr = true
+local set = helper.keymap.set
 
-	return description
-end
+local describe = helper.keymap.describe
 
-local set = function(mode, lhs, rhs, opts)
-	pcall(function()
-		vim.keymap.del(mode, lhs, opts)
-	end)
-
-	vim.keymap.set(mode, lhs, rhs, opts)
-end
+local describeExpression = helper.keymap.describeExpression
 
 --- Paste
 ---
@@ -103,9 +93,9 @@ set("n", "J", "mzJ`z", describe("Remove newline at the end of the line"))
 --- No-op
 ---
 
-set({ "n", "v" }, "q", "", describe("No-op"))
+set({ "n", "v" }, "q", function() end, describe("No-op"))
 
-set({ "n", "v" }, "Q", "", describe("No-op"))
+set({ "n", "v" }, "Q", function() end, describe("No-op"))
 
 --- Escape
 ---
@@ -122,45 +112,11 @@ end, escape_keys)
 --- Buffer
 ---
 
-local cmd = function(command)
-	return vim.cmd(command)
-end
+set("n", "<leader>w", common.buffer.save_all, describe("Save all"))
 
-local execute = function(command)
-	return pcall(cmd, command)
-end
+set("n", "<leader>q", common.buffer.quit_all, describe("Quit all"))
 
-local save_all = function()
-	vim.tbl_map(execute, {
-		"w",
-		"wa",
-	})
-end
-
-local quit = function(opts)
-	local force = opts.force
-
-	return execute("q" .. (force and "!" or ""))
-end
-
-local close = function()
-	save_all()
-	quit({ force = true })
-end
-
-set("n", "<leader>w", save_all, describe("Save all"))
-
-set("n", "<leader>q", function()
-	vim.tbl_map(execute, {
-		"w",
-		"wa",
-		"wqa",
-		"qa!",
-		'exe "normal \\<CR>"',
-	})
-end, describe("Quit all"))
-
-set("n", "<leader>d", close, describe("Close current buffer"))
+set("n", "<leader>d", common.buffer.close, describe("Close current buffer"))
 
 --- Explorer
 ---

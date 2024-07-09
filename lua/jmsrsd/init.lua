@@ -1,9 +1,19 @@
-local configs = function(module)
-	module = "jmsrsd.configs." .. module
+local context = require("jmsrsd.commons.context").new({
+	target = function() end,
+})
 
-	return require(module)
+local import = context.import
+
+local modules = {
+	"options",
+	"keymaps",
+	"plugins",
+}
+
+local prepend = function(module)
+	return "./configs/" .. module
 end
 
-configs("options")
-configs("keymaps")
-configs("plugins")
+modules = vim.tbl_map(prepend, modules)
+
+modules = vim.tbl_map(import, modules)

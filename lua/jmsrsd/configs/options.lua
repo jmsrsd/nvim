@@ -1,3 +1,5 @@
+local try = require("jmsrsd.commons.try")
+
 --- Leader
 ---
 vim.g.mapleader = " "
@@ -24,7 +26,7 @@ vim.o.foldenable = true
 --- Clipboard
 ---
 
-pcall(function()
+try(function()
 	vim.opt.clipboard:append({
 		"unnamed",
 		"unnamedplus",
@@ -90,7 +92,7 @@ vim.opt.path = vim.opt.path + { "**" }
 ---
 vim.opt.wildignore = vim.opt.wildignore + { "*/node_modules/*" }
 
---- Popup Menu
+--- Graphic
 ---
 vim.opt.pumblend = 0
 vim.opt.winblend = 0
