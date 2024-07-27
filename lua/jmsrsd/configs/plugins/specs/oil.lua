@@ -4,7 +4,7 @@ return {
 	lazy = false,
 
 	dependencies = {
-		"nvim-tree/nvim-web-devicons",
+		{ "nvim-tree/nvim-web-devicons", opts = {} },
 	},
 
 	config = function()
@@ -22,6 +22,12 @@ return {
 
 			view_options = {
 				show_hidden = true,
+			},
+
+			float = {
+				win_options = {
+					winblend = 0,
+				},
 			},
 		})
 
