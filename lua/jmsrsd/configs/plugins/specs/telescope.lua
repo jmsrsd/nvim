@@ -113,7 +113,7 @@ return {
 
 				path_display = { "truncate" },
 
-				--- UNUSED: winblend = 0,
+				winblend = 0,
 
 				border = {},
 

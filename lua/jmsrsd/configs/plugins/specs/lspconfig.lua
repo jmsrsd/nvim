@@ -219,21 +219,22 @@ return {
 			"lua_ls",
 			"tailwindcss",
 			"tsserver",
+			"jsonls",
 		}
 
 		require("mason-lspconfig").setup({
 			ensure_installed = servers,
 		})
 
-		vim.tbl_map(function(server)
-			local lsp = require("lspconfig")
+		local lsp = require("lspconfig")
 
+		for _, server in ipairs(servers) do
 			lsp[server].setup({
 
 				capabilities = create_capabilities(),
 
 				on_attach = on_attach,
 			})
-		end, servers)
+		end
 	end,
 }
