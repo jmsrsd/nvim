@@ -35,31 +35,33 @@ return {
 
 			formatters_by_ft = {
 
-				astro = { "prettier", "prettierd" },
+				glsl = { "clang-format" },
+
+				astro = { { "prettier" }, { "prettierd" } },
 
 				php = { "php_cs_fixer" },
 
 				lua = { "stylua" },
 
-				json = { "prettier", "prettierd" },
+				json = { { "prettier" }, { "prettierd" } },
 
-				javascript = { "prettier", "prettierd" },
+				javascript = { { "prettier" }, { "prettierd" } },
 
-				javascriptreact = { "prettier", "prettierd" },
+				javascriptreact = { { "prettier" }, { "prettierd" } },
 
-				jsx = { "prettier", "prettierd" },
+				jsx = { { "prettier" }, { "prettierd" } },
 
-				typescript = { "prettier", "prettierd" },
+				typescript = { { "prettier" }, { "prettierd" } },
 
-				typescriptreact = { "prettier", "prettierd" },
+				typescriptreact = { { "prettier" }, { "prettierd" } },
 
-				tsx = { "prettier", "prettierd" },
+				tsx = { { "prettier" }, { "prettierd" } },
 
-				html = { "prettier", "prettierd" },
+				html = { { "prettier" }, { "prettierd" } },
 
-				css = { "prettier", "prettierd" },
+				css = { { "prettier" }, { "prettierd" } },
 
-				yaml = { "prettier", "prettierd" },
+				yaml = { { "prettier" }, { "prettierd" } },
 
 				markdown = { "markdownlint" },
 

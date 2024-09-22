@@ -220,6 +220,7 @@ return {
 			"tailwindcss",
 			"tsserver",
 			"jsonls",
+			"glslls",
 		}
 
 		require("mason-lspconfig").setup({
