@@ -37,31 +37,31 @@ return {
 
 				glsl = { "clang-format" },
 
-				astro = { { "prettier" }, { "prettierd" } },
+				astro = { "prettier" },
 
 				php = { "php_cs_fixer" },
 
 				lua = { "stylua" },
 
-				json = { { "prettier" }, { "prettierd" } },
+				json = { "prettier" },
 
-				javascript = { { "prettier" }, { "prettierd" } },
+				javascript = { "prettier" },
 
-				javascriptreact = { { "prettier" }, { "prettierd" } },
+				javascriptreact = { "prettier" },
 
-				jsx = { { "prettier" }, { "prettierd" } },
+				jsx = { "prettier" },
 
-				typescript = { { "prettier" }, { "prettierd" } },
+				typescript = { "prettier" },
 
-				typescriptreact = { { "prettier" }, { "prettierd" } },
+				typescriptreact = { "prettier" },
 
-				tsx = { { "prettier" }, { "prettierd" } },
+				tsx = { "prettier" },
 
-				html = { { "prettier" }, { "prettierd" } },
+				html = { "prettier" },
 
-				css = { { "prettier" }, { "prettierd" } },
+				css = { "prettier" },
 
-				yaml = { { "prettier" }, { "prettierd" } },
+				yaml = { "prettier" },
 
 				markdown = { "markdownlint" },
 
