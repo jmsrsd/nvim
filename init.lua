@@ -1,1 +1,1 @@
-require("jmsrsd").install()
+require("jmsrsd")

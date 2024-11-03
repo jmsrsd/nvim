@@ -9,4 +9,4 @@ local Installer = context.import("./installer")
 --- @type Installer
 local installer = Installer(context)
 
-return installer
+return installer.install()
