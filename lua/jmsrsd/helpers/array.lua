@@ -37,4 +37,17 @@ M.slice = function(arr, from, to)
 	return sliced
 end
 
+--- @param arr any[]
+--- @param fn fun(index: number, value: any): any
+--- @return any[]
+M.entries = function(arr, fn)
+	local result = {}
+
+	for index, value in ipairs(arr) do
+		table.insert(result, fn(index, value))
+	end
+
+	return result
+end
+
 return M

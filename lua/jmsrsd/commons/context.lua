@@ -1,26 +1,37 @@
+--- @class ContextProps
+--- @field target fun()|nil
+
+--- @alias ContextImport fun(module: string): any
+
+--- @class Context
+--- @field import ContextImport
+--- @field source ContextSource
+
+--- @class ContextSource
+--- @field file fun(): string
+--- @field directory fun(): string
+
 local helper = {
 	string = require("jmsrsd.helpers.string"),
 	array = require("jmsrsd.helpers.array"),
 	path = require("jmsrsd.helpers.path"),
 }
 
-local M = {}
+--- @param props ContextProps
+--- @return Context
+return function(props)
+	props = props or {}
 
-M.new = function(props)
-	if props == nil then
-		props = {}
-	end
+	local self = {}
 
-	local instance = {}
+	self.source = {}
 
-	instance.source = {}
-
-	instance.source.file = function()
+	self.source.file = function()
 		return debug.getinfo(props.target, "S").source:sub(2)
 	end
 
-	instance.source.directory = function()
-		local file = instance.source.file()
+	self.source.directory = function()
+		local file = self.source.file()
 
 		local split = helper.string.split(file, "/")
 
@@ -31,8 +42,8 @@ M.new = function(props)
 		return "/" .. table.concat(split, "/")
 	end
 
-	instance.import = function(module)
-		local directory = instance.source.directory()
+	self.import = function(module)
+		local directory = self.source.directory()
 
 		local path = directory .. "/" .. module
 
@@ -49,7 +60,5 @@ M.new = function(props)
 		return require(result)
 	end
 
-	return instance
+	return self
 end
-
-return M

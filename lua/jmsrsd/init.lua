@@ -1,11 +1,12 @@
-local context = require("jmsrsd.commons.context").new({
-	target = function() end,
-})
+local this = function() end
 
-vim.tbl_map(function(module)
-	return context.import("./configs/" .. module)
-end, {
-	"options",
-	"keymaps",
-	"plugins",
-})
+local Context = require("jmsrsd.commons.context")
+
+local context = Context({ target = this })
+
+local Installer = context.import("./installer")
+
+--- @type Installer
+local installer = Installer(context)
+
+return installer

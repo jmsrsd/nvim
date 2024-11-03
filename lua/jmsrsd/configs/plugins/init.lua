@@ -1,67 +1,22 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local this = function() end
 
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+local Context = require("jmsrsd.commons.context")
 
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--branch=stable",
-		lazyrepo,
-		lazypath,
-	})
-end
+local context = Context({ target = this })
 
-vim.opt.rtp:prepend(lazypath)
+local Plugin = context.import("./internals/plugin")
 
-local context = require("jmsrsd.commons.context").new({
-	target = function() end,
-})
+local Props = context.import("./internals/props")
 
-local spec = function(name)
-	return context.import("./specs/" .. name)
-end
+local Config = context.import("./internals/config")
 
-local spec_names = {
-	"catppuccin",
-	"oil",
-	"treesitter",
-	"autopairs",
-	"fidget",
-	"which_key",
-	"telescope",
-	"comment",
-	"fugitive",
-	"barbecue",
-	"dressing",
-	"lualine",
-	"tmux_navigator",
-	"cmp",
-	"mason",
-	"lspconfig",
-	"mason_conform",
-	"trim",
-}
+--- @type Plugin
+local plugin = Plugin()
 
-local specs = {}
+--- @type PluginProps
+local props = Props(context)
 
-for index, name in ipairs(spec_names) do
-	local s = spec(name)
+--- @type PluginConfig
+local config = Config(props)
 
-	s.priority = 1000 - index
-
-	table.insert(specs, s)
-end
-
-require("lazy").setup({
-	ui = {
-		border = "rounded",
-	},
-
-	change_detection = {
-		notify = false,
-	},
-
-	spec = specs,
-})
+plugin.setup(config)
