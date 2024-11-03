@@ -1,3 +1,8 @@
+--- @class Maybe
+--- @field getOrElse fun(default: any): any
+--- @field isSome fun(): boolean
+
+--- @return Maybe
 return function(value)
 	local self = {}
 

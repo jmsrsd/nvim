@@ -20,8 +20,6 @@ local helper = {
 --- @param props ContextProps
 --- @return Context
 return function(props)
-	props = props or {}
-
 	local self = {}
 
 	self.source = {}
