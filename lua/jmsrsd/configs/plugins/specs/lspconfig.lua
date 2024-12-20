@@ -221,6 +221,7 @@ return {
 			"tsserver",
 			"jsonls",
 			"glslls",
+			"pyright",
 		}
 
 		require("mason-lspconfig").setup({
@@ -230,12 +231,24 @@ return {
 		local lsp = require("lspconfig")
 
 		for _, server in ipairs(servers) do
-			lsp[server].setup({
+			local config = {
 
 				capabilities = create_capabilities(),
 
 				on_attach = on_attach,
-			})
+			}
+
+			if server == "pyright" then
+				config.settings = {
+					python = {
+						--- Automatically use pyenv's active Python
+						---
+						pythonPath = vim.fn.systemlist("pyenv which python")[1],
+					},
+				}
+			end
+
+			lsp[server].setup(config)
 		end
 	end,
 }

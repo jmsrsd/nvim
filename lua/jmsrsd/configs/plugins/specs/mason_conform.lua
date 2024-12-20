@@ -35,6 +35,10 @@ return {
 
 			formatters_by_ft = {
 
+				zsh = { "beautysh" },
+
+				python = { "autopep8" },
+
 				glsl = { "clang-format" },
 
 				astro = { "prettier" },
