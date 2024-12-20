@@ -1,5 +1,5 @@
 local helper = {
-	string = require("jmsrsd.helpers.string"),
+	string = require("jmsrsd.helper.string"),
 }
 
 return {

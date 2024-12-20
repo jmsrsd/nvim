@@ -1,4 +1,4 @@
-local try = require("jmsrsd.commons.try")
+local try = require("jmsrsd.common.try")
 
 return function(cmd)
 	return try(function()

@@ -1,5 +1,5 @@
 local helper = {
-	keymap = require("jmsrsd.helpers.keymap"),
+	keymap = require("jmsrsd.helper.keymap"),
 }
 
 local set = helper.keymap.set

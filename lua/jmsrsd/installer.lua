@@ -7,7 +7,7 @@ return function(context)
 	local modules = { "options", "keymaps", "plugins" }
 
 	local import = function(module)
-		return context.import("./configs/" .. module)
+		return context.import("./config/" .. module)
 	end
 
 	local self = {}

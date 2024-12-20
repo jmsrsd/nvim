@@ -1,4 +1,4 @@
-local command = require("jmsrsd.commons.command")
+local command = require("jmsrsd.common.command")
 
 local M = {}
 

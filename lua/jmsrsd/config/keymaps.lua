@@ -24,11 +24,11 @@
 ---
 
 local common = {
-	buffer = require("jmsrsd.commons.buffer"),
+	buffer = require("jmsrsd.common.buffer"),
 }
 
 local helper = {
-	keymap = require("jmsrsd.helpers.keymap"),
+	keymap = require("jmsrsd.helper.keymap"),
 }
 
 local set = helper.keymap.set

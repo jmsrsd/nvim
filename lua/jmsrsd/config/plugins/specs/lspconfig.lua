@@ -1,16 +1,16 @@
-local maybe = require("jmsrsd.commons.maybe")
+local maybe = require("jmsrsd.common.maybe")
 
-local try = require("jmsrsd.commons.try")
+local try = require("jmsrsd.common.try")
 
 local helper = {
-	keymap = require("jmsrsd.helpers.keymap"),
+	keymap = require("jmsrsd.helper.keymap"),
 }
 
 local set = helper.keymap.set
 
 local describe = helper.keymap.describe
 
-local catch = require("jmsrsd.commons.catch")
+local catch = require("jmsrsd.common.catch")
 
 return {
 	"neovim/nvim-lspconfig",
@@ -218,7 +218,7 @@ return {
 			"html",
 			"lua_ls",
 			"tailwindcss",
-			"tsserver",
+			"ts_ls",
 			"jsonls",
 			"glslls",
 			"pyright",

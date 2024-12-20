@@ -1,7 +1,7 @@
 --- @alias PluginConfig LazyConfig
 
 local helper = {
-	array = require("jmsrsd.helpers.array"),
+	array = require("jmsrsd.helper.array"),
 }
 
 --- @param props PluginProps

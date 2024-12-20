@@ -12,9 +12,9 @@
 --- @field directory fun(): string
 
 local helper = {
-	string = require("jmsrsd.helpers.string"),
-	array = require("jmsrsd.helpers.array"),
-	path = require("jmsrsd.helpers.path"),
+	string = require("jmsrsd.helper.string"),
+	array = require("jmsrsd.helper.array"),
+	path = require("jmsrsd.helper.path"),
 }
 
 --- @param props ContextProps
