@@ -10,6 +10,7 @@ return function(context)
 		specs = {
 			"catppuccin",
 			"oil",
+			"snacks",
 			"treesitter",
 			"autopairs",
 			"fidget",

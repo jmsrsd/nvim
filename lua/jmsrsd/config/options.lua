@@ -134,13 +134,16 @@ vim.opt.listchars = table.concat({
 --- Undo
 ---
 if vim.fn.has("persistent_undo") == 1 then
-	local config_path = vim.fn.stdpath("config")
-	local target_path = config_path .. "/undodir/"
+	local path = {}
 
-	if vim.fn.isdirectory(target_path) then
-		vim.fn.system("mkdir " .. target_path)
+	path.config = vim.fn.stdpath("config")
+
+	path.target = path.config .. "/undodir/"
+
+	if vim.fn.isdirectory(path.target) then
+		vim.fn.system("mkdir " .. path.target)
 	end
 
-	vim.opt.undodir = target_path
+	vim.opt.undodir = path.target
 	vim.opt.undofile = true
 end

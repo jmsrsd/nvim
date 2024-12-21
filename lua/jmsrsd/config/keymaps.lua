@@ -100,9 +100,9 @@ set({ "n", "v" }, "Q", function() end, describe("No-op"))
 --- Escape
 ---
 
-local escape_keys = { "jj", "jk", "kk", "<C-[>" }
-
 set("t", "<Esc>", "<C-\\><C-n>", describe("Exit terminal mode"))
+
+local escape_keys = { "jj", "jk", "kk", "<C-[>" }
 
 vim.tbl_map(function(lhs)
 	set("t", lhs, "<C-\\><C-n>", describe("Exit terminal mode"))
@@ -116,7 +116,7 @@ set("n", "<leader>w", common.buffer.save_all, describe("Save all"))
 
 set("n", "<leader>q", common.buffer.quit_all, describe("Quit all"))
 
-set("n", "<leader>d", common.buffer.close, describe("Close current buffer"))
+--- UNUSED: set("n", "<leader>d", common.buffer.close, describe("Close current buffer"))
 
 --- Explorer
 ---

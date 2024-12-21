@@ -4,19 +4,22 @@ local Context = require("jmsrsd.common.context")
 
 local context = Context({ target = this })
 
-local Plugin = context.import("./internals/plugin")
+local setup = {
 
-local Props = context.import("./internals/props")
+	Plugin = context.import("./setup/plugin"),
 
-local Config = context.import("./internals/config")
+	Props = context.import("./setup/props"),
+
+	Config = context.import("./setup/config"),
+}
 
 --- @type Plugin
-local plugin = Plugin()
+local plugin = setup.Plugin()
 
 --- @type PluginProps
-local props = Props(context)
+local props = setup.Props(context)
 
 --- @type PluginConfig
-local config = Config(props)
+local config = setup.Config(props)
 
 plugin.setup(config)
