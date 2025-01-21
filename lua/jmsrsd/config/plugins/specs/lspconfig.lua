@@ -248,6 +248,14 @@ return {
 				}
 			end
 
+			if server == "ts_ls" then
+				config.init_options = {
+					preferences = {
+						importModuleSpecifierPreference = "relative",
+					},
+				}
+			end
+
 			lsp[server].setup(config)
 		end
 	end,
