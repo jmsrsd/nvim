@@ -20,7 +20,10 @@ return {
 		"folke/neoconf.nvim",
 		"folke/neodev.nvim",
 		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
+		{
+			"williamboman/mason-lspconfig.nvim",
+			version = "*",
+		},
 	},
 
 	config = function()
