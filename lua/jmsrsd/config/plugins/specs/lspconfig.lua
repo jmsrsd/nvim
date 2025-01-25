@@ -17,11 +17,14 @@ return {
 
 	dependencies = {
 		"nvim-telescope/telescope.nvim",
-		"folke/neoconf.nvim",
 		"folke/neodev.nvim",
 		"williamboman/mason.nvim",
 		{
 			"williamboman/mason-lspconfig.nvim",
+			version = "*",
+		},
+		{
+			"folke/neoconf.nvim",
 			version = "*",
 		},
 	},
