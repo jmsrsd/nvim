@@ -7,8 +7,8 @@ return {
 	"folke/snacks.nvim",
 
 	lazy = false,
-	---@type snacks.Config
 
+	---@type snacks.Config
 	opts = {},
 
 	keys = {
