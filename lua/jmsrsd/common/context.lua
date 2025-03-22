@@ -1,5 +1,5 @@
 --- @class ContextProps
---- @field target fun()|nil
+--- @field ctx fun()|nil
 
 --- @alias ContextImport fun(module: string): any
 
@@ -25,7 +25,7 @@ return function(props)
 	self.source = {}
 
 	self.source.file = function()
-		return debug.getinfo(props.target, "S").source:sub(2)
+		return debug.getinfo(props.ctx, "S").source:sub(2)
 	end
 
 	self.source.directory = function()

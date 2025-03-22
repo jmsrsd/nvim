@@ -1,8 +1,8 @@
-local this = function() end
+local ctx = function() end
 
 local Context = require("jmsrsd.common.context")
 
-local context = Context({ target = this })
+local context = Context({ ctx = ctx })
 
 local setup = {
 
